@@ -176,7 +176,7 @@ Seminar
 Private study hours
 </td>
 <td align="right">
-119.00
+125.00
 </td>
 </tr>
 <tr>
@@ -184,7 +184,7 @@ Private study hours
 Total Contact hours
 </td>
 <td align="right">
-31.00
+25.00
 </td>
 </tr>
 <tr>

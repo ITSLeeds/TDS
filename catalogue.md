@@ -124,6 +124,7 @@ Length hours
 Student hours
 </td>
 </tr>
+<!-- Delivery type |                 Number |             Length hours |           Student hours -->
 <TR>
 <TD>
 Lecture
@@ -143,13 +144,13 @@ Lecture
 Practical
 </TD>
 <TD align="right">
-12
+5
 </TD>
 <TD align="right">
-1.50
+3.00
 </TD>
 <TD align="right">
-18.00
+15.00
 </TD>
 </TR>
 <TR>
@@ -157,15 +158,16 @@ Practical
 Seminar
 </TD>
 <TD align="right">
-8
+5
 </TD>
 <TD align="right">
 1.00
 </TD>
 <TD align="right">
-8.00
+5.00
 </TD>
 </TR>
+<!-- Totals                                                                                         -->
 <tr>
 <td colspan="3">
 Private study hours

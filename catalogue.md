@@ -72,11 +72,14 @@ science for transport planning.
 Specifically, learning outcomes will include the ability to:
 
 -   Find appropriate questions to ask on a specific project, including
-    in relation to ethical issues
+    in relation to ethical and legal issues related to government
+    regulation
 -   Identify available datasets and access and clean them
 -   Combine datasets from multiple sources
--   Apply statistic modelling and machine learning techniques to
-    understand input data
+-   Understand what machine learning is, which problems it is
+    appropriate for compared with traditional statistical approaches,
+    and how to implement machine learning techniques using open source
+    software
 -   Visualise and communicate the results of transport data science, and
     know about setting-up interactive web applications
 -   Deciding when to use local computing power vs cloud services

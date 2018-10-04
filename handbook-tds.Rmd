@@ -91,15 +91,20 @@ For more information follow these links:
 - Twitter: https://twitter.com/robinlovelace
 
 
-# On-line information
+# Pre-requisites
 
-All teaching materials and resources are on the VLE site for the module. This
-includes web links to reading lists, audio or video recordings
-of lectures, source code and software tools.
+You should use the VLE site to find web links to content.
 These materials may be updated
 throughout the module so please check you have the latest versions.
 
-# Pre-module reading
+## Computing
+
+You will be expected to have a laptop with recent versions of R and RStudio installed.
+See instructions here for getting an up-to-date R installation: https://csgillespie.github.io/efficientR/set-up.html#installing-r
+
+It is also recommended that you install GitHub Desktop (or command line git on Linux and Mac), Docker, Python, QGIS and transport modelling tools such as SUMO but these are not essential.
+
+There are also some requirements for pre-module reading:
 
 ## Essential
 

@@ -401,28 +401,32 @@ essential.
 
 <!-- The [reading list](http://lib5.leeds.ac.uk/rlists/broker/index.php?mod=TRAN5340M) is available from the Library website -->
 
-### Core
+## Essential
 
-  - Introduction to data science with R (available free
-    [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham 2016)
+  - Paper on the **stplanr** paper for transport planning (available
+    [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
+    (Lovelace and Ellison 2017)
   - Introductory and advanced content on geographic data in R,
     especially the [transport
     chapter](http://geocompr.robinlovelace.net/transport.html)
     (available free [online](http://geocompr.robinlovelace.net/))
     (Lovelace, Nowosad, and Meunchow 2018)
+  - Paper on analysing OSM data in Python (available
+    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
+
+## Core
+
+  - Introduction to data science with R (available free
+    [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham 2016)
+
   - Introductory textbook introducing machine learning with lucid prose
     and worked examples in R (available free
     [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) (James et
     al. 2013)
 
-### Optional
+## Optional
 
   - Book on transport data science in Python (Fox 2018)
-  - Paper on analysing OSM data in Python (available
-    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
-  - Paper on the **stplanr** paper for transport planning (available
-    [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
-    (Lovelace and Ellison 2017)
   - For context, a report on the ‘transport data revolution’ (Transport
     Systems Catapult 2015)
   - Seminal text on visualisation (available
@@ -432,7 +436,72 @@ essential.
   - A paper on the use of SmartCard data (Gschwender, Munizaga, and
     Simonetti 2016)
   - An academic paper describing the development of a web application
-    for the Department for Transport (Lovelace et al. 2017)
+    for the Department for Transport (Lovelace et al.
+2017)
+
+<!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
+
+<!-- Will Transform How We Live, Work and Think. -->
+
+<!-- John Murray publica- -->
+
+<!-- tions. -->
+
+<!-- - -->
+
+<!-- Townsend, A.M. Smart Cities - Big Data, Civic Hackers, and the Quest -->
+
+<!-- for a New Utopia. Norton 2014. -->
+
+<!-- - -->
+
+<!-- Lohr, S. 2015. Dataism. One World Publications. -->
+
+<!-- Please also have a look at my own paper which is discussed in the rst session: -->
+
+<!-- 3- -->
+
+<!-- Charles Fox, Peter Billington, Dominic Paulo, and Clive Cooper. -->
+
+<!-- Ori- -->
+
+<!-- gin destination analysis on the London orbital automated number plate -->
+
+<!-- recognition network. In European Transport Conference, 2010. -->
+
+<!-- A blog full of beautiful examples of data science  perhaps you will contribute -->
+
+<!-- to it one day? -->
+
+<!-- - -->
+
+<!-- www.informationisbeautiful.net -->
+
+<!-- For fun - but making serious points about what might be possible with data: -->
+
+<!-- - -->
+
+<!-- Movie: Minority Report. 20th Century Fox, 2002. (Or read the Philip K -->
+
+<!-- Dick short story if you prefer) -->
+
+<!-- - -->
+
+<!-- Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/) -->
+
+<!-- If you like money, try searching this jobs website for data scientist salaries: -->
+
+## Specific/online resources
+
+  - It’s worth thinking about what you want to do next so I recommend
+    taking a look for ‘data science’ and transport jobs on sites such as
+    www.cwjobs.co.uk
+
+  - For a refresher on maths it may be useful to have a maths text book
+    on hand. This should cover mathematical concepts including vectors,
+    matrices, eigenvectors, numerical parameter optimization, calculus,
+    dierential equations, Gaussian distributions, Bayes’ rule,
+    covariance matrices.
 
 ## Bibliography
 

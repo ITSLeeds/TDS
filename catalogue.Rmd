@@ -132,22 +132,58 @@ It is also recommended that you install GitHub Desktop (or command line git on L
 ## Reading list
 
 <!-- The [reading list](http://lib5.leeds.ac.uk/rlists/broker/index.php?mod=TRAN5340M) is available from the Library website -->
+## Essential
 
-### Core
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2017]
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018a]
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
+
+## Core
 
 - Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016-1]
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018a]
+
 - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
 
-### Optional
+## Optional
 
 - Book on transport data science in Python [@fox_data_2018]
-- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2017]
 - For context, a report on the 'transport data revolution' [@transportsystemscatapult_transport_2015]
 - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001]
 - A paper on the use of SmartCard data [@gschwender_using_2016]
 - An academic paper describing the development of a web application for the Department for Transport [@lovelace_propensity_2017]
+
+<!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
+<!-- Will Transform How We Live, Work and Think. -->
+<!-- John Murray publica- -->
+<!-- tions. -->
+<!-- - -->
+<!-- Townsend, A.M. Smart Cities - Big Data, Civic Hackers, and the Quest -->
+<!-- for a New Utopia. Norton 2014. -->
+<!-- - -->
+<!-- Lohr, S. 2015. Dataism. One World Publications. -->
+<!-- Please also have a look at my own paper which is discussed in the rst session: -->
+<!-- 3- -->
+<!-- Charles Fox, Peter Billington, Dominic Paulo, and Clive Cooper. -->
+<!-- Ori- -->
+<!-- gin destination analysis on the London orbital automated number plate -->
+<!-- recognition network. In European Transport Conference, 2010. -->
+<!-- A blog full of beautiful examples of data science  perhaps you will contribute -->
+<!-- to it one day? -->
+<!-- - -->
+<!-- www.informationisbeautiful.net -->
+<!-- For fun - but making serious points about what might be possible with data: -->
+<!-- - -->
+<!-- Movie: Minority Report. 20th Century Fox, 2002. (Or read the Philip K -->
+<!-- Dick short story if you prefer) -->
+<!-- - -->
+<!-- Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/) -->
+<!-- If you like money, try searching this jobs website for data scientist salaries: -->
+
+## Specific/online resources
+
+- It's worth thinking about what you want to do next so I recommend taking a look for 'data science' and transport jobs on sites such as www.cwjobs.co.uk
+
+- For a refresher on maths it may be useful to have a maths text book on hand. This should cover mathematical concepts including vectors, matrices, eigenvectors, numerical parameter optimization, calculus, dierential equations, Gaussian distributions, Bayes' rule, covariance matrices.
 
 ## Bibliography
 

@@ -2,6 +2,10 @@
 title: 'TRAN 5340M: Transport Data Science'
 # subtitle: Part of the MSc in Mathematical Transport Modeling, Insititute for Transport Studies
 author: Dr Robin Lovelace, r.lovelace@leeds.ac.uk
+output:
+  pdf_document:
+    number_section: true
+bibliography: references.bib
 ---
 
 <!-- # Introduction -->
@@ -9,140 +13,163 @@ author: Dr Robin Lovelace, r.lovelace@leeds.ac.uk
 <!-- Welcome to Transport Data Science.  -->
 <!-- Please make sure to read everything here in detail before the class begins. -->
 
-## Module description
+# Module description
 
-The quantity, diversity and availability of transport data is increasing rapidly, requiring new skills in the transport sector.
 
-Recent years have seen a new wave of big data, data science, and smart
-cities changing the world, with the Harvard Business Review describing Data
-Science as the sexiest job of the 21st century. Transport researchers need to
-be able to use data (and databases) in order to establish quantitative, empirical
-facts, and to validate/challenge their mathematical models. This module takes
-a highly practical approach to learning about `data science' tools and their
-application to investigating transport issues. The focus is on team work with
-real data and tools rather than theory.
-Students should become condent to enter a team-based data science con-
-sulting environment, selecting appropriate tools to set up and solve business
-questions using data. Such projects typically include:
-• Finding the right question to ask, including ethical issues
-• Obtaining the right data
-• Data cleaning
-• Conceptual database design
-1• Computational database issues, include big data systems
-• Statistics and machine learning analytics
-• Visualization and presentation
-• Appreciate the relevance and limitations of data-centric analysis applied
-to transport problems, compared with other types of modeling and fore-
-casting.
-Some of the topics we will cover are:
-• Practical database manipulation with SQL
-• Classical relational database design
-• Data for transport
-• Data scraping from semi-structured web sources
-• Machine learning tools Bayesian networks
-• Ontological issues in database design
-• Beyond SQL  the big data revolution and the Hadoop stack
-• Data visualization
-• Professional and ethical issues of big data in transport
-• Transport data analysis mini-project will be integrated throughout the
-module.
-Some of the skills you will learn include:
-•
-What is a relational database and in which circumstances is it a useful
-tool
-• How to design and create a relational database to house `raw' data
-• How to interrogate such data using SQL and hence provide appropriate
-data for transport modeling
-•
-How machine learning and other tools can provide understanding of the
-data and its structure.
-•
-How to visualize the data stored in a database.
-General skills for life we will develop include:
-• Analytic skills
-• Creative problem solving
-• Critical thinking
-• Research skills
-• Team working
-22
-About your lecturer
-Dr Charles Fox is a University Academic Fellow in Vehicle and Road Automa-
-tion at the Institute for Transport Studies, University of Leeds. He researches
-autonomous o-road, on-road, and road-side perception, control and data an-
-alytics systems, using primarily Bayesian methods.
-Recent projects include
-InnovateUK IBEX2 o-road autonomous agricultural vehicle control and per-
-ception in extreme terrains; FP7 CityMobil2 pedestrian detection analytics; and
-Automated Number Plate Recognition analytics for the UK Highways Agency.
-Dr Fox holds a rst class MA degree in Computer Science at the University of
-Cambridge, MSc with Distinction in Cognitive Science from the University of
-Edinburgh, and a DPhil from the Robotics Research Group at the University
-of Oxford. He has worked as a robotics researcher at the Sheeld Center for
-Robotics and as a high frequency trader for hedge fund Algometrics. He has
-published 50 conference and journal papers cited 800 times and has h-index 15.
-Publications: https://scholar.google.co.uk/citations?user=dQ7RURYAAAAJ&hl=en
-LinkedIn: https://uk.linkedin.com/in/charles-fox-4714746
-3
-On-line information
+The quantity, diversity and availability of transport data is increasing rapidly, requiring skills in the management and interrogation of data and databases.
+Recent years have seen a new wave of 'big data' and 'data science' changing the world, with the Harvard Business Review describing Data Science as the 'sexiest job of the 21st century' (see [hbr.org](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)).
+Transport researchers increasingly need to take data from a wide range of sources and perform non-standard analyses methods on them to inform the decision-making process.
+
+Despite these developments the transport sector has been slow to adapt to new methods and workflows.
+The Transport Systems Catapult, for example, identified a skills gap in "skilled technical talent capable of handling and analysing very large datasets compiled from multiple sources" (see [ts.catapult.org.uk](https://ts.catapult.org.uk/news-events-gallery/news/report-warns-of-uk-skills-shortage-in-im-sector/)).
+
+This module takes a highly practical approach to learning about 'data science' tools and their application to investigating transport issues.
+The focus is on practical data science, enabling attendees to make use of a wide range of datasets to answer real-world transport planning questions.
+The course objectives are to:
+
+- Understand the structure of transport datasets: spatial, temporal and demographic.
+- Understand how to obtain, clean and store transport related data.
+- Gain proficiency in command-line tools for handling large transport datasets.
+- Learn machine learning and data modelling techniques
+- Produce data visualizations, static and interactive
+- Learn where to find large transport datasets and assess data quality
+- Learn how to join together the components of transport data science into a cohesive project portfolio 
+
+<!-- Such projects typically include: -->
+<!-- - Finding the right question to ask, including ethical issues -->
+<!-- - Obtaining the right data -->
+<!-- - Data cleaning -->
+<!-- - Conceptual database design -->
+<!-- 1- Computational database issues, include big data systems -->
+<!-- - Statistics and machine learning analytics -->
+<!-- - Visualization and presentation -->
+<!-- - Appreciate the relevance and limitations of data-centric analysis applied -->
+<!-- to transport problems, compared with other types of modeling and fore- -->
+<!-- casting. -->
+<!-- Some of the topics we will cover are: -->
+<!-- - Practical database manipulation with SQL -->
+<!-- - Classical relational database design -->
+<!-- - Data for transport -->
+<!-- - Data scraping from semi-structured web sources -->
+<!-- - Machine learning tools Bayesian networks -->
+<!-- - Ontological issues in database design -->
+<!-- - Beyond SQL  the big data revolution and the Hadoop stack -->
+<!-- - Data visualization -->
+<!-- - Professional and ethical issues of big data in transport -->
+<!-- - Transport data analysis mini-project will be integrated throughout the -->
+<!-- module. -->
+<!-- Some of the skills you will learn include: -->
+<!-- - -->
+<!-- What is a relational database and in which circumstances is it a useful -->
+<!-- tool -->
+<!-- - How to design and create a relational database to house `raw' data -->
+<!-- - How to interrogate such data using SQL and hence provide appropriate -->
+<!-- data for transport modeling -->
+<!-- - -->
+<!-- How machine learning and other tools can provide understanding of the -->
+<!-- data and its structure. -->
+<!-- - -->
+<!-- How to visualize the data stored in a database. -->
+<!-- General skills for life we will develop include: -->
+<!-- - Analytic skills -->
+<!-- - Creative problem solving -->
+<!-- - Critical thinking -->
+<!-- - Research skills -->
+<!-- - Team working -->
+
+# About the lecturer
+
+Dr Robin Lovelace is a University Academic Fellow in Transport and Big Data at the Institute for Transport Studies, University of Leeds.
+He researches scalable, open source and interactive transport models.
+
+Dr Lovelace has a degree in Geography from the University of Bristol, an MSc in Environmental Science and Management from the University of York and a PhD from the university of Sheffield.
+Robin is also a programmer and has contributed many software tools and resources to the data science and transport communities.
+For more information follow these links:
+
+- Publications: https://scholar.google.co.uk/citations?user=xDJHVCAAAAAJ&hl=en
+- GitHub profile: https://github.com/Robinlovelace
+- Twitter: https://twitter.com/robinlovelace
+
+
+# On-line information
+
 All teaching materials and resources are on the VLE site for the module. This
-may include hand outs, web links to reading lists, audio or video recordings
+includes web links to reading lists, audio or video recordings
 of lectures, source code and software tools.
 These materials may be updated
 throughout the module so please check you have the latest versions.
-4
-Pre-module reading
-If you are not already used to quickly reading and mapping out large chucks
-of knowledge such as reading three books in a week, I recommend the mind
-mapping approach, for life as well as for this course:
-•
-T. Buzan, The Mind Map Book, BBC Active, 2009.
-These are very easy popular science books which can be read in the bath, in
-bed, or on planes:
-•
-Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That
-Will Transform How We Live, Work and Think.
-John Murray publica-
-tions.
-•
-Townsend, A.M. Smart Cities - Big Data, Civic Hackers, and the Quest
-for a New Utopia. Norton 2014.
-•
-Lohr, S. 2015. Dataism. One World Publications.
-Please also have a look at my own paper which is discussed in the rst session:
-3•
-Charles Fox, Peter Billington, Dominic Paulo, and Clive Cooper.
-Ori-
-gin destination analysis on the London orbital automated number plate
-recognition network. In European Transport Conference, 2010.
-A blog full of beautiful examples of data science  perhaps you will contribute
-to it one day?
-•
-www.informationisbeautiful.net
-For fun - but making serious points about what might be possible with data:
-•
-Movie: Minority Report. 20th Century Fox, 2002. (Or read the Philip K
-Dick short story if you prefer)
-•
-Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/)
-If you like money, try searching this jobs website for data scientist salaries:
-•
-www.cwjobs.co.uk
-I assume you are familiar with rst-year undergrad applied maths such as vec-
-tors, matrices, eigenvectors, numerical parameter optimization, calculus, dier-
-ential equations, Gaussian distributions, Bayes' rule, covariance matrices. All
-these are covered in maths methods books such as the excellent,
-•
-Riley, Hobson and Bence.
-Mathematical Methods for Physics and En-
-gineering (3rd edition): A Comprehensive Guide. Cambridge University
-Press 2006.
-You should be familiar with junior-school and high-school programming, prefer-
-ably in Python, as covered in,
-•
-5
-J.R. Briggs. Python for Kids. No Starch Press, 2012. [For ages 10+]
-Team-working
-You are from a range of backgrounds and dierent parts of the module will be
+
+# Pre-module reading
+
+## Essential
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2017]
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018a]
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
+
+## Core
+
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016-1]
+
+- Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
+
+## Optional
+
+- Book on transport data science in Python [@fox_data_2018]
+- For context, a report on the 'transport data revolution' [@transportsystemscatapult_transport_2015]
+- Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001]
+- A paper on the use of SmartCard data [@gschwender_using_2016]
+- An academic paper describing the development of a web application for the Department for Transport [@lovelace_propensity_2017]
+
+<!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
+<!-- Will Transform How We Live, Work and Think. -->
+<!-- John Murray publica- -->
+<!-- tions. -->
+<!-- - -->
+<!-- Townsend, A.M. Smart Cities - Big Data, Civic Hackers, and the Quest -->
+<!-- for a New Utopia. Norton 2014. -->
+<!-- - -->
+<!-- Lohr, S. 2015. Dataism. One World Publications. -->
+<!-- Please also have a look at my own paper which is discussed in the rst session: -->
+<!-- 3- -->
+<!-- Charles Fox, Peter Billington, Dominic Paulo, and Clive Cooper. -->
+<!-- Ori- -->
+<!-- gin destination analysis on the London orbital automated number plate -->
+<!-- recognition network. In European Transport Conference, 2010. -->
+<!-- A blog full of beautiful examples of data science  perhaps you will contribute -->
+<!-- to it one day? -->
+<!-- - -->
+<!-- www.informationisbeautiful.net -->
+<!-- For fun - but making serious points about what might be possible with data: -->
+<!-- - -->
+<!-- Movie: Minority Report. 20th Century Fox, 2002. (Or read the Philip K -->
+<!-- Dick short story if you prefer) -->
+<!-- - -->
+<!-- Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/) -->
+<!-- If you like money, try searching this jobs website for data scientist salaries: -->
+
+## Specific/online resources
+
+- It's worth thinking about what you want to do next so I recommend taking a look for 'data science' and transport jobs on sites such as www.cwjobs.co.uk
+
+- For a refresher on maths it may be useful to have a maths text book on hand. This should cover mathematical concepts including vectors, matrices, eigenvectors, numerical parameter optimization, calculus, dierential equations, Gaussian distributions, Bayes' rule, covariance matrices.
+
+<!-- Riley, Hobson and Bence. -->
+<!-- Mathematical Methods for Physics and En- -->
+<!-- gineering (3rd edition): A Comprehensive Guide. Cambridge University -->
+<!-- Press 2006. -->
+
+<!-- You should be familiar with junior-school and high-school programming, prefer- -->
+<!-- ably in Python, as covered in, -->
+<!-- - -->
+<!-- 5 -->
+<!-- J.R. Briggs. Python for Kids. No Starch Press, 2012. [For ages 10+] -->
+
+<!-- Note: If you are new to quickly reading and mapping out large chucks of knowledge, the mind mapping approach can help. -->
+
+# Team-working
+
+You are from a range of backgrounds and dierent parts of the module will be
 easy for people with particular backgrounds such as computer programming,
 system administration, statistics, and transport applications. You are supposed
 to work closely together on everything except the text of your written reports.
@@ -152,439 +179,181 @@ Examination of this module is not competitive and everyone will
 score highly if you all help each other. I would like the whole team to do great
 work together and all get distinctions for it.
 You are reminded of the Leeds
-sta-student charter which includes agreements for all sta and students to be
-professional, courteous, and helpful to one another at all times. A signicant
-part of your learning should come from the experiences of the other students
-and you need to work together to enable this.
-46
-Class rules
-• The class schedule is available on the central ITS timetable webpage.
-• Handouts and other materials will be put on VLE/Blackboard at vlebb.leeds.ac.uk
-• Session format will vary but will typically include 1 hour presentation and
-discussion of new topics, then an hour of project work where I am available
-to help with practical work.
-•
-I expect you to deliver week N's assigned work at least a day before week
-N+1's meeting if you would like me to read it.
-•
-MOST OF THE WORK FOR THIS MODULE WILL BE DONE
-OUTSIDE CLASS. We will meet weekly to introduce new topics and to
-discuss what we have been doing during the week, but the real work comes
-from doing project work and reading both recommended papers and your
-own explorations of the literature for the rest of the week. You will not
-get a DISTINCTION just by sitting in the class sessions. The purpose of
-the class sessions is to guide your real work during the week.
-•
-YOU ARE EXPECTED TO ASK QUESTIONS AND ARGUE.
-Unlike some countries, teachers in the UK do not assume they are always
-right or that you must believe everything they say. I want you to debate
-the ideas, this is a very new and fast-moving subject and I do not know all
-the answers myself. If you think I am wrong or have missing something
-then put up your hand and start an argument about it! I enjoy learning
-new ideas from you students if you have done your own reading and want
-to discuss it in class or use it to argue against me.
-If you start a good
-argument and write it up in your report then we will give you credit for it.
-Please do not just sit and listen - you can do that for free on the Internet.
-Instead use it to interact. However  debate should be polite, and based
-on solid citable facts; also please respect the time of the other students
-and ensure that everyone gets to take part.
-I will ask speakers to stop
-if they are taking up more than 1/S of the classes time where S is the
-number of students.
-•
-Please email me if you are stuck or have questions or interesting ideas
-you would like to share: C.W.Fox@leeds.ac.uk. Please include the course
-number in the subject line as I may be teaching more than one class. I
-can also be found eating lunch in the ITS Foyer during some lunchtimes,
-or knock on the door of my oce Room 2.04. I am usually available to
-help with problems - however I expect that before asking for help you will
-(1) ask the rest of your team for help; (2) search the Internet for technical
-problems; (3) mention who you have asked and paste what you have found
-on the net in your email to me to show that you have done 1 and 2. Please
-do not waste my time asking questions that are already on the Internet
-as it will reduce the time I can spend helping others with more dicult
-5questions. If you spend a lot of time xing a problem yourself, make sure
-to write about it in your report so that we can give you credit for it, I
-know it can be hard work.
-•
-For international students: My full name is Dr Charles Fox. Charles
-is my personal name, Fox is my family name. Please call me Charles.
-This is informal. Dr Fox is used only in formal situations (usually when
-I am asking people for money) not in Leeds classes.
-If you are from a
-country where the name you use in class is not the same as the rst one
-written down (eg. if you write your family name rst), then please tell me
-and the rest of the class so we know what to call you.
-•
-I am happy to be your friend on Linked-In or Diaspora and to write job
-references for you. If you are interested in doing a PhD or industry work
-in this eld then please ask me about it.
-7
-Credit assignment
+staff student charter which includes agreements for all staff and students to be
+professional, courteous, and helpful to one another at all times.
+A substantial part of your learning should come from the experiences of the other students and you need to work together to enable this.
+
+
+# Class rules
+
+- The class schedule is available on the central ITS timetable webpage.
+- Handouts and other materials will be put on VLE/Blackboard at vlebb.leeds.ac.uk
+- Session format will vary but will typically include a presentation and discussion of new topics, then an hour of project work where the lecturer is available to help with practical work.
+- Much of the work contributing to the final report will be done outside class hours
+
+Questions are encouraged so please just ask if you have any doubts.
+It may also help if you:
+
+1. ask course colleagues for help
+2. search the Internet for technical problems before asking
+3. create a reproducible exmaple to highlight the question in code
+4. mention who you have asked and paste what you have found on the net in your email to me to show that you have done 1 and 2.
+
+For international students: My full name is Dr Robin Lovelace. Robin
+is my personal name, Lovelace is my family name. Please call me Robin.
+This is informal. Dr Lovelace is used only in formal situations.
+
+# Credit assignment
+
 This is a 15 credit module.
-7.1 Examination method
-This is not a traditional lecture course. I do not expect you to memorize in-
-formation or copy it out in exams. Instead, the module is 100% examined by
-your individual written reports on a single real-life team project, which will run
-throughout the module. The purpose of all the readings, talking, and exercises
-I will give you is just to help you build the skills and ideas needed to deliver this
-project and report. The whole class will work together as one team to deliver
-a real project for a real-life transportation partner, external to the university.
-The resulting system may be used to manage real trac in the UK. It is unusual
-to trust MSc module students with critical work such as this - we are putting
-ITS and Leeds reputation on the line by showing our students to the world like
-this. But we aim to be the top transport maths MSc in the world so we want
-to do things that other universities cannot do!
-I want you to enjoy doing data science for real, it can be a lot of fun to make
-your own systems and analyses, and many people do it as a leisure activity and
-post their work on beautiful blogs such as http://www.informationisbeautiful.net/
-. Project report marking is designed to encourage this.
-To achieve a PASS in this module, your report must:
-•
-Include text or results which demonstrate a basic understanding of the
-ideas from every session's handout. For example, if you are not very inter-
-ested in the ethics session and want to spend your time hacking Python,
-then could just include one short page summarizing the key points from
-the ethics session in the context of your work in the project.
-To achieve a DISTINCTION in this module, your report must:
-6•
-Include text or results which demonstrate a basic understanding of the
-ideas from every session's handout and signicantly go beyond the ma-
-terial presented in the module from at least one session. You don't need
-to become an expert in every part of the module, but you are strongly
-encouraged to discover what interests and excites you and to ex-
-plore it in detail by yourself. A Masters degree is the highest type of
-taught degree as should prepare you to do your own research in the future,
-where there will not be anyone to tell you what to do any more. I want
-to reward you for doing this. DISTINCTION will mention material from
-all sessions as in a PASS report, but then build on one or more of them.
-This will include citing references to papers and books that have not been
-specically recommended in the handouts, and/or building software be-
-yond what has been taught in class. You cannot get a distinction just
-by learning what is taught in the handouts , you must demonstrate
-some ability to use libraries and research papers and to do your own work
-because that is what makes you a Master of your subject.
-The content of each handout will have equal weight in the marking. The best
-way to manage your work is to demonstrate basic understandings of most of the
-modules, then nd one or more areas that you love and do something exciting
-and new in them.
-The project is designed to incorporate all the topics that will be discussed
-in the sessions and handouts, but also to provide scope for students to focus on
-particular topics of personal interest to get DISTINCTIONs. You will need to
-work very closely as a team, both to deliver the work and to agree on who will
-do what. For example, we expect that students from a computing background
-will choose to specialize in the details of database or web server installations,
-while those from geography backgrounds will specialize in the design of the
-application and consulting on client requirements.
-While the project itself runs as a team, examination is strictly per-person.
-You will each write one report which both summarizes the whole project, with
-one chapter per session handout, making reference to its key points, but also
-showing o your particular contributions in more detail. If you can show some
-good work of your own, and relate it to research papers that you have found
-yourself, then we will award a distinction. I understand that programming work
-is time consuming and that a short piece of text describing an amazing piece of
-code is worth a lot more than a long piece of text which does not describe any
-code.
-Grades will be awarded by an independent ITS examiner, taking recom-
-mendations from myself and from the external partner into account. We may
-perform verbal examinations to gather additional information as well as reading
-the written report - typically to verify that the text in your report is your own
-work.
-You are strongly encouraged to work together to discuss topics, structures
-and content for your reports, and to help one another. We want everyone to
-get a DISTINCTION, it's not a competition. Figures and results can be shared
-7between reports but all text must be written individually and declared
-so by the author . Any direct text plagiarism will result in a FAIL result of
-the module. Data science software will be used to detect plagiarism !
-The project will be conducted with and for an external UK transport part-
-ner, and maybe include a visits to and from their site. We are putting Leeds
-reputation into the project so please behave professionally at all times, espe-
-cially when working with external partners, which should be treated similarly
-to a job interview. External partners often recruit students from projects after
-their courses, and indeed this can be a major reason for them agreeing to help
-with the projects.
-7.2 Marking scheme objectives
-The purpose of our marking scheme recommendation is to encourage students
-to learn enough Data Science to be both:
-• immediately useful in industry with current tools and concepts
-• theoretically competent to adapt to changes in tools and concepts during
-your career
-The reason that we study general concepts as well as specic tools (eg Python
-libraries) is to enable the second of these. This is what makes an academic uni-
-versity course dierent from, and better than, most teach yourself programming
-in 24 hours types books and on-line courses.
-Working data scientists rarely work alone, and usually work together in
-teams which include clients, colleges, managers and sta. Being able to do this
-is an essential part of the eld and should be experienced and demonstrated in
-this module.
-As team members, Data Scientists will often specialize in some aspect of the
-eld, whilst knowing enough overview of other areas needed to communicate
-with other team members.
-This type is skill set is sometimes call T shaped
-people where the shape of the letter T indicates general breath and specialist
-depth. The marking scheme should reect and encourage this. Team member-
-ship is dened by the module manager, i.e. students are put into teams as in
-the real world.
-Fundamentally, the purpose of the marking scheme is to indicate to future
-high-quality employers:
-•
-PASS: The University of Leeds states, putting its reputation and brand
-at stake as proof, that the student has a working knowledge of the items in
-the module syllabus objectives, sucient to join a high-quality operational
-transport data science team. The University of Leeds recommends that
-you hire the student.
-•
-DISTINCTION: The University of Leeds states, putting its reputation
-and brand at stake as proof, that the student has the above and also
-has some practical, research, theoretical and/or management skills over
-8and beyond it, suitable to lead some aspect of a high-quality data sci-
-ence team's work. The University of Leeds recommends that you hire the
-student at a higher pay grade with leadership responsibilities.
-•
-FAIL: The University of Leeds is not willing to stake its reputation and
-brand on recommending the student to join a high-quality data science
-team.
-7.3 Implementation
-The recommended marking scheme below reects the content and balance of
-the module objectives as in the course handbook.
-Rather than a written examination, the module is assessed solely on individ-
-ual written reports describing a group project and its connections to the theory
-presented in the module handouts.
-This is designed to give opportunities to
-specialize, work as a team, experience practical development work, and demon-
-strate understanding of the underlying concepts. A good way to demonstrate
-theoretical understanding is to describe the links between your implementations
-to the theory  this also prevents internet plagiarism because your implementa-
-tions are unique to your team's task and data.
-Leeds modules are not allowed to award marks non-linearly, but we have
-achieved a similar goal by linearizing a set of non-linear, roughly sigmoidal,
-eort functions for dierent topics. This is designed to maximally reward T
-shaped work.
-•
-To PASS you must show a general/broad understanding of each section of
-the module. This corresponds to the broad generalist, top line of the T.
-•
-To get DISTINCTION you must PASS and also show either (a) major per-
-sonal contributions to the practical systems produced by the team and/or
-(b) major understanding of theoretical concepts (including management
-or teaching concepts) from the literature not taught in class. This corre-
-sponds to the deep specialist, bottom line of the T.
+
+## Examination method
+
+This is not a traditional lecture course.
+The module is 100% examined by a report on a single team project.
+The report can be a **maximum** of **15 pages** long and **3000 words** in total, excluding references.
+Quality is valued over quantity.
+
+The report is a portfolio of work that you will build-up over the course of the project.
+**It will be submitted on the Friday of week 24** (2019-10-05).
+
+The purpose of all the readings, talking, and exercises is to help you build the skills and ideas needed to deliver this project and report.
+The class will work together as one team to deliver results.
+Students are encouraged to post their work in blogs.
+The blogs themselves cannot go in the final report but some of the content can.
+
+You don't need to become an expert in every part of the module, but you are strongly encouraged to discover what interests and excites you and to explore it in detail by yourself.
+A Masters degree is the highest type of taught degree as should prepare you to do your own research in the future, where there will not be anyone to tell you what to do any more.
+
+Reports receiving a high grade will cite references to papers and books used in the work.
+They can include resources in the taught material or resources that go beyond what has been taught in class.
+
+## Marking scheme
+
+To achieve a PASS the report must include text which demonstrate a basic understanding of the ideas from every session and provide at least two images you have generated to present the results, and an explanation of the underlying code.
+To achieve a DISTINCTION the report must include text that shows understanding that goes beyond the material presented in the module from at least one session.
+
+High marks are awarded to reports that show awareness of skills useful in industry and competence with theory.
+Data scientists rarely work alone so marks will also be awarded for evidence of team-work and collaboration, e.g. the adaptation of someone else's code/method with full credit to the original.
+
 The module leader does not award marks, though may recommend them as
-a rst marker. Formal awards are made only by a second marker examiner,
-using the module objectives listed in the syllabus to grade.
-For each objective, the rst three recommended marks are for general knowl-
-edge of the topic, the remaining two are for leadership activity.
-8
-Recommended marking scheme
-One mark per bullet point below (35 in total). You are strongly recommended
-to refer to these points in your written reports.
-For example, you may use
-marginal notes to show where each mark is being claimed in the text; or embed
-the mark numbers into the text like citations; or structure your report under
-mark names as headings. You may refer to the marks by the numbers below,
-9for example Mark 5.3.2. This will make it easier for the assessors to give you
-all the relevant credit that you deserve.
-8.1 Understand the concepts of classical database design,
-and problems and limitations.
-1. Describe your team's database design
-2. Discuss limitations of your team's database design, such as big data
-scaling issues.
-3. Discuss alternative designs considers and their problems
-4. Describe your own personal contribution to this code
-5. Describe your own this code uses concepts from the literature not taught
-in class
-8.2 Understand how to obtain, clean and store transport
-related data.
+a first marker.
+The final awards are made by a second marker examiner.
+Marks are awarded in 5 categories, each of which is evaluated out of 20 and which will take account of the following criteria:
+
+**Understanding of concepts, methods and approaches**
+
+1. Demonstrate understanding of core concepts of data science, including data cleaning/wrangling, joining, exploratory analysis and visualisation.
+1. Implement methods appropriate to the objectives of the report.
+1. Discuss alternative methods/approaches that could have been used, and consider and their advantages and disadvantages.
+1. Describe code that you have written as part of the analysis.
+
+    **Data, processing access and cleaning**
+
 1. Describe how your team obtained and cleaned data
-2. Describe how your team stored and transported data
-3. Discuss the theoretical concepts underlying what you or your team have
-done. Make links between specic concepts and specic implementations.
-4. Describe your own personal contribution to this code
-5. Describe how your own work uses concepts from the literature not taught
-in class
-8.3 Gain prociency in industry-standard SQL language
-for database operation.
-1. Show examples of your team's SQL commands
-2. Describe what they do and how they were written
-3. Describe what happens inside your database to execute this code, includ-
-ing discussion of eects of optimizations you have made
-4. Describe your own personal contribution to this code
-5. Describe how your own work uses concepts from the literature not taught
-in class
-108.4 Experience basic machine learning / data mining tools
-1. Show example results of your team's machine learning / data mining sys-
-tems
+1. Describe methods for cleaning the data and how this added value to it
+1. Discuss methods for gaining data using transport techniques such as routing and conversion of origin-destination data to geographic desire lines
+2. Describe how your team stored and transported data, including appropriate file formats
+
+    **Machine learning**
+
+1. Demonstrate the progression of a simplistic model of the data to more advanced techniques
+1. Show example results of your team's use of machine learning technique.
 2. Show the code used to generate them and describe what it does
-3. Describe the underlying theory behind them and contrast it with alterna-
-tive approaches
-4. Describe your own personal contribution to this code
-5. Describe how your own work uses concepts from the literature not taught
-in class
-8.5 Produce data visualizations
-1. Show examples of your team's results
-2. Describe how they were produced
+3. Describe alternative ML approaches
+
+    **Visualization**
+
+1. Include high quality, attractive and innovative visualisations
+2. Describe how they were produced, including code
 3. Describe the theory about why they were designed this way
-4. Describe your own personal contribution to this code
-5. Describe how your own work uses concepts from the literature not taught
-in class
-8.6 Understand `big data' tools and concepts, the need
-for them, and how they dier from classical databases
-1. Show examples of your team's big data systems
-2. Describe how they were produced
-3. Describe the theory about why they were designed this way
-4. Describe your own personal contribution to this code
-5. Describe how your own work uses concepts from the literature not taught
-in class
-8.7 Learn how to set up and solve transport problems in
-teams
-1. Show examples of your team's work as teamwork , i.e.
-how work was
-divided, scheduled, and managed by the team.
-2. Give examples of how you communicated your own ideas and design to
-the rest of the team, including evidence that they understood the commu-
-nication.
-113. Describe any management, professional, and ethical frameworks used in
-the decisions
-4. Describe your own personal contribution to team management, including
-coaching other team members
-5. Describe your own use of innovative management not taught in class (e.g.
-use of formal project management or teaching techniques)
-8.8 Grading recommendations
-• One mark per bullet point above (total=35)
-• 18/35 (51%) marks needed to PASS, 25/35 (71%) for DISTINCTION
-Note that it is possible, though dicult, to obtain DISTINCTION without writ-
-ing any code. For example, this could be done by acting as project manager,
-using innovative management techniques, becoming a QGIS expert, and/or pro-
-viding signicant novel ideas to project by researching them from literature not
-taught in class. The student would still need to understand the team's code and
-be able to explain what it does, linking the algorithmic level to code fragments.
-This scenario is intentional because the module is not a programming class, and
-it seeks to replicate a real Data Science environment. There are a few real world
-Data Scientists who do not write code. However the scheme is also designed to
-prevent PASS without working through the team, so if these innovative ideas
-are not implemented by others in the team then they are unlikely to help score
-any credit for anyone. As a manager or theoretician, your specialist skills in-
-clude being able to persuade others to implement your ideas, and the scheme is
-designed to reect this.
-9
-ITS/Leeds standard processes
-Coursework submission.
-All coursework should be submitted using the
-coursework coversheet found in the coursework submission area on the VLE.
-You should not put your name on your coursework so that it can be marked
-electronically, however, you should put your ID number in the header in the top
-right hand corner of every page after the title page, and the module number
-in the top left hand corner of every page after the title page. The spreadsheet
-part of the coursework will be submitted electronically via the VLE using your
-student ID number in the lename. All coursework should be submitted elec-
-tronically through turnitin on the VLE by the 2pm on the day of the deadline.
-Each assignment will have its own electronic submission pigeonhole in which you
-can upload your work. Please note that in the case of group work all members
-are equally responsible for the submission of coursework by any one member. It
-is your responsibility to make sure you are aware of the deadline for each piece
-of work. Late submission will lead to the imposition of the normal University
-penalties; 5 marks are deducted for a submission that is made after the 2pm
-12deadline on day one, and any time until 2pm on day 2.
-Thereafter students
-lose a further 5 marks for each subsequent period of 24 hours.
-The time on
-the turnitin receipt for coursework is denitive in terms of monitoring late sub-
-missions. It is your responsibility to make sure that you have allowed enough
-time to submit your work and that you have a receipt. If your receipt does not
-appear in your inbox straightaway you can go back to the submission area and
-request a receipt in order to have conrmation that you have submitted your
-work successfully.
-Students with dyslexia Students with dyslexia should request a dyslexia
-coversheet be attached to their work when handing coursework in to the oce.
-A soft copy of the dyslexia coversheet is also available online for you to include
-it in the softcopy of your work when submitting to the VLE.
+5. Describe how your own work uses concepts from the literature
+
+    **Understand the data science process**
+
+1. The results presented are reproducible using code shared in the report submission or on a code-sharing platform.
+1. Evaluation of the computational efficiency of the approach taken and discuss how scalable the code used is and changes that could be made to make it work on larger datasets, e.g. with reference to a benchmark to test different methods/implementations.
+1. Provide evidence of teamwork, e.g. how work was divided, scheduled, and managed.
+2. Give examples of how you communicated your own ideas to the target audience of the report and within the group.
+
+# ITS/Leeds standard processes
+
+**Coursework submission**:
+
+All coursework should be submitted via the VLE.
+Do not put your name on your coursework but do put your ID number and module number on the front cover.
+
+All coursework should be submitted electronically through turnitin on the VLE by the 2pm on the day of the deadline.
+5 marks are deducted for a submission that is made after the 2pm deadline on day one, and any time until 2pm on day 2.
+Thereafter students lose a further 5 marks for each subsequent period of 24 hours.
+If your assessed work is over 14 days late, you
+will receive a mark of 20 on the 20-90 scale or a mark of 0 on the 0-100 scale.
+
+The time on the turnitin receipt for coursework is denitive in terms of monitoring late submissions.
+It is your responsibility to make sure that you have allowed enough time to submit your work and that you have a receipt.
+If your receipt does not appear in your inbox straightaway you can go back to the submission area and request a receipt in order to have conrmation that you have submitted your work successfully.
+
+Students with dyslexia Students with dyslexia should request a dyslexia coversheet be attached to their work when handing coursework.
 Coursework Extension Requests Note: Extensions are only granted in
-cases were a student has experienced serious diculty which has prevented the
+cases were a student has experienced serious diculty which has prevented the
 completion of work within the normal time period. This may be due to illness,
 bereavement, family problems or similar.
 They are not granted for minor or
 short term problems, including IT issues
 Should you have any mitigating circumstances which lead to you wanting to
 request an extension to your coursework deadline, or prevent you from attending
-an examination please contact ITS Student Education Service Oce before the
+an examination please contact ITS Student Education Service Oce before the
 day of the deadline or examination.
-Mitigating circumstances are signicantly disruptive or unexpected events
-which are beyond your control but which might aect your academic perfor-
-mance. If this applies, you should inform your parent school as soon as possible.
-Late Submission Penalties : 5 marks are deducted for a submission that
-is made after the deadline (2 pm) on day 1 and any time until 2 pm on day
-2.
-Thereafter students lose a further 5 marks for each subsequent period of
-24 hours (assuming the work is marked out of 90 or 100 on the University's
-standard 20-90 or 0-100 scale). If your assessed work is over 14 days late, you
-will receive a mark of 20 on the 20-90 scale or a mark of 0 on the 0-100 scale.
-Plagiarism. Please make sure that you know what constitutes as plagia-
-rism.
-The University denes plagiarism as presenting someone else's work as
-your own, including images and other material as well as text. Do not plagia-
-rise, collude, or cheat in any way.
+Mitigating circumstances are signicantly disruptive or unexpected events
+which are beyond your control but which might affect your academic performance. If this applies, you should inform your parent school as soon as possible.
+
+**Plagiarism.** Please make sure that you know what constitutes as plagiarism.
+The University denes plagiarism as presenting someone else's work as
+your own, including images and other material as well as text. Do not plagiarise, collude, or cheat in any way.
 All instances of plagiarism will be treated
 severely according to University disciplinary procedures. If you are unsure, check
-the University Library's plagiarism web pages: http://library.leeds.ac.uk/skills-
-plagiarism
-Referencing . Referencing is the acknowledgment of the sources you used
-when producing your piece of work.
-Referencing correctly is important to
-demonstrate how widely you have researched your subject, to show the basis of
-your arguments and conclusions, and to avoid plagiarism. You need to give the
-person reading your assignment enough information to nd the sources you have
-consulted. This is done by including citations in your work and providing a list
+the University Library's plagiarism web pages: http://library.leeds.ac.uk/skills-plagiarism
+
+**Referencing.** Referencing is the acknowledgment of the sources you used when producing your piece of work.
+Referencing correctly is important to demonstrate how widely you have researched your subject, to show the basis of your arguments and conclusions, and to avoid plagiarism.
+You need to give the person reading your assignment enough information to nd the sources you have consulted.
+This is done by including citations in your work and providing a list
 of references.
-You are expected to use the University's version of the Harvard
-referencing style for your assignments for this module. Guidance on how to in-
-clude citations within your text and how to reference dierent types of material
-13using Harvard is provided here: http://library.leeds.ac.uk/skills-referencing.
-Reading Materials You are encouraged to read widely and engage with
+You are expected to use the University's version of the Harvard referencing style for your assignments for this module.
+Guidance on how to include citations within your text and how to reference dierent types of material using Harvard is provided here: http://library.leeds.ac.uk/skills-referencing. 
+
+I personally recommend using Zotero, a free and open source reference management system.
+Used in sync with writing software such as RStudio with the **citr** package installed can make referencing fun!
+
+**Reading Materials.**
+You are encouraged to read widely and engage with
 the peer-reviewed academic journal articles. Reading lists are not exhaustive:
 just because a paper is not mentioned on the reading list does not mean that it
 is not worthwhile. You are expected to conduct your own searches for relevant
 journal articles.
-Skills@Library Skills@Library is available to all students and can help
+
+Library Skills is available to all students and can help
 develop a wide range of academic skills and strategies.
 There are workshops
-available in the Laidlaw Library on lots of dierent topics, including planning
-your essay or dissertation, writing academically and presentation skills. For 1-
-to-1 support on academic study skills you can talk to a Learning Advisor who
+available in the Laidlaw Library on lots of dierent topics, including planning
+your essay or dissertation, writing academically and presentation skills. For 1-to-1 support on academic study skills you can talk to a Learning Advisor who
 can help you with developing a wide range of academic skills and strategies on
-topics including academic writing, critical thinking, researching and maths. The
-Skills@Library website has lots of online help and information on study skills,
-referencing and how to tackle dierent types of assignments, as well revision and
-exam tips. You can also book workshops and one to one appointments through
-the website: https://library.leeds.ac.uk/skills
-10
-Feedback
-Only your nal report is assessed formally as part of your MSc grade. However
-very strongly recommend that you make some notes each week on the topics
-presented, which I am able to read and give feedback on. You will probably want
-to update and paste these notes together to form parts of your nal report. I
-expect that reports will at least PASS if they have all received and acted on
-feedback from each session.
-We will discuss your project work each week which will include me giving
-feedback on progress. You are encouraged to give each other feedback as you
-work together.
+topics including academic writing, critical thinking, researching and maths. See: https://library.leeds.ac.uk/skills
+
+# Feedback
+
+Only your final report is assessed formally as part of your MSc grade. However we recommend that you make some notes each week on the topics
+presented, which I am able to read and give feedback on.
+
+You are encouraged to give each other feedback as you work together.
 Please provide feedback to me on my teaching in the following ways:
-• Formally, by completing a module evaluation at the end
-• Informally, by talking to me in and after class. Please come and talk
-to me and let me know how I am doing and if there are things we
-can improve about the course presentation as we go along. As this is a
+- Formally, by completing a module evaluation at the end
+- Informally, by talking to me in and after class. Please come and talk to me and let me know how I am doing and if there are things we
+can improve about the course presentation as we go along.
+
+As this is a
 small class I am able to adjust the presentation to meet your personal
 requirements to some extent. I want you to learn as much as possible and
-enjoy the subject so if you have ideas for how we can do this better then
-I really, really want to know! If my teaching is not working for you then
-LET ME KNOW so we can x it.
-We are professionals and we do not
-feel embarrassed if you say our teaching is not working for you. We do
-not care about saving face here.
-Please do not sit in silence or respect
-if you don't like the teaching - come and tell us! Please email me if you
-want to arrange a time to talk outside class. Leeds takes teaching very
-seriously and aims to be the best in the world, so we need all your help
-14to improve continually, however poor or brilliant we currently are. YOU
-ARE MY BOSS - your tuition fees pay part of my salary so make sure
-you are getting your money's worth at all times!
+enjoy the subject so if you have ideas, let me know.
+
+# References

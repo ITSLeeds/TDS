@@ -33,9 +33,9 @@ The focus is on practical data science, enabling attendees to make use of a wide
 
 ## Objectives
 
-- Understand the structure of transport datasets: spatial, temporal and demographic.
-- Understand how to obtain, clean and store transport related data.
-- Gain proficiency in command-line tools for handling large transport datasets.
+- Understand the structure of transport datasets: spatial, temporal and demographic
+- Understand how to obtain, clean and store transport related data
+- Gain proficiency in command-line tools for handling large transport datasets
 - Learn machine learning and data modelling techniques
 - Produce data visualizations, static and interactive
 - Learn where to find large transport datasets and assess data quality

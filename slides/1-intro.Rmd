@@ -279,7 +279,7 @@ Source: https://community.rstudio.com/about
 # A few prices
 
 ```{r, echo=FALSE}
-knitr::include_graphics("price-transcad.png")
+knitr::include_graphics("https://www.robinlovelace.net/presentations/price-transcad.png")
 ```
 
 Source: [google.com/search?q=transcad+price](https://www.google.com/search?q=transcad+price)

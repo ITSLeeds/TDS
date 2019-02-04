@@ -1,0 +1,505 @@
+---
+title: "Introduction to transport data science"
+subtitle: '<br/>Transport Data Science'
+author: "Robin Lovelace"
+date: 'University of Leeds, `r Sys.Date()`<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
+output:
+  xaringan::moon_reader:
+    # css: ["default", "its.css"]
+    # chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+bibliography: ../references.bib
+---
+
+background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+# Credit: Mandeep Lota via [flickr](https://www.flickr.com/photos/deepster2k/1096671706)
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(RefManageR)
+BibOptions(check.entries = FALSE, 
+           bib.style = "authoryear", 
+           cite.style = 'alphabetic', 
+           style = "markdown",
+           first.inits = FALSE,
+           hyperlink = FALSE, 
+           dashed = FALSE)
+my_bib = ReadBib("../references.bib", check = FALSE)
+```
+
+---
+
+# The Transport Data Science team
+
+### Robin Lovelace
+
+- Geographer by training
+- Researching transport futures
+- Especially cycling potential ([e.g. to school](http://eprints.whiterose.ac.uk/141852/))
+- R developer and teacher, with a couple of books on the subject 
+
+--
+
+### Malcolm Morgan
+
+- Civil Engineer by training
+- Moved into transport via the Propensity to Cycle Tool Project
+- Expertise in machine learning and routing
+
+--
+
+### Richard Connors
+
+- Mathematician by training
+- Matlab programmer 
+- Expertise in dynamic traffic assignment
+
+---
+
+# The history of TDS
+
+- I inhereited this module from Charles Fox
+- Computer scientist by training, he ran it for 2 years
+- Expertise in Python for Bayesian methods and machine learning
+- Wrote lots of Python code that now lives in the module 'repo':
+  - [github.com/ITSLeeds](https://github.com/ITSLeeds/TDS/tree/master/code-python)
+- Author of Transport Data Science book `r Citep(my_bib, "fox_data_2018", .opts = list(cite.style = "authoryear"))`
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
+```
+
+
+---
+
+# This session in context
+
+-  ## <font color="red"> Introduction to transport data science </font> 
+- Software for practical data science 
+- The structure of transport data
+- Data cleaning and subsetting
+- Accessing data from web sources
+- Routing
+- Data visualization
+- Project work
+- Machine learning
+- Professional issues
+ 
+---
+
+## Objectives
+
+From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md):
+
+```{r}
+# Understand the structure of transport datasets: spatial, temporal and demographic
+# Understand how to obtain, clean and store transport related data
+# Gain proficiency in command-line tools for handling large transport datasets
+# Learn machine learning and data modelling techniques
+# Produce data visualizations, static and interactive
+# Learn where to find large transport datasets and assess data quality
+```
+
+- <font color="red"> Learn how to join together the components of transport data science into a cohesive project portfolio  </font> 
+
+---
+
+## Learning outcomes
+
+```{r}
+# Identify available datasets and access and clean them
+# Combine datasets from multiple sources
+# Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
+# Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
+# Deciding when to use local computing power vs cloud services
+```
+
+- Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods
+
+---
+
+## What is transport data science?
+
+- The application of data science to transport datasets and problems
+
+--
+
+- Raising the question...
+
+--
+
+- What is data science?
+
+<!-- You tell me! -->
+
+--
+
+- A discipline "that allows you to turn raw data into understanding, insight, and knowledge" `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
+
+--
+
+In other words...
+
+- Statistics that is actually useful!
+
+---
+
+## What is science?
+
+.pull-left[
+- Scientific knowledge is hypotheses that can be falsified
+- Science is the process of *generating falsifiable hypotheses* and *testing them*
+- In a reproducible way
+- Systematically
+
+![](https://media3.giphy.com/media/3ohhworAhxSEHT3zDa/200w.webp?cid=3640f6095c57e8d15767723367d0c596)
+]
+
+--
+
+.pull-right[
+
+- Falsifiability is central to the scientific process `r Citep(my_bib, "popper_logic_1959", .opts = list(cite.style = "authoryear"))`
+- All of which requires software conducive to reproducibility
+
+![](https://duckduckgo.com/i/f2692e7b.jpg)
+]
+
+---
+
+## Transport planning software
+
+Transport modelling software products are a vital component of modern transport planning *and* research.
+
+- They generate the evidence base on which strategic investments are made and, furthermore,
+- provide a powerful mechanism for researching alternative futures.
+
+--
+
+It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions.
+
+What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems. 
+
+--
+
+- Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open. 
+
+---
+
+# Current transport software
+
+--
+
+(Source: Crispin Cooper, author of sDNA)
+
+---
+
+.pull-left[
+
+### The four stage model
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/fourstage.png")
+```
+
+Still dominates transport planning models (Boyce and Williams 2015)
+]
+
+
+--
+
+
+### Impacting the durrent software landscape
+
+- Dominated by a few proprietary products
+
+- Limited support community online 
+
+- High degree of lock-in
+
+- Limited cross-department collaboration
+
+---
+
+# Existing products
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+f = "~/uaf/potential-projects/ercStarting/transport-software.csv"
+tms = readr::read_csv(f)[1:5]
+tms = dplyr::arrange(tms, dplyr::desc(Citations))
+knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
+```
+
+---
+
+# User support
+
+Getting help is vital for leaning/improving software
+
+--
+
+![](https://media.giphy.com/media/6HtgBlXu1TIac/giphy.gif)
+
+--
+
+"10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
+
+---
+
+# Online communities
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS
+
+---
+
+# Best way to get support is peer-to-peer:
+
+![](https://www.robinlovelace.net/presentations/rstudio-community.png)
+
+Source: https://community.rstudio.com/about
+
+---
+
+# A few prices
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/price-transcad.png")
+```
+
+Source: [google.com/search?q=transcad+price](https://www.google.com/search?q=transcad+price)
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
+
+
+# Future transport software
+
+---
+
+# Is already here I
+
+- Example: the Propensity to Cycle Tool ([PCT.bike](http://www.pct.bike/)) (Lovelace et al. 2017)
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
+```
+
+--- 
+
+## How is data science used in the PCT?
+
+- It's all reproducible, e.g.:
+- Find commuting desire lines in West Yorkshire between 1 and 3 km long in which more people drive than cycle:
+
+```{r, eval=FALSE, echo=FALSE}
+# Aim: get top 1000 lines in repo
+u = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/l.geojson"
+library(dplyr)
+library(sf)
+desire_lines_all = read_sf(u)
+desire_lines = desire_lines_all %>% 
+  top_n(1000, all)
+write_sf(desire_lines, "desire_lines.geojson")
+piggyback::pb_upload("desire_lines.geojson")
+```
+
+
+```{r}
+# Set-up, after installing R and checking out www.pct.bike:
+u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
+library(dplyr)
+library(sf)
+desire_lines = read_sf(u)
+```
+
+---
+
+## Visualising data
+
+A fundamental part of data science is being able to understand your data.
+
+That requires visualisation, R is great for that:
+
+.pull-left[
+```{r, warning=FALSE}
+plot(desire_lines)
+```
+
+]
+
+.pull-right[
+- Interactively:
+
+```{r, message=FALSE}
+library(tmap)
+ttm()
+tm_shape(desire_lines) + tm_lines("all")
+```
+
+]
+
+---
+
+## Processing data with code
+
+- Now we have data in our computer, and verified it works, we can use it
+
+- Which places are most car dependent? 
+
+```{r}
+car_dependent_routes = desire_lines %>% 
+  mutate(percent_drive = car_driver / all * 100) %>% 
+  filter(rf_dist_km < 3 & rf_dist_km > 1) 
+```
+
+---
+
+## Checking the results:
+
+```{r}
+b = c(0, 25, 50, 75)
+tm_shape(car_dependent_routes) +
+  tm_lines(col = "percent_drive", lwd = "all", scale = 5, breaks = b, palette = "-inferno")
+```
+
+
+---
+
+# Is already here II
+
+- Example: the Cycling Infrastructure Prioritisation Toolkit ([CyIPT.bike](https://www.cyipt.bike))
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.cyipt.bike/images/existing-edit.png")
+```
+
+---
+
+# Is already here III
+
+- Example: StreetMix ([streetmix.net](https://streetmix.net/))
+
+```{r, echo=FALSE, out.width="60%"}
+knitr::include_graphics("http://1p40p3gwj70rhpc423s8rzjaz-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/2016_0211_2ndAvePioneerSquareFlyer-streetmix.jpg")
+```
+
+---
+
+# R vs Python
+
+- Lots of debate on this topic - see https://blog.usejournal.com/python-vs-and-r-for-data-science-833b48ccc91d
+
+--
+
+How to decide?
+
+--
+
+- If priority: getting things done quick (with support from me ;) go with R
+- If you already know Python and want to experiment, go with that
+- If you want to be avant-garde and try something else, do it (as long as it's reproducible)
+
+--
+
+![](https://cdn-images-1.medium.com/max/1600/1*Mk54CziKpHi65sdlwBZcCg.png)
+
+
+
+
+---
+
+# Sumo vs netlogo (vs R/Python)
+
+```{r, echo=FALSE, out.width="70%"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/46748345-41c98580-ccab-11e8-8093-b265bd36f639.gif")
+```
+
+Source: [github.com/eclipse/sumo](https://github.com/eclipse/sumo/issues/2409)
+
+.pull-left[
+
+```{r, echo=FALSE, out.width="20%"}
+knitr::include_graphics("https://raw.githubusercontent.com/nldoc/nlrx/master/man/figures/logo.png")
+```
+
+]
+
+Source: [github.com/nldoc/nlrx](https://github.com/nldoc/nlrx)
+
+---
+
+### Gamification
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/citybound.png")
+```
+
+- Completely open source, written in [rust](https://github.com/citybound/citybound)
+- Source: video at https://aeplay.org/citybound
+
+---
+
+background-image: url(https://media.giphy.com/media/OMeGDxdAsMPzW/giphy.gif)
+background-size: cover
+class: center, middle, inverse
+
+# Code example / questions
+
+---
+
+# Summary
+
+- Walk and understand the data before doing complex things
+- Visualise the data, ask questions of it, descriptive stats
+- Only then add complexity to your analysis
+- Starting point for this: [Transport chapter](https://geocompr.robinlovelace.net/transport.html) of Geocomputation with R `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))`
+
+---
+
+## Personal objectives
+
+- Quick go around: what is your name, level and aspiration?
+
+--
+
+- Get into groups of 2-3 and discuss:
+
+--
+
+- What do you hope to get out of it personally?
+
+--
+
+- In terms of future work in an evolving job market?
+
+--
+
+- In terms of the kinds of problems you want to solve?
+
+---
+
+# References
+
+```{r, 'refs', results="asis", echo=FALSE}
+PrintBibliography(my_bib)
+# RefManageR::WriteBib(my_bib, "refs-geostat.bib")
+```

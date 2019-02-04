@@ -114,7 +114,7 @@ There are also some requirements for pre-module reading:
 
 ## Core
 
-- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016-1]
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
 
 - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
 

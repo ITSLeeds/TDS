@@ -33,9 +33,9 @@ The focus is on practical data science, enabling attendees to make use of a wide
 
 ## Objectives
 
-- Understand the structure of transport datasets: spatial, temporal and demographic.
-- Understand how to obtain, clean and store transport related data.
-- Gain proficiency in command-line tools for handling large transport datasets.
+- Understand the structure of transport datasets: spatial, temporal and demographic
+- Understand how to obtain, clean and store transport related data
+- Gain proficiency in command-line tools for handling large transport datasets
 - Learn machine learning and data modelling techniques
 - Produce data visualizations, static and interactive
 - Learn where to find large transport datasets and assess data quality
@@ -140,9 +140,10 @@ It is also recommended that you install GitHub Desktop (or command line git on L
 
 ## Core
 
-- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016-1]
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
 
 - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
+
 
 ## Optional
 

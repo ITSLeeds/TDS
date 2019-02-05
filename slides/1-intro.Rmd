@@ -1,10 +1,11 @@
 ---
 title: "Introduction to transport data science"
-subtitle: "<br/>Transport Data Science"
+subtitle: '<br/>Transport Data Science'
 author: "Robin Lovelace"
-date: "University of Leeds, `r Sys.Date()`"
+date: 'University of Leeds, `r Sys.Date()`<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
 output:
   xaringan::moon_reader:
+    # css: ["default", "its.css"]
     # chakra: libs/remark-latest.min.js
     lib_dir: libs
     nature:
@@ -123,6 +124,16 @@ From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogu
 
 ---
 
+## Assessment (for those doing this as credit-bearing)
+
+- You will build-up a portfolio of work
+- 3000 words, up to 10 pages
+- Written in RMarkdown - will be graded for reproducibility
+- Code chunks and figures are encouraged
+- Will check-in after week 5
+
+---
+
 ## What is transport data science?
 
 - The application of data science to transport datasets and problems
@@ -191,27 +202,294 @@ What will transport software look like? What will their capabilities be? And who
 
 ---
 
+# Current transport software
+
+--
+
+(Source: Crispin Cooper, author of sDNA)
+
 ---
 
-## Personal objectives
+.pull-left[
 
-- Quick go around: what is your name, level and aspiration?
+### The four stage model
 
---
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/fourstage.png")
+```
 
-- Get into groups of 2-3 and discuss:
+Still dominates transport planning models (Boyce and Williams 2015)
+]
 
---
-
-- What do you hope to get out of it personally?
-
---
-
-- In terms of future work in an evolving job market?
 
 --
 
-- In terms of the kinds of problems you want to solve?
+
+### Impacting the durrent software landscape
+
+- Dominated by a few proprietary products
+
+- Limited support community online 
+
+- High degree of lock-in
+
+- Limited cross-department collaboration
+
+---
+
+# Existing products
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+tms = readr::read_csv("../transport-software.csv")[1:5]
+tms = dplyr::arrange(tms, dplyr::desc(Citations))
+knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
+```
+
+---
+
+# User support
+
+Getting help is vital for leaning/improving software
+
+--
+
+![](https://media.giphy.com/media/6HtgBlXu1TIac/giphy.gif)
+
+--
+
+"10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
+
+---
+
+# Online communities
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS
+
+---
+
+# Best way to get support is peer-to-peer:
+
+![](https://www.robinlovelace.net/presentations/rstudio-community.png)
+
+Source: https://community.rstudio.com/about
+
+---
+
+# A few prices
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/price-transcad.png")
+```
+
+Source: [google.com/search?q=transcad+price](https://www.google.com/search?q=transcad+price)
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
+
+
+# Future transport software
+
+---
+
+# Is already here I
+
+- Example: the Propensity to Cycle Tool ([PCT.bike](http://www.pct.bike/)) (Lovelace et al. 2017)
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
+```
+
+--- 
+
+## How is data science used in the PCT?
+
+- It's all reproducible, e.g.:
+- Find commuting desire lines in West Yorkshire between 1 and 3 km long in which more people drive than cycle:
+
+```{r, eval=FALSE, echo=FALSE}
+# Aim: get top 1000 lines in repo
+u = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/l.geojson"
+library(dplyr)
+library(sf)
+desire_lines_all = read_sf(u)
+desire_lines = desire_lines_all %>% 
+  top_n(1000, all)
+write_sf(desire_lines, "desire_lines.geojson")
+piggyback::pb_upload("desire_lines.geojson")
+```
+
+
+```{r}
+# Set-up, after installing R and checking out www.pct.bike:
+u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
+library(dplyr)
+library(sf)
+desire_lines = read_sf(u)
+```
+
+---
+
+## Visualising data
+
+A fundamental part of data science is being able to understand your data.
+
+That requires visualisation, R is great for that:
+
+.pull-left[
+```{r, warning=FALSE}
+plot(desire_lines)
+```
+
+]
+
+.pull-right[
+- Interactively:
+
+```{r, message=FALSE}
+library(tmap)
+ttm()
+tm_shape(desire_lines) + tm_lines("all")
+```
+
+]
+
+---
+
+## Processing data with code
+
+- Now we have data in our computer, and verified it works, we can use it
+
+- Which places are most car dependent? 
+
+```{r}
+car_dependent_routes = desire_lines %>% 
+  mutate(percent_drive = car_driver / all * 100) %>% 
+  filter(rf_dist_km < 3 & rf_dist_km > 1) 
+```
+
+---
+
+## Checking the results:
+
+```{r}
+b = c(0, 25, 50, 75)
+tm_shape(car_dependent_routes) +
+  tm_lines(col = "percent_drive", lwd = "all", scale = 5, breaks = b, palette = "-inferno")
+```
+
+
+---
+
+# Is already here II
+
+- Example: the Cycling Infrastructure Prioritisation Toolkit ([CyIPT.bike](https://www.cyipt.bike))
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.cyipt.bike/images/existing-edit.png")
+```
+
+---
+
+# Is already here III
+
+- Example: StreetMix ([streetmix.net](https://streetmix.net/))
+
+```{r, echo=FALSE, out.width="60%"}
+knitr::include_graphics("http://1p40p3gwj70rhpc423s8rzjaz-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/2016_0211_2ndAvePioneerSquareFlyer-streetmix.jpg")
+```
+
+---
+
+# R vs Python
+
+- Lots of debate on this topic - see https://blog.usejournal.com/python-vs-and-r-for-data-science-833b48ccc91d
+
+--
+
+How to decide?
+
+--
+
+- If priority: getting things done quick (with support from me ;) go with R
+- If you already know Python and want to experiment, go with that
+- If you want to be avant-garde and try something else, do it (as long as it's reproducible)
+
+--
+
+![](https://cdn-images-1.medium.com/max/1600/1*Mk54CziKpHi65sdlwBZcCg.png)
+
+
+
+
+---
+
+# Sumo vs netlogo (vs R/Python)
+
+```{r, echo=FALSE, out.width="70%"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/46748345-41c98580-ccab-11e8-8093-b265bd36f639.gif")
+```
+
+Source: [github.com/eclipse/sumo](https://github.com/eclipse/sumo/issues/2409)
+
+.pull-left[
+
+```{r, echo=FALSE, out.width="20%"}
+knitr::include_graphics("https://raw.githubusercontent.com/nldoc/nlrx/master/man/figures/logo.png")
+```
+
+]
+
+Source: [github.com/nldoc/nlrx](https://github.com/nldoc/nlrx)
+
+---
+
+### Gamification
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://www.robinlovelace.net/presentations/citybound.png")
+```
+
+- Completely open source, written in [rust](https://github.com/citybound/citybound)
+- Source: video at https://aeplay.org/citybound
+
+---
+
+background-image: url(https://media.giphy.com/media/OMeGDxdAsMPzW/giphy.gif)
+background-size: cover
+class: center, middle, inverse
+
+# Code example / questions
+
+---
+
+# Summary
+
+- Walk and understand the data before doing complex things
+- Visualise the data, ask questions of it, descriptive stats
+- Only then add complexity to your analysis
+- Starting point for this: [Transport chapter](https://geocompr.robinlovelace.net/transport.html) of Geocomputation with R `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))`
+
+---
+
+## Practical session will involve...
+
+- Definition of transport data science
+- About you, level and hopes for the course
+- Sketching research methods (you will need pens)
+- A very small computer practical
 
 ---
 

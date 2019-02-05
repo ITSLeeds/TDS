@@ -110,6 +110,12 @@ Formative feedback will be given after interim informal assessment of their in-p
 
 **Coursework**
 
+The project portfolio will be a short (3000 word limit, 10 pages max, excluding appendices) but high quality report explaining the methods learned and their application to real problems.
+Students are encouraged to submit reproducible code alongside the report.
+This will be used as the basis for formative assessment mid-way through the semester.
+This will highlight if any students are struggling.
+If a portfolio fails the assessment criteria the student will have an opportunity to resubmit a report outlining what they have learned in the areas in which they are failing.
+
 <table border="1" width="100%"><tr><td valign="top" align="left" width="17%">Assessment type</td><td valign="top" align="left" width="65%">Notes</td><td valign="top" align="right" width="18%">% of formal assessment</td></tr><tr><td valign="top" align="left" width="17%">Portfolio</td><td valign="top" align="left" width="65%">Project Portfolio</td><td valign="top" align="right" width="18%">100.00</td></tr><tr><td colspan="2" valign="top" align="left">Total percentage (Assessment Coursework)</td><td valign="top" align="right">100.00</td></tr></table>
 
 <!-- 20% of the mark for the assessment of the portfolio will be determined as an initial assessment after week 5. Feedback will be provided. The remaining 80% will be awarded in respect of the final submitted portfolio. -->
@@ -134,9 +140,9 @@ It is also recommended that you install GitHub Desktop (or command line git on L
 <!-- The [reading list](http://lib5.leeds.ac.uk/rlists/broker/index.php?mod=TRAN5340M) is available from the Library website -->
 ## Essential
 
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2017]
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018a]
-- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr_2017]
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018]
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx_2017]
 
 ## Core
 
@@ -148,7 +154,7 @@ It is also recommended that you install GitHub Desktop (or command line git on L
 ## Optional
 
 - Book on transport data science in Python [@fox_data_2018]
-- For context, a report on the 'transport data revolution' [@transportsystemscatapult_transport_2015]
+- For context, a report on the 'transport data revolution' [@transport_systems_catapult_transport_2015]
 - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001]
 - A paper on the use of SmartCard data [@gschwender_using_2016]
 - An academic paper describing the development of a web application for the Department for Transport [@lovelace_propensity_2017]

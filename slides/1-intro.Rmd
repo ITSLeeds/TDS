@@ -75,6 +75,30 @@ my_bib = ReadBib("../references.bib", check = FALSE)
 knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
 ```
 
+---
+
+# Essential reading materials
+
+- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr_2017", .opts = list(cite.style = "authoryear"))`
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))` 
+- Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
+
+```{r geocompr-cover, echo=FALSE, out.width="20%"}
+knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png")
+```
+
+---
+
+
+## Core reading materials
+
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))` 
+
+- Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) `r Citep(my_bib, "james_introduction_2013", .opts = list(cite.style = "authoryear"))` 
+
+
 
 ---
 
@@ -201,6 +225,10 @@ What will transport software look like? What will their capabilities be? And who
 - Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open. 
 
 ---
+
+background-image: url(https://raw.githubusercontent.com/npct/pct-team/master/figures/sdna-san-fran.png)
+background-size: cover
+class: center, middle
 
 # Current transport software
 

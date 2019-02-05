@@ -340,7 +340,7 @@ class: center, middle
 knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
 ```
 
---- 
+---
 
 ## How is data science used in the PCT?
 
@@ -360,7 +360,7 @@ piggyback::pb_upload("desire_lines.geojson")
 ```
 
 
-```{r}
+```{r, message=FALSE}
 # Set-up, after installing R and checking out www.pct.bike:
 u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
 library(dplyr)

@@ -124,6 +124,16 @@ From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogu
 
 ---
 
+## Assessment (for those doing this as credit-bearing)
+
+- You will build-up a portfolio of work
+- 3000 words, up to 10 pages
+- Written in RMarkdown - will be graded for reproducibility
+- Code chunks and figures are encouraged
+- Will check-in after week 5
+
+---
+
 ## What is transport data science?
 
 - The application of data science to transport datasets and problems
@@ -230,8 +240,7 @@ Still dominates transport planning models (Boyce and Williams 2015)
 # Existing products
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-f = "~/uaf/potential-projects/ercStarting/transport-software.csv"
-tms = readr::read_csv(f)[1:5]
+tms = readr::read_csv("../transport-software.csv")[1:5]
 tms = dplyr::arrange(tms, dplyr::desc(Citations))
 knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
 ```
@@ -475,25 +484,12 @@ class: center, middle, inverse
 
 ---
 
-## Personal objectives
+## Practical session will involve...
 
-- Quick go around: what is your name, level and aspiration?
-
---
-
-- Get into groups of 2-3 and discuss:
-
---
-
-- What do you hope to get out of it personally?
-
---
-
-- In terms of future work in an evolving job market?
-
---
-
-- In terms of the kinds of problems you want to solve?
+- Definition of transport data science
+- About you, level and hopes for the course
+- Sketching research methods (you will need pens)
+- A very small computer practical
 
 ---
 

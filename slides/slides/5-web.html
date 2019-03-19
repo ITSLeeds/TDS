@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Accessing data from the Internet</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Robin Lovelace" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Accessing data from the Internet
+## <br/>🗺<br/>Transport Data Science
+### Robin Lovelace
+### University of Leeds, 2019-03-12<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+---
+
+
+background-image: url(https://images-a.jpimedia.uk/imagefetch/w_700,f_auto,ar_3:2,q_auto:low,c_fill/if_h_lte_200,c_mfit,h_201/https://www.yorkshireeveningpost.co.uk/webimage/1.9594040.1550081116!/image/image.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+
+
+---
+
+## This session in context
+
+ - Introduction to transport data science
+ - The structure of transport data
+ - Software for practical data science
+ - Data cleaning and subsetting
+ - ## &lt;font color="red"&gt;Accessing data from web sources&lt;/font&gt; 
+ - Routing
+ - Data visualization
+ - Project work
+ - Machine learning
+ - Professional issues
+ 
+---
+
+## Objectives
+
+From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md):
+
+-  ## &lt;font color="red"&gt;Learn where to find large transport datasets and assess data quality&lt;/font&gt; 
+
+
+
+```r
+# Understand the structure of transport datasets: spatial, temporal and demographic
+# Understand how to obtain, clean and store transport related data
+# Gain proficiency in command-line tools for handling large transport datasets
+# Learn machine learning and data modelling techniques
+# Produce data visualizations, static and interactive
+# Learn where to find large transport datasets and assess data quality
+# Learn how to join together the components of transport data science into a cohesive project portfolio 
+```
+
+---
+
+## Learning outcomes
+
+-  ## &lt;font color="red"&gt;Identify available datasets and access and clean them&lt;/font&gt; 
+
+
+
+```r
+# Identify available datasets and access and clean them
+# Combine datasets from multiple sources
+# Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
+# Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
+# Deciding when to use local computing power vs cloud services
+```
+
+---
+
+# This lecture will...
+
+- Be primarily practical
+
+--
+
+- Provide an overview of data access options
+
+--
+
+- Show how R packages and web services provide access to some datasets
+
+
+---
+
+## Recap on data access/cleaning in workflow
+
+--
+
+- Data cleaning (or 'tidying' or 'wrangling') is part of a wider process 
+(Grolemund and Wickham, 2016)
+
+![](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)&lt;!-- --&gt;
+
+--
+
+- It's important to have an idea where you're heading with the analysis
+
+--
+
+- Often best to start with pen and paper
+
+---
+
+## Data access/cleaning vs fidling
+
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Tapson&amp;#39;s Rules of Machine Learning:&lt;br&gt;4. Time spent on data cleaning is an order of magnitude more productive than time spent on hyperparameter tuning.&lt;br&gt;&lt;br&gt;(Extreme example: achieved a Top 10 result in Kaggle using linear regression, as the only team that cleaned 50/60Hz noise first.)&lt;/p&gt;&amp;mdash; Jonathan Tapson (@jontapson) &lt;a href="https://twitter.com/jontapson/status/1103024752019402753?ref_src=twsrc%5Etfw"&gt;March 5, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+Source: https://twitter.com/jontapson/status/1103024752019402753
+
+
+---
+
+background-image: url()
+background-size: cover
+class: center, middle
+
+# A typology of data sources
+
+---
+
+## Many places to get data
+
+'Data pyramid' concept is useful
+
+- Official sources are often smaller in sizes but higher in Quality
+
+- Unofficial sources provide higher volumes but tend to be noisy, e.g.: https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12081
+
+- Another way to classify data is by geographic location
+
+- Globally available datasets would be at the bottom of this pyramid; local surveys at the top.
+
+Source: https://geocompr.robinlovelace.net/read-write.html
+
+
+- Which would be best to inform policy?
+
+---
+
+# Practical demo
+
+
+---
+
+## Getting data demo
+
+- Getting data from OSM: overpass turbo
+
+- Data from stats19
+
+- Data from the Census
+
+- Bonus: getting data from Uber
+
+---
+
+# References
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data
+Science_. 1 edition. O'Reilly Media. ISBN: 978-1-4919-1039-9.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

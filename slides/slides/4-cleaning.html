@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data cleaning</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Robin Lovelace" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data cleaning
+## <br/>🚿<br/>Transport Data Science
+### Robin Lovelace
+### University of Leeds, 2019-03-05<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+---
+
+
+background-image: url(https://hedgehogcycling.co.uk/images/leeds-bradford-cycle-superhighway-2018-1.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+
+
+---
+
+## This session in context
+
+ - Introduction to transport data science
+ - The structure of transport data
+ - Software for practical data science
+ -  ## &lt;font color="red"&gt;Data cleaning and subsetting &lt;/font&gt; 
+ - Accessing data from web sources
+ - Routing
+ - Data visualization
+ - Project work
+ - Machine learning
+ - Professional issues
+ 
+---
+
+## Objectives
+
+From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md):
+
+-  ## &lt;font color="red"&gt;Gain proficiency in command-line tools for handling large transport datasets&lt;/font&gt; 
+
+
+
+```r
+# Understand the structure of transport datasets: spatial, temporal and demographic
+# Understand how to obtain, clean and store transport related data
+# Gain proficiency in command-line tools for handling large transport datasets
+# Learn machine learning and data modelling techniques
+# Produce data visualizations, static and interactive
+# Learn where to find large transport datasets and assess data quality
+# Learn how to join together the components of transport data science into a cohesive project portfolio 
+```
+
+---
+
+## Learning outcomes
+
+-  ## &lt;font color="red"&gt;Identify available datasets and access and clean them&lt;/font&gt; 
+
+
+
+```r
+# Identify available datasets and access and clean them
+# Combine datasets from multiple sources
+# Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
+# Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
+# Deciding when to use local computing power vs cloud services
+```
+
+---
+
+# This lecture will...
+
+- Be primarily practical
+
+--
+
+- Teach key concepts in data cleaning
+
+--
+
+- Demonstrate how to clean a transport dataset
+
+--
+
+- Consolidate knowledge of data science in R
+
+---
+
+background-image: url()
+background-size: cover
+class: center, middle
+
+# Key concepts in data cleaning
+
+---
+
+## Data science workflow
+
+--
+
+- Data cleaning (or 'tidying' or 'wrangling') is part of a wider process 
+(Grolemund and Wickham, 2016)
+
+![](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)&lt;!-- --&gt;
+
+--
+
+- It's important to have an idea where you're heading with the analysis
+
+--
+
+- Often best to start with pen and paper
+
+---
+
+## Project management
+
+--
+
+- Data science is just one component of any project 
+(Gillespie and Lovelace, 2016)
+section 4.3: [csgillespie.github.io/efficientR/workflow.html](https://csgillespie.github.io/efficientR/workflow.html#project-planning-and-management)
+
+--
+
+![](https://csgillespie.github.io/efficientR/_main_files/figure-html/4-1-1.png)
+
+---
+
+## Workflow diagram of distribution
+
+![](https://www.researchgate.net/profile/Paulina_Jaramillo/publication/224559288/figure/fig1/AS:302736190001152@1449189340459/Traditional-Retail-Product-Flow-Diagram.png)
+
+---
+
+## Workflow diagrams for real: Ecommerce 
+
+![](https://www.researchgate.net/profile/Paulina_Jaramillo/publication/224559288/figure/fig2/AS:302736190001153@1449189340579/E-commerce-Product-Flow-Diagram.png)
+
+---
+
+## A transport data science workflow
+
+.pull-left[
+
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/flow-model/flow-diag2.png)&lt;!-- --&gt;
+
+]
+
+
+.pull-right[
+
+Source: Lovelace, Goodman, Aldred, Berkoff, Abbas, and Woodcock (2017)
+
+- Much of the 'legwork' was data cleaning
+
+- Hours spent cleaning data at the project outset saved many hours later on
+
+- Result: http://www.pct.bike/
+
+]
+
+---
+
+# The data source 
+
+- For reproducibility always link to the data source
+
+- Keep a copy of the input dataset
+
+- Save intermediate 'clean' datasets in appropriate formats
+
+---
+
+background-image: url()
+background-size: cover
+class: center, middle
+
+## Practical demo
+
+
+---
+
+# References
+
+Gillespie, Colin and Robin Lovelace (2016). _Efficient R
+Programming: A Practical Guide to Smarter Programming_. O'Reilly
+Media. ISBN: 978-1-4919-5078-4.
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data
+Science_. 1 edition. O'Reilly Media. ISBN: 978-1-4919-1039-9.
+
+Lovelace, Robin, Anna Goodman, Rachel Aldred, et al. (2017). "The
+Propensity to Cycle Tool: An Open Source Online System for
+Sustainable Transport Planning". In: _Journal of Transport and
+Land Use_ 10.1. ISSN: 1938-7849. DOI:
+[10.5198/jtlu.2016.862](https://doi.org/10.5198/jtlu.2016.862).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

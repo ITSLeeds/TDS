@@ -297,7 +297,7 @@ plot(desire_lines)
 
 ```{r, message=FALSE}
 library(tmap)
-ttm()
+tmap_mode("view")
 tm_shape(desire_lines) + tm_lines("all")
 ```
 
@@ -347,6 +347,36 @@ class: center, middle
 --
 
 See slides at [itsleeds.github.io/TDS/slides/5-web.html](https://itsleeds.github.io/TDS/slides/5-web.html#1)
+
+---
+
+background-image: url(https://media.giphy.com/media/h7KIiTHTNqdpu/giphy.gif)
+background-size: cover
+class: center, middle
+
+# Working with spatio-temporal data
+
+See example at [itsleeds.github.io/TDS/slides/5-web.html](https://itsleeds.github.io/stats19/articles/stats19.html)
+
+---
+
+background-image: url(https://media.giphy.com/media/l3q2MzknZ65MUSveg/giphy.gif)
+background-size: cover
+class: center, middle
+
+# Traffic data and pollution analysis with R
+
+See https://davidcarslaw.github.io/openair/
+
+---
+
+background-image: url(https://raw.githubusercontent.com/npct/pct-team/master/figures/rnet-leeds-base-to-godutch.png)
+background-size: cover
+class: center, middle
+
+# From desire lines to route networks
+
+See https://geocompr.robinlovelace.net/transport.html
 
 ---
 

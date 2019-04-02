@@ -3,7 +3,7 @@ title: 'TRAN 5340M: Transport Data Science'
 # subtitle: Part of the MSc in Mathematical Transport Modeling, Insititute for Transport Studies
 author: Dr Robin Lovelace, r.lovelace@leeds.ac.uk
 output:
-  pdf_document:
+  html_document:
     number_section: true
 bibliography: references.bib
 ---

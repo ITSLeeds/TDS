@@ -194,20 +194,6 @@ knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling soft
 
 ---
 
-# User support
-
-Getting help is vital for leaning/improving software
-
---
-
-![](https://media.giphy.com/media/6HtgBlXu1TIac/giphy.gif)
-
---
-
-"10-Hour Service Pack $2,000" (source: [caliper.com/tcprice.htm](https://www.caliper.com/tcprice.htm))
-
----
-
 # Online communities
 
 - [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
@@ -221,14 +207,6 @@ Getting help is vital for leaning/improving software
 - No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
 
 - Potential for a Discourse forum or similar: transport is not (just) GIS
-
----
-
-# Best way to get support is peer-to-peer:
-
-![](https://www.robinlovelace.net/presentations/rstudio-community.png)
-
-Source: https://community.rstudio.com/about
 
 ---
 
@@ -254,14 +232,17 @@ knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/
 ## How is data science used in the PCT?
 
 - It's all reproducible, e.g.:
-- Find commuting desire lines in West Yorkshire between 1 and 3 km long in which more people drive than cycle:
+- Find short in which more people drive than cycle
+
+--
+
+- Stage 1: get data from web
 
 ```{r, eval=FALSE, echo=FALSE}
 # Aim: get top 1000 lines in repo
-u = "https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/l.geojson"
 library(dplyr)
 library(sf)
-desire_lines_all = read_sf(u)
+desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")
 desire_lines = desire_lines_all %>% 
   top_n(1000, all)
 write_sf(desire_lines, "desire_lines.geojson")
@@ -270,42 +251,57 @@ piggyback::pb_upload("desire_lines.geojson")
 
 
 ```{r, message=FALSE}
-# Set-up, after installing R and checking out www.pct.bike:
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
+# Set-up, after installing pct and checking out www.pct.bike:
 library(dplyr)
 library(sf)
-desire_lines = read_sf(u)
+desire_lines_all = pct::get_pct_lines(region = "west-yorkshire") %>% 
+  top_n(n = 1000, wt = all)
 ```
 
 ---
 
-## Visualising data
+## Stage II: Geographic data analysis
 
-A fundamental part of data science is being able to understand your data.
+- Interested only in top 200 lines in Leeds
 
-That requires visualisation, R is great for that:
-
-.pull-left[
-```{r, warning=FALSE}
-plot(desire_lines)
+```{r}
+leeds = osmdata::getbb(place_name = "leeds", format_out = "sf_polygon")
+desire_lines = desire_lines_all[leeds, , op = st_within] %>% 
+  top_n(n = 200, wt = all)
 ```
 
-]
 
+---
+
+## Stage III: Visualising (polution) data
+
+<!-- A fundamental part of data science is being able to understand your data. -->
+
+<!-- That requires visualisation, R is great for that: -->
+
+```{r, warning=FALSE, eval=FALSE, echo=FALSE}
+.pull-left[
+plot(desire_lines)
+]
 .pull-right[
-- Interactively:
+]
+```
+
+
+<!-- - Interactively: -->
 
 ```{r, message=FALSE}
 library(tmap)
 tmap_mode("view")
-tm_shape(desire_lines) + tm_lines("all")
+tm_shape(desire_lines) +
+  tm_lines("all") +
+  tm_basemap(server = c(leaflet::providers$OpenStreetMap, leaflet::providers$SafeCast))
 ```
 
-]
 
 ---
 
-## Processing data with code
+## Stage IV: Origin-destination data analysis
 
 - Now we have data in our computer, and verified it works, we can use it
 
@@ -317,9 +313,28 @@ car_dependent_routes = desire_lines %>%
   filter(rf_dist_km < 3 & rf_dist_km > 1) 
 ```
 
+- Get routes
+
+```{r, eval=FALSE}
+routes = stplanr::line2route(car_dependent_routes)
+car_dependent_routes$geometry = routes$geometry
+```
+
+```{r, echo=FALSE, eval=FALSE}
+sf::write_sf(car_dependent_routes, "car_dependent_routes.geojson")
+piggyback::pb_upload("car_dependent_routes.geojson")
+piggyback::pb_download_url("car_dependent_routes.geojson")
+```
+
+```{r, echo=FALSE}
+car_dependent_routes = sf::read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.2/car_dependent_routes.geojson")
+```
+
+
+
 ---
 
-## Checking the results:
+## Communicating results:
 
 ```{r}
 b = c(0, 25, 50, 75)
@@ -331,10 +346,18 @@ tm_shape(car_dependent_routes) +
 
 ## Upcoming...
 
-- Finding, downloading, importing transport data (09:30 - 11:00)
+- Finding, downloading, importing transport data (10:00 - 11:00)
 - Working with spatio-temporal data (11:10 - 12:30)
 - Traffic data and pollution analysis with R (13:30 - 15:30, delivered by [Dr James Tate](http://www.its.leeds.ac.uk/people/j.tate)) 
 - From desire lines to route networks (15:45 - 16:45)
+
+--
+
+- Any questions?
+
+--
+
+- Everyone happy with RStudio?
 
 ---
 

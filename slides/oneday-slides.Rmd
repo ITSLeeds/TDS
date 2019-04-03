@@ -360,7 +360,7 @@ See example at [itsleeds.github.io/TDS/slides/5-web.html](https://itsleeds.githu
 
 ---
 
-background-image: url(https://media.giphy.com/media/l3q2MzknZ65MUSveg/giphy.gif)
+background-image: url(https://media.giphy.com/media/3ctCYuHFqbbVu/giphy.gif)
 background-size: cover
 class: center, middle
 

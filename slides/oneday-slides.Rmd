@@ -379,7 +379,9 @@ class: center, middle
 
 # Working with spatio-temporal data
 
-See example at [itsleeds.github.io/TDS/slides/5-web.html](https://itsleeds.github.io/stats19/articles/stats19.html)
+See example at [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/articles/stats19.html)
+
+See slides at [itsleeds.github.io/TDS/slides/3-structure.html](https://itsleeds.github.io/TDS/slides/3-structure.html#1)
 
 ---
 

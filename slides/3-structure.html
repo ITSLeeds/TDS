@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>The structure of transport data in R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robin Lovelace" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The structure of transport data in R
+## <br/>🗺<br/>Working with spatio-temporal data
+### Robin Lovelace
+### University of Leeds, 2019-04-05<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+---
+
+
+background-image: url(https://images-a.jpimedia.uk/imagefetch/w_700,f_auto,ar_3:2,q_auto:low,c_fill/if_h_lte_200,c_mfit,h_201/https://www.yorkshireeveningpost.co.uk/webimage/1.9594040.1550081116!/image/image.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+---
+
+
+
+---
+
+## Fundamental data types in R
+
+--
+
+Caveat: this workshop is not about how R works, but it's important to know about data types
+
+--
+
+- R is a *vectorised* language, meaning that functions work on many numbers by default
+
+
+```r
+x = 9
+is.vector(x)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+y = x * 1:9
+z = sqrt(1:9)
+a = letters[1:9]
+b = rep(c(TRUE, FALSE), length.out = 9)
+```
+
+--
+
+- What is the class of each of those numbers?
+
+---
+
+## Data frames
+
+- R was designed for *statistical data analysis* so the main data type in R is the data frame
+
+
+```r
+d = data.frame(x, y, z, a, b)
+```
+
+--
+
+- Recent innovations allow you to add geographic data as *just another column*, e.g.:
+
+
+```r
+z = pct::get_pct_zones(region = "isle-of-wight")
+g = z$geometry[1:9]
+d$g = g
+```
+
+- In fact, a data frame is just a list, you can iterate over each (vector) element:
+
+
+```r
+sapply(d, class)
+```
+
+```
+## $x
+## [1] "numeric"
+## 
+## $y
+## [1] "numeric"
+## 
+## $z
+## [1] "numeric"
+## 
+## $a
+## [1] "factor"
+## 
+## $b
+## [1] "logical"
+## 
+## $g
+## [1] "sfc_MULTIPOLYGON" "sfc"
+```
+
+---
+
+## Polymorphism and classes
+
+- R is *polymorphic* so if you give it data of a certain class, it guesses what to do with it
+
+
+A good example of Polymophism is `plot()`, which behaves differently depending on the class of your data
+
+
+```r
+methods(plot)
+```
+
+```
+##  [1] plot,ANY,ANY-method                       
+##  [2] plot,color,ANY-method                     
+##  [3] plot,Extent,missing-method                
+##  [4] plot,gpc.poly,ANY-method                  
+##  [5] plot,profile.mle,missing-method           
+##  [6] plot,Raster,ANY-method                    
+##  [7] plot,Raster,Raster-method                 
+##  [8] plot,Satellite,ANY-method                 
+##  [9] plot,Spatial,missing-method               
+## [10] plot,SpatialCollections,missing-method    
+## [11] plot,SpatialGrid,missing-method           
+## [12] plot,SpatialGridDataFrame,missing-method  
+## [13] plot,SpatialLines,missing-method          
+## [14] plot,SpatialMultiPoints,missing-method    
+## [15] plot,SpatialPixels,missing-method         
+## [16] plot,SpatialPixelsDataFrame,missing-method
+## [17] plot,SpatialPoints,missing-method         
+## [18] plot,SpatialPolygons,missing-method       
+## [19] plot,SpatialRings,missing-method          
+## [20] plot,stanfit,missing-method               
+## [21] plot.acf*                                 
+## [22] plot.ACF*                                 
+## [23] plot.augPred*                             
+## [24] plot.bclust*                              
+## [25] plot.classIntervals*                      
+## [26] plot.compareFits*                         
+## [27] plot.data.frame*                          
+## [28] plot.decomposed.ts*                       
+## [29] plot.default                              
+## [30] plot.dendrogram*                          
+## [31] plot.density*                             
+## [32] plot.ecdf                                 
+## [33] plot.factor*                              
+## [34] plot.formula*                             
+## [35] plot.function                             
+## [36] plot.ggplot*                              
+## [37] plot.gls*                                 
+## [38] plot.gtable*                              
+## [39] plot.hcl_palettes*                        
+## [40] plot.hclust*                              
+## [41] plot.histogram*                           
+## [42] plot.HoltWinters*                         
+## [43] plot.ica*                                 
+## [44] plot.intervals.lmList*                    
+## [45] plot.isoreg*                              
+## [46] plot.lm*                                  
+## [47] plot.lme*                                 
+## [48] plot.lmList*                              
+## [49] plot.loo*                                 
+## [50] plot.medpolish*                           
+## [51] plot.mlm*                                 
+## [52] plot.nffGroupedData*                      
+## [53] plot.nfnGroupedData*                      
+## [54] plot.nls*                                 
+## [55] plot.nmGroupedData*                       
+## [56] plot.pdMat*                               
+## [57] plot.ppr*                                 
+## [58] plot.prcomp*                              
+## [59] plot.princomp*                            
+## [60] plot.profile.nls*                         
+## [61] plot.psis*                                
+## [62] plot.psis_loo*                            
+## [63] plot.R6*                                  
+## [64] plot.ranef.lme*                           
+## [65] plot.ranef.lmList*                        
+## [66] plot.raster*                              
+## [67] plot.sf*                                  
+## [68] plot.sfc_CIRCULARSTRING*                  
+## [69] plot.sfc_GEOMETRY*                        
+## [70] plot.sfc_GEOMETRYCOLLECTION*              
+## [71] plot.sfc_LINESTRING*                      
+## [72] plot.sfc_MULTILINESTRING*                 
+## [73] plot.sfc_MULTIPOINT*                      
+## [74] plot.sfc_MULTIPOLYGON*                    
+## [75] plot.sfc_POINT*                           
+## [76] plot.sfc_POLYGON*                         
+## [77] plot.sfg*                                 
+## [78] plot.shingle*                             
+## [79] plot.simulate.lme*                        
+## [80] plot.SOM*                                 
+## [81] plot.somgrid*                             
+## [82] plot.spec*                                
+## [83] plot.stepfun                              
+## [84] plot.stft*                                
+## [85] plot.stl*                                 
+## [86] plot.svm*                                 
+## [87] plot.table*                               
+## [88] plot.trellis*                             
+## [89] plot.ts                                   
+## [90] plot.tskernel*                            
+## [91] plot.TukeyHSD*                            
+## [92] plot.tune*                                
+## [93] plot.units*                               
+## [94] plot.Variogram*                           
+## see '?methods' for accessing help and source code
+```
+
+---
+
+## The problem with geographic data
+
+- The problem with spatial data is that it needs *context* to work
+
+- How is a computer supposed to know what to do with this, for example:
+
+
+```r
+unclass(d$g[1])
+```
+
+```
+## [[1]]
+```
+
+```
+## MULTIPOLYGON (((-1.300856 50.76684, -1.296412 50.76085, -1.295563 50.7601, -1.292189 50.758, -1.294084 50.75053, -1.295261 50.75042, -1.303409 50.75102, -1.30401 50.75358, -1.297992 50.75403, -1.297747 50.75706, -1.304349 50.75598, -1.304236 50.75826, -1.303917 50.75851, -1.304583 50.75959, -1.305353 50.76542, -1.316877 50.76097, -1.320741 50.76489, -1.300856 50.76684)), ((-1.282956 50.75542, -1.289555 50.75079, -1.290438 50.75742, -1.282956 50.75542)))
+```
+
+```
+## 
+## attr(,"precision")
+## [1] 0
+## attr(,"bbox")
+##      xmin      ymin      xmax      ymax 
+## -1.320741 50.750416 -1.282956 50.766835 
+## attr(,"crs")
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+## attr(,"n_empty")
+## [1] 0
+```
+
+---
+
+## Classes for spatial data
+
+- Raw coordinate lists in a column do not work:
+
+
+```r
+plot(d)
+# Error
+```
+
+
+```r
+summary(d[1:3])
+```
+
+```
+##        x           y            z        
+##  Min.   :9   Min.   : 9   Min.   :1.000  
+##  1st Qu.:9   1st Qu.:27   1st Qu.:1.732  
+##  Median :9   Median :45   Median :2.236  
+##  Mean   :9   Mean   :45   Mean   :2.145  
+##  3rd Qu.:9   3rd Qu.:63   3rd Qu.:2.646  
+##  Max.   :9   Max.   :81   Max.   :3.000
+```
+
+- Class systems have evolved so R *knows what to do* with geographic columns:
+
+
+```r
+dsf = sf::st_sf(d)
+```
+
+---
+
+## sf data frames
+
+- `dsf` is a *geographic data frame* (sf stands for simple features)
+
+--
+
+- Now generic methods work on them to give useful info:
+
+
+```r
+dsf
+```
+
+```
+## Simple feature collection with 9 features and 5 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -1.347353 ymin: 50.68238 xmax: -1.132825 ymax: 50.76684
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   x  y        z a     b                              g
+## 1 9  9 1.000000 a  TRUE MULTIPOLYGON (((-1.300856 5...
+## 2 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
+## 3 9 27 1.732051 c  TRUE MULTIPOLYGON (((-1.275774 5...
+## 4 9 36 2.000000 d FALSE MULTIPOLYGON (((-1.143635 5...
+## 5 9 45 2.236068 e  TRUE MULTIPOLYGON (((-1.226513 5...
+## 6 9 54 2.449490 f FALSE MULTIPOLYGON (((-1.169622 5...
+## 7 9 63 2.645751 g  TRUE MULTIPOLYGON (((-1.137531 5...
+## 8 9 72 2.828427 h FALSE MULTIPOLYGON (((-1.254204 5...
+## 9 9 81 3.000000 i  TRUE MULTIPOLYGON (((-1.31398 50...
+```
+
+---
+
+## Plotting sf objects
+
+Plotting now works by default:
+
+
+```r
+plot(dsf)
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+## Subsetting vectors in base R
+
+- R allows subsetting in various ways
+
+
+```r
+y
+```
+
+```
+## [1]  9 18 27 36 45 54 63 72 81
+```
+
+--
+
+- With integer indices
+
+
+```r
+y[2]
+```
+
+```
+## [1] 18
+```
+
+
+```r
+y[1:3]; y[c(1, 9)]; y[-c(1:3)] # guess the values
+```
+
+--
+
+With logical vectors
+
+
+```r
+y[b]
+```
+
+```
+## [1]  9 27 45 63 81
+```
+
+---
+
+## Subsetting data frames in base R
+
+- Exactly the same principles apply to data frames:
+
+
+```r
+d[2, ]
+```
+
+```
+##   x  y        z a     b                              g
+## 2 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
+```
+
+--
+
+- Comma denotes dimension: before comma is rows, after comma columns
+
+
+```r
+d[, 2]
+```
+
+```
+## [1]  9 18 27 36 45 54 63 72 81
+```
+
+--
+
+- But subsetting can work in unexpected ways, e.g.:
+
+
+```r
+d[2]; d[[2]]; d[2, 1] # guess the values
+```
+
+---
+
+## Subsetting data frames in the tidyverse
+
+- The tidyverse is a collection of packages for data science, the most prominent of which for data manipulation is `dplyr`
+
+
+```r
+library(tidyverse)
+
+d %&gt;% slice(2) # same as slice(d, 2) or dplyr::slice(d, 2)
+```
+
+```
+##   x  y        z a     b                              g
+## 1 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
+```
+
+---
+
+## Filtering and selecting
+
+- `filter()` and `select()` are other verbs in **dplyr**
+
+
+```r
+d %&gt;% filter(y == 81)
+```
+
+```
+##   x  y z a    b                              g
+## 1 9 81 3 i TRUE MULTIPOLYGON (((-1.31398 50...
+```
+
+```r
+d %&gt;% select(y)
+```
+
+```
+##    y
+## 1  9
+## 2 18
+## 3 27
+## 4 36
+## 5 45
+## 6 54
+## 7 63
+## 8 72
+## 9 81
+```
+
+---
+
+## Chaining commands
+
+
+```r
+d %&gt;% 
+  filter(b == TRUE) %&gt;% 
+  select(x, y, z)
+```
+
+```
+##   x  y        z
+## 1 9  9 1.000000
+## 2 9 27 1.732051
+## 3 9 45 2.236068
+## 4 9 63 2.645751
+## 5 9 81 3.000000
+```
+
+
+```r
+dsf %&gt;% 
+  filter(b == TRUE) %&gt;% 
+  select(x, y, z)
+```
+
+```
+## Simple feature collection with 5 features and 3 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -1.347353 ymin: 50.69407 xmax: -1.132825 ymax: 50.76684
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   x  y        z                              g
+## 1 9  9 1.000000 MULTIPOLYGON (((-1.300856 5...
+## 2 9 27 1.732051 MULTIPOLYGON (((-1.275774 5...
+## 3 9 45 2.236068 MULTIPOLYGON (((-1.226513 5...
+## 4 9 63 2.645751 MULTIPOLYGON (((-1.137531 5...
+## 5 9 81 3.000000 MULTIPOLYGON (((-1.31398 50...
+```
+
+
+---
+
+## sf objects are sticky
+
+- What just happened (why was `g` still in there)?
+
+--
+
+![](https://user-images.githubusercontent.com/520851/50280460-e35c1880-044c-11e9-9ed7-cc46754e49db.jpg)
+
+
+---
+
+## Spatial subsetting
+
+We have some geometry data, some of which intersects with `dsf`:
+
+
+```r
+l = pct::get_pct_lines(region = "isle-of-wight")
+plot(dsf$g)
+plot(l, add = TRUE)
+```
+
+```
+## Warning in plot.sf(l, add = TRUE): ignoring all but the first attribute
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+
+
+
+
+
+---
+
+## Spatial subsetting II
+
+
+```r
+l_sub1 = l[dsf, ]
+```
+
+```
+## although coordinates are longitude/latitude, st_intersects assumes that they are planar
+```
+
+
+```r
+plot(dsf$g)
+plot(l_sub1, add = TRUE) # where did the lines go?
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+---
+
+## Plotting in a different order
+
+
+```r
+plot(l$geometry, col = "grey", lwd = 2)
+plot(l_sub1$geometry, col = "blue", add = TRUE)
+plot(dsf, add = T, col = NA)
+```
+
+```
+## Warning in plot.sf(dsf, add = T, col = NA): ignoring all but the first
+## attribute
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+---
+
+## Spatial operations
+
+- A range of spatial operations can be performed with `sf`
+
+--
+
+- This code, for example, creates a buffer of 500 m around the `dsf` object and 'unions' the result
+
+
+```r
+dsfb = dsf %&gt;%
+  st_transform(27700) %&gt;% 
+  st_buffer(500) %&gt;% 
+  st_union() %&gt;% 
+  st_transform(4326)
+```
+
+---
+
+## The result
+
+
+```r
+plot(dsfb)
+plot(dsf, add = TRUE)
+```
+
+```
+## Warning in plot.sf(dsf, add = TRUE): ignoring all but the first attribute
+```
+
+```r
+plot(l_sub1$geometry, add = TRUE)
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+---
+
+## Selecting a subsetting operation
+
+
+```r
+l_sub2 = l[dsfb, , op = st_within]
+```
+
+```
+## although coordinates are longitude/latitude, st_within assumes that they are planar
+```
+
+```r
+plot(dsfb)
+plot(l_sub2$geometry, add = TRUE)
+```
+
+![](3-structure_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+---
+
+## Further info on spatial and geometric operations
+
+- See Chapter 4 of [Geocomputation with R](https://geocompr.robinlovelace.net/spatial-operations.html) (image below)
+
+- And [Chapter 5](https://geocompr.robinlovelace.net/geometric-operations.html) of the same book
+
+![](https://geocompr.robinlovelace.net/figures/nz-subset-1.png)
+
+
+---
+
+## Useful spatial operations for transport data
+
+- Spatial subsetting, joining and aggregation
+
+![](https://geocompr.robinlovelace.net/figures/spatial-join-1.png)
+
+--
+
+- See example of London docking stations
+
+---
+
+## Useful geometric operations for transport
+
+- Buffers, simplification, rasterisation
+
+![](https://geocompr.robinlovelace.net/figures/vector-rasterization1-1.png)
+
+
+---
+
+## The exercises
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

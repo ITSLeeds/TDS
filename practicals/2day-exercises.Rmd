@@ -392,12 +392,9 @@ iow %>%
 
 # Spatial data analysis
 
-
-## Spatial Operations 
-
 What makes an `sf data.frame` different from a normal `data.frame` is the inclusion of a geometry column and spatial operations.
 
-### Projections and Coordinate Reference Systems
+## Projections and Coordinate Reference Systems
 
 When plotting a map you need X and Y coordinates to specify where objects should appear. While this is simple on a flat surface spatial data must fit onto the curved surface of the earth. You may know that it is impossible to unwrap a sphere into a single flat surface without distorting (stretching, twisting, cutting) the surface in some way. The process of making a flat map from a curved Earth is known as projection, and there are many valid ways to project a map.
 
@@ -436,7 +433,7 @@ This is risky as you may confuse your data by having the wrong CRS.
 
 For more information see [Chapter 6](https://geocompr.robinlovelace.net/reproj-geo-data.html) of Geocompuation with R.
 
-### Spatial operations
+## Spatial operations
 
 It is possible to subset an `sf data.frame` by location as well as attributes.
 
@@ -467,6 +464,30 @@ You could use a different function by adding the `op` argument
 
 ```{r, eval=TRUE}
 iow_cents3 = iow_cents[iow_2, , op = st_disjoint]
+```
+
+## Aggregation
+
+With a normal data.frame it is possible to group and aggregate variables using the `dplyr` packages. 
+
+> group_by() %>% summarise()
+
+It is also possible to do this for sf `data.frames` by default a `st_union` is performed on the geometries. 
+
+```{r, eval=TRUE}
+nz_islands <- nz %>%
+  group_by(Island) %>%
+  summarise(Population = sum(Population))
+plot(nz_islands)
+```
+
+Note that the implicit `st_union` has resolved all the internal boundaries of each island. If you wished to keep the boundaries you can use `st_combine`.
+
+```{r, eval=TRUE}
+nz_islands <- nz %>%
+  group_by(Island) %>%
+  summarise(Population = sum(Population), do_union = FALSE)
+plot(nz_islands)
 ```
 
 ## Geometric Operations

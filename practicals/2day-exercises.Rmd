@@ -80,8 +80,8 @@ Or the save button on the toolbar.
 Let's start with some basic R operations
 
 ```{r, eval=FALSE}
-x <- 1:5
-y <- c(0,1,3,9,18)
+x = 1:5
+y = c(0,1,3,9,18)
 plot(x, y)
 ```
 
@@ -103,13 +103,13 @@ We have several ways to run code within a script.
 Lets create some different types of object:
 
 ```{r, eval=FALSE}
-cat <- data.frame(name = c("Tiddles", "Chester", "Shadow"),
+cat = data.frame(name = c("Tiddles", "Chester", "Shadow"),
                   type = c("Tabby", "Persian", "Siamese"),
                    age = c(1, 3, 5),
                   likes_milk = c(TRUE, FALSE,TRUE))
-even_numbers <- seq(from = 2, to = 4000, by = 2)
-random_letters <- sample(letters, size = 100, replace = TRUE)
-small_matrix <- matrix(1:24, nrow = 12)
+even_numbers = seq(from = 2, to = 4000, by = 2)
+random_letters = sample(letters, size = 100, replace = TRUE)
+small_matrix = matrix(1:24, nrow = 12)
 ```
 
 We can view the objects in a range of ways:
@@ -158,8 +158,8 @@ For example:
 
 ```{r, eval=FALSE}
 # A whole line comment
-x <- 1:5 # An inline comment
-y <- x * 2
+x = 1:5 # An inline comment
+y = x * 2
 ```
 
 You can comment a whole block of text by selecting it and using CTRL + Shift + C
@@ -196,7 +196,7 @@ saveRDS(cat,"cat.Rds")
 We can also read back in our data.
 
 ```{r, eval=FALSE}
-cat2 <- readRDS("cat.Rds")
+cat2 = readRDS("cat.Rds")
 identical(cat, cat2)
 ```
 
@@ -204,7 +204,7 @@ R also supports many other formats. For example CSV files.
 
 ```{r, eval=FALSE}
 write.csv(cat, "cat.csv")
-cat3 <- read.csv("cat.csv")
+cat3 = read.csv("cat.csv")
 identical(cat3, cat1)
 ```
 Notice that `cat3` and `cat` are not identical, what has changed? Hint: use `?write.csv`.
@@ -237,7 +237,7 @@ cat[cat$name == "Tiddles",] # THe rows where the name is Tiddles (notice the use
 R object can have a value of NA. This is how R represents missing data.
 
 ```{r, eval=FALSE}
-z <- c(4,5,NA,7)
+z = c(4,5,NA,7)
 ```
 
 NA values are common in real-world data but can cause trouble, for example
@@ -256,7 +256,7 @@ You can find NAs using the `is.na()` function, and then remove them
 
 ```{r, eval=FALSE}
 is.na(z)
-z_nona <- z[!is.na(z)] #Note the use of the not operator !
+z_nona = z[!is.na(z)] #Note the use of the not operator !
 sum(z)
 ```
 
@@ -266,10 +266,10 @@ Be careful of NAs especially in statistical analysis, for example, the average o
 
 
 ```{r smile, out.width="50%"}
-eyes <- c(2.3,4,3.7,4)
-eyes <- matrix(eyes, ncol = 2, byrow = T)
-mouth <- c(2,2,2.5,1.3,3,1,3.5,1.3,4,2)
-mouth <- matrix(mouth, ncol = 2, byrow = T)
+eyes = c(2.3,4,3.7,4)
+eyes = matrix(eyes, ncol = 2, byrow = T)
+mouth = c(2,2,2.5,1.3,3,1,3.5,1.3,4,2)
+mouth = matrix(mouth, ncol = 2, byrow = T)
 plot(eyes, type = "p", main = "Smile you're using R",
      cex = 2, xlim = c(0,5), ylim = c(0,5))
 lines(mouth, type = "l", col = "red")
@@ -301,7 +301,7 @@ In some cases the the package will provide a message, as illustrated below.
 library(sf)
 ```
 
-## sf data structure
+## sf objects
 
 The `sf` package provides a generic class for spatial vector data: points, lines and polygons.
 `sf` objects are simply data frames.
@@ -324,26 +324,21 @@ Load the example dataset for New Zealand.
 if(!exists("iow")) {
   iow = pct::get_pct_zones("isle-of-wight")
 }
-nz <- spData::nz              # load the example dataset from the spData package
+nz = spData::nz              # load the example dataset from the spData package
 sel = nz$Population > 100000  # create a subsetting object
-nz_large <- nz[sel, ]         # subset areas with a popualtion over 100,000
-canterbury <- nz[nz$Name == "Canterbury",] # subset based on 'equality' query
-a_in_name <- nz[grepl(pattern = "a", x = nz$Name), ] # subset based on text string match
+nz_large = nz[sel, ]         # subset areas with a popualtion over 100,000
+canterbury = nz[nz$Name == "Canterbury",] # subset based on 'equality' query
+a_in_name = nz[grepl(pattern = "a", x = nz$Name), ] # subset based on text string match
 nz_first_and_third_column = nz[c(1, 3)]
 nz_just_population = nz["Population"]
 ```
 
-## ggplot2
+## ggplot2, dplyr and pipes
 
-`ggplot2` is a generic plotting package.
+Another useful package is `ggplot2`, a generic plotting package that is part of the 'tidyverse' meta-package, which provides packages for data science that have intuitive function names and work well together.
 It is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
 To plot non-spatial data, it works as follows:
 
-
-
-## dplyr and pipes
-
-## Package ecosystems
 
 ## Exercises 
 
@@ -381,7 +376,7 @@ When plotting a map you need X and Y coordinates to specify where objects should
 
 Coordinate Reference Systems (CRS) refer to different ways of defining the X and Y coordinates used in different projections. Largely they fall into two categories, **geographic** and **projected**. These are illustrated in the figure below, from Chapter 2 of Geocomputation with R, in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula.
 
-```{r vectorplots, out.width="40%", fig.show='hold'}
+```{r vectorplots, out.width="40%", fig.show='hold', echo=FALSE}
 download.file(c("https://geocompr.robinlovelace.net/figures/vector_lonlat.png", "https://geocompr.robinlovelace.net/figures/vector_projected.png"), c("vector_lonlat.png", "vector_projected.png"))
 knitr::include_graphics(c("vector_lonlat.png", "vector_projected.png"))
 ```
@@ -401,13 +396,13 @@ Every `sf data.frame` has a CRS.
 
 ```{r, eval=FALSE}
 st_crs(nz) # 2193 the CRS for New Zealand Transverse Mercator
-nz_latlng <- st_transform(nz, 4326) # Transfrom from one CRS to another
+nz_latlng = st_transform(nz, 4326) # Transfrom from one CRS to another
 st_crs(nz) # 4326 the CRS for World Geodetic System 1984
-nz_latlng <- st_transform(nz, 2193) # Transfrom back
+nz_latlng = st_transform(nz, 2193) # Transfrom back
 ```
 **Warning** It is possible to change the CRS without reprojecting the data by:
 ```{r, eval=FALSE}
-st_crs(nz) <- 4326
+st_crs(nz) = 4326
 ```
 
 This is risky as you may confuse you data by having the wrong CRS.
@@ -421,8 +416,8 @@ It is possible to subset a `sf data.frame` by location as well as attributes.
 Lets load the locations of some mountains in New Zealand and then find which ones are within the `nz_large` areas.
 
 ```{r, warning=FALSE, out.width="30%"}
-nz_height <- spData::nz_height # Load the nz_height data
-nz_height2 <- nz_height[canterbury,]
+nz_height = spData::nz_height # Load the nz_height data
+nz_height2 = nz_height[canterbury,]
 plot(nz$geom)
 plot(nz_height, col = "black", add = TRUE)
 plot(nz_height2, col = "red", add = TRUE)
@@ -444,7 +439,7 @@ There are many spatial predicates, including `st_overlaps()` and `st_difference(
 You could use a different function by adding the `op` argument
 
 ```{r, eval=TRUE}
-nz_height3 <- nz_height[canterbury, , op = st_disjoint]
+nz_height3 = nz_height[canterbury, , op = st_disjoint]
 ```
 
 ## Geometric Operations
@@ -634,11 +629,11 @@ usethis::edit_r_environ()
 Now we will get some data from the [PCT](http://www.pct.bike). The `get_pct_lines` function returns the desire lines from the PCT.
 
 ```{r, eval=TRUE}
-lines <- pct::get_pct_lines("isle-of-wight", "commute","lsoa")
-lines <- lines[,c("id","geo_code1","geo_code2","all",
+lines = pct::get_pct_lines("isle-of-wight", "commute","lsoa")
+lines = lines[,c("id","geo_code1","geo_code2","all",
                 "bicycle","car_driver","train_tube","bus")]
-centroids <- pct::get_pct_centroids("isle-of-wight", "commute","lsoa")
-centroids <- centroids[,"geo_code"]
+centroids = pct::get_pct_centroids("isle-of-wight", "commute","lsoa")
+centroids = centroids[,"geo_code"]
 plot(lines$geometry, lwd = lines$all / mean(lines$all))
 plot(centroids, col = "red", add = T)
 ```
@@ -646,9 +641,9 @@ plot(centroids, col = "red", add = T)
 Now we will take the top 3 desire lines and route them though Transport API. First, we will subset the top lines and create from and to coordinates
 
 ```{r, eval=TRUE}
-lines_top <- top_n(lines, 10, all)
-from <- centroids[match(lines_top$geo_code1, centroids$geo_code),]
-to <- centroids[match(lines_top$geo_code2, centroids$geo_code),]
+lines_top = top_n(lines, 10, all)
+from = centroids[match(lines_top$geo_code1, centroids$geo_code),]
+to = centroids[match(lines_top$geo_code2, centroids$geo_code),]
 ```
 
 Then we will use the `tapi_journey_batch` to find multiple routes at once (note: the numbers used are not real, add your own keys).
@@ -656,7 +651,7 @@ Then we will use the `tapi_journey_batch` to find multiple routes at once (note:
 ```{r, eval=FALSE}
 Sys.setenv(TRANSPORTAPI_app_id = "7e8661c5") 
 Sys.setenv(TRANSPORTAPI_app_key = "ce106381f6e5787f223e720b6055d4f8") 
-routes_car <- transportAPI::tapi_journey_batch(from$geometry,
+routes_car = transportAPI::tapi_journey_batch(from$geometry,
                                            to$geometry, 
                                            fromid = from$geo_code,
                                            toid = to$geo_code,
@@ -682,14 +677,14 @@ routes_car = sf::read_sf(u)
 We need to join the number of commuters onto the geometry of the routes.
 
 ```{r, eval=TRUE}
-st_geometry(lines_top) <- NULL
-routes_car <- left_join(routes_car, lines_top, by = c("fromid" = "geo_code1", "toid" = "geo_code2"))
+st_geometry(lines_top) = NULL
+routes_car = left_join(routes_car, lines_top, by = c("fromid" = "geo_code1", "toid" = "geo_code2"))
 ```
 
 Finally, we can combine the routes into a route network
 
 ```{r, eval=TRUE, message=FALSE}
-rnet <- overline2(routes_car, attrib = c("all","bicycle","car_driver","train_tube","bus"))
+rnet = overline2(routes_car, attrib = c("all","bicycle","car_driver","train_tube","bus"))
 tm_shape(rnet) +
   tm_lines(col = "car_driver", lwd = 3)
 ```
@@ -703,8 +698,8 @@ First, we need some basic data.
 ```{r, eval=FALSE}
 # Create Folders for Data
 dir.create("OTP")
-path_data <- file.path("OTP")
-path_otp <- file.path(path_data, "otp.jar")
+path_data = file.path("OTP")
+path_otp = file.path(path_data, "otp.jar")
 dir.create(file.path(path_data,"graphs")) # create a folder structure for the data
 dir.create(file.path(path_data,"graphs","default"))
 
@@ -721,15 +716,15 @@ unzip(file.path(path_data,"isle-of-wight-demo.zip"), file.path(path_data, "graph
 Now we set up the OTP
 
 ```{r, eval=FALSE}
-log <- otp_build_graph(otp = path_otp, dir = path_data) 
+log = otp_build_graph(otp = path_otp, dir = path_data) 
 otp_setup(otp = path_otp, dir = path_data)
-otpcon <- otp_connect()
+otpcon = otp_connect()
 ```
 
 Next, we find the routes
 
 ```{r, eval=FALSE}
-routes_driving <- otp_plan(otpcon, fromPlace = from, toPlace = to, mode = "CAR")
+routes_driving = otp_plan(otpcon, fromPlace = from, toPlace = to, mode = "CAR")
 ```
 
 

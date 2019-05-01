@@ -309,7 +309,7 @@ However, they have a special 'geometry column', typically called 'geom' or 'geom
 This is illustrated below with reference to `iow`, an `sf` object representing the Isle of Wight, that we will download using the `pct` package.
 
 ```{r}
-iow = pct::get_pct_zones("isle-of-wight")[]
+iow = pct::get_pct_zones("isle-of-wight")[1:9]
 class(iow)
 names(iow)
 iow

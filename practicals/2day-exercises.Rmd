@@ -19,11 +19,13 @@ curl -i https://git.io -F "url=https://github.com/ITSLeeds/TDS/blob/master/cours
 It will use the following CRAN packages:
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
-library(dplyr)    # a data analysis package, part of the tidyverse
 library(osmdata)  # a package for accessing OpenStreetMap data
 library(pct)      # download and process data from DfT-funded Propensity to Cycle Tool project 
 library(sf)       # spatial vector data classes
+library(stats19)  # get stats19 data
 library(stplanr)  # transport planning tools
+library(spData)   # example spatial datasets
+library(tidyverse)# packages for 'data science'
 library(tmap)     # interactive maps
 ```
 
@@ -33,9 +35,8 @@ The learning outcomes of this first session are to learn:
 RStudio UI and main features,
 R Objects and Functions,
 Subsetting,
-Plotting,
-Help,
-Installing Packages.
+Plotting, and
+Help.
 
 The course assumes that you have already got some basic knowledge of working with R and the editor (IDE) RStudio.
 If you don't see the prerequisites at [git.io/tds2day](https://git.io/tds2day).
@@ -485,13 +486,13 @@ The best place to start is to plot the data so the first exercise is:
 
 - Create a plot of the data so it looks like the map of New Zealand below (hint: use the `add = TRUE` argument).
 
-```{r, out.width="30%"}
+```{r, out.width="40%"}
 library(spData)
 plot(nz$geom)
 plot(nz_height["elevation"], add = TRUE)
 ```
 
-```{r, eval=TRUE}
+```{r, eval=TRUE, out.width="30%"}
 nz_islands = nz %>%
   group_by(Island) %>%
   summarise(Population = sum(Population))
@@ -500,7 +501,7 @@ plot(nz_islands)
 
 Note that the implicit `st_union` has resolved all the internal boundaries of each island. If you wished to keep the boundaries you can use `st_combine`.
 
-```{r, eval=TRUE}
+```{r, eval=TRUE, out.width="40%"}
 nz_islands = nz %>%
   group_by(Island) %>%
   summarise(Population = sum(Population), do_union = FALSE)
@@ -717,13 +718,8 @@ And load the packages
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 # Load packages
-library(sf)
-library(stplanr)
-library(tmap)
 library(transportAPI)
 library(opentripplanner)
-library(pct)
-library(dplyr)
 ```
 
 TransportAPI you to signup for a [free API key](https://developer.transportapi.com/signup). 
@@ -792,6 +788,7 @@ routes_car = left_join(routes_car, lines_top, by = c("fromid" = "geo_code1", "to
 Finally, we can combine the routes into a route network
 
 ```{r, eval=TRUE, message=FALSE}
+library(stplanr)
 rnet = overline2(routes_car, attrib = c("all","bicycle","car_driver","train_tube","bus"))
 tm_shape(rnet) +
   tm_lines(col = "car_driver", lwd = 3)

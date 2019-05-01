@@ -287,10 +287,16 @@ There are two stages to using a package: installing it and loading it.
 
 Packages that you don't have on your computer can be installed using `install.packages()` Packages come from [The Comprehensive R Archive Network](https://cran.r-project.org/) there are over 10,000 packages on CRAN. You only need to install a package once.
 
-**Note: it is bad practice to install packages with `install.packages()` within a script, as installing packages each time it runs risks corrupting the package. You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if **
+**Note: it is bad practice to install packages with `install.packages()` within a script***
+
+Packages only need to be installed once.
+
+You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if it is not yet installed and up-to-date
 
 ```{r, eval=FALSE}
 install.packages("sf")
+remotes::install_cran("sf")
+remotes::install_github("r-spatial/sf")
 ```
 
 Once you have a package on your computer you need to load or 'attach' it to your current environment.
@@ -318,7 +324,7 @@ iow[1:2, c(1, 5, 6, 7, 8)]
 ## Attribute operations on sf objects
 
 One of the nice things about the `sf` package is that an `sf data.frame` behaves just like a normal `data.frame` for non-spatial operations.
-Load the example dataset for New Zealand.
+Load the example dataset for Isle of Wight.
 
 ```{r, eval=TRUE}
 # load example dataset if it doesn't already exist
@@ -419,7 +425,7 @@ CRSs are often referred to by the EPSG number. The European Petroleum Survey Gro
 Every `sf data.frame` has a CRS.
 
 ```{r, eval=FALSE}
-st_crs(iow) # 2193 the CRS for New Zealand Transverse Mercator
+st_crs(iow) # 2193 the CRS for Isle of Wight Transverse Mercator
 iow_latlng = st_transform(iow, 4326) # Transfrom from one CRS to another
 st_crs(iow) # 4326 the CRS for World Geodetic System 1984
 iow_latlng = st_transform(iow, 2193) # Transfrom back
@@ -437,12 +443,12 @@ For more information see [Chapter 6](https://geocompr.robinlovelace.net/reproj-g
 
 It is possible to subset an `sf data.frame` by location as well as attributes.
 
-Let's load the locations of some mountains in New Zealand and then find which ones are within the `iow_large` areas.
+Let's load some centroids and find out which are in differe `iow` areas.
 
 ```{r, warning=FALSE, out.width="30%"}
 iow_cents = pct::get_pct_centroids(region = "isle-of-wight", geography = "lsoa") # Load the iow_cents data
 iow_cents2 = iow_cents[iow_2,]
-plot(iow$geom)
+plot(iow$geometry)
 plot(iow_cents, col = "black", add = TRUE)
 plot(iow_cents2, col = "red", add = TRUE)
 
@@ -474,8 +480,19 @@ With a normal data.frame it is possible to group and aggregate variables using t
 
 It is also possible to do this for sf `data.frames` by default a `st_union` is performed on the geometries. 
 
+The input data for this part will be point and polygon data representing New Zealand (`nz`), from Chapter 4 of *Geocomputation with R*.
+The best place to start is to plot the data so the first exercise is:
+
+- Create a plot of the data so it looks like the map of New Zealand below (hint: use the `add = TRUE` argument).
+
+```{r, out.width="30%"}
+library(spData)
+plot(nz$geom)
+plot(nz_height["elevation"], add = TRUE)
+```
+
 ```{r, eval=TRUE}
-nz_islands <- nz %>%
+nz_islands = nz %>%
   group_by(Island) %>%
   summarise(Population = sum(Population))
 plot(nz_islands)
@@ -484,7 +501,7 @@ plot(nz_islands)
 Note that the implicit `st_union` has resolved all the internal boundaries of each island. If you wished to keep the boundaries you can use `st_combine`.
 
 ```{r, eval=TRUE}
-nz_islands <- nz %>%
+nz_islands = nz %>%
   group_by(Island) %>%
   summarise(Population = sum(Population), do_union = FALSE)
 plot(nz_islands)
@@ -499,17 +516,6 @@ Geometric operation change or derive from the geometry of our data. The most com
 - `st_buffer` To create a buffer around a shape
 
 For more see [Section 5.2 of Geocompuation with R](https://geocompr.robinlovelace.net/geometric-operations.html#geo-vec)
-
-The input data for this part will be point and polygon data representing New Zealand (`nz`), from Chapter 4 of *Geocomputation with R*.
-The best place to start is to plot the data so the first exercise is:
-
-- Create a plot of the data so it looks like the map of New Zealand below (hint: use the `add = TRUE` argument).
-
-```{r}
-library(spData)
-plot(nz$geom)
-plot(nz_height["elevation"], add = TRUE)
-```
 
 1. Canterbury is the region of New Zealand containing most of the 100 highest points in the country. Create an object called `canterbury` and use this to subset all points within the region. How many of these high points does the Canterbury region contain?
 ```{r 04-spatial-operations-45, eval=FALSE, echo=FALSE}
@@ -555,7 +561,7 @@ library(tmap)
 ```
 
 
-Create plots of New Zealand's population and GDP using `plot()` and `tm_shape() + tm_polygons()` functions.
+Create the following plots using `plot()` and `tm_shape() + tm_polygons()` functions.
 
 ```{r, fig.show='hold', out.width="49%", echo=FALSE}
 plot(iow[c("all", "bicycle")])
@@ -574,12 +580,12 @@ europe = world %>%
   st_transform("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25")
 ```
 
-1. Create a map showing the geographic distribution of the Human Development Index (`HDI`) across Europe with base **graphics** (hint: use `plot()`) and **tmap** packages (hint: use `tm_shape(europe) + ...`).
-1. Extend the **tmap** created for the previous exercise so the legend has three bins: "High" (`HDI` above 0.7), "Medium" (`HDI` between 0.55 and 0.7) and "Low" (`HDI` below 0.55).
+1. Create a map showing the geographic distribution of the `gdpPercap` across Europe with base **graphics** (hint: use `plot()`) and **tmap** packages (hint: use `tm_shape(europe) + ...`).
+1. Extend the **tmap** created for the previous exercise so the legend has three bins: "High" (above 30000), "Medium" (between 30000 and 20000) and "Low" (below 20000).
     - Bonus: improve the map aesthetics, for example by changing the legend title, class labels and colour palette.
 1. Represent `europe`'s subregions on the map. 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, out.width="50%"}
 plot(europe["subregion"])
 ```
 
@@ -641,13 +647,9 @@ piggyback::pb_upload("station_points.gpkg")
 
 # Local route network analysis
 
-## Routing from A to B
-
 Routing is the process of finding the "shortest" path from A to B. In this context shortest does not just mean in distance, it may be in time (quickest), or some other characteristic e.g. safest, quietest. 
 
 There are many packages that enable you to do routing in R. When choosing a package you should consider several characteristics:
-
-### Local or Remote
 
 Some packages can do local routing on your own computer. While others allow you to connect to a service.
 
@@ -664,7 +666,7 @@ Some packages can do local routing on your own computer. While others allow you 
 * May support more complex options e.g. traffic, public transport
 * Usually limited to routing in the present e.g. current road network current transport timetables.
 
-### Routing Features
+## Routing Features
 
 Not all routing services can do all types of routing, or do them equally well. Most do driving directions but consider if they do:
 
@@ -680,7 +682,7 @@ Not all routing services can do all types of routing, or do them equally well. M
 
 A non-comprehensive list of routing packages for R
 
-## Packages on CRAN
+### Packages on CRAN
 
 * [googleway](https://cran.r-project.org/web/packages/googleway/) support for Google Maps and Directions
 * [mapsapi](https://cran.rstudio.com/web/packages/mapsapi/) alternative for google maps
@@ -691,7 +693,7 @@ A non-comprehensive list of routing packages for R
 * [stplanr](https://cran.r-project.org/web/packages/stplanr) Limited routing functions based on dodgr and igraph, and some other services.
 * [gtfsrouter](https://cran.r-project.org/web/packages/gtfsrouter/index.html) For integrating GTFS public transport timetables
 
-## Packages on GitHub
+### Packages on GitHub
 
 * [Open Route Service](https://giscience.github.io/openrouteservice-r/) Connect to ORS website
 * [TransportAPI](https://github.com/mem48/transportAPI) An ITS Leeds Package, in development
@@ -701,16 +703,14 @@ A non-comprehensive list of routing packages for R
 
 ## Getting some Routes
 
-Many services require you to sign up for a free API key, to save some time we will use the TransportAPI package that allows a small amount of routing to be done without an API key.
-
-**NOTE** If you want to do more routing please signup for a free API key at https://developer.transportapi.com/signup 
+Many services require you to sign up for a free API key, to save some time we will use the TransportAPI:  https://developer.transportapi.com/signup 
 
 We will install the packages
 
 ```{r, eval=FALSE}
 # Install packages from GitHub
-devtools::install_github("ITSleeds/transportAPI")
-devtools::install_github("ITSleeds/opentripplanner") # For the bonus exercises
+remotes::install_github("ITSleeds/transportAPI")
+remotes::install_github("ITSleeds/opentripplanner") # For the bonus exercises
 ```
 
 And load the packages

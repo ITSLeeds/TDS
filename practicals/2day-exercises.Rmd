@@ -10,13 +10,13 @@ These practicals aim to test your knowledge of material covered in the Transport
 
 It will use the following CRAN packages:
 
-```{r, message=FALSE, warning=FALSE}
-library(dplyr)
-library(osmdata)
-library(pct)
-library(sf)
-library(stplanr)
-library(tmap)
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(dplyr)    # a data analysis package, part of the tidyverse
+library(osmdata)  # a package for accessing OpenStreetMap data
+library(pct)      # download and process data from DfT-funded Propensity to Cycle Tool project 
+library(sf)       # spatial vector data classes
+library(stplanr)  # transport planning tools
+library(tmap)     # interactive maps
 ```
 
 # How to use R/RStudio effectively
@@ -293,15 +293,53 @@ Packages that you don't have on your computer can be installed using `install.pa
 install.packages("sf")
 ```
 
-Once you have a package on your computer you need to add it to your current environment
+Once you have a package on your computer you need to load or 'attach' it to your current environment.
+Usually the package will load silently.
+In some cases the the package will provide a message, as illustrated below.
 
-```{r, eval=FALSE}
+```{r}
 library(sf)
 ```
 
 ## sf data structure
 
+The `sf` package provides a generic class for spatial vector data: points, lines and polygons.
+`sf` objects are simply data frames.
+However, they have a special 'geometry column', typically called 'geom' or 'geometry'.
+This is illustrated below with reference to `iow`, an `sf` object representing the Isle of Wight, that we will download using the `pct` package.
+
+```{r}
+iow = pct::get_pct_zones("isle-of-wight")[]
+class(iow)
+names(iow)
+iow
+```
+
+## Attribute operations on sf objects
+
+One of the nice things about the `sf` package is that an `sf data.frame` behaves just like a normal `data.frame` for non-spatial operations.
+Load the example dataset for New Zealand.
+
+```{r, eval=TRUE}
+if(!exists("iow")) {
+  iow = pct::get_pct_zones("isle-of-wight")
+}
+nz <- spData::nz              # load the example dataset from the spData package
+sel = nz$Population > 100000  # create a subsetting object
+nz_large <- nz[sel, ]         # subset areas with a popualtion over 100,000
+canterbury <- nz[nz$Name == "Canterbury",] # subset based on 'equality' query
+a_in_name <- nz[grepl(pattern = "a", x = nz$Name), ] # subset based on text string match
+nz_first_and_third_column = nz[c(1, 3)]
+nz_just_population = nz["Population"]
+```
+
 ## ggplot2
+
+`ggplot2` is a generic plotting package.
+It is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
+To plot non-spatial data, it works as follows:
+
+
 
 ## dplyr and pipes
 
@@ -309,35 +347,29 @@ library(sf)
 
 ## Exercises 
 
-- Check your packages are up-to-date with `update.packages()`
-- Create an RStudio project with an appropriate name for this course (e.g. `TDSwithR`)
-- Create a script called `set-up.R`, e.g. with **one** the following commands:
+1. Check your packages are up-to-date with `update.packages()`
+1. Create an RStudio project with an appropriate name for this course (e.g. `tds`)
+1. Create a script called `set-up.R`, e.g. with the following command: `file.edit("set-up.R")`
+1. Practice subsetting techniques you have learned on the `sf data.frame` object `nz`:
+   1. Create an object called `nz_small` which contains only regions with less than 100,000 people
+   1. Create a selection object called `sel_high_income` which is `TRUE` for regions with above median income and `FALSE` otherwise
+   1. How many regions have the letter 'b' in them? What percentage of the regions in New Zealand is this?
+   1. Create an object called `nz_income` which contains only the median income attribute from `nz`
+   1. Bonus: plot the result to show where the high income regions are.
+   1. Bonus: use `filter()` from the `dplyr` package to subset small and high income regions
+1. What is the population density of each region?
+1. The sex ratio is the number of males for each female in the region, which region of New Zealand has the most females, and how many are there?
 
-- Pipes
-- Data aggregation
+1. Pipes
+
+
+1. Data aggregation
 
 # Spatial data analysis
 
 
 ## Reading and Writing Spatial Data
 
-
-## Attribute Operations on Spatial Data
-
-One of the nice things about the `sf` package is that an `sf data.frame` behaves just like a normal `data.frame` for non-spatial operations.
-Load the example dataset for New Zealand.
-
-```{r, eval=TRUE}
-nz <- spData::nz # load the example dataset from the spData package
-nz_large <- nz[nz$Population > 100000, ] # Find areas with a popualtion over 100,000
-canterbury <- nz[nz$Name == "Canterbury",]
-```
-
-**Exercises:** 
-
-1. Try some of the differnt subsetting techniques you have aleady learned on the `sf data.frame`.
-1. What is the population density of each region?
-1. The sex ratio is the number of males for each female in the region, which region of New Zealand has the most females, and how many are there?
 
 ## Spatial Operations 
 
@@ -428,6 +460,25 @@ TODO: add exercises from https://github.com/geocompr/geocompkg/blob/master/cours
 
 # Visualising spatial datasets
 
+Many packages can be used to create maps in R.
+The most basic is with the `plot()` function.
+`ggplot2` is a powerful plotting package that is part of the `tidyverse`, that can create maps with the function `geom_sf()`.
+However, for publication maps, we recommend using `tmap` for reasons outlined in Chapter 8 of Geocomputation with R.
+Load the package as follows:
+
+```{r}
+library(tmap)
+```
+
+
+Create plots of New Zealand's population and GDP using `plot()` and `tm_shape() + tm_polygons()` functions.
+
+```{r, fig.show='hold', out.width="49%"}
+plot(nz[c("Population", "Median_income")])
+tm_shape(nz) + 
+  tm_polygons()
+```
+
 \newpage
 
 
@@ -464,6 +515,7 @@ desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")
 - Type code into the script created in the previous section so that it can reproduce this plot: 
 
 ```{r, message=FALSE, warning=FALSE, out.height="5cm"}
+library(osmdata)
 location = opq("leeds") %>% 
   add_osm_feature(key = "railway", value = "station") %>% 
   osmdata_sf()

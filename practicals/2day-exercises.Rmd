@@ -590,7 +590,7 @@ plot(europe["subregion"])
 
 1. Download and plot all crashes reported in Great Britain in 2017 (hint: see [the stats19 vignette](https://cran.r-project.org/web/packages/stats19/vignettes/stats19.html))
 1. Filter crashes that happened in the Isle of Wight
-1. Get and plot origin-destination data in `west-yorkshire` with the `pct` package hosted at: https://github.com/ITSLeeds/pct (bonus: look at the source code of `get_od()` and download the origin-destination data with `download.file()`)
+1. Get and plot origin-destination data in `isle-of-wight` with the `pct` package hosted at: https://github.com/ITSLeeds/pct (bonus: look at the source code of `get_od()` and download the origin-destination data with `download.file()`)
 
 ## Bonus exercises
 
@@ -603,14 +603,14 @@ Identify a region and zonal units of interest from http://geoportal.statistics.g
 
 # OD data with stplanr 
 
-1. Create an object representing desire lines in Isle of Wight, e.g, with: `desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")`
+1. Create an object representing desire lines in Isle of Wight, e.g, with: `desire_lines_all = pct::get_pct_lines(region = "isle-of-wight")`
 1. Get data from Leeds and subset the desire lines with a value of `all` of 200 or above
 1. Create a buffer of 500 m for each desire line and calculate the number of crashes that happened within each (using STATS19 data downloaded in the previous exercise)
 1. Create a faceted plot showing the temporal distribution of crashes in Isle of Wight (you can choose whether to show these over the months of the year, over days of the week, or over the hours of a day)
 1. Do a spatiotemporal subset to identify the crashes that happened within the most commonly travelled desire line between 07:00 and 10:00 during weekdays.
 
 ```{r, echo=FALSE}
-desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")
+desire_lines_all = pct::get_pct_lines(region = "isle-of-wight")
 
 ```
 

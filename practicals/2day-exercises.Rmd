@@ -321,16 +321,16 @@ One of the nice things about the `sf` package is that an `sf data.frame` behaves
 Load the example dataset for New Zealand.
 
 ```{r, eval=TRUE}
+# load example dataset if it doesn't already exist
 if(!exists("iow")) {
   iow = pct::get_pct_zones("isle-of-wight")
 }
-nz = spData::nz              # load the example dataset from the spData package
-sel = nz$Population > 100000  # create a subsetting object
-nz_large = nz[sel, ]         # subset areas with a popualtion over 100,000
-canterbury = nz[nz$Name == "Canterbury",] # subset based on 'equality' query
-a_in_name = nz[grepl(pattern = "a", x = nz$Name), ] # subset based on text string match
-nz_first_and_third_column = nz[c(1, 3)]
-nz_just_population = nz["Population"]
+sel = iow$all > 3000  # create a subsetting object
+iow_large = iow[sel, ]         # subset areas with a popualtion over 100,000
+iow_2 = iow[iow$geo_name == "Isle of Wight 002",] # subset based on 'equality' query
+five_in_name = iow[grepl(pattern = "5", x = iow$geo_name), ] # subset based on text string match
+iow_first_and_third_column = iow[c(1, 3)]
+iow_just_all = iow["all"]
 ```
 
 ## ggplot2, dplyr and pipes
@@ -339,31 +339,58 @@ Another useful package is `ggplot2`, a generic plotting package that is part of 
 It is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
 To plot non-spatial data, it works as follows:
 
+```{r, out.height=3}
+library(ggplot2)
+ggplot(iow) + geom_point(aes(x = car_driver, y = bicycle, size = all))
+```
+
+Note that the `+` operator adds layers onto one another.
+
+Another useful operator, that is part of `dplyr` is ` %>% `. 
+This is the pipe, that puts the output of one command into the first argument of another, as shown below (note the results are the same):
+
+```{r}
+library(dplyr)
+class(iow)       
+iow %>% class()
+```
+
+Useful `dplyr` functions are demontrated below.
+
+```{r, eval=FALSE}
+iow %>%
+  filter(bicycle > 200) # filter rows
+iow %>%
+  select(all) # select just the 'all' column
+iow %>%
+  group_by(bicycle > 200) %>% 
+  summarise(mean_walk = mean(foot))
+```
+
 
 ## Exercises 
 
 1. Check your packages are up-to-date with `update.packages()`
 1. Create an RStudio project with an appropriate name for this course (e.g. `tds`)
 1. Create a script called `set-up.R`, e.g. with the following command: `file.edit("set-up.R")`
-1. Practice subsetting techniques you have learned on the `sf data.frame` object `nz`:
-   1. Create an object called `nz_small` which contains only regions with less than 100,000 people
-   1. Create a selection object called `sel_high_income` which is `TRUE` for regions with above median income and `FALSE` otherwise
-   1. How many regions have the letter 'b' in them? What percentage of the regions in New Zealand is this?
-   1. Create an object called `nz_income` which contains only the median income attribute from `nz`
-   1. Bonus: plot the result to show where the high income regions are.
-   1. Bonus: use `filter()` from the `dplyr` package to subset small and high income regions
-1. What is the population density of each region?
-1. The sex ratio is the number of males for each female in the region, which region of New Zealand has the most females, and how many are there?
+1. Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
+   1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
+   1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
+   1. How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
+   1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
+   1. Bonus: plot the result to show where the high income regions are
+   1. Bonus: use `filter()` from the `dplyr` package to subset small and high car use regions
+1. Bonus: What is the population density of each region (use the 'all' column)?
+1. Bonus: Which zone has the highest percentage who cycle?
+1. Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
 
-1. Pipes
-
-
-1. Data aggregation
+```{r, echo=FALSE, eval=FALSE}
+iow %>% 
+  group_by(foot > 500) %>% 
+  summarise(mean_car = sum(car_driver) / sum(all) )
+```
 
 # Spatial data analysis
-
-
-## Reading and Writing Spatial Data
 
 
 ## Spatial Operations 
@@ -395,39 +422,39 @@ CRSs are often referred to by the EPSG number. The European Petroleum Survey Gro
 Every `sf data.frame` has a CRS.
 
 ```{r, eval=FALSE}
-st_crs(nz) # 2193 the CRS for New Zealand Transverse Mercator
-nz_latlng = st_transform(nz, 4326) # Transfrom from one CRS to another
-st_crs(nz) # 4326 the CRS for World Geodetic System 1984
-nz_latlng = st_transform(nz, 2193) # Transfrom back
+st_crs(iow) # 2193 the CRS for New Zealand Transverse Mercator
+iow_latlng = st_transform(iow, 4326) # Transfrom from one CRS to another
+st_crs(iow) # 4326 the CRS for World Geodetic System 1984
+iow_latlng = st_transform(iow, 2193) # Transfrom back
 ```
 **Warning** It is possible to change the CRS without reprojecting the data by:
 ```{r, eval=FALSE}
-st_crs(nz) = 4326
+st_crs(iow) = 4326
 ```
 
 This is risky as you may confuse you data by having the wrong CRS.
 
 For more information see [Chapter 6](https://geocompr.robinlovelace.net/reproj-geo-data.html) of Geocompuation with R.
 
-### Spatial Interactions
+### Spatial operations
 
 It is possible to subset a `sf data.frame` by location as well as attributes.
 
-Lets load the locations of some mountains in New Zealand and then find which ones are within the `nz_large` areas.
+Lets load the locations of some mountains in New Zealand and then find which ones are within the `iow_large` areas.
 
 ```{r, warning=FALSE, out.width="30%"}
-nz_height = spData::nz_height # Load the nz_height data
-nz_height2 = nz_height[canterbury,]
-plot(nz$geom)
-plot(nz_height, col = "black", add = TRUE)
-plot(nz_height2, col = "red", add = TRUE)
+iow_cents = pct::get_pct_centroids(region = "isle-of-wight", geography = "lsoa") # Load the iow_cents data
+iow_cents2 = iow_cents[iow_2,]
+plot(iow$geom)
+plot(iow_cents, col = "black", add = TRUE)
+plot(iow_cents2, col = "red", add = TRUE)
 
 ```
 
 `st_intersects()` is a 'binary predicate' that identifies which features in one `sf` object intersect with another `sf` object in geographic space: 
 
 ```{r, eval=FALSE}
-st_intersects(nz_height, nz_large)
+st_intersects(iow_cents, iow_large)
 ```
 
 There are many spatial predicates, including `st_overlaps()` and `st_difference()`. You can see a list of them in the help.
@@ -439,7 +466,7 @@ There are many spatial predicates, including `st_overlaps()` and `st_difference(
 You could use a different function by adding the `op` argument
 
 ```{r, eval=TRUE}
-nz_height3 = nz_height[canterbury, , op = st_disjoint]
+iow_cents3 = iow_cents[iow_2, , op = st_disjoint]
 ```
 
 ## Geometric Operations
@@ -452,7 +479,47 @@ Geometric operation change or derive from the geometry of our data. The most com
 
 For more see [Section 5.2 of Geocompuation with R](https://geocompr.robinlovelace.net/geometric-operations.html#geo-vec)
 
-TODO: add exercises from https://github.com/geocompr/geocompkg/blob/master/courses/2-day-exercises.Rmd
+The input data for this part will be point and polygon data representing New Zealand (`nz`), from Chapter 4 of *Geocomputation with R*.
+The best place to start is to plot the data so the first exercise is:
+
+- Create a plot of the data so it looks like the map of New Zealand below (hint: use the `add = TRUE` argument).
+
+```{r}
+library(spData)
+plot(nz$geom)
+plot(nz_height["elevation"], add = TRUE)
+```
+
+1. Canterbury is the region of New Zealand containing most of the 100 highest points in the country. Create an object called `canterbury` and use this to subset all points within the region. How many of these high points does the Canterbury region contain?
+```{r 04-spatial-operations-45, eval=FALSE, echo=FALSE}
+library(tmap)
+tmap_mode("view")
+qtm(nz) + qtm(nz_height)
+canterbury = nz %>% filter(Name == "Canterbury")
+canterbury_height = nz_height[canterbury, ]
+nrow(canterbury_height) # answer: 70
+```
+1. Which region has the second highest number of `nz_height` points in, and how many does it have?
+```{r 04-spatial-operations-46, eval=FALSE, echo=FALSE}
+nz_height_count = aggregate(nz_height, nz, length)
+nz_height_combined = cbind(nz, count = nz_height_count$elevation)
+nz_height_combined %>% 
+  st_drop_geometry() %>% 
+  dplyr::select(Name, count) %>% 
+  arrange(desc(count)) %>% 
+  slice(2)
+```
+    - Bonus: geralizing the question to all regions, how many of New Zealand's 16 regions contain points which belong to the top 100 highest points in the country? Which regions?
+    - Bonus: create a table listing these regions in order of the number of points and their name.
+```{r 04-spatial-operations-47, echo=FALSE, eval=FALSE}
+nz_height_count = aggregate(nz_height, nz, length)
+nz_height_combined = cbind(nz, count = nz_height_count$elevation)
+nz_height_combined %>% 
+  st_drop_geometry() %>% 
+  dplyr::select(Name, count) %>% 
+  arrange(desc(count)) %>% 
+  na.omit()
+```
 
 # Visualising spatial datasets
 
@@ -470,9 +537,29 @@ library(tmap)
 Create plots of New Zealand's population and GDP using `plot()` and `tm_shape() + tm_polygons()` functions.
 
 ```{r, fig.show='hold', out.width="49%"}
-plot(nz[c("Population", "Median_income")])
-tm_shape(nz) + 
-  tm_polygons()
+plot(iow[c("all", "bicycle")])
+tm_shape(iow) + 
+  tm_polygons(c("all", "bicycle"))
+```
+
+These exercises rely on the object `europe`.
+Create it using the `world` and `worldbank_df` datasets from the **spData** package as follows (see Section [2.2](https://geocompr.robinlovelace.net/spatial-class.html#intro-sf) of Geocomputation with R for details):
+
+```{r 08-mapping-41, warning=FALSE}
+europe = world %>% 
+  filter(continent == "Europe", !is.na(iso_a2)) %>% 
+  left_join(worldbank_df, by = "iso_a2") %>% 
+  dplyr::select(name, subregion, gdpPercap, HDI, pop_growth) %>% 
+  st_transform("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25")
+```
+
+1. Create a map showing the geographic distribution of the Human Development Index (`HDI`) across Europe with base **graphics** (hint: use `plot()`) and **tmap** packages (hint: use `tm_shape(europe) + ...`).
+1. Extend the **tmap** created for the previous exercise so the legend has three bins: "High" (`HDI` above 0.7), "Medium" (`HDI` between 0.55 and 0.7) and "Low" (`HDI` below 0.55).
+    - Bonus: improve the map aesthetics, for example by changing the legend title, class labels and color palette.
+1. Represent `europe`'s subregions on the map. 
+
+```{r, echo=FALSE}
+plot(europe["subregion"])
 ```
 
 \newpage
@@ -710,7 +797,7 @@ download.file(
 download.file(
   "https://github.com/ITSLeeds/opentripplanner/releases/download/0.1/isle-of-wight-demo.zip", 
   destfile = file.path(path_data,"isle-of-wight-demo.zip") , mode="wb")
-unzip(file.path(path_data,"isle-of-wight-demo.zip"), file.path(path_data, "graphs", "default"))
+uiowip(file.path(path_data,"isle-of-wight-demo.zip"), file.path(path_data, "graphs", "default"))
 ```
 
 Now we set up the OTP

@@ -339,7 +339,7 @@ Another useful package is `ggplot2`, a generic plotting package that is part of 
 It is flexible, popular, and has dozens of add-on packages which build on it, such as `gganimate`.
 To plot non-spatial data, it works as follows:
 
-```{r, out.height=3}
+```{r}
 library(ggplot2)
 ggplot(iow) + geom_point(aes(x = car_driver, y = bicycle, size = all))
 ```
@@ -374,12 +374,12 @@ iow %>%
 1. Create an RStudio project with an appropriate name for this course (e.g. `tds`)
 1. Create a script called `set-up.R`, e.g. with the following command: `file.edit("set-up.R")`
 1. Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
-   1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
-   1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
-   1. How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
-   1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
-   1. Bonus: plot the result to show where the high income regions are
-   1. Bonus: use `filter()` from the `dplyr` package to subset small and high car use regions
+     1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
+     1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
+     1. How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
+     1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
+     1. Bonus: plot the result to show where the high income regions are
+     1. Bonus: use `filter()` from the `dplyr` package to subset small and high car use regions
 1. Bonus: What is the population density of each region (use the 'all' column)?
 1. Bonus: Which zone has the highest percentage who cycle?
 1. Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
@@ -536,7 +536,7 @@ library(tmap)
 
 Create plots of New Zealand's population and GDP using `plot()` and `tm_shape() + tm_polygons()` functions.
 
-```{r, fig.show='hold', out.width="49%"}
+```{r, fig.show='hold', out.width="49%", echo=FALSE}
 plot(iow[c("all", "bicycle")])
 tm_shape(iow) + 
   tm_polygons(c("all", "bicycle"))
@@ -568,7 +568,7 @@ plot(europe["subregion"])
 # stats19 data analysis - with spatial/temporal analysis
 
 1. Download and plot all crashes reported in Great Britain in 2017 (hint: see [the stats19 vignette](https://cran.r-project.org/web/packages/stats19/vignettes/stats19.html))
-1. Filter crashes that happened in West Yorkshire
+1. Filter crashes that happened in Isle of Wight
 1. Get and plot origin-destination data in `west-yorkshire` with the `pct` package hosted at: https://github.com/ITSLeeds/pct (bonus: look at the source code of `get_od()` and download the origin-destination data with `download.file()`)
 
 ## Bonus exercises
@@ -582,10 +582,10 @@ Identify a region and zonal units of interest from http://geoportal.statistics.g
 
 # OD data with stplanr 
 
-1. Create an object representing desire lines in West Yorkshire, e.g, with: `desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")`
+1. Create an object representing desire lines in Isle of Wight, e.g, with: `desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")`
 1. Get data from Leeds and subset the desire lines with a value of `all` of 200 or above
 1. Create a buffer of 500 m for each desire line and calculate the number of crashes that happened within each (using STATS19 data downloaded in the previous exercise)
-1. Create a facetted plot showing the temporal distribution of crashes in West Yorkshire (you can choose whether to show these over the months of the year, over days of the week, or over the hours of a day)
+1. Create a facetted plot showing the temporal distribution of crashes in Isle of Wight (you can choose whether to show these over the months of the year, over days of the week, or over the hours of a day)
 1. Do a spatio-temporal subset to identify the crashes that happened within the most commonly traveled desire line between 07:00 and 10:00 during weekdays.
 
 ```{r, echo=FALSE}
@@ -797,7 +797,7 @@ download.file(
 download.file(
   "https://github.com/ITSLeeds/opentripplanner/releases/download/0.1/isle-of-wight-demo.zip", 
   destfile = file.path(path_data,"isle-of-wight-demo.zip") , mode="wb")
-uiowip(file.path(path_data,"isle-of-wight-demo.zip"), file.path(path_data, "graphs", "default"))
+unzip(file.path(path_data,"isle-of-wight-demo.zip"), file.path(path_data, "graphs", "default"))
 ```
 
 Now we set up the OTP
@@ -823,12 +823,12 @@ routes_driving = otp_plan(otpcon, fromPlace = from, toPlace = to, mode = "CAR")
 
 # Data and methods for assessing cycling potential 
 
-1. Identify the top 10 desire lines in West Yorkshire along which at least 100 people travel to work, by:
+1. Identify the top 10 desire lines in Isle of Wight along which at least 100 people travel to work, by:
     - The percentage who walk
     - The percentage who cycle
     - Bonus: Find the top 10 for *all* modes of transport and plot the results
 1. Download origin-destination data from 2011 Census using the function `pct::get_od()`.
 1. Convert these origin-destination pairs into geographic desire lines between centroids in Leeds (e.g. as generated by the function `pct::get_pct_centroids()`) and plot the result.
 1. Find the route along the most traveled desire line in Leeds and plot the result.
-1. Get cycle route data for West Yorkshire and use the function `overline2()` to identify the routes along which most people walk to work.
+1. Get cycle route data for Isle of Wight and use the function `overline2()` to identify the routes along which most people walk to work.
 

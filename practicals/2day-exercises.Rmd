@@ -3,12 +3,12 @@ output:
   # github_document
   pdf_document:
     number_sections: true
-title: Transport and Geograpic Data Science with R
+title: Transport and Geographic Data Science with R
 subtitle: Practical Exercises
 author: Robin Lovelace and Malcolm Morgan, Institute for Transport Studies, University of Leeds
 ---
 
-This practicals aim to test your knowledge of material covered in a short course delivered for the Department for Transport.
+These practicals aim to test your knowledge of material covered in a short course delivered for the Department for Transport.
 Code and data supporting the content can be found in the GitHub repository (repo) at github.com/ITSLeeds/TDS.
 To see the course contents and timings see https://git.io/tds2day which links to the file `2day.md` in the repo.
 
@@ -138,7 +138,7 @@ knitr::include_graphics("../courses/2day/images/autocomplete.jpg")
 
 When there is more than one option you can select from the list using the mouse or arrow keys.
 
-Within a function you can get a list of arguments by pressing Tab.
+Within a function, you can get a list of arguments by pressing Tab.
 
 ```{r help, echo=FALSE}
 knitr::include_graphics("../courses/2day/images/fucntionhelp.jpg")
@@ -294,8 +294,8 @@ install.packages("sf")
 ```
 
 Once you have a package on your computer you need to load or 'attach' it to your current environment.
-Usually the package will load silently.
-In some cases the the package will provide a message, as illustrated below.
+Usually, the package will load silently.
+In some cases the package will provide a message, as illustrated below.
 
 ```{r}
 library(sf)
@@ -355,7 +355,7 @@ class(iow)
 iow %>% class()
 ```
 
-Useful `dplyr` functions are demontrated below.
+Useful `dplyr` functions are demonstrated below.
 
 ```{r, eval=FALSE}
 iow %>%
@@ -378,7 +378,7 @@ iow %>%
      1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
      1. How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
      1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
-     1. Bonus: plot the result to show where the high income regions are
+     1. Bonus: plot the result to show where the high-income regions are
      1. Bonus: use `filter()` from the `dplyr` package to subset small and high car use regions
 1. Bonus: What is the population density of each region (use the 'all' column)?
 1. Bonus: Which zone has the highest percentage who cycle?
@@ -395,7 +395,7 @@ iow %>%
 
 ## Spatial Operations 
 
-What makes an `sf data.frame` different to a normal `data.frame` is the inclusion of a geometry column and spatial operations.
+What makes an `sf data.frame` different from a normal `data.frame` is the inclusion of a geometry column and spatial operations.
 
 ### Projections and Coordinate Reference Systems
 
@@ -416,7 +416,7 @@ You can find a catalogue of different CRSs at http://spatialreference.org/
 
 CRSs are often referred to by the EPSG number. The European Petroleum Survey Group publish a database of different coordinate systems. Two useful projections to commit to memory are:
 
-* 4326 - the World Geodetic System 1984 which is a widely used  geographical coordinate system, used in GPS datasets and the .geojson file format, for example.
+* 4326 - the World Geodetic System 1984 which is a widely used geographical coordinate system, used in GPS datasets and the .geojson file format, for example.
 * 27700 - the British National Grid
 
 Every `sf data.frame` has a CRS.
@@ -432,15 +432,15 @@ iow_latlng = st_transform(iow, 2193) # Transfrom back
 st_crs(iow) = 4326
 ```
 
-This is risky as you may confuse you data by having the wrong CRS.
+This is risky as you may confuse your data by having the wrong CRS.
 
 For more information see [Chapter 6](https://geocompr.robinlovelace.net/reproj-geo-data.html) of Geocompuation with R.
 
 ### Spatial operations
 
-It is possible to subset a `sf data.frame` by location as well as attributes.
+It is possible to subset an `sf data.frame` by location as well as attributes.
 
-Lets load the locations of some mountains in New Zealand and then find which ones are within the `iow_large` areas.
+Let's load the locations of some mountains in New Zealand and then find which ones are within the `iow_large` areas.
 
 ```{r, warning=FALSE, out.width="30%"}
 iow_cents = pct::get_pct_centroids(region = "isle-of-wight", geography = "lsoa") # Load the iow_cents data
@@ -474,7 +474,7 @@ iow_cents3 = iow_cents[iow_2, , op = st_disjoint]
 Geometric operation change or derive from the geometry of our data. The most commonly used functions are:
 
 - `st_simplify` To simplify a complex shape
-- `st_centroid` To find the geographical center of a shape
+- `st_centroid` To find the geographical centre of a shape
 - `st_buffer` To create a buffer around a shape
 
 For more see [Section 5.2 of Geocompuation with R](https://geocompr.robinlovelace.net/geometric-operations.html#geo-vec)
@@ -509,7 +509,7 @@ nz_height_combined %>%
   arrange(desc(count)) %>% 
   slice(2)
 ```
-    - Bonus: geralizing the question to all regions, how many of New Zealand's 16 regions contain points which belong to the top 100 highest points in the country? Which regions?
+    - Bonus: generalizing the question to all regions, how many of New Zealand's 16 regions contain points which belong to the top 100 highest points in the country? Which regions?
     - Bonus: create a table listing these regions in order of the number of points and their name.
 ```{r 04-spatial-operations-47, echo=FALSE, eval=FALSE}
 nz_height_count = aggregate(nz_height, nz, length)
@@ -555,7 +555,7 @@ europe = world %>%
 
 1. Create a map showing the geographic distribution of the Human Development Index (`HDI`) across Europe with base **graphics** (hint: use `plot()`) and **tmap** packages (hint: use `tm_shape(europe) + ...`).
 1. Extend the **tmap** created for the previous exercise so the legend has three bins: "High" (`HDI` above 0.7), "Medium" (`HDI` between 0.55 and 0.7) and "Low" (`HDI` below 0.55).
-    - Bonus: improve the map aesthetics, for example by changing the legend title, class labels and color palette.
+    - Bonus: improve the map aesthetics, for example by changing the legend title, class labels and colour palette.
 1. Represent `europe`'s subregions on the map. 
 
 ```{r, echo=FALSE}
@@ -568,7 +568,7 @@ plot(europe["subregion"])
 # stats19 data analysis - with spatial/temporal analysis
 
 1. Download and plot all crashes reported in Great Britain in 2017 (hint: see [the stats19 vignette](https://cran.r-project.org/web/packages/stats19/vignettes/stats19.html))
-1. Filter crashes that happened in Isle of Wight
+1. Filter crashes that happened in the Isle of Wight
 1. Get and plot origin-destination data in `west-yorkshire` with the `pct` package hosted at: https://github.com/ITSLeeds/pct (bonus: look at the source code of `get_od()` and download the origin-destination data with `download.file()`)
 
 ## Bonus exercises
@@ -577,7 +577,7 @@ Identify a region and zonal units of interest from http://geoportal.statistics.g
 
 1. Read them into R as an `sf` object
 1. Join-on data from a non-geographic object
-1. Add a data access section to your in progress portfolio
+1. Add a data access section to your in-progress portfolio
 1. Get origin-destination data from Uber
 
 # OD data with stplanr 
@@ -585,8 +585,8 @@ Identify a region and zonal units of interest from http://geoportal.statistics.g
 1. Create an object representing desire lines in Isle of Wight, e.g, with: `desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")`
 1. Get data from Leeds and subset the desire lines with a value of `all` of 200 or above
 1. Create a buffer of 500 m for each desire line and calculate the number of crashes that happened within each (using STATS19 data downloaded in the previous exercise)
-1. Create a facetted plot showing the temporal distribution of crashes in Isle of Wight (you can choose whether to show these over the months of the year, over days of the week, or over the hours of a day)
-1. Do a spatio-temporal subset to identify the crashes that happened within the most commonly traveled desire line between 07:00 and 10:00 during weekdays.
+1. Create a faceted plot showing the temporal distribution of crashes in Isle of Wight (you can choose whether to show these over the months of the year, over days of the week, or over the hours of a day)
+1. Do a spatiotemporal subset to identify the crashes that happened within the most commonly travelled desire line between 07:00 and 10:00 during weekdays.
 
 ```{r, echo=FALSE}
 desire_lines_all = pct::get_pct_lines(region = "west-yorkshire")
@@ -818,7 +818,7 @@ routes_driving = otp_plan(otpcon, fromPlace = from, toPlace = to, mode = "CAR")
 ## Exercises
 
 1. Get routes for the top 5 desire lines for different modes e.g. car, public transport, bike
-1. How are public transport routes different to car and bike routes?
+1. How are public transport routes different from car and bike routes?
 1. Plot these routes together on a map, where are there complementary and conflicting routes?
 
 # Data and methods for assessing cycling potential 
@@ -829,6 +829,6 @@ routes_driving = otp_plan(otpcon, fromPlace = from, toPlace = to, mode = "CAR")
     - Bonus: Find the top 10 for *all* modes of transport and plot the results
 1. Download origin-destination data from 2011 Census using the function `pct::get_od()`.
 1. Convert these origin-destination pairs into geographic desire lines between centroids in Leeds (e.g. as generated by the function `pct::get_pct_centroids()`) and plot the result.
-1. Find the route along the most traveled desire line in Leeds and plot the result.
-1. Get cycle route data for Isle of Wight and use the function `overline2()` to identify the routes along which most people walk to work.
+1. Find the route along the most travelled desire line in Leeds and plot the result.
+1. Get cycle route data for the Isle of Wight and use the function `overline2()` to identify the routes along which most people walk to work.
 

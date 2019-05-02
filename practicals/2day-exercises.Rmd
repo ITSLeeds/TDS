@@ -2,7 +2,7 @@
 output:
    github_document
   #pdf_document:
-    number_sections: true
+    # number_sections: true
 title: Transport and Geographic Data Science with R
 subtitle: Practical Exercises
 author: Robin Lovelace and Malcolm Morgan, Institute for Transport Studies, University of Leeds
@@ -292,12 +292,12 @@ Packages that you don't have on your computer can be installed using `install.pa
 
 Packages only need to be installed once.
 
-You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if it is not yet installed and up-to-date
+You can use `remotes::install_cran()` or `remotes::install_github()` to only install a package if it is not yet installed and up-to-date (note: you only need to use one of these):
 
 ```{r, eval=FALSE}
 install.packages("sf")
-remotes::install_cran("sf")
-remotes::install_github("r-spatial/sf")
+# remotes::install_cran("sf")
+# remotes::install_github("r-spatial/sf")
 ```
 
 Once you have a package on your computer you need to load or 'attach' it to your current environment.
@@ -425,15 +425,15 @@ CRSs are often referred to by the EPSG number. The European Petroleum Survey Gro
 
 Every `sf data.frame` has a CRS.
 
-```{r, eval=FALSE}
-st_crs(iow) # 2193 the CRS for Isle of Wight Transverse Mercator
-iow_latlng = st_transform(iow, 4326) # Transfrom from one CRS to another
-st_crs(iow) # 4326 the CRS for World Geodetic System 1984
-iow_latlng = st_transform(iow, 2193) # Transfrom back
+```{r}
+st_crs(iow) # 4326 is a geographic (lon/lat) projection
+iow_projected = st_transform(iow, 27700) # transfrom to projected CRS
+st_crs(iow_projected) # updated CRS
+iow_lonlat = st_transform(iow, 4326) # transfrom back
 ```
-**Warning** It is possible to change the CRS without reprojecting the data by:
+**Warning** It is possible to change the CRS without reprojecting the data as follows (not recommended):
 ```{r, eval=FALSE}
-st_crs(iow) = 4326
+st_crs(iow_projected) = 4326
 ```
 
 This is risky as you may confuse your data by having the wrong CRS.

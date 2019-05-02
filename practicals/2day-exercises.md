@@ -401,18 +401,17 @@ Exercises
 ---------
 
 1.  Check your packages are up-to-date with `update.packages()`
-2.  Create an RStudio project with an appropriate name for this course (e.g. `tds`)
-3.  Create a script called `set-up.R`, e.g. with the following command: `file.edit("set-up.R")`
-4.  Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
+2.  Create a script called `attribute-operations.R`, e.g. with the following command: `file.edit("attribute-operations.R")`
+3.  Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
     1.  Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
     2.  Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
-    3.  How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
+    3.  How many regions have the number '1' in the column 'geo\_name'? What percentage of the regions in the Isle of Wight is this?
     4.  Create an object called `iow_foot` which contains only the foot attribute from `iow`
     5.  Bonus: plot the result to show where walking is a popular mode of travel to work
     6.  Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where high car use is high
-5.  Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
-6.  Bonus: Which zone has the highest percentage who cycle?
-7.  Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
+4.  Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
+5.  Bonus: Which zone has the highest percentage who cycle?
+6.  Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
 
 Spatial data analysis
 =====================

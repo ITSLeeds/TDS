@@ -378,12 +378,11 @@ iow %>%
 ## Exercises 
 
 1. Check your packages are up-to-date with `update.packages()`
-1. Create an RStudio project with an appropriate name for this course (e.g. `tds`)
-1. Create a script called `set-up.R`, e.g. with the following command: `file.edit("set-up.R")`
+1. Create a script called `attribute-operations.R`, e.g. with the following command: `file.edit("attribute-operations.R")`
 1. Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
      1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
      1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
-     1. How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
+     1. How many regions have the number '1' in the column 'geo_name'? What percentage of the regions in the Isle of Wight is this?
      1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
      1. Bonus: plot the result to show where walking is a popular mode of travel to work
      1. Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where high car use is high
@@ -392,6 +391,63 @@ iow %>%
 1. Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
 
 ```{r, echo=FALSE, eval=FALSE}
+# 1. Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
+
+#      1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
+
+# in base R
+iow_small = iow[iow$all < 3000, ]
+
+# with dplyr
+iow_small = iow %>% 
+  filter(all < 3000)
+
+#      1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
+
+median_car = median(iow$car_driver)
+sel_high_car = iow$car_driver > median_car 
+
+#      1. How many regions have the number '1' in the column 'geo_name'? What percentage of the regions in the Isle of Wight is this?
+
+sel_region_name_contains_1 = grepl("1", x = iow$geo_name)
+sum(sel_region_name_contains_1) / nrow(iow)
+
+#      1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
+
+# using base R
+iow_foot = iow["foot"]
+
+# dplyr
+iow_foot = iow %>% 
+  select(foot)
+
+#      1. Bonus: plot the result to show where walking is a popular mode of travel to work
+
+plot(iow_foot)
+
+#      1. Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where high car use is high
+
+iow_small_car_high = iow %>% 
+  filter(all < 3000, car_driver > median_car)
+
+# 1. Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
+
+iow$area_km2 = as.numeric(st_area(iow)) /1000000
+iow$population_density = iow$all / iow$area_km2
+plot(iow["population_density"])
+
+# in dplyr
+iow_density = iow %>% 
+  mutate(area_km2 = as.numeric(st_area(geometry)) / 1000000) %>% 
+  mutate(population_density = all / area_km2)
+plot(iow_density %>% select(population_density))
+
+# 1. Bonus: Which zone has the highest percentage who cycle?
+
+iow %>% 
+  mutate(pcycle = bicycle / all) %>% 
+  top_n(n = 1, wt = pcycle)
+# 1. Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
 iow %>% 
   group_by(foot > 500) %>% 
   summarise(mean_car = sum(car_driver) / sum(all) )

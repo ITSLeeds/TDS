@@ -155,7 +155,7 @@ You can remove an object with the `rm()` function e.g. `rm(x)` or `rm(x,y)` or y
 
 This code example will run, but we can see some of RStudio's debugging features by changing it. See that when the bracket is removed the red X and the underlying highlight the broken code. You may need to save the code you see the debugging prompt.
 
-![](../courses/2day/images/debug.jpg)
+<img src="../courses/2day/images/debug.jpg" width="212" />
 
 **Always address debugging prompts before running your code**
 
@@ -408,9 +408,9 @@ Exercises
     2.  Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
     3.  How many regions have the number '1' in them? What percentage of the regions in the Isle of Wight is this?
     4.  Create an object called `iow_foot` which contains only the foot attribute from `iow`
-    5.  Bonus: plot the result to show where the high-income regions are
-    6.  Bonus: use `filter()` from the `dplyr` package to subset small and high car use regions
-5.  Bonus: What is the population density of each region (use the 'all' column)?
+    5.  Bonus: plot the result to show where walking is a popular mode of travel to work
+    6.  Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where high car use is high
+5.  Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
 6.  Bonus: Which zone has the highest percentage who cycle?
 7.  Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
 

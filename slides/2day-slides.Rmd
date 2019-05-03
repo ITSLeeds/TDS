@@ -466,6 +466,23 @@ plot(a_agg)
 
 ---
 
+# Final session
+
+- Demonstration of origin-destination data download/processing/routing
+- Comparison with STATS19 data
+
+--
+
+Options:
+
+- Work through exercises in Section 6 (default, for geographic data skills)
+- Work through exercises in Section 8 (for data analysis skills)
+- Work through code in Chapter 12 in Geocomputation with R (advanced)
+- Work on you own data and ask specific questions (if you have specific questions)
+- Ask a question on one of the online help forums
+
+---
+
 # References
 
 ```{r, 'refs', results="asis", echo=FALSE}

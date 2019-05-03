@@ -437,6 +437,83 @@ crashes_sample = crashes_sf %>%
 plot(crashes_sample["speed_limit"])
 ```
 
+### Code from afternoon of day 2
+
+``` r
+library(stplanr)
+
+# data(package = "stplanr")
+class(zones)
+
+z = sf::st_as_sf(zones)
+class(z)
+
+f = flow[1:3, ]
+class(f)
+z = st_transform(z, 27700)
+l = od2line(flow = f, z)
+plot(l)
+
+library(tmap)
+
+library(pct)
+od = get_pct_lines(region = "isle-of-wight")
+od = sf::st_drop_geometry(od)
+class(od)
+z = get_pct_zones("isle-of-wight")
+
+
+od = dplyr::select(od, -1)
+head(od[1:2])
+l = od2line(flow = od, z)
+plot(l)
+View(l)
+plot(l$geometry)
+
+library(dplyr)
+top_desire_lines = l %>% 
+  top_n(n = 30, wt = bicycle)
+mapview::mapview(top_desire_lines)
+
+to_kgx = route_cyclestreet(
+  "westminster",
+  "kings cross london"
+  )
+to_kgxq = route_cyclestreet(
+  "westminster",
+  "kings cross london",
+  plan = "quietest"
+)
+mapview::mapview(to_kgx) +
+  mapview::mapview(to_kgxq)
+
+k = st_as_sf(to_kgx)
+k_buff = k %>% 
+  st_transform(27700) %>% 
+  st_buffer(200) %>% 
+  st_transform(4326)
+mapview::mapview(k_buff)
+
+library(osmdata)
+o = opq("london") %>% 
+  add_osm_feature("amenity", "pub") %>% 
+  osmdata_sf()
+
+ok = o$osm_points[k_buff, ]
+ok_agg = ok %>% 
+  group_by(address, addr.street, name) %>% 
+  summarise(n = n())
+nrow(ok_agg)
+plot(ok)
+
+mapview::mapview(ok_agg, zcol = "name")
+
+nrow(ok)
+plot(ok[1])
+L = l %>% 
+  rename_all(toupper)
+```
+
 ## References
 
 <div id="refs" class="references">

@@ -684,6 +684,7 @@ a_iow_may = a_iow %>%
   filter(month == 5)
 a_agg = aggregate(a_iow_may["speed_limit"], iow_osbg, mean)
 plot(a_agg)
+class(crashes$date)
 ```
 
 

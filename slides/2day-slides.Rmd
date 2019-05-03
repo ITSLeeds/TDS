@@ -372,9 +372,65 @@ Course times each day:
 
 ---
 
+# Recap on yesterday's sessions
+
+---
+
 # stats19 data analysis 
 
 - See [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/)
+
+--
+
+Basics of STATS19 data
+
+- Spatial *and* temporal attributes allow subsetting
+- Spatial resolution: ~10 metres
+- Temporal resolution: ~10 minutes
+
+---
+
+## stats19 exercises 
+
+1. Download and plot all crashes reported in Great Britain in 2017 (hint: see [the stats19 vignette](https://cran.r-project.org/web/packages/stats19/vignettes/stats19.html))
+1. Find the function in the `stats19` package that converts a `data.frame` object into an `sf` data frame. Use this function to convert the road crashes into an `sf` object, called `crashes_sf`, for example.
+1. Filter crashes that happened in the Isle of Wight based on attribute data (hint: the relevant column contains the word `local`)
+1. Filter crashes happened in the Isle of Wight using geographic subsetting (hint: remember `st_crs()`?)
+1. Bonus: Which type of spatial subsetting yielded more results and why? 
+1. Bonus: how many crashes happened in each zone?
+1. Create a new column called `month` in the crash data using the function `lubridate::month()` and the `date` column.
+1. Create an object called `a_iow_may` representing all the crashes that happened in the Isle of Wight in the month of May
+1. Bonus: Calculate the average (`mean`) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)
+
+---
+
+## Speed crashes in the IoW in May
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+library(stats19)
+library(dplyr)
+library(sf)
+a = get_stats19(2017, "ac", ask = FALSE)
+asf = format_sf(a)
+a_iow = asf %>% 
+  filter(local_authority_district == "Isle of Wight")
+nrow(a_iow)
+iow = pct::get_pct_zones(region = "isle-of-wight")
+iow_osbg = st_transform(iow, 27700)
+a_iow_sf = a_iow[iow_osbg, ]
+nrow(a_iow_sf)
+# mapview::mapview(iow) +
+#   mapview::mapview(a_iow)
+class(a$date)
+class(a$time)
+a_iow$month = lubridate::month(a_iow$date)
+a_iow_may = a_iow %>% 
+  filter(month == 5)
+a_agg = aggregate(a_iow_may["speed_limit"], iow_osbg, mean)
+plot(a_agg)
+```
+
+
 
 ---
 

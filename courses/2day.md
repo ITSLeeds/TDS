@@ -143,8 +143,7 @@ The overview slides for the course can be found here:
     data (hint: the relevant column contains the word `local`)
 4.  Filter crashes happened in the Isle of Wight using geographic
     subsetting (hint: remember `st_crs()`?)
-5.  Bonus: Which type of spatial subsetting yielded more results and
-    why?
+5.  Bonus: Which type of subsetting yielded more results and why?
 6.  Bonus: how many crashes happened in each zone?
 7.  Create a new column called `month` in the crash data using the
     function `lubridate::month()` and the `date` column.
@@ -408,7 +407,11 @@ iow_small_high_car = iow %>%
 
 grepl("cat", c("cat", "dog", "cat2"))
 str_detect(c("cat", "dog", "cat2"), "cat")
+```
 
+### Code from the stats19 section
+
+``` r
 library(stats19)
 crashes_raw = get_stats19(2017, "ac", ask = FALSE, format = FALSE)
 crashes_raw
@@ -428,6 +431,10 @@ crashes_sf2 = st_as_sf(
 
 # quicker with function
 crashes_sf = format_sf(crashes)
+
+crashes_sample = crashes_sf %>% 
+  sample_n(10000)
+plot(crashes_sample["speed_limit"])
 ```
 
 ## References

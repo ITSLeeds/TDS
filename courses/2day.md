@@ -33,21 +33,27 @@ Assumed prior knowledge:
         <https://www.rstudio.com/products/rstudio/download/>
       - Will require up-to-date versions of **tidyverse** and **sf**
         packages, at a minimum
-      - Other packages we’ll use:
-          - stats19
-          - stplanr
-          - tmap
-          - devtools
-          - The GitHub package spDataLarge, which can be installed as
-            follows:
+      - Other packages we’ll use are shown in the code below, which
+        installs them
 
-<!-- end list -->
+The packages used can be installed as follows:
 
 ``` r
-devtools::install_github("Nowosad/spDataLarge")
+install.packages("remotes")
+pkgs = c(
+  "osmdata",
+  "pct",
+  "sf",
+  "stats19",
+  "stplanr",
+  "tidyverse",
+  "tmap"
+)
+remotes::install_cran(pkgs)
 ```
 
-  - Own laptops allowed, provided necessary data is installed
+  - Own laptops allowed, provided necessary R packages have been
+    installed
 
   - Data: all data will be either provided by packages or downloaded on
     the day (assuming good internet)

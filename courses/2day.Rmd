@@ -24,18 +24,27 @@ Assumed prior knowledge:
   - R 3.5.3 recommended (although any R 3.5 release should work): https://cran.r-project.org/
   - RStudio 1.1.436 - see https://www.rstudio.com/products/rstudio/download/
   - Will require up-to-date versions of **tidyverse** and **sf** packages, at a minimum
-  - Other packages we'll use:
-    - stats19
-    - stplanr
-    - tmap
-    - devtools
-    - The GitHub package spDataLarge, which can be installed as follows:
-    
+  - Other packages we'll use are shown in the code below, which installs them
+  
+The packages used can be installed as follows:
+
 ```{r, eval=FALSE}
-devtools::install_github("Nowosad/spDataLarge")
+install.packages("remotes")
+pkgs = c(
+  "osmdata",
+  "pct",
+  "sf",
+  "stats19",
+  "stplanr",
+  "tidyverse",
+  "tmap"
+)
+remotes::install_cran(pkgs)
 ```
 
-- Own laptops allowed, provided necessary data is installed
+
+
+- Own laptops allowed, provided necessary R packages have been installed
 
 - Data: all data will be either provided by packages or downloaded on the day (assuming good internet)
   - A test to check if data downloads work is accessing stats19 data (check this works):

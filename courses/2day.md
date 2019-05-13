@@ -1,7 +1,8 @@
 2 day course: R for Spatial Transport Data
 ================
 
-See <https://github.com/ITSLeeds/TDS>
+Transport Data Science course, based on materials hosted at
+<https://github.com/ITSLeeds/TDS>
 
 Assumed prior knowledge:
 
@@ -27,12 +28,14 @@ Assumed prior knowledge:
 
   - DfT will provide desktops with recent versions of R and RStudio
     installed, including:
-      - R 3.5.3 recommended (although any R 3.5 release should work):
+      - R 3.6.0 or later recommended (although any R 3.5 release should
+        work): **download and install the latest version from**
         <https://cran.r-project.org/>
-      - RStudio 1.1.436 - see
+      - A recent version of RStudio: **download and install the latest
+        version from**
         <https://www.rstudio.com/products/rstudio/download/>
-      - Will require up-to-date versions of **tidyverse** and **sf**
-        packages, at a minimum
+      - Up-to-date versions of **tidyverse** and **sf** packages, at a
+        minimum
       - Other packages we’ll use are shown in the code below, which
         installs them
 
@@ -52,8 +55,8 @@ pkgs = c(
 remotes::install_cran(pkgs)
 ```
 
-  - Own laptops allowed, provided necessary R packages have been
-    installed
+  - Own laptops are assumed, unless the necessary packages work on the
+    cluster
 
   - Data: all data will be either provided by packages or downloaded on
     the day (assuming good internet)

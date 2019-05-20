@@ -1,8 +1,8 @@
 ---
 output:
-   github_document
-  #pdf_document:
-    # number_sections: true
+   # github_document
+  pdf_document:
+    number_sections: true
 title: Transport and Geographic Data Science with R
 subtitle: Practical Exercises
 author: Robin Lovelace and Malcolm Morgan, Institute for Transport Studies, University of Leeds
@@ -12,8 +12,16 @@ These practicals aim to test your knowledge of material covered in a short cours
 Code and data supporting the content can be found in the GitHub repository (repo) at github.com/ITSLeeds/TDS.
 To see the course contents and timings see https://git.io/tds2day which links to the file `2day.md` in the repo.
 
+```{r, eval=FALSE, echo=FALSE}
+# Upload exercises
+file.rename("pracitals/2day.pdf", ".")
+piggyback::pb_upload("2day.pdf")
+```
+
+
 ```{r, engine='bash', eval=FALSE, echo=FALSE}
 curl -i https://git.io -F "url=https://github.com/ITSLeeds/TDS/blob/master/courses/2day.md" -F "code=tds2day"
+
 ```
 
 It will use the following CRAN packages:
@@ -662,7 +670,7 @@ plot(europe["subregion"])
 1. Bonus: Calculate the average (`mean`) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)
 
 
-```{r, echo=FALSE, results='hide', message=FALSE}
+```{r, echo=FALSE, results='hide', message=FALSE, eval=FALSE}
 library(stats19)
 library(dplyr)
 library(sf)

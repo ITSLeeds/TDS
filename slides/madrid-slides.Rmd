@@ -36,7 +36,9 @@ my_bib = ReadBib("references.bib", check = FALSE)
 
 ---
 
-# About me
+# Introduction
+
+- A bit about me + research:
 
 - From rural [Herefordshire](https://www.openstreetmap.org/search?query=herefordshire#map=10/52.1116/-2.7397)
 
@@ -49,18 +51,6 @@ my_bib = ReadBib("references.bib", check = FALSE)
 - Lead Developer of Propensity to Cycle Tool (PCT) ([2017](https://www.jtlu.org/index.php/jtlu/article/view/862))
 - Application of methods, e.g. to school accessibility ([2018](http://eprints.whiterose.ac.uk/121439/))
 - Co-author of Geocomputation with R ([2019](http://geocompr.robinlovelace.net/transport.html))
-
----
-
-## R basics
-
-```{r, out.width="30%", fig.show='hold', message=FALSE}
-d = data.frame(x = 1:9, y = (1:9)^2)
-plot(d)           # base R
-library(ggplot2)  # with a package
-ggplot(d) +
-  geom_point(aes(x, y))
-```
 
 ---
 
@@ -80,12 +70,6 @@ sf::st_layers("track.gpx")
 track = sf::read_sf("track.gpx", layer = "track_points")
 mapview::mapview(track)
 ```
-
-
----
-
-# Getting and analysing spatio-temporal transport data
-
 
 ---
 
@@ -119,22 +103,28 @@ knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling soft
 
 - RStudio's Discourse community has 65,000+ posts already!
 
---
-
 - No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
 
 - Potential for a Discourse forum or similar: transport is not (just) GIS
 
 ---
 
+## The Propensity to Cycle Tool
+
+See www.pct.bike
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/figures/front-page-leeds-pct-demo.png)
+
+- I
+---
+
 ## How is R used in the PCT?
 
-- It's all reproducible, e.g.:
-- Find short in which more people drive than cycle
+- It's an open source online system for transport planningIt's all reproducible, e.gallowing use in other countriesFind short in which more people drive than cycle
 
---
+## ---
 
-- Stage 1: get data from web
+Stage 1: get data from web
 
 ```{r, eval=FALSE, echo=FALSE}
 # Aim: get top 1000 lines in repo
@@ -261,11 +251,257 @@ tm_shape(car_dependent_routes) +
 
 ---
 
+
+## R basics
+
+Course home: http://git.io/tds4hr
+
+```{r, eval=FALSE}
+x = 1:5
+y = c(0,1,3,9,18)
+plot(x, y)
+```
+
+---
+
+## Data frames
+
+```{r, eval=FALSE}
+cat = data.frame(name = c("Tiddles", "Chester", "Shadow"),
+                  type = c("Tabby", "Persian", "Siamese"),
+                   age = c(1, 3, 5),
+                  likes_milk = c(TRUE, FALSE,TRUE))
+even_numbers = seq(from = 2, to = 4000, by = 2)
+random_letters = sample(letters, size = 100, replace = TRUE)
+small_matrix = matrix(1:24, nrow = 12)
+```
+
+
+## Test code
+
+- Test code I sent
+
+```{r, eval=FALSE}
+# set-up
+library(osmdata)
+library(tmap)
+ttm()
+
+# get data
+d = opq("madrid") %>% 
+  add_osm_feature("highway", "cycleway") %>% 
+  osmdata_sf()
+```
+
+---
+
+## Practice code
+
+```{r}
+library(stplanr)
+library(tidyverse)
+l = flowlines_sf %>% 
+  mutate(percent_walk = On.foot / All)
+plot(l["percent_walk"])
+```
+
+---
+
+## Spatial data in R
+
+- Most transport data is spatial
+
+- In the package `sf` it's just data frames
+
+- See Chapter 4 of Geocomputation with R: https://geocompr.robinlovelace.net/spatial-operations.html
+
+- See sections 1 to 3 in the exercises: https://git.io/tds2dayex
+
+```{r}
+iow = pct::get_pct_zones("isle-of-wight")[1:9]
+class(iow)
+names(iow)
+iow[1:2, c(1, 5, 6, 7, 8)]
+```
+
+
+---
+
 # Getting and analysing spatio-temporal transport data
 
-- Work through section 5 in exercises:
+---
 
-http://git.io/tds2dayex
+
+## Data access in context
+
+--
+
+- Data cleaning (or 'tidying' or 'wrangling') is part of a wider process 
+`r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))`
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png")
+```
+
+--
+
+- It's important to have an idea where you're heading with the analysis
+
+--
+
+- Often best to start with pen and paper
+
+---
+
+## Data access/cleaning vs modelling time
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Tapson&#39;s Rules of Machine Learning:<br>4. Time spent on data cleaning is an order of magnitude more productive than time spent on hyperparameter tuning.<br><br>(Extreme example: achieved a Top 10 result in Kaggle using linear regression, as the only team that cleaned 50/60Hz noise first.)</p>&mdash; Jonathan Tapson (@jontapson) <a href="https://twitter.com/jontapson/status/1103024752019402753?ref_src=twsrc%5Etfw">March 5, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Source: https://twitter.com/jontapson/status/1103024752019402753
+
+
+---
+
+background-image: url()
+background-size: cover
+class: center, middle
+
+# A typology of data sources
+
+---
+
+## Information and data pyramids
+
+Data science is climbing the DIKW pyramid
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/DIKW_Pyramid.svg/220px-DIKW_Pyramid.svg.png")
+```
+
+
+---
+
+## A geographic availability pyramid
+
+- Recommendations
+- Build this here!
+
+- City-specific datasets
+  - Bristol cycle count data
+
+- Hard-to-access national data
+
+- Open international/national datasets
+  - Open origin-destination data from UK Census
+
+- Globally available, low-grade data (bottom)
+  - OpenStreetMap, Elevation data
+
+---
+
+## An ease-of access pyramid
+
+- Data provision packages
+  - Use the pct package
+  - stats19 package
+
+- Pre-processed data
+  - E.g. downloading data from website www.pct.bike
+
+- Messy official data
+  - Raw STATS19 data
+
+---
+
+## A geographic level of detail pyramid
+
+- Agents
+- Route networks
+- Nodes
+- Routes
+- Desire lines
+- Transport zones
+
+
+---
+
+## Observations
+
+- Official sources are often smaller in sizes but higher in Quality
+
+- Unofficial sources provide higher volumes but tend to be noisy, e.g.: https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12081
+
+- Another way to classify data is by quality: signal/noise ratios
+
+- Globally available datasets would be at the bottom of this pyramid; local surveys at the top.
+
+Source: https://geocompr.robinlovelace.net/read-write.html
+
+
+- Which would be best to inform policy?
+
+---
+
+## Portals
+
+- UK geoportal, providing geographic data at many levels: https://geoportal.statistics.gov.uk
+- Other national geoportals exist, such as this: http://www.geoportal.org/
+- A good source of cleaned origin destination data is the Region downloads tab in the Propensity to Cycle Tool - see the Region data tab for West Yorkshire here, for example: http://www.pct.bike/m/?r=west-yorkshire
+- OpenStreetMap is an excellent source of geographic data with global coverage. You can download data on specific queries (e.g. highway=cycleway) from the overpass-turbo service: https://overpass-turbo.eu/ or with the **osmdata** package
+
+---
+
+## Online lists
+
+For other datasets, search online! Good starting points in your research may be:
+
+- The open data section in Geocomputation with R - https://geocompr.robinlovelace.net/read-write.html#retrieving-data
+- Transport datasets mentioned here: https://data.world/datasets/transportation
+- UK government transport data: https://ckan.publishing.service.gov.uk/publisher/department-for-transport
+
+---
+
+## Data packages
+
+- The **openrouteservice** github package provides routing data
+- The stats19 package can get road crash data for anywhere in Great Britain [@lovelace_stats19_2019] see here for info: https://itsleeds.github.io/stats19/
+- The pct package provides access to data in the PCT: https://github.com/ITSLeeds/pct
+- There are many other R packages to help access data
+
+---
+
+# Example: stats19 data
+
+- An R package for getting and cleaning UK road crash data
+
+- See the package website at: https://itsleeds.github.io/stats19/
+
+- Example code:
+
+```{r, eval=FALSE}
+library(stats19)
+crashes = get_stats19(year = 2017, type = "accident", ask = FALSE)
+```
+
+
+---
+
+# Practical
+
+- Work through the following exercises (i:
+
+- Sion 1):
+: to re-cap vital R/Studio skills
+- Section 2: for information about packages, especially sf/ggplot2
+- Section 3: on working with spatial data
+- Section 4: on geographic data visualisation
+- Section 5: one downloading/analysing spatial data
+- Section 6: origin-destination datatt- 
+
+p://git.io/tds2dayex
+
+
 
 ---
 

@@ -20,8 +20,8 @@ piggyback::pb_upload("2day.pdf")
 
 
 ```{r, engine='bash', eval=FALSE, echo=FALSE}
-curl -i https://git.io -F "url=https://github.com/ITSLeeds/TDS/blob/master/courses/2day.md" -F "code=tds2day"
-
+# curl -i https://git.io -F "url=https://github.com/ITSLeeds/TDS/blob/master/courses/2day.md" -F "code=tds2day"
+curl -i https://git.io -F "url=https://github.com/ITSLeeds/TDS/blob/master/courses/analysis-4hr.md" -F "code=tds4hr"
 ```
 
 It will use the following CRAN packages:
@@ -105,7 +105,7 @@ We have several ways to run code within a script.
 1. Highlight a block of code or part of a line of code and press `CTRL + Enter` to run the highlighted code.
 1. Press `CTRL + Shift + Enter` to run all the code in a script.
 1. Press the Run button on the toolbar to run all the code in a script.
-1. Use the function `source()` to run all the code in a script e.g. `source("TDS-lesson-1.R")`
+1. Use the function `source()` to run all the code in a script e.g. `source("TDS-lesson-1.R")` (but don't create an infinite loop!)
 
 ### Vewing Objects
 

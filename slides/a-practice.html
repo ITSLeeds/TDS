@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Transport Data Science in Practice</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robin Lovelace" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Transport Data Science in Practice
+## <br/>Transport Data Science
+### Robin Lovelace
+### University of Leeds, 2019-05-14<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+---
+
+
+background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+
+
+---
+
+# This session in context
+
+   - Introduction to transport data science
+
+-  Software for practical data science
+
+ - The structure of transport data
+ - Data cleaning and subsetting
+ - Accessing data from web sources
+ - Routing
+ - Data visualization
+ - Project work
+ - Machine learning
+ - ## &lt;font color="red"&gt; Professional issues&lt;/font&gt; 
+ 
+---
+
+## Objectives
+
+From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md):
+
+
+```r
+# Understand the structure of transport datasets: spatial, temporal and demographic
+# Understand how to obtain, clean and store transport related data
+# Gain proficiency in command-line tools for handling large transport datasets
+# Learn machine learning and data modelling techniques
+# Produce data visualizations, static and interactive
+# Learn where to find large transport datasets and assess data quality
+```
+
+- Learn how to join together the components of transport data science into a cohesive project portfolio 
+
+---
+
+## Learning outcomes
+
+
+```r
+# Identify available datasets and access and clean them
+# Combine datasets from multiple sources
+# Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
+# Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
+# Deciding when to use local computing power vs cloud services
+```
+
+- Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods
+
+---
+# Recap
+
+Can be added as follows: 
+
+
+---
+## Introduction to transport data science
+
+We defined data science as:
+
+--
+
+- A discipline "that allows you to turn raw data into understanding, insight, and knowledge" (Grolemund and Wickham, 2016a)
+
+--
+
+Meaning transport-related data work that is actually useful!
+
+What other aspects of the definition make data science useful?
+
+--
+
+- Being able to scale to large dataset sizes
+
+--
+
+- Being systematic, driven by code rather than user interfaces, allowing:
+
+--
+
+- Reproducibility
+
+--
+
+- Accountability/transparency
+
+--
+
+- Generalisation and the application of your work (code) to other contexts
+
+---
+## Software for transport data science
+
+Coffee data in a GUI vs a CLI
+
+.pull-left[
+
+In a GUI:
+
+![](https://user-images.githubusercontent.com/1825120/52374114-5dc01680-2a54-11e9-9b0a-11a345fe9767.gif)
+
+]
+
+--
+
+.pull-right[
+![](https://user-images.githubusercontent.com/1825120/52374960-74676d00-2a56-11e9-95e2-19d1c39365b8.gif)
+]
+
+---
+## The structure of transport data       
+
+- Agents
+- Route nets
+- Points and nodes
+- Routes over a network
+- Desire lines and OD pairs
+- Transport zones, areal units
+
+Start with the foundational data frame:
+
+
+```r
+u = paste0(
+  "https://github.com/ITSLeeds/TDS/",
+  "raw/master/sample-data/everyone.csv"
+  )
+d = readr::read_csv(u)
+d
+```
+
+```
+## # A tibble: 10 x 3
+##    person_name n_coffee like_bus_travel
+##    &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt;          
+##  1 robin              5 TRUE           
+##  2 malcolm            1 FALSE          
+##  3 richard            0 TRUE           
+##  4 Zi                 4 FALSE          
+##  5 Ignacio            0 TRUE           
+##  6 Caroline           6 FALSE          
+##  7 Tatjana            8 FALSE          
+##  8 Hawah              2 FALSE          
+##  9 Colin              0 TRUE           
+## 10 Eugeni             7 FALSE
+```
+
+---
+
+## Recap: data frame manipulation
+
+--
+
+Control your data!
+
+--
+
+
+```r
+d[1:2, 1:3]
+```
+
+```
+## # A tibble: 2 x 3
+##   person_name n_coffee like_bus_travel
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;lgl&gt;          
+## 1 robin              5 TRUE           
+## 2 malcolm            1 FALSE
+```
+
+--
+
+
+```r
+nrow(d)
+d[c(1, 3), c(2, 7)]
+d[3]
+d[, c(3)]
+d$x = 1:nrow(d)
+sum(d$n_coffee[d$like_bus_travel])
+```
+
+--
+
+## Challenge for practical: do that in the tidyverse!
+
+---
+## Data cleaning and subsetting          
+
+
+--
+
+- Data cleaning (or 'tidying' or 'wrangling') is part of a wider process 
+(Grolemund and Wickham, 2016a)
+
+![](https://d33wubrfki0l68.cloudfront.net/795c039ba2520455d833b4034befc8cf360a70ba/558a5/diagrams/data-science-explore.png)&lt;!-- --&gt;
+
+--
+
+- It's important to have an idea where you're heading with the analysis
+
+--
+
+- Often best to start with pen and paper
+
+---
+## Accessing data from web sources
+
+--
+
+There is tons of data out there, being able to get it is a vital skill
+
+--
+
+- UK geoportal, providing geographic data at many levels: https://geoportal.statistics.gov.uk
+- Other national geoportals exist, such as this: http://www.geoportal.org/
+- A good source of cleaned origin destination data is the Region downloads tab in the Propensity to Cycle Tool - see the Region data tab for West Yorkshire here, for example: http://www.pct.bike/m/?r=west-yorkshire
+- OpenStreetMap is an excellent source of geographic data with global coverage. You can download data on specific queries (e.g. highway=cycleway) from the overpass-turbo service: https://overpass-turbo.eu/ or with the **osmdata** package
+
+---
+## Routing
+
+
+```r
+o = stplanr::geo_code("leeds")
+d = stplanr::geo_code("bradford")
+l = stplanr::route_osrm(o, d)
+plot(sf::st_as_sf(l))
+```
+
+![](a-practice_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+
+---
+## Data visualization                    
+
+&gt; [visualisations] are also often the best way to present the findings of [transport] research in a way that is accessible. [visualisation] making is therefore a critical part of [transport] and its emphasis not only on describing, but also changing the world.
+
+Source: [Geocomputation with R](https://geocompr.robinlovelace.net/adv-map.html)
+
+--
+
+
+![](https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2014/10/31/1414751968306/d83dffac-d060-4b77-88c0-77916e18e233-1020x397.png?width=620&amp;quality=45&amp;auto=format&amp;fit=max&amp;dpr=2&amp;s=7a52a871a27b3fa6ae167244d4f9845e)&lt;!-- --&gt;
+
+- Visualisations can make findings become 'real'
+
+
+---
+## Project work                          
+
+![](https://d33wubrfki0l68.cloudfront.net/87603549ad0d95b0071da0f9270b2f89ead3b39b/48700/lesson-images/websites-1-render.png)
+
+---
+## Machine learning                   
+
+There are 2 basic types (James, Witten, Hastie, and Tibshirani, 2013)
+
+- Supervised learning, when you have a training dataset
+
+- Unsupervised learning, where there is no 'dependent variable'
+
+---
+
+## TDS in practice
+
+Example: Active Transport Tool for WHO: https://github.com/ATFutures/who
+
+![](https://raw.githubusercontent.com/ATFutures/who/master/fig/accra-flow1-interactive.png)
+
+
+# References
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data
+Science_. 1 edition. O'Reilly Media. ISBN: 978-1-4919-1039-9.
+
+James, Gareth, Daniela Witten, Trevor Hastie, et al. (2013). _An
+Introduction to Statistical Learning: With Applications in R_.
+Springer Science &amp; Business Media. ISBN: 978-1-4614-7138-7.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

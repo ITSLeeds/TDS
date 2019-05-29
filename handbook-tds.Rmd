@@ -147,11 +147,10 @@ There are also some requirements for pre-module reading:
 <!-- Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/) -->
 <!-- If you like money, try searching this jobs website for data scientist salaries: -->
 
-## Specific/online resources
+<!-- ## Specific/online resources -->
 
-- It's worth thinking about what you want to do next so I recommend taking a look for 'data science' and transport jobs on sites such as www.cwjobs.co.uk
+<!-- - For 'data science' and transport jobs on see sites such as www.cwjobs.co.uk -->
 
-- For a refresher on maths it may be useful to have a maths text book on hand. This should cover mathematical concepts including vectors, matrices, eigenvectors, numerical parameter optimization, calculus, dierential equations, Gaussian distributions, Bayes' rule, covariance matrices.
 
 <!-- Riley, Hobson and Bence. -->
 <!-- Mathematical Methods for Physics and En- -->
@@ -182,7 +181,7 @@ It may also help if you:
 
 1. ask course colleagues for help
 2. search the Internet for technical problems before asking
-3. create a reproducible exmaple to highlight the question in code
+3. create a reproducible example to highlight the question in code
 4. mention who you have asked and paste what you have found on the net in your email to me to show that you have done 1 and 2.
 
 # Credit assignment
@@ -266,13 +265,12 @@ Thereafter students lose a further 5 marks for each subsequent period of 24 hour
 If your assessed work is over 14 days late, you
 will receive a mark of 20 on the 20-90 scale or a mark of 0 on the 0-100 scale.
 
-The time on the turnitin receipt for coursework is denitive in terms of monitoring late submissions.
 It is your responsibility to make sure that you have allowed enough time to submit your work and that you have a receipt.
-If your receipt does not appear in your inbox straightaway you can go back to the submission area and request a receipt in order to have conrmation that you have submitted your work successfully.
+If your receipt does not appear in your inbox straightaway you can go back to the submission area and request a receipt in order to have confirmation that you have submitted your work successfully.
 
 Students with dyslexia Students with dyslexia should request a dyslexia coversheet be attached to their work when handing coursework.
 Coursework Extension Requests Note: Extensions are only granted in
-cases were a student has experienced serious diculty which has prevented the
+cases were a student has experienced serious difficulty which has prevented the
 completion of work within the normal time period. This may be due to illness,
 bereavement, family problems or similar.
 They are not granted for minor or
@@ -281,11 +279,11 @@ Should you have any mitigating circumstances which lead to you wanting to
 request an extension to your coursework deadline, or prevent you from attending
 an examination please contact ITS Student Education Service Oce before the
 day of the deadline or examination.
-Mitigating circumstances are signicantly disruptive or unexpected events
+Mitigating circumstances are significantly disruptive or unexpected events
 which are beyond your control but which might affect your academic performance. If this applies, you should inform your parent school as soon as possible.
 
 **Plagiarism.** Please make sure that you know what constitutes as plagiarism.
-The University denes plagiarism as presenting someone else's work as
+The University defines plagiarism as presenting someone else's work as
 your own, including images and other material as well as text. Do not plagiarise, collude, or cheat in any way.
 All instances of plagiarism will be treated
 severely according to University disciplinary procedures. If you are unsure, check
@@ -297,7 +295,7 @@ You need to give the person reading your assignment enough information to nd the
 This is done by including citations in your work and providing a list
 of references.
 You are expected to use the University's version of the Harvard referencing style for your assignments for this module.
-Guidance on how to include citations within your text and how to reference dierent types of material using Harvard is provided here: http://library.leeds.ac.uk/skills-referencing. 
+Guidance on how to include citations within your text and how to reference die rent types of material using Harvard is provided here: http://library.leeds.ac.uk/skills-referencing. 
 
 I personally recommend using Zotero, a free and open source reference management system.
 Used in sync with writing software such as RStudio with the **citr** package installed can make referencing fun!
@@ -312,7 +310,7 @@ journal articles.
 Library Skills is available to all students and can help
 develop a wide range of academic skills and strategies.
 There are workshops
-available in the Laidlaw Library on lots of dierent topics, including planning
+available in the Laidlaw Library on lots of die rent topics, including planning
 your essay or dissertation, writing academically and presentation skills. For 1-to-1 support on academic study skills you can talk to a Learning Advisor who
 can help you with developing a wide range of academic skills and strategies on
 topics including academic writing, critical thinking, researching and maths. See: https://library.leeds.ac.uk/skills

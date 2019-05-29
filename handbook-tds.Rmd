@@ -5,7 +5,7 @@ author: Dr Robin Lovelace, r.lovelace@leeds.ac.uk
 output:
   html_document:
     number_section: true
-bibliography: references.bib
+bibliography: tds.bib
 ---
 
 <!-- # Introduction -->
@@ -79,23 +79,16 @@ The course objectives are to:
 
 # About the lecturer
 
-Dr Robin Lovelace is a University Academic Fellow in Transport and Big Data at the Institute for Transport Studies, University of Leeds.
+Robin is a University Academic Fellow in Transport and Big Data at the Institute for Transport Studies, University of Leeds.
 He researches scalable, open source and interactive transport models.
-
-Dr Lovelace has a degree in Geography from the University of Bristol, an MSc in Environmental Science and Management from the University of York and a PhD from the university of Sheffield.
+He has a degree in Geography from the University of Bristol, an MSc in Environmental Science and Management from the University of York and a PhD from the university of Sheffield.
 Robin is also a programmer and has contributed many software tools and resources to the data science and transport communities.
-For more information follow these links:
-
-- Publications: https://scholar.google.co.uk/citations?user=xDJHVCAAAAAJ&hl=en
-- GitHub profile: https://github.com/Robinlovelace
-- Twitter: https://twitter.com/robinlovelace
-
+For more information, see my page on the University of Leeds' website: https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace
 
 # Pre-requisites
 
-You should use the VLE site to find web links to content.
-These materials may be updated
-throughout the module so please check you have the latest versions.
+You should use the VLE site and https://github.com/ITSLeeds/TDS to find web links to content.
+These materials may be updated throughout the module so please check you have the latest versions.
 
 ## Computing
 
@@ -108,20 +101,21 @@ There are also some requirements for pre-module reading:
 
 ## Essential
 
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2017]
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2018a]
-- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
+- The [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2019]
+
 
 ## Core
 
 - Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
-
 - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx:_2017]
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr:_2018]
+
 
 ## Optional
 
 - Book on transport data science in Python [@fox_data_2018]
-- For context, a report on the 'transport data revolution' [@transportsystemscatapult_transport_2015]
+- For context, a report on the 'transport data revolution' [@transport_systems_catapult_transport_2015]
 - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001]
 - A paper on the use of SmartCard data [@gschwender_using_2016]
 - An academic paper describing the development of a web application for the Department for Transport [@lovelace_propensity_2017]
@@ -172,28 +166,15 @@ There are also some requirements for pre-module reading:
 
 <!-- Note: If you are new to quickly reading and mapping out large chucks of knowledge, the mind mapping approach can help. -->
 
-# Team-working
+# Team working
 
-You are from a range of backgrounds and dierent parts of the module will be
-easy for people with particular backgrounds such as computer programming,
-system administration, statistics, and transport applications. You are supposed
-to work closely together on everything except the text of your written reports.
-I expect that you to share your existing skills and knowledge with the rest of
-the team.
-Examination of this module is not competitive and everyone will
-score highly if you all help each other. I would like the whole team to do great
-work together and all get distinctions for it.
-You are reminded of the Leeds
-staff student charter which includes agreements for all staff and students to be
-professional, courteous, and helpful to one another at all times.
-A substantial part of your learning should come from the experiences of the other students and you need to work together to enable this.
+Although individual reports will be submitted, you are encouraged to collaborate throughout the course.
+Group projects that are based on a single topic or dataset, but with each member focussing on a different aspect for the report, are allowed.
 
-
-# Class rules
+# Course information
 
 - The class schedule is available on the central ITS timetable webpage.
-- Handouts and other materials will be put on VLE/Blackboard at vlebb.leeds.ac.uk
-- Session format will vary but will typically include a presentation and discussion of new topics, then an hour of project work where the lecturer is available to help with practical work.
+- Session format will vary but will typically include a presentation and discussion of new topics, then project work where the lecturer is available to help with practical work.
 - Much of the work contributing to the final report will be done outside class hours
 
 Questions are encouraged so please just ask if you have any doubts.
@@ -203,10 +184,6 @@ It may also help if you:
 2. search the Internet for technical problems before asking
 3. create a reproducible exmaple to highlight the question in code
 4. mention who you have asked and paste what you have found on the net in your email to me to show that you have done 1 and 2.
-
-For international students: My full name is Dr Robin Lovelace. Robin
-is my personal name, Lovelace is my family name. Please call me Robin.
-This is informal. Dr Lovelace is used only in formal situations.
 
 # Credit assignment
 
@@ -220,30 +197,25 @@ The report can be a **maximum** of **15 pages** long and **3000 words** in total
 Quality is valued over quantity.
 
 The report is a portfolio of work that you will build-up over the course of the project.
-**It will be submitted on the Friday of week 24** (2019-10-05).
+**It will be submitted on the Friday of week 24**, the first week of May.
 
 The purpose of all the readings, talking, and exercises is to help you build the skills and ideas needed to deliver this project and report.
-The class will work together as one team to deliver results.
-Students are encouraged to post their work in blogs.
-The blogs themselves cannot go in the final report but some of the content can.
-
-You don't need to become an expert in every part of the module, but you are strongly encouraged to discover what interests and excites you and to explore it in detail by yourself.
-A Masters degree is the highest type of taught degree as should prepare you to do your own research in the future, where there will not be anyone to tell you what to do any more.
-
-Reports receiving a high grade will cite references to papers and books used in the work.
+<!-- The class will work together as one team to deliver results. -->
+Reports receiving a high grade will cite references to academic papers and other resources used in the work.
 They can include resources in the taught material or resources that go beyond what has been taught in class.
 
 ## Marking scheme
 
-To achieve a PASS the report must include text which demonstrate a basic understanding of the ideas from every session and provide at least two images you have generated to present the results, and an explanation of the underlying code.
+To achieve a PASS, the report must demonstrate an understanding of the techniques covered in the practical sessions, with reference to concepts underlying Data Science, taught in the lectures.
+At least two outputs (images, tables, model results) must be presented to demonstrate the results of your work.
+There will be a basic explanation of the underlying code.
 To achieve a DISTINCTION the report must include text that shows understanding that goes beyond the material presented in the module from at least one session.
 
-High marks are awarded to reports that show awareness of skills useful in industry and competence with theory.
-Data scientists rarely work alone so marks will also be awarded for evidence of team-work and collaboration, e.g. the adaptation of someone else's code/method with full credit to the original.
+High marks will be awarded to reports that show awareness of skills useful in industry and the ability to use theoretical concepts to inform the work.
+Data scientists rarely work alone so marks will also be awarded for evidence of collaboration, e.g. the adaptation of someone else's (or some organisation's) code/method with full credit to the original.
 
-The module leader does not award marks, though may recommend them as
-a first marker.
-The final awards are made by a second marker examiner.
+<!-- The module leader does not award marks, though may recommend them as a first marker. -->
+<!-- The final awards are made by a second marker examiner. -->
 Marks are awarded in 5 categories, each of which is evaluated out of 20 and which will take account of the following criteria:
 
 **Understanding of concepts, methods and approaches**

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
   <head>
     <title>The structure of transport data in R</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="author" content="Robin Lovelace" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -113,7 +113,7 @@ sapply(d, class)
 ## [1] "logical"
 ## 
 ## $g
-## [1] "sfc_MULTIPOLYGON" "sfc"
+## [1] "sfc_POINT" "sfc"
 ```
 
 ---
@@ -132,70 +132,67 @@ methods(plot)
 
 ```
 ##  [1] plot,ANY,ANY-method                       
-##  [2] plot,gpc.poly,ANY-method                  
-##  [3] plot,Spatial,missing-method               
-##  [4] plot,SpatialCollections,missing-method    
-##  [5] plot,SpatialGrid,missing-method           
-##  [6] plot,SpatialGridDataFrame,missing-method  
-##  [7] plot,SpatialLines,missing-method          
-##  [8] plot,SpatialMultiPoints,missing-method    
-##  [9] plot,SpatialPixels,missing-method         
-## [10] plot,SpatialPixelsDataFrame,missing-method
-## [11] plot,SpatialPoints,missing-method         
-## [12] plot,SpatialPolygons,missing-method       
-## [13] plot,SpatialRings,missing-method          
-## [14] plot.acf*                                 
-## [15] plot.bclust*                              
-## [16] plot.classIntervals*                      
-## [17] plot.data.frame*                          
-## [18] plot.decomposed.ts*                       
-## [19] plot.default                              
-## [20] plot.dendrogram*                          
-## [21] plot.density*                             
-## [22] plot.ecdf                                 
-## [23] plot.factor*                              
-## [24] plot.formula*                             
-## [25] plot.function                             
-## [26] plot.hclust*                              
-## [27] plot.histogram*                           
-## [28] plot.HoltWinters*                         
-## [29] plot.ica*                                 
-## [30] plot.isoreg*                              
-## [31] plot.lm*                                  
-## [32] plot.medpolish*                           
-## [33] plot.mlm*                                 
-## [34] plot.ppr*                                 
-## [35] plot.prcomp*                              
-## [36] plot.princomp*                            
-## [37] plot.profile.nls*                         
-## [38] plot.R6*                                  
-## [39] plot.raster*                              
-## [40] plot.sf*                                  
-## [41] plot.sfc_CIRCULARSTRING*                  
-## [42] plot.sfc_GEOMETRY*                        
-## [43] plot.sfc_GEOMETRYCOLLECTION*              
-## [44] plot.sfc_LINESTRING*                      
-## [45] plot.sfc_MULTILINESTRING*                 
-## [46] plot.sfc_MULTIPOINT*                      
-## [47] plot.sfc_MULTIPOLYGON*                    
-## [48] plot.sfc_POINT*                           
-## [49] plot.sfc_POLYGON*                         
-## [50] plot.sfg*                                 
-## [51] plot.shingle*                             
-## [52] plot.SOM*                                 
-## [53] plot.somgrid*                             
-## [54] plot.spec*                                
-## [55] plot.stepfun                              
-## [56] plot.stft*                                
-## [57] plot.stl*                                 
-## [58] plot.svm*                                 
-## [59] plot.table*                               
-## [60] plot.trellis*                             
-## [61] plot.ts                                   
-## [62] plot.tskernel*                            
-## [63] plot.TukeyHSD*                            
-## [64] plot.tune*                                
-## [65] plot.units*                               
+##  [2] plot,Spatial,missing-method               
+##  [3] plot,SpatialGrid,missing-method           
+##  [4] plot,SpatialGridDataFrame,missing-method  
+##  [5] plot,SpatialLines,missing-method          
+##  [6] plot,SpatialMultiPoints,missing-method    
+##  [7] plot,SpatialPixels,missing-method         
+##  [8] plot,SpatialPixelsDataFrame,missing-method
+##  [9] plot,SpatialPoints,missing-method         
+## [10] plot,SpatialPolygons,missing-method       
+## [11] plot.acf*                                 
+## [12] plot.bclust*                              
+## [13] plot.classIntervals*                      
+## [14] plot.data.frame*                          
+## [15] plot.decomposed.ts*                       
+## [16] plot.default                              
+## [17] plot.dendrogram*                          
+## [18] plot.density*                             
+## [19] plot.ecdf                                 
+## [20] plot.factor*                              
+## [21] plot.formula*                             
+## [22] plot.function                             
+## [23] plot.hclust*                              
+## [24] plot.histogram*                           
+## [25] plot.HoltWinters*                         
+## [26] plot.ica*                                 
+## [27] plot.isoreg*                              
+## [28] plot.lm*                                  
+## [29] plot.medpolish*                           
+## [30] plot.mlm*                                 
+## [31] plot.ppr*                                 
+## [32] plot.prcomp*                              
+## [33] plot.princomp*                            
+## [34] plot.profile.nls*                         
+## [35] plot.R6*                                  
+## [36] plot.raster*                              
+## [37] plot.sf*                                  
+## [38] plot.sfc_CIRCULARSTRING*                  
+## [39] plot.sfc_GEOMETRY*                        
+## [40] plot.sfc_GEOMETRYCOLLECTION*              
+## [41] plot.sfc_LINESTRING*                      
+## [42] plot.sfc_MULTILINESTRING*                 
+## [43] plot.sfc_MULTIPOINT*                      
+## [44] plot.sfc_MULTIPOLYGON*                    
+## [45] plot.sfc_POINT*                           
+## [46] plot.sfc_POLYGON*                         
+## [47] plot.sfg*                                 
+## [48] plot.shingle*                             
+## [49] plot.SOM*                                 
+## [50] plot.somgrid*                             
+## [51] plot.spec*                                
+## [52] plot.stepfun                              
+## [53] plot.stft*                                
+## [54] plot.stl*                                 
+## [55] plot.svm*                                 
+## [56] plot.table*                               
+## [57] plot.trellis*                             
+## [58] plot.ts                                   
+## [59] plot.tskernel*                            
+## [60] plot.TukeyHSD*                            
+## [61] plot.tune*                                
+## [62] plot.units*                               
 ## see '?methods' for accessing help and source code
 ```
 
@@ -217,7 +214,7 @@ unclass(d$g[1])
 ```
 
 ```
-## MULTIPOLYGON (((-1.300856 50.76684, -1.296412 50.76085, -1.295563 50.7601, -1.292189 50.758, -1.294084 50.75053, -1.295261 50.75042, -1.303409 50.75102, -1.30401 50.75358, -1.297992 50.75403, -1.297747 50.75706, -1.304349 50.75598, -1.304236 50.75826, -1.303917 50.75851, -1.304583 50.75959, -1.305353 50.76542, -1.316877 50.76097, -1.320741 50.76489, -1.300856 50.76684)), ((-1.282956 50.75542, -1.289555 50.75079, -1.290438 50.75742, -1.282956 50.75542)))
+## POINT (-1.155884 50.72186)
 ```
 
 ```
@@ -226,7 +223,7 @@ unclass(d$g[1])
 ## [1] 0
 ## attr(,"bbox")
 ##      xmin      ymin      xmax      ymax 
-## -1.320741 50.750416 -1.282956 50.766835 
+## -1.155884 50.721856 -1.155884 50.721856 
 ## attr(,"crs")
 ## Coordinate Reference System:
 ##   EPSG: 4326 
@@ -272,7 +269,7 @@ library(sf)
 ```
 
 ```
-## Linking to GEOS 3.7.0, GDAL 2.4.0, PROJ 5.2.0
+## Linking to GEOS 3.5.1, GDAL 2.1.2, PROJ 4.9.3
 ```
 
 
@@ -300,21 +297,21 @@ dsf
 
 ```
 ## Simple feature collection with 9 features and 5 fields
-## geometry type:  MULTIPOLYGON
+## geometry type:  POINT
 ## dimension:      XY
-## bbox:           xmin: -1.347353 ymin: 50.68238 xmax: -1.132825 ymax: 50.76684
+## bbox:           xmin: -1.310067 ymin: 50.70267 xmax: -1.155884 ymax: 50.75714
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   x  y        z a     b                              g
-## 1 9  9 1.000000 a  TRUE MULTIPOLYGON (((-1.300856 5...
-## 2 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
-## 3 9 27 1.732051 c  TRUE MULTIPOLYGON (((-1.275774 5...
-## 4 9 36 2.000000 d FALSE MULTIPOLYGON (((-1.143635 5...
-## 5 9 45 2.236068 e  TRUE MULTIPOLYGON (((-1.226513 5...
-## 6 9 54 2.449490 f FALSE MULTIPOLYGON (((-1.169622 5...
-## 7 9 63 2.645751 g  TRUE MULTIPOLYGON (((-1.137531 5...
-## 8 9 72 2.828427 h FALSE MULTIPOLYGON (((-1.254204 5...
-## 9 9 81 3.000000 i  TRUE MULTIPOLYGON (((-1.31398 50...
+##   x  y        z a     b                          g
+## 1 9  9 1.000000 a  TRUE POINT (-1.155884 50.72186)
+## 2 9 18 1.414214 b FALSE POINT (-1.173878 50.72301)
+## 3 9 27 1.732051 c  TRUE POINT (-1.224069 50.72613)
+## 4 9 36 2.000000 d FALSE POINT (-1.158509 50.72874)
+## 5 9 45 2.236068 e  TRUE POINT (-1.281492 50.75185)
+## 6 9 54 2.449490 f FALSE  POINT (-1.310067 50.7534)
+## 7 9 63 2.645751 g  TRUE POINT (-1.297514 50.75714)
+## 8 9 72 2.828427 h FALSE POINT (-1.302345 50.70267)
+## 9 9 81 3.000000 i  TRUE POINT (-1.284285 50.70326)
 ```
 
 ---
@@ -388,8 +385,8 @@ d[2, ]
 ```
 
 ```
-##   x  y        z a     b                              g
-## 2 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
+##   x  y        z a     b                          g
+## 2 9 18 1.414214 b FALSE POINT (-1.173878 50.72301)
 ```
 
 --
@@ -426,18 +423,18 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ───────────────────────────────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ─────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
-## ✔ ggplot2 3.1.0       ✔ purrr   0.3.2  
-## ✔ tibble  2.1.1       ✔ dplyr   0.8.0.1
-## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
-## ✔ readr   1.3.1       ✔ forcats 0.4.0
+## ✔ ggplot2 3.1.0     ✔ purrr   0.3.1
+## ✔ tibble  2.0.1     ✔ dplyr   0.7.8
+## ✔ tidyr   0.8.3     ✔ stringr 1.4.0
+## ✔ readr   1.3.1     ✔ forcats 0.4.0
 ```
 
 ```
-## ── Conflicts ──────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -447,8 +444,8 @@ d %&gt;% slice(2) # same as slice(d, 2) or dplyr::slice(d, 2)
 ```
 
 ```
-##   x  y        z a     b                              g
-## 1 9 18 1.414214 b FALSE MULTIPOLYGON (((-1.305353 5...
+##   x  y        z a     b                          g
+## 1 9 18 1.414214 b FALSE POINT (-1.173878 50.72301)
 ```
 
 ---
@@ -463,8 +460,8 @@ d %&gt;% filter(y == 81)
 ```
 
 ```
-##   x  y z a    b                              g
-## 1 9 81 3 i TRUE MULTIPOLYGON (((-1.31398 50...
+##   x  y z a    b                          g
+## 1 9 81 3 i TRUE POINT (-1.284285 50.70326)
 ```
 
 ```r
@@ -513,17 +510,17 @@ dsf %&gt;%
 
 ```
 ## Simple feature collection with 5 features and 3 fields
-## geometry type:  MULTIPOLYGON
+## geometry type:  POINT
 ## dimension:      XY
-## bbox:           xmin: -1.347353 ymin: 50.69407 xmax: -1.132825 ymax: 50.76684
+## bbox:           xmin: -1.297514 ymin: 50.70326 xmax: -1.155884 ymax: 50.75714
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   x  y        z                              g
-## 1 9  9 1.000000 MULTIPOLYGON (((-1.300856 5...
-## 2 9 27 1.732051 MULTIPOLYGON (((-1.275774 5...
-## 3 9 45 2.236068 MULTIPOLYGON (((-1.226513 5...
-## 4 9 63 2.645751 MULTIPOLYGON (((-1.137531 5...
-## 5 9 81 3.000000 MULTIPOLYGON (((-1.31398 50...
+##   x  y        z                          g
+## 1 9  9 1.000000 POINT (-1.155884 50.72186)
+## 2 9 27 1.732051 POINT (-1.224069 50.72613)
+## 3 9 45 2.236068 POINT (-1.281492 50.75185)
+## 4 9 63 2.645751 POINT (-1.297514 50.75714)
+## 5 9 81 3.000000 POINT (-1.284285 50.70326)
 ```
 
 
@@ -723,7 +720,7 @@ a = get_stats19(year = 2017, type = "ac", ask = FALSE) %&gt;%
 ```
 
 ```
-## Data saved at /tmp/RtmpE1Sj0S/dftRoadSafetyData_Accidents_2017/Acc.csv
+## Data saved at /tmp/RtmppzPKP0/dftRoadSafetyData_Accidents_2017/Acc.csv
 ```
 
 ```
@@ -731,7 +728,7 @@ a = get_stats19(year = 2017, type = "ac", ask = FALSE) %&gt;%
 ```
 
 ```
-## /tmp/RtmpE1Sj0S/dftRoadSafetyData_Accidents_2017/Acc.csv
+## /tmp/RtmppzPKP0/dftRoadSafetyData_Accidents_2017/Acc.csv
 ```
 
 ```
@@ -784,7 +781,6 @@ a$h = as.numeric(str_sub(a$time, 1, 2))
 
 Based on data on example at: [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/articles/stats19.html)
     </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -793,57 +789,16 @@ Based on data on example at: [itsleeds.github.io/stats19](https://itsleeds.githu
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
 })();</script>
 
 <script>
 (function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
+  var i, text, code, codes = document.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -857,8 +812,7 @@ slideshow._releaseMath = function(el) {
     }
     i++;
   }
-};
-slideshow._releaseMath(document);
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

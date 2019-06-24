@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>The Propensity to Cycle Tool</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robin Lovelace and Malcolm Morgan, University of Leeds" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/Proj4Leaflet/proj4-compressed.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+    <script src="libs/leaflet-providers/leaflet-providers.js"></script>
+    <script src="libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The Propensity to Cycle Tool
+## 🚲<br/>Advanced Training Workshop
+### Robin Lovelace and Malcolm Morgan, University of Leeds
+### London, 2019-06-24<br/><img class="img-footer" alt="" src="http://www.pct.bike/www/static/01_logos/pct-logo.png">
+
+---
+
+
+
+
+# Agenda
+
+- 09:30 - 10:00: Arrival and set-up
+- 10:00 - 11:00: Data and methods underlying the PCT
+- 11:00 - 12:30: Getting and analysing PCT data
+    - Comparing PCT results with existing road infrastructure
+        - Getting data from the CyIPT
+        - Identfying 'weak links'
+        - Identify gaps in the network
+
+Lunch break
+
+- 13:30 - 15:30: Extending the PCT: minihack
+    - Alternative scenarios of cycling uptake
+        - A 'replace short car trips' scenario
+    - New input data
+        - Travel to stations
+    - Other extensions of the PCT
+
+Break and presentation of results
+
+- 16:00 - 16:30: Policy implementation
+
+---
+
+# The PCT Advanced Workshop Team
+
+### Robin Lovelace
+
+- Geographer by Training
+- University Academic Fellow in Transport and Big Data, Institute for Transport Studies, University of Leeds
+- Lead Developer of the Propensity to Cycle Tool (Lovelace, Goodman, Aldred, Berkoff, Abbas, and Woodcock, 2017a)
+- R developer and teacher, author of open source books *Efficient R Programming*  and *Gecomputation with R* (Lovelace, Nowosad, and Meunchow, 2019a)
+
+--
+
+### Malcolm Morgan
+
+- Civil Engineer by training
+- Moved into transport via the Propensity to Cycle Tool Project
+- Interest in machine learning and routing
+- Focus on multi-modal routing and energy use (UKERC)
+
+--
+
+### How about you?
+
+---
+
+## Housekeeping
+
+- The venue + facilities
+- The agenda + further info can be found on the pct package website: https://github.com/ITSLeeds/pct
+- And the PCT training vignette: [itsleeds.github.io/pct/articles/pct_training.html](https://itsleeds.github.io/pct/articles/pct_training.html)
+
+<div id="htmlwidget-5a754d006e6f07d7ea10" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a754d006e6f07d7ea10">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.BlackAndWhite",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false}]},{"method":"addMarkers","args":[51.52202035,-0.155053245928299,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[51.52202035,51.52202035],"lng":[-0.155053245928299,-0.155053245928299]}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Learning outcomes
+
+By the end of the course, you will be able to:
+
+- Understand the data and code underlying the PCT
+- Download data from the PCT at various geographic levels
+- Use R as a tool for transport data analysis and cycle network planning
+
+--
+
+- Do new things with the PCT data and methods that will support the global transition away from fossil fuels 🚀
+
+---
+
+# Geographic levels in the PCT
+
+- Generate and analyse route networks for transport planning with reference to:
+    - Origin-destination (OD) data
+    - Geographic desire lines
+    - Route allocation using different routing services
+    - Route network generation and analysis
+
+---
+
+## Transport planning software
+
+Transport modelling software products are a vital component of modern transport planning *and* research.
+
+- They generate the evidence base on which strategic investments are made and, furthermore,
+- provide a powerful mechanism for researching alternative futures.
+
+--
+
+It would not be an overstatement to say that software determines the range of futures that are visible to policymakers. This makes status of transport modelling software and how it may evolve in the future important questions.
+
+What will transport software look like? What will their capabilities be? And who will control? Answers to each of these questions will affect the future of transport systems. 
+
+--
+
+- Premise: transport planning/modelling software used in practice ~~will become~~ is becoming increasingly data-driven, modular and open. 
+
+---
+
+## A geographic perspective
+
+- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) 
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) (Lovelace, Nowosad, and Meunchow, 2019a) 
+- Paper on analysing OSM data in Python  (available [online](https://arxiv.org/pdf/1611.01890)) 
+
+&lt;img src="https://geocompr.robinlovelace.net/images/cover.png" width="20%" /&gt;
+
+---
+
+
+## Data science and the tidyverse
+
+- Inspired by Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham, 2016a)
+
+
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="30%" /&gt;
+
+---
+
+## Current transport software
+
+&lt;table&gt;
+&lt;caption&gt;Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Software &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Company/Developer &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Company HQ &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Licence &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Citations &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Visum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; PTV &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1810 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MATSim &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TU Berlin &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Open source (GPL) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1470 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; TransCAD &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Caliper &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1360 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SUMO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; DLR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Open source (EPL) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1310 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Emme &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; INRO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Canada &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 780 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cube &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Citilabs &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 400 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sDNA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cardiff University &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UK &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 170 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Online communities
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS
+
+---
+
+background-image: url(https://media.giphy.com/media/YlQQYUIEAZ76o/giphy.gif)
+background-size: cover
+class: center, middle
+
+
+# Overview of the PCT
+
+---
+
+## The first prototype of the PCT
+
+- Developed at a Hackathon at ODI Leeds in February 2015
+
+- Involved identifying key routes and mapping them
+
+- For detailed description, see the first PCT paper (Lovelace et al. 2017)
+
+![](https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png)&lt;!-- --&gt;
+
+---
+
+## Key stages of PCT
+
+- It's all reproducible, enabling modifications, e.g.:
+- Find short routes in which more people drive than cycle
+
+--
+
+- Stage 1: get data from web
+
+
+
+
+
+```r
+# Set-up, after installing pct and checking out www.pct.bike:
+library(dplyr)
+library(sf)
+desire_lines_all = pct::get_pct_lines(region = "isle-of-wight") %&gt;% 
+  top_n(n = 1000, wt = all)
+```
+
+
+---
+
+## Stage II: Subset data of interest
+
+- Interested only in major lines
+
+
+```r
+desire_lines = desire_lines_all %&gt;% 
+  filter(all &gt; 500) %&gt;% 
+  select(geo_code1, geo_code2, all, bicycle, foot, car_driver, rf_dist_km)
+plot(desire_lines)
+```
+
+![](pct-slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+
+## Stage III: Visualisation
+
+&lt;!-- A fundamental part of data science is being able to understand your data. --&gt;
+
+&lt;!-- That requires visualisation, R is great for that: --&gt;
+
+
+
+
+&lt;!-- - Interactively: --&gt;
+
+
+```r
+library(tmap)
+tmap_mode("view")
+tm_shape(desire_lines) +
+  tm_lines("all") +
+  tm_basemap(server = leaflet::providers$OpenStreetMap)
+```
+
+<div id="htmlwidget-0b1399b37d22b9cf9b14" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b1399b37d22b9cf9b14">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap",null,"OpenStreetMap",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["overlayPane01",401]},{"method":"addPolylines","args":[[[[{"lng":[-1.29751408324623,-1.31006711916123],"lat":[50.7571421447456,50.7534038592352]}]],[[{"lng":[-1.29751408324623,-1.28149160450734],"lat":[50.7571421447456,50.751845127431]}]],[[{"lng":[-1.29751408324623,-1.28428479295049],"lat":[50.7571421447456,50.7032568564458]}]],[[{"lng":[-1.31006711916123,-1.28428479295049],"lat":[50.7534038592352,50.7032568564458]}]],[[{"lng":[-1.31006711916123,-1.30234477290129],"lat":[50.7534038592352,50.7026730223134]}]],[[{"lng":[-1.28149160450734,-1.28428479295049],"lat":[50.751845127431,50.7032568564458]}]],[[{"lng":[-1.15850885830822,-1.1738784568452],"lat":[50.7287388002202,50.723010861409]}]],[[{"lng":[-1.15850885830822,-1.15588435552669],"lat":[50.7287388002202,50.7218561008228]}]],[[{"lng":[-1.28428479295049,-1.30234477290129],"lat":[50.7032568564458,50.7026730223134]}]],[[{"lng":[-1.28428479295049,-1.30109588996732],"lat":[50.7032568564458,50.694111412435]}]],[[{"lng":[-1.30234477290129,-1.30109588996732],"lat":[50.7026730223134,50.694111412435]}]],[[{"lng":[-1.15498622859574,-1.18035914920938],"lat":[50.6593991947347,50.6441760538615]}]],[[{"lng":[-1.15498622859574,-1.17583190156454],"lat":[50.6593991947347,50.634468081491]}]],[[{"lng":[-1.18035914920938,-1.17583190156454],"lat":[50.6441760538615,50.634468081491]}]]],["E02003581","E02003581.1","E02003581.2","E02003582","E02003582.1","E02003583","E02003584","E02003584.1","E02003588","E02003588.1","E02003589","E02003594","E02003594.1","E02003595"],"desire_lines",{"interactive":true,"className":"","pane":"overlayPane01","stroke":true,"color":["#FEE697","#FFFACE","#FEE697","#FEE697","#FFFACE","#FFFACE","#FEE697","#FEE697","#A33803","#F88B22","#F88B22","#FFFACE","#FFFACE","#FFFACE"],"weight":[1,1,1,1,1,1,1,1,1,1,1,1,1,1],"opacity":[1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fill":false,"fillColor":["#FEE697","#FFFACE","#FEE697","#FEE697","#FFFACE","#FFFACE","#FEE697","#FEE697","#A33803","#F88B22","#F88B22","#FFFACE","#FFFACE","#FFFACE"],"fillOpacity":0.2,"dashArray":"none","smoothFactor":1,"noClip":false},["<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>759<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>510<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>681<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003582<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>722<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003582<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>533<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003583<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>545<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003584<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>619<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003584<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>711<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,430<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,052<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003589<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,127<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003594<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>525<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003594<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>519<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003595<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>590<\/td><\/tr><\/table><\/div>"],{"maxWidth":500,"minWidth":100,"autoPan":true,"keepInView":false,"closeButton":true,"className":""},["E02003581","E02003581","E02003581","E02003582","E02003582","E02003583","E02003584","E02003584","E02003588","E02003588","E02003589","E02003594","E02003594","E02003595"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FFFACE","#FEE697","#FEBE4A","#F88B22","#DB5D0A","#A33803"],"labels":["400 to 600","600 to 800","800 to 1,000","1,000 to 1,200","1,200 to 1,400","1,400 to 1,600"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"all","extra":null,"layerId":null,"className":"info legend","group":null}]},{"method":"addLayersControl","args":[[],"desire_lines",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[50.634468081491,50.7571421447456],"lng":[-1.31006711916123,-1.15498622859574]},"fitBounds":[50.634468081491,-1.31006711916123,50.7571421447456,-1.15498622859574,[]]},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Stage IV: Origin-destination data analysis
+
+- Now we have data in our computer, and verified it works, we can use it
+
+- Which places are most car dependent? 
+
+
+```r
+car_dependent_routes = desire_lines %&gt;% 
+  mutate(percent_drive = car_driver / all * 100) %&gt;% 
+  filter(rf_dist_km &lt; 3 &amp; rf_dist_km &gt; 1) 
+```
+
+- Get routes
+
+
+```r
+routes = stplanr::line2route(car_dependent_routes)
+car_dependent_routes$geometry = routes$geometry
+```
+
+--
+
+- Any questions?
+
+--
+
+- Everyone happy with RStudio?
+
+---
+
+# Supporting reference materials
+
+All interactive programming/analysis with command line interface involves frequent reference to documentation, and data science is no exception. Places to look for help (in roughly descending order):
+
+--
+
+- Your colleague
+- R's internal help (e.g. with `?functonname` or `vignettes(package = "packagename)`)
+- Online documentation, e.g. for the pct package: https://itsleeds.github.io/pct/ 
+- *Transport and Geographic Data Science with R*: An introduction to R aimed at transport planners: https://git.io/tds2dayex
+
+- The transport chapter ([12](https://geocompr.robinlovelace.net/transport.html)) in the open source book [*Geocomputation with R*](https://geocompr.robinlovelace.net/)
+- R for Data Science
+
+---
+
+# Exercises
+
+
+
+- If you're happy with R, work through G1 to G8 in the [exercises](https://itsleeds.github.io/pct/articles/pct_training.html#exercises), starting:
+    - G1: Using the PCT's online interface, hosted at [www.pct.bike/m/?r=isle-of-wight](http://www.pct.bike/m/?r=isle-of-wight), identify the MSOA **zone** that has the highest number of people who cycle to work.
+
+- If you're just getting started with RStudio: Work through Section 1 of https://git.io/tds2dayex
+
+- Getting up to speed with data manipulation in the tidyverse: Work through and reproduce the code in Section [5.2](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science.
+
+
+---
+
+# References
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data
+Science_. bibtex:grolemund\_ r\_2016. O'Reilly Media. ISBN:
+978-1-4919-1039-9.
+
+Lovelace, Robin, Anna Goodman, Rachel Aldred, et al. (2017). "The
+Propensity to Cycle Tool: An open source online system for
+sustainable transport planning". En. In: _Journal of Transport and
+Land Use_ 10.1. bibtex:lovelace\_ propensity\_2017. ISSN:
+1938-7849. DOI:
+[10.5198/jtlu.2016.862](https://doi.org/10.5198%2Fjtlu.2016.862).
+URL:
+[https://www.jtlu.org/index.php/jtlu/article/view/862](https://www.jtlu.org/index.php/jtlu/article/view/862)
+(visited on Jun. 01, 2017).
+
+Lovelace, Robin, Jakub Nowosad, and Jannes Meunchow (2019).
+_Geocomputation with R_. bibtex:lovelace\_ geocomputation\_2019.
+CRC Press. ISBN: 1-138-30451-4. URL:
+[http://robinlovelace.net/geocompr](http://robinlovelace.net/geocompr)
+(visited on Oct. 05, 2017).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

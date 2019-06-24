@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Análisis de datos de transporte con R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robin Lovelace" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/Proj4Leaflet/proj4-compressed.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
+    <script src="libs/leaflet-providers/leaflet-providers.js"></script>
+    <script src="libs/leaflet-providers-plugin/leaflet-providers-plugin.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de datos de transporte con R
+## 🚲🚃🚀<br/>Workshop
+### Robin Lovelace
+### University of Leeds, 2019-05-20<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+---
+
+
+background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+# Credit: Mandeep Lota via [flickr](https://www.flickr.com/photos/deepster2k/1096671706)
+
+
+
+---
+
+# About me
+
+- From rural [Herefordshire](https://www.openstreetmap.org/search?query=herefordshire#map=10/52.1116/-2.7397)
+
+--
+
+- Geographer (BSc 2008) and Environmental Scientist (MSc 2009) by training
+- Interest in energy led to PhD in transport (PhD in energy costs of commuting [2014](http://etheses.whiterose.ac.uk/5027/))
+- Limitations of [GUIs](https://twitter.com/robinlovelace/status/1129404652150243329) for modelling -&gt; Spatial Microsimulation with R ([2016](https://spatial-microsim-book.robinlovelace.net/))
+- Co-authored Efficient R Programming ([2016](https://csgillespie.github.io/efficientR/))
+- Lead Developer of Propensity to Cycle Tool (PCT) ([2017](https://www.jtlu.org/index.php/jtlu/article/view/862))
+- Application of methods, e.g. to school accessibility ([2018](http://eprints.whiterose.ac.uk/121439/))
+- Co-author of Geocomputation with R ([2019](http://geocompr.robinlovelace.net/transport.html))
+
+---
+
+## R basics
+
+
+```r
+d = data.frame(x = 1:9, y = (1:9)^2)
+plot(d)           # base R
+library(ggplot2)  # with a package
+ggplot(d) +
+  geom_point(aes(x, y))
+```
+
+&lt;img src="analysis-4hr_files/figure-html/unnamed-chunk-1-1.png" width="30%" /&gt;&lt;img src="analysis-4hr_files/figure-html/unnamed-chunk-1-2.png" width="30%" /&gt;
+
+---
+
+# Getting and analysing spatio-temporal transport data
+
+
+
+
+examples with `stats19`, `pct` and `osmdata` packages
+
+
+---
+
+## What is transport data science?
+
+- The application of data science to transport datasets and problems
+
+--
+
+- Raising the question...
+
+--
+
+- What is data science?
+
+&lt;!-- You tell me! --&gt;
+
+--
+
+- A discipline "that allows you to turn raw data into understanding, insight, and knowledge" (Grolemund and Wickham, 2016)
+
+--
+
+In other words...
+
+- Statistics that is actually useful!
+
+---
+
+## A geographic perspective
+
+- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) (Lovelace and Ellison, 2017)
+- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) (Lovelace, Nowosad, and Meunchow, 2018) 
+- Paper on analysing OSM data in Python (Boeing, 2017) (available [online](https://arxiv.org/pdf/1611.01890)) 
+
+&lt;img src="https://geocompr.robinlovelace.net/images/cover.png" width="20%" /&gt;
+
+---
+
+
+## Data science and the tidyverse
+
+- Inspired by Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham, 2016)
+
+
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png" width="30%" /&gt;
+
+---
+
+## Transport software options
+
+
+```
+## [1] FALSE
+```
+
+&lt;table&gt;
+&lt;caption&gt;Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Software &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Company/Developer &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Company HQ &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Licence &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Citations &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Visum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; PTV &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1810 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MATSim &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TU Berlin &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Open source (GPL) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1470 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; TransCAD &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Caliper &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1360 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SUMO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; DLR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Germany &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Open source (EPL) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1310 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Emme &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; INRO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Canada &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 780 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cube &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Citilabs &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; USA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 400 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sDNA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cardiff University &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UK &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Proprietary &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 170 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Getting help online
+
+- [gis.stackexchange.com](https://gis.stackexchange.com/questions) has 21,314 questions 
+
+- [r-sig-geo](http://r-sig-geo.2731867.n2.nabble.com/) has 1000s of posts
+
+- RStudio's Discourse community has 65,000+ posts already!
+
+--
+
+- No transport equivalent (e.g. earthscience.stackexchange.com is in beta)
+
+- Potential for a Discourse forum or similar: transport is not (just) GIS
+
+---
+
+## How is data science used in the PCT?
+
+- It's all reproducible, e.g.:
+- Find short in which more people drive than cycle
+
+--
+
+- Stage 1: get data from web
+
+
+
+
+
+```r
+# Set-up, after installing pct and checking out www.pct.bike:
+library(dplyr)
+library(sf)
+desire_lines_all = pct::get_pct_lines(region = "isle-of-wight") %&gt;% 
+  top_n(n = 1000, wt = all)
+```
+
+---
+
+## Stage II: Geographic data analysis
+
+- Interested only in top 200 lines
+
+
+```r
+desire_lines = desire_lines_all %&gt;% 
+  top_n(n = 20, wt = all)
+```
+
+
+---
+
+## Stage III: Visualising (polution) data
+
+&lt;!-- A fundamental part of data science is being able to understand your data. --&gt;
+
+&lt;!-- That requires visualisation, R is great for that: --&gt;
+
+
+
+
+&lt;!-- - Interactively: --&gt;
+
+
+```r
+library(tmap)
+tmap_mode("view")
+tm_shape(desire_lines) +
+  tm_lines("bicycle", lwd = "all", scale = 5) +
+  tm_basemap(server = leaflet::providers$OpenStreetMap.BlackAndWhite)
+```
+
+<div id="htmlwidget-4f08a25fbfdc08be7973" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4f08a25fbfdc08be7973">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["OpenStreetMap.BlackAndWhite",null,"OpenStreetMap.BlackAndWhite",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["overlayPane01",401]},{"method":"addPolylines","args":[[[[{"lng":[-1.29751408324623,-1.31006711916123],"lat":[50.7571421447456,50.7534038592352]}]],[[{"lng":[-1.29751408324623,-1.28149160450734],"lat":[50.7571421447456,50.751845127431]}]],[[{"lng":[-1.29751408324623,-1.28428479295049],"lat":[50.7571421447456,50.7032568564458]}]],[[{"lng":[-1.29751408324623,-1.30234477290129],"lat":[50.7571421447456,50.7026730223134]}]],[[{"lng":[-1.31006711916123,-1.28428479295049],"lat":[50.7534038592352,50.7032568564458]}]],[[{"lng":[-1.31006711916123,-1.30234477290129],"lat":[50.7534038592352,50.7026730223134]}]],[[{"lng":[-1.28149160450734,-1.28428479295049],"lat":[50.751845127431,50.7032568564458]}]],[[{"lng":[-1.28149160450734,-1.30234477290129],"lat":[50.751845127431,50.7026730223134]}]],[[{"lng":[-1.15850885830822,-1.1738784568452],"lat":[50.7287388002202,50.723010861409]}]],[[{"lng":[-1.15850885830822,-1.15588435552669],"lat":[50.7287388002202,50.7218561008228]}]],[[{"lng":[-1.22406933736016,-1.28428479295049],"lat":[50.726134669078,50.7032568564458]}]],[[{"lng":[-1.15588435552669,-1.28428479295049],"lat":[50.7218561008228,50.7032568564458]}]],[[{"lng":[-1.28428479295049,-1.30234477290129],"lat":[50.7032568564458,50.7026730223134]}]],[[{"lng":[-1.28428479295049,-1.30109588996732],"lat":[50.7032568564458,50.694111412435]}]],[[{"lng":[-1.28428479295049,-1.38653729071091],"lat":[50.7032568564458,50.6816556263349]}]],[[{"lng":[-1.28428479295049,-1.18035914920938],"lat":[50.7032568564458,50.6441760538615]}]],[[{"lng":[-1.30234477290129,-1.30109588996732],"lat":[50.7026730223134,50.694111412435]}]],[[{"lng":[-1.15498622859574,-1.18035914920938],"lat":[50.6593991947347,50.6441760538615]}]],[[{"lng":[-1.15498622859574,-1.17583190156454],"lat":[50.6593991947347,50.634468081491]}]],[[{"lng":[-1.18035914920938,-1.17583190156454],"lat":[50.6441760538615,50.634468081491]}]]],["E02003581.E02003582","E02003581.E02003583","E02003581.E02003588","E02003581.E02003589","E02003582.E02003588","E02003582.E02003589","E02003583.E02003588","E02003583.E02003589","E02003584.E02003586","E02003584.E02003587","E02003585.E02003588","E02003587.E02003588","E02003588.E02003589","E02003588.E02003591","E02003588.E02003593","E02003588.E02003595","E02003589.E02003591","E02003594.E02003595","E02003594.E02003596","E02003595.E02003596"],"desire_lines",{"interactive":true,"className":"","pane":"overlayPane01","stroke":true,"color":["#DB5D0A","#DB5D0A","#DB5D0A","#FED97B","#F68820","#FEB441","#FED97B","#FED97B","#FED97B","#FEF1AF","#FFFDDB","#FEF1AF","#7A2A05","#7A2A05","#FEF1AF","#FFFDDB","#DB5D0A","#FEF1AF","#FFFDDB","#FEF1AF"],"weight":[2.65384615384615,1.78321678321678,2.38111888111888,1.63286713286713,2.52447552447552,1.86363636363636,1.90559440559441,1.56643356643357,2.16433566433566,2.48601398601399,1.70979020979021,1.5,5,3.67832167832168,1.46853146853147,1.48601398601399,3.94055944055944,1.83566433566434,1.81468531468531,2.06293706293706],"opacity":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fill":false,"fillColor":["#DB5D0A","#DB5D0A","#DB5D0A","#FED97B","#F68820","#FEB441","#FED97B","#FED97B","#FED97B","#FEF1AF","#FFFDDB","#FEF1AF","#7A2A05","#7A2A05","#FEF1AF","#FFFDDB","#DB5D0A","#FEF1AF","#FFFDDB","#FEF1AF"],"fillOpacity":0.2,"dashArray":"none","smoothFactor":1,"noClip":false},["<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581 E02003582<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>50<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>759<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581 E02003583<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>53<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>510<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581 E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>57<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>681<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003581 E02003589<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>27<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>467<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003582 E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>43<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>722<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003582 E02003589<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>32<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>533<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003583 E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>29<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>545<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003583 E02003589<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>21<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>448<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003584 E02003586<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>21<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>619<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003584 E02003587<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>17<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>711<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003585 E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>9<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>489<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003587 E02003588<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>10<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>429<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588 E02003589<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>72<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,430<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588 E02003591<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>71<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,052<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588 E02003593<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>19<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>420<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003588 E02003595<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>3<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>425<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003589 E02003591<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>50<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>1,127<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003594 E02003595<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>18<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>525<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003594 E02003596<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>8<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>519<\/td><\/tr><\/table><\/div>","<div style=\"max-height:10em;overflow:auto;\"><table>\n\t\t\t   <thead><tr><th colspan=\"2\"><b>E02003595 E02003596<\/b><\/th><\/thead><\/tr><tr><td style=\"color: #888888;\">bicycle<\/td><td>15<\/td><\/tr><tr><td style=\"color: #888888;\">all<\/td><td>590<\/td><\/tr><\/table><\/div>"],{"maxWidth":500,"minWidth":100,"autoPan":true,"keepInView":false,"closeButton":true,"className":""},["E02003581 E02003582","E02003581 E02003583","E02003581 E02003588","E02003581 E02003589","E02003582 E02003588","E02003582 E02003589","E02003583 E02003588","E02003583 E02003589","E02003584 E02003586","E02003584 E02003587","E02003585 E02003588","E02003587 E02003588","E02003588 E02003589","E02003588 E02003591","E02003588 E02003593","E02003588 E02003595","E02003589 E02003591","E02003594 E02003595","E02003594 E02003596","E02003595 E02003596"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FFFDDB","#FEF1AF","#FED97B","#FEB441","#F68820","#DB5D0A","#AF3E03","#7A2A05"],"labels":["0 to 10","10 to 20","20 to 30","30 to 40","40 to 50","50 to 60","60 to 70","70 to 80"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"unknown","title":"bicycle","extra":null,"layerId":null,"className":"info legend","group":null}]},{"method":"addLayersControl","args":[[],"desire_lines",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[50.634468081491,50.7571421447456],"lng":[-1.38653729071091,-1.15498622859574]},"fitBounds":[50.634468081491,-1.38653729071091,50.7571421447456,-1.15498622859574,[]]},"evals":[],"jsHooks":[]}</script>
+
+
+---
+
+## Stage IV: Origin-destination data analysis
+
+- Now we have data in our computer, and verified it works, we can use it
+
+- Which places are most car dependent? 
+
+
+```r
+car_dependent_routes = desire_lines %&gt;% 
+  mutate(percent_drive = car_driver / all * 100) %&gt;% 
+  filter(rf_dist_km &lt; 3 &amp; rf_dist_km &gt; 1) 
+```
+
+- Get routes
+
+
+```r
+routes = stplanr::line2route(car_dependent_routes)
+car_dependent_routes$geometry = routes$geometry
+```
+
+
+
+
+
+---
+
+## Communicating results
+
+Visualisation is vital
+
+
+```r
+b = c(0, 25, 50, 75)
+tm_shape(car_dependent_routes) +
+  tm_lines(col = "percent_drive", lwd = "all", scale = 5, breaks = b, palette = "-inferno")
+```
+
+---
+
+## Upcoming...
+
+
+- 09:30 - 10:00 (set-up)
+
+- 10:00 - 11:00 How to use R/RStudio effectively (MM)
+
+--
+
+- 11:15 - 12:30 Using packages: example with sf/ggplot2 (RL)
+
+- 12:30 - 13:30: lunch
+
+- 13:30 - 14:45 Spatial data analysis (MM)
+
+--
+
+- 15:00 - 16:00 Visualising spatial datasets (RL)
+
+- 16:00 - 16:30 (Q&amp;A)
+
+--
+
+- Any questions?
+
+--
+
+- Everyone happy with RStudio?
+
+---
+
+### Day 2:
+
+Course times each day:
+
+- 09:30 - 11:00 stats19 data analysis - with spatial/temporal analysis (RL)
+
+
+- 11:15 - 12:30 OD data with stplanr (RL)
+
+- 12:30 - 13:30: lunch
+
+- 13:30 - 14:45 Local route network analysis (MM)
+
+--
+
+- 15:00 - 16:00 Data and methods for assessing cycling potential (RL)
+
+- 16:00 - 16:30 (Q&amp;A)
+
+---
+
+# Spatial data analysis
+
+- See Geocomputation with R, Chapter [4](https://geocompr.robinlovelace.net/spatial-operations.html)
+
+---
+
+# Visualising spatial datasets
+
+- See Geocomputation with R, Chapter [8](https://geocompr.robinlovelace.net/adv-map.html)
+
+--
+
+- Slides: [geocompr.github.io/presentations/04_viz.html](https://geocompr.github.io/presentations/04_viz.html#1)
+
+---
+
+# Recap
+
+1. Practice subsetting techniques you have learned on the `sf data.frame` object `iow`:
+     1. Create an object called `iow_small` which contains only regions with less than 3000 people in the `all` column
+     1. Create a selection object called `sel_high_car` which is `TRUE` for regions with above median numbers of people who travel by car and `FALSE` otherwise
+     1. How many regions have the number '1' in the column 'geo_name'? What percentage of the regions in the Isle of Wight is this?
+     1. Create an object called `iow_foot` which contains only the foot attribute from `iow`
+     1. Bonus: plot the result to show where walking is a popular mode of travel to work
+     1. Bonus: bulding on your answers to previous questions, use `filter()` from the `dplyr` package to subset small regions where high car use is high
+1. Bonus: What is the population density of each region (hint: you may need to use the functions `st_area()`, `as.numeric()` and use the 'all' column)?
+1. Bonus: Which zone has the highest percentage who cycle?
+1. Bonus: Find the proportion of people who drive to work (`car_driver`) in areas in which more than 500 people walk to work
+
+---
+
+# stats19 data analysis 
+
+- See [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/)
+
+--
+
+Basics of STATS19 data
+
+- Spatial *and* temporal attributes allow subsetting
+- Spatial resolution: ~10 metres
+- Temporal resolution: ~10 minutes
+
+---
+
+## stats19 exercises 
+
+1. Download and plot all crashes reported in Great Britain in 2017 (hint: see [the stats19 vignette](https://cran.r-project.org/web/packages/stats19/vignettes/stats19.html))
+1. Find the function in the `stats19` package that converts a `data.frame` object into an `sf` data frame. Use this function to convert the road crashes into an `sf` object, called `crashes_sf`, for example.
+1. Filter crashes that happened in the Isle of Wight based on attribute data (hint: the relevant column contains the word `local`)
+1. Filter crashes happened in the Isle of Wight using geographic subsetting (hint: remember `st_crs()`?)
+1. Bonus: Which type of subsetting yielded more results and why? 
+1. Bonus: how many crashes happened in each zone?
+1. Create a new column called `month` in the crash data using the function `lubridate::month()` and the `date` column.
+1. Create an object called `a_iow_may` representing all the crashes that happened in the Isle of Wight in the month of May
+1. Bonus: Calculate the average (`mean`) speed limit associated with each crash that happened in May across the zones of the Isle of Wight (the result is shown in the map)
+
+---
+
+## Speed crashes in the IoW in May
+
+![](analysis-4hr_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+# OD data with stplanr
+
+- See [ropensci.github.io/stplanr](https://ropensci.github.io/stplanr/)
+
+---
+
+# Local route network analysis
+
+- See [itsleeds.github.io/opentripplanner](https://itsleeds.github.io/opentripplanner/)
+
+---
+
+# Data and methods for assessing cycling potential
+
+- See [itsleeds.github.io/pct](https://itsleeds.github.io/pct/)
+
+
+- And https://geocompr.robinlovelace.net/transport.html
+
+---
+
+# Final session
+
+- Demonstration of origin-destination data download/processing/routing
+- Comparison with STATS19 data
+
+--
+
+Options:
+
+- Work through exercises in Section 6 (default, for geographic data skills)
+- Work through exercises in Section 8 (for data analysis skills)
+- Work through code in Chapter 12 in Geocomputation with R (advanced)
+- Work on you own data and ask specific questions (if you have specific questions)
+- Ask a question on one of the online help forums
+
+---
+
+# References
+
+Boeing, Geoff (2017). "OSMnx: New Methods for Acquiring,
+Constructing, Analyzing, and Visualizing Complex Street Networks".
+In: _Computers, Environment and Urban Systems_ 65, pp. 126-139.
+ISSN: 0198-9715. DOI:
+[10.1016/j.compenvurbsys.2017.05.004](https://doi.org/10.1016%2Fj.compenvurbsys.2017.05.004).
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data
+Science_. 1 edition. O'Reilly Media. ISBN: 978-1-4919-1039-9.
+
+Lovelace, Robin and Richard Ellison (2017). "Stplanr: A Package
+for Transport Planning". In: _The R Journal_.
+
+Lovelace, Robin, Jakub Nowosad, and Jannes Meunchow (2018).
+_Geocomputation with R_. CRC Press.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

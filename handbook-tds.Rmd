@@ -192,10 +192,10 @@ This is a 15 credit module.
 
 This is not a traditional lecture course.
 The module is 100% examined by a report on a single team project.
-The report can be a **maximum** of **15 pages** long and **3000 words** in total, excluding references.
+The coursework can be a **maximum** of **15 pages** long and **3000 words** in total, excluding references.
 Quality is valued over quantity.
 
-The report is a portfolio of work that you will build-up over the course of the project.
+The coursework is a 'portfolio' of work that you will build-up over the course of the project.
 **It will be submitted on the Friday of week 24**, the first week of May.
 
 The purpose of all the readings, talking, and exercises is to help you build the skills and ideas needed to deliver this project and report.
@@ -231,12 +231,12 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 1. Discuss methods for gaining data using transport techniques such as routing and conversion of origin-destination data to geographic desire lines
 2. Describe how your team stored and transported data, including appropriate file formats
 
-    **Machine learning**
+    **Application choice and machine learning**
 
-1. Demonstrate the progression of a simplistic model of the data to more advanced techniques
-1. Show example results of your team's use of machine learning technique.
-2. Show the code used to generate them and describe what it does
-3. Describe alternative ML approaches
+1. Choice of topic that has interesting datasets and important real world applications
+1. Appropriate use of methods for the choice of application
+1. Demonstrate the progression from a simplistic model of the data to machine learning techniques
+3. Discuss alternative approaches
 
     **Visualization**
 

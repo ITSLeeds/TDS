@@ -6,7 +6,7 @@ devtools::install_github("ATFutures/calendar")
 # Manual input ----
 # get dates -----
 # See https://ses.leeds.ac.uk/info/21630/timetabling/1004/teaching_week_patterns
-browseURL("https://ses.leeds.ac.uk/download/1557/1920_teaching_week_pattern")
+# browseURL("https://ses.leeds.ac.uk/download/1557/1920_teaching_week_pattern")
 w1_start = as.Date("2019-09-30")
 week_num = c(1:11, paste0("C", 1:4), 12:22, paste0("E", 1:4), 23:30)
 n_weeks = length(week_num)
@@ -14,49 +14,94 @@ week_commencing = seq(from = w1_start, by = "week", length.out = n_weeks)
 weeks = tibble::data_frame(week_num, week_commencing)
 # View(weeks)
 
+
+# lectures ------------------------------------------------------
+
+lecture1_description = c(
+  "Introduction to transport data science",
+  "The structure of transport data",
+  "Data cleaning and subsetting",
+  "Routing",
+  "Proffesional issues and project work"
+)
+
+lecture_ids = c(
+  "intro",
+  "structure",
+  "cleaning",
+  "processing",
+  "project"
+)
+
 lecture1_day_of_week = 2
 lecture1_start_time = "13:00"
 lecture1_end_time = "14:00"
 lecture1 = tibble::tibble(week_num = as.character(c(14:16, 21:22)))
 lecture1 = dplyr::inner_join(lecture1, weeks)
-lecture1$session_title = paste("Lecture", 1:nrow(lecture1))
 lecture1$date = lecture1$week_commencing + (lecture1_day_of_week - 1)
 lecture1$DTSTART = lubridate::ymd_hm(paste(lecture1$date, lecture1_start_time)) 
 lecture1$DTEND = lubridate::ymd_hm(paste(lecture1$date, lecture1_end_time))
 lecture1$duration = (lecture1$DTEND - lecture1$DTSTART)
-lecture1$SUMMARY = lecture1$session_title
+lecture1$SUMMARY = paste0("TDS Lecture ", 1:nrow(lecture1), ": ", lecture_ids)
+timetable$LOCATION = "Business School Maurice Keyworth SR (1.15)"
+lecture1$DESCRIPTION = paste0(lecture1_description, " in ", timetable$LOCATION)
+nrow(lecture1)
+
+# practical sessions ------------------------------------------------------
+
+practical_ids = c(
+  "software",
+  "structure",
+  "cleaning",
+  "accessing",
+  "viz",
+  "project"
+)
+practical_descriptions = c(
+  "Software for practical data science",
+  "The structure of transport data",
+  "Data cleaning and subsetting",
+  "Accessing data from web sources",
+  "Data visualization",
+  "Project work"
+)
 
 practical1_day_of_week = 3
 practical1_start_time = "13:00"
 practical1_end_time = "15:30"
-practical1 = tibble::tibble(week_num = as.character(c(14:16, 21:22)))
+practical1 = tibble::tibble(week_num = as.character(c(15:18, 23:24)))
 practical1 = dplyr::inner_join(practical1, weeks)
-practical1$session_title = paste("Practical", 1:nrow(practical1))
 practical1$date = practical1$week_commencing + (practical1_day_of_week - 1)
 practical1$DTSTART = lubridate::ymd_hm(paste(practical1$date, practical1_start_time)) 
 practical1$DTEND = lubridate::ymd_hm(paste(practical1$date, practical1_end_time))
 practical1$duration = (practical1$DTEND - practical1$DTSTART)
-practical1$SUMMARY = practical1$session_title
+practical1$SUMMARY = paste0("TDS Practical ", 1:nrow(practical1), ": ", practical_ids)
+practical1$LOCATION = "West Teaching Lab Cluster (B.16)"
+practical1$DESCRIPTION = paste0(practical_descriptions, " in ", practical1$LOCATION)
+nrow(practical1) # there are 6 practicals
 
 timetable = bind_rows(lecture1, practical1) 
 timetable$UID = purrr::map_chr(1:nrow(timetable), ~ calendar::ic_guid())
-timetable$DESCRIPTION = "test"
-timetable$LOCATION = "Leeds"
 timetable = timetable %>% 
   arrange(DTSTART) 
 
-sum(timetable$duration) 
+sum(timetable$duration) # 20 hours of contact time
 ic = calendar::ical(timetable) 
 calendar::ic_write(ic[1], "/tmp/test-tds.ics") # note: generates faulty calendar: bug in ic_read?
+
+
+
 # file.edit("/tmp/test-tds.ics")
 tt_min = dplyr::select(timetable, SUMMARY, DESCRIPTION, DTSTART, DTEND, LOCATION, UID)
-ic = calendar::ical(tt_min[1:2, ])
+# ic = calendar::ical(tt_min[1:2, ])
+ic = calendar::ical(tt_min)
 ic[1, ]
 ical(ical_example)
 ic
 
-calendar::ic_write(ic, "/tmp/test-tds.ics") # note: generates faulty calendar with ic[1, ]: bug in ic_read?
+calendar::ic_write(ic, "tds-timetable.ics") # note: generates faulty calendar with ic[1, ]: bug in ic_read?
 readLines("/tmp/test-tds.ics")
+readr::write_csv(tt_min, "timetable.csv")
 
 # from old script ---------------------------------------------------------
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Data cleaning</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Robin Lovelace" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
@@ -14,7 +14,7 @@ class: center, middle, inverse, title-slide
 # Data cleaning
 ## <br/>🚿<br/>Transport Data Science
 ### Robin Lovelace
-### University of Leeds, 2019-03-05<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+### University of Leeds, 2019-10-24<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
 
 ---
 
@@ -205,7 +205,7 @@ Lovelace, Robin, Anna Goodman, Rachel Aldred, et al. (2017). "The
 Propensity to Cycle Tool: An Open Source Online System for
 Sustainable Transport Planning". In: _Journal of Transport and
 Land Use_ 10.1. ISSN: 1938-7849. DOI:
-[10.5198/jtlu.2016.862](https://doi.org/10.5198/jtlu.2016.862).
+[10.5198/jtlu.2016.862](https://doi.org/10.5198%2Fjtlu.2016.862).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -251,7 +251,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

@@ -89,7 +89,7 @@ seminar_descriptions = c(
 
 seminar1_day_of_week = 1
 seminar1_start_time = "13:00"
-seminar1_end_time = "15:30"
+seminar1_end_time = "16:00"
 seminar1 = tibble::tibble(week_num = as.character(17))
 seminar1 = dplyr::inner_join(seminar1, weeks)
 seminar1$date = seminar1$week_commencing + (seminar1_day_of_week - 1)

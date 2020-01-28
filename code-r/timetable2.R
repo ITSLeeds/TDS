@@ -78,7 +78,30 @@ practical1$LOCATION = "West Teaching Lab Cluster (B.16)"
 practical1$DESCRIPTION = paste0(practical_descriptions, " in ", practical1$LOCATION)
 nrow(practical1) # there are 6 practicals
 
-timetable = bind_rows(lecture1, practical1) 
+# seminars ------------------------------------------------------
+
+seminar_ids = c(
+  "mapping",
+)
+seminar_descriptions = c(
+  "mapping large datasets"
+)
+
+seminar1_day_of_week = 1
+seminar1_start_time = "13:00"
+seminar1_end_time = "15:30"
+seminar1 = tibble::tibble(week_num = as.character(17))
+seminar1 = dplyr::inner_join(seminar1, weeks)
+seminar1$date = seminar1$week_commencing + (seminar1_day_of_week - 1)
+seminar1$DTSTART = lubridate::ymd_hm(paste(seminar1$date, seminar1_start_time)) 
+seminar1$DTEND = lubridate::ymd_hm(paste(seminar1$date, seminar1_end_time))
+seminar1$duration = (seminar1$DTEND - seminar1$DTSTART)
+seminar1$SUMMARY = paste0("TDS seminar ", 1:nrow(seminar1), ": ", seminar_ids)
+seminar1$LOCATION = "West Teaching Lab Cluster (B.16)"
+seminar1$DESCRIPTION = paste0(seminar_descriptions, " in ", seminar1$LOCATION)
+nrow(seminar1) # there are 6 practicals
+
+timetable = bind_rows(lecture1, practical1, seminar1) 
 timetable$UID = purrr::map_chr(1:nrow(timetable), ~ calendar::ic_guid())
 timetable = timetable %>% 
   arrange(DTSTART) 

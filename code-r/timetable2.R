@@ -19,17 +19,17 @@ weeks = tibble::data_frame(week_num, week_commencing)
 
 lecture1_description = c(
   "Introduction to transport data science",
-  "The structure of transport data",
-  "Data cleaning and subsetting",
+  "The structure of transport data and data cleaning",
   "Routing",
-  "Proffesional issues and project work"
+  "Visualisation",
+  "Professional issues and project work"
 )
 
 lecture_ids = c(
   "intro",
   "structure",
-  "cleaning",
-  "processing",
+  "routing",
+  "viz",
   "project"
 )
 
@@ -43,26 +43,24 @@ lecture1$DTSTART = lubridate::ymd_hm(paste(lecture1$date, lecture1_start_time))
 lecture1$DTEND = lubridate::ymd_hm(paste(lecture1$date, lecture1_end_time))
 lecture1$duration = (lecture1$DTEND - lecture1$DTSTART)
 lecture1$SUMMARY = paste0("TDS Lecture ", 1:nrow(lecture1), ": ", lecture_ids)
-timetable$LOCATION = "Business School Maurice Keyworth SR (1.15)"
-lecture1$DESCRIPTION = paste0(lecture1_description, " in ", timetable$LOCATION)
+lecture1$LOCATION = "Business School Maurice Keyworth SR (1.15)"
+lecture1$DESCRIPTION = paste0(lecture1_description, " in ", lecture1$LOCATION)
 nrow(lecture1)
 
 # practical sessions ------------------------------------------------------
 
 practical_ids = c(
-  "software",
   "structure",
   "cleaning",
   "accessing",
-  "viz",
+  "visualisation/ml",
   "project"
 )
 practical_descriptions = c(
-  "Software for practical data science",
   "The structure of transport data",
   "Data cleaning and subsetting",
-  "Accessing data from web sources",
-  "Data visualization",
+  "Accessing data from web sources and routing",
+  "Data visualization and machine learning",
   "Project work"
 )
 

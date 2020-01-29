@@ -1,11 +1,12 @@
 ---
 bibliography: references.bib
-output: github_document
+# output: github_document
+output: word_document
 ---
 
 # Catalogue
 
-This is the module catalogue for [TRAN5340M](http://webprod3.leeds.ac.uk/catalogue/dynmodules.asp?Y=201819&M=TRAN-5340M), Transport Data Science
+This is the module catalogue for [TRAN5340M](http://webprod3.leeds.ac.uk/catalogue/dynmodules.asp?Y=201920&M=TRAN-5340M), Transport Data Science
 
 15 credits
 
@@ -126,7 +127,6 @@ The project portfolio will be used as the basis for formative assessment mid-way
 This will highlight if any students are struggling.
 If a portfolio fails the assessment criteria the student will have an opportunity to resubmit a report outlining what they have learned in the areas in which they are failing.
 
-
 ## Pre-requisites
 
 You will be expected to have a laptop with recent versions of R and RStudio installed.
@@ -149,7 +149,6 @@ It is also recommended that you install GitHub Desktop (or command line git on L
 - Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
 
 - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013]
-
 
 ## Optional
 

@@ -58,8 +58,8 @@ practical_ids = c(
 )
 practical_descriptions = c(
   "The structure of transport data",
-  "Data cleaning and subsetting",
-  "Accessing data from web sources and routing",
+  "Data cleaning and and routing",
+  "Accessing data from web sources",
   "Data visualization and machine learning",
   "Project work"
 )

@@ -122,35 +122,71 @@ methods(plot)
 ```
 
 ```
-##  [1] plot,ANY,ANY-method                        plot,color,ANY-method                      plot,gpc.poly,ANY-method                  
-##  [4] plot,Spatial,missing-method                plot,SpatialCollections,missing-method     plot,SpatialGrid,missing-method           
-##  [7] plot,SpatialGridDataFrame,missing-method   plot,SpatialLines,missing-method           plot,SpatialMultiPoints,missing-method    
-## [10] plot,SpatialPixels,missing-method          plot,SpatialPixelsDataFrame,missing-method plot,SpatialPoints,missing-method         
-## [13] plot,SpatialPolygons,missing-method        plot,SpatialRings,missing-method           plot.acf*                                 
-## [16] plot.ACF*                                  plot.augPred*                              plot.bclust*                              
-## [19] plot.classIntervals*                       plot.compareFits*                          plot.data.frame*                          
-## [22] plot.decomposed.ts*                        plot.default                               plot.dendrogram*                          
-## [25] plot.density*                              plot.ecdf                                  plot.factor*                              
-## [28] plot.formula*                              plot.function                              plot.ggplot*                              
-## [31] plot.gls*                                  plot.gtable*                               plot.hcl_palettes*                        
-## [34] plot.hclust*                               plot.histogram*                            plot.HoltWinters*                         
-## [37] plot.ica*                                  plot.intervals.lmList*                     plot.isoreg*                              
-## [40] plot.lm*                                   plot.lme*                                  plot.lmList*                              
-## [43] plot.medpolish*                            plot.mlm*                                  plot.nffGroupedData*                      
-## [46] plot.nfnGroupedData*                       plot.nls*                                  plot.nmGroupedData*                       
-## [49] plot.pdMat*                                plot.ppr*                                  plot.prcomp*                              
-## [52] plot.princomp*                             plot.profile.nls*                          plot.R6*                                  
-## [55] plot.ranef.lme*                            plot.ranef.lmList*                         plot.raster*                              
-## [58] plot.sf*                                   plot.sfc_CIRCULARSTRING*                   plot.sfc_GEOMETRY*                        
-## [61] plot.sfc_GEOMETRYCOLLECTION*               plot.sfc_LINESTRING*                       plot.sfc_MULTILINESTRING*                 
-## [64] plot.sfc_MULTIPOINT*                       plot.sfc_MULTIPOLYGON*                     plot.sfc_POINT*                           
-## [67] plot.sfc_POLYGON*                          plot.sfg*                                  plot.shingle*                             
-## [70] plot.simulate.lme*                         plot.SOM*                                  plot.somgrid*                             
-## [73] plot.spec*                                 plot.stepfun                               plot.stft*                                
-## [76] plot.stl*                                  plot.svm*                                  plot.table*                               
-## [79] plot.trans*                                plot.trellis*                              plot.ts                                   
-## [82] plot.tskernel*                             plot.TukeyHSD*                             plot.tune*                                
-## [85] plot.units*                                plot.Variogram*                           
+##  [1] plot,ANY,ANY-method                       
+##  [2] plot,gpc.poly,ANY-method                  
+##  [3] plot,Spatial,missing-method               
+##  [4] plot,SpatialCollections,missing-method    
+##  [5] plot,SpatialGrid,missing-method           
+##  [6] plot,SpatialGridDataFrame,missing-method  
+##  [7] plot,SpatialLines,missing-method          
+##  [8] plot,SpatialMultiPoints,missing-method    
+##  [9] plot,SpatialPixels,missing-method         
+## [10] plot,SpatialPixelsDataFrame,missing-method
+## [11] plot,SpatialPoints,missing-method         
+## [12] plot,SpatialPolygons,missing-method       
+## [13] plot,SpatialRings,missing-method          
+## [14] plot.acf*                                 
+## [15] plot.bclust*                              
+## [16] plot.classIntervals*                      
+## [17] plot.data.frame*                          
+## [18] plot.decomposed.ts*                       
+## [19] plot.default                              
+## [20] plot.dendrogram*                          
+## [21] plot.density*                             
+## [22] plot.ecdf                                 
+## [23] plot.factor*                              
+## [24] plot.formula*                             
+## [25] plot.function                             
+## [26] plot.hclust*                              
+## [27] plot.histogram*                           
+## [28] plot.HoltWinters*                         
+## [29] plot.ica*                                 
+## [30] plot.isoreg*                              
+## [31] plot.lm*                                  
+## [32] plot.medpolish*                           
+## [33] plot.mlm*                                 
+## [34] plot.ppr*                                 
+## [35] plot.prcomp*                              
+## [36] plot.princomp*                            
+## [37] plot.profile.nls*                         
+## [38] plot.R6*                                  
+## [39] plot.raster*                              
+## [40] plot.sf*                                  
+## [41] plot.sfc_CIRCULARSTRING*                  
+## [42] plot.sfc_GEOMETRY*                        
+## [43] plot.sfc_GEOMETRYCOLLECTION*              
+## [44] plot.sfc_LINESTRING*                      
+## [45] plot.sfc_MULTILINESTRING*                 
+## [46] plot.sfc_MULTIPOINT*                      
+## [47] plot.sfc_MULTIPOLYGON*                    
+## [48] plot.sfc_POINT*                           
+## [49] plot.sfc_POLYGON*                         
+## [50] plot.sfg*                                 
+## [51] plot.shingle*                             
+## [52] plot.SOM*                                 
+## [53] plot.somgrid*                             
+## [54] plot.spec*                                
+## [55] plot.stepfun                              
+## [56] plot.stft*                                
+## [57] plot.stl*                                 
+## [58] plot.svm*                                 
+## [59] plot.table*                               
+## [60] plot.trellis*                             
+## [61] plot.ts                                   
+## [62] plot.tskernel*                            
+## [63] plot.TukeyHSD*                            
+## [64] plot.tune*                                
+## [65] plot.units*                               
 ## see '?methods' for accessing help and source code
 ```
 
@@ -596,6 +632,7 @@ plot(l_sub2$geometry, add = TRUE)
 
 ```r
 library(stats19)
+library(stringr)
 a = get_stats19(year = 2017, type = "ac", ask = FALSE) %&gt;% 
   format_sf(lonlat = TRUE)
 a$time_formatted = lubridate::hm(a$time)
@@ -603,10 +640,14 @@ summary(a$time_formatted)
 ```
 
 ```
-##                       Min.                    1st Qu.                     Median                       Mean                    3rd Qu. 
-##                    "1M 0S"               "10H 10M 0S"               "14H 48M 0S" "14H 3M 23.6915736821829S"               "17H 50M 0S" 
-##                       Max.                       NA's 
-##               "23H 59M 0S"                        "3"
+##                       Min.                    1st Qu. 
+##                    "1M 0S"               "10H 10M 0S" 
+##                     Median                       Mean 
+##               "14H 48M 0S" "14H 3M 23.6915736821829S" 
+##                    3rd Qu.                       Max. 
+##               "17H 50M 0S"               "23H 59M 0S" 
+##                       NA's 
+##                        "3"
 ```
 
 ```r
@@ -627,9 +668,12 @@ a$h = as.numeric(str_sub(a$time, 1, 2))
 
 ---
 
-## The exercises
+## THomework
 
-Based on data on example at: [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/articles/stats19.html)
+Work through the handout "Software for transport data science" ready for the practical tomorrow (if possible - will prepare you for the practical)
+B
+
+aonus: check outexample sat: [itsleeds.github.io/stats19](https://itsleeds.github.io/stats19/articles/stats19.html)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

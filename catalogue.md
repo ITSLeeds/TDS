@@ -83,7 +83,7 @@ Specifically, learning outcomes will include the ability to:
 ## Syllabus
 
   - Software for practical data science
-  - The structure of transport data e.g. flows, incidents,
+  - **The structure of transport data** e.g. flows, incidents,
     origin/destination, GIS
   - Data cleaning and subsetting
   - Accessing data from web sources

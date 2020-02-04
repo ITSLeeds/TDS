@@ -21,6 +21,7 @@ class: center, bottom, inverse
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(RefManageR)
+library(dplyr)
 BibOptions(check.entries = FALSE, 
            bib.style = "authoryear", 
            cite.style = 'alphabetic', 
@@ -35,18 +36,52 @@ my_bib = ReadBib("../references.bib", check = FALSE)
 
 ## This session in context
 
-   - Introduction to transport data science
+<!--    - Introduction to transport data science -->
 
--  ## <font color="red"> Software for practical data science</font> 
+<!-- -  ## <font color="red"> Software for practical data science</font>  -->
 
- - The structure of transport data
- - Data cleaning and subsetting
- - Accessing data from web sources
- - Routing
- - Data visualization
- - Project work
- - Machine learning
- - Professional issues
+<!--  - **The structure of transport data** -->
+<!--  - Data cleaning and subsetting -->
+<!--  - Accessing data from web sources -->
+<!--  - **Routing** -->
+<!--  - Data visualization -->
+<!--  - Project work -->
+<!--  - Machine learning -->
+<!--  - Professional issues -->
+
+```{r, message=FALSE}
+timetable = readr::read_csv(here::here("timetable.csv"))
+timetable$Date = as.Date(timetable$DTSTART)
+timetable %>% 
+  select(SUMMARY, DESCRIPTION, Date) %>% 
+  filter(stringr::str_detect(SUMMARY, "Lec")) %>% 
+  knitr::kable(format = "html")
+```
+
+---
+
+## Practical sessions
+
+```{r, message=FALSE}
+timetable = readr::read_csv(here::here("timetable.csv"))
+timetable$Date = as.Date(timetable$DTSTART)
+timetable %>% 
+  select(SUMMARY, DESCRIPTION, Date) %>% 
+  filter(stringr::str_detect(SUMMARY, "Prac")) %>% 
+  knitr::kable(format = "html")
+```
+
+---
+
+```{r, echo=FALSE}
+library(tuicalendr)
+timetable = readr::read_csv(here::here("timetable.csv"))
+timetable_df = timetable %>% rename(start = DTSTART, end = DTEND, title = SUMMARY)
+calendar(defaultView = "month", useNav = TRUE) %>% 
+  # add_schedule(start = timetable$DTSTART[2], end = timetable$DTEND[2], title = "Lectures") %>% 
+  add_schedule_df(df = timetable_df)
+```
+
  
 ---
 
@@ -67,15 +102,15 @@ From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogu
 # Learn how to join together the components of transport data science into a cohesive project portfolio 
 ```
 
+```{r, echo=FALSE}
+# Old LOs:
 
----
+# ---
+# 
+# ## Learning outcomes
+# 
+# -  ## <font color="red">Deciding when to use local computing power vs cloud services</font> 
 
-## Learning outcomes
-
--  ## <font color="red">Deciding when to use local computing power vs cloud services</font> 
-
-
-```{r}
 # Identify available datasets and access and clean them
 # Combine datasets from multiple sources
 # Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques

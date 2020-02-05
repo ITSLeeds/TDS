@@ -2,7 +2,7 @@ Software for transport data science
 ================
 Robin Lovelace
 University of Leeds,
-2019-02-19<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+2020-02-05<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
 
 ## Project set-up and tidyverse testing (30 minutes, individually)
 
@@ -26,20 +26,21 @@ file.edit(code/learning-tidyverse.R)
     of R for Data Science and write code that reproduces the results in
     that section in the script `learning-tidyverse.R`
 
-Your script will start with something like this:
+Your script will start with something like
+    this:
 
 ``` r
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ───────────────── tidyverse 1.2.1 ──
+    ## ── Attaching packages ───────────────────────────────────────────── tidyverse 1.3.0 ──
 
-    ## ✔ ggplot2 3.1.0     ✔ purrr   0.3.0
-    ## ✔ tibble  2.0.1     ✔ dplyr   0.8.0
-    ## ✔ tidyr   0.8.2     ✔ stringr 1.4.0
-    ## ✔ readr   1.3.1     ✔ forcats 0.3.0
+    ## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+    ## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+    ## ✔ tidyr   1.0.2     ✔ stringr 1.4.0
+    ## ✔ readr   1.3.1     ✔ forcats 0.4.0
 
-    ## ── Conflicts ──────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 

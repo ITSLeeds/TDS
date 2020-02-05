@@ -106,7 +106,7 @@ knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png")
 
 -  ## <font color="red"> Introduction to transport data science </font> 
 - Software for practical data science 
-- The structure of transport data
+- **The structure of transport data**
 - Data cleaning and subsetting
 - Accessing data from web sources
 - Routing

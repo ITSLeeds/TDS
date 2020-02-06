@@ -8,17 +8,27 @@ bibliography: ../references.bib
 ---
 
 ## Setting Up (10 minutes)
-The first step is to install the necessary packages for this practial. Unfortunately, some of the most interesting packages for routing are not yet available on CRAN. In this practical we will introduce three CRAN packages [cyclestreets](https://cran.r-project.org/web/packages/cyclestreets/index.html), [dodgr](https://cran.r-project.org/web/packages/dodgr/index.html), and [igraph](https://cran.r-project.org/web/packages/igraph/index.html) and one GitHub package [transportAPI](https://github.com/ITSLeeds/transportAPI).
 
 We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer.
 
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
 source("https://git.io/JvGjF")
 ```
 
+If that does not work the packages we will be using are:
+
+* sf
+* tidyverse
+* tmap
+* pct
+* stplanr
+* dodgr
+* opentripplanner
+* ITSleeds/geofabrik
+
 ## Using OpenTripPlanner to get routes
 
-We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire. Try typing "" into your broswer. You should see somthign like this:
+We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire. Try typing the URL shown during the session into your broswer. You should see somthign like this:
 
 ```{r, echo = FALSE, fig.align='center', fig.cap="\\label{fig:otpgui}OTP Web GUI"}
 knitr::include_graphics("otp_screenshot.png")
@@ -28,15 +38,19 @@ Exercise 1: Play with the web interface, finding different types of routes. What
 
 ### Connecting to OpenTripPlanner
 
+To allow R to connect to the OpenTripPlanner server we will use the `opentripplanner` package and the function `otp_connect`. In this example I have saved the hostname of the server as a variaible callled "robinIP" in my Renviron file by using `usethis::edit_r_environ()` 
+
+However you can also just set it manually.
+
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 library(sf)
 library(tidyverse)
 library(stplanr)
 library(opentripplanner)
-otpcon <- otp_connect(hostname = "", port = 8080)
+otpcon <- otp_connect(hostname = Sys.getenv("robinIP"), port = 8080)
 ```
 
-If you have connected sucessfully, then you should get a message "Router http://86.6.99.6:8080/otp/routers/default exists"
+If you have connected sucessfully, then you should get a message "Router exists"
 
 To get some routes we will start by importing some data we have used previosly.
 
@@ -46,7 +60,7 @@ download.file(u, "desire_lines.geojson")
 desire_lines = read_sf("desire_lines.geojson")
 ```
 
-Now we will convert the lines to start and end points, using the `line2df` function. An select the top 3 desire lines.
+This dataset has desire lines, but most routing packages need start and end points, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
 
 ```{r, message=FALSE}
 desire = bind_cols(desire_lines, line2df(desire_lines))
@@ -55,24 +69,24 @@ desire_top = top_n(desire, 3, all)
 ```
 
 To find the routes for these desire lines.
-```{r, message=FALSE, eval=FALSE}
+
+```{r, message=FALSE, eval=TRUE}
 routes_top = otp_plan(otpcon,
                       fromPlace = as.matrix(desire_top[,c("fx","fy")]),
                       toPlace = as.matrix(desire_top[,c("tx","ty")]),
-                      fromID = desire_top$geo_code1,
-                      toID = desire_top$geo_code2,
                       mode = "CAR")
 
 ```
 
 We can plot those routes using the `tmap` package
 
-```{r, message=FALSE, eval=FALSE}
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
 library(tmap)
 tmap_mode("view")
 qtm(routes_top)
 ```
 
+To save overloading the server I have pre-generated some extra routes.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
 routes_drive = otp_plan(otpcon,
@@ -81,67 +95,77 @@ routes_drive = otp_plan(otpcon,
                       fromID = desire$geo_code1,
                       toID = desire$geo_code2,
                       mode = "CAR",
-                      ncore = 3)
-saveRDS(routes_drive,"driving_routes.Rds")
+                      ncore = 4)
+
+
+
+routes_transit = otp_plan(otpcon,
+                      fromPlace = as.matrix(desire[,c("fx","fy")]),
+                      toPlace = as.matrix(desire[,c("tx","ty")]),
+                      fromID = desire$geo_code1,
+                      toID = desire$geo_code2,
+                      mode = c("TRANSIT","WALK"),
+                      maxWalkDistance = 1500,
+                      ncore = 4)
+write_sf(routes_drive,"driving_routes.gpkg")
+write_sf(routes_transit,"transit_routes.gpkg")
 ```
+
+```{r, message=FALSE, eval=TRUE, echo=TRUE}
+routes_drive = read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/driving_routes.gpkg")
+routes_transit = read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/transit_routes.gpkg")
+```
+
+Exercise: Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
+
 
 Finally lets join the routes to the original desire dataset.
 
-```{r, message=FALSE, eval=FALSE, echo=TRUE}
+```{r, message=FALSE, eval=FALSE, echo=FALSE}
 desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
                                                       "geo_code2" = "toPlace"))
-desire_drive = st_as_sf(desire_drive)
 ```
 
-Note that some of the desire lines do not have a route. This is usually because the routes start or end too far from the road network. 
+Note that some of the desire lines do not have a route. This is usually because the start or end point is too far from the road.
 
-Exercise: Identify the missing routes, what reasons has OTP failed to find the routes, how could you fix this?
+Exercise: How many routes are missing for each mode? How could you improve this method so there were no missing routes?
 
-## Network Analysis: Overline
+## Line Merging
 
-No we have the routes, we could ideitfy which are the busyest roads. The package `stplanr` has a function called `overline` to help with this.
+Notice that `routes_transit` has returned separate rows for each mode (WALK, RAIL). Notice the `route_option` column shows that some routes have multiple options.
 
-```{r, message=FALSE, eval=FALSE, echo=TRUE}
-rnet = overline(desire_drive, attrib = "car_driver")
-tm_shape(rnet) +
- tm_lines(lwd = 3, col =  "car_driver", style = "jenks")
+Let's suppose you want a single line for each route.
+
+Exercies: Filter the `routes_transit` to contain only one route option per origin-destination pair.
+Bonus Exercies: DO the above but make sure you always select the fastest option.
+
+```{r, eval=TRUE, message=FALSE, echo=FALSE}
+routes_transit <- routes_transit[routes_transit$route_option == 1,]
 ```
 
-Overline takes many overlapping routes and sums their values togther. In this case we have taken the number of drivers on each route and added them to get an idea of the busiest roads. This is the method used in the PCT to idetify the most important roads fo cycling.
+Now We will group the separate parts of the routes toghter.
 
-Exercies: Dicuss the limitations of this method, are the roads that overline idetifies the only busy roads?
+```{r, eval=TRUE, message=FALSE}
 
+routes_transit_group <- routes_transit %>%
+  dplyr::group_by(fromPlace, toPlace) %>%
+  dplyr::summarise(duration = sum(duration),
+                   startTime = min(startTime),
+                   endTime = max(endTime),
+                   distance = sum(distance))
 
-
-
-
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-flow <- read.csv("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/isle-of-wight/od_attributes.csv",
-                 stringsAsFactors = FALSE)
-flow <- flow[flow$geo_code1 != flow$geo_code2,]
-flow <- flow[flow$all > 600,] # Subset out the largest flows
-
-centroids <- sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/isle-of-wight/c.geojson")
-centroids <- centroids[,"geo_code"]
-
-roads <- sf::read_sf("http://download.geofabrik.de/europe/great-britain/england/isle-of-wight-latest.osm.pbf", layer = "lines")
-roads <- roads[!is.na(roads$highway),] # Subset to just the roads
 ```
 
+We now have a single row but instead of a `LINESTRING` we now have a mix of `MULTILINESTRING` and `LINESTRING`, we can convert to a linestring by using `st_line_merge()`. Note how the different columns where summarised.
 
+First we must separate out the `MULTILINESTRING` and `LINESTRING`
 
-
-
-
-**Exercise**
-Experiment with routing can you find out how to:
-
-* Route for driving and cycling using transportAPI
-* Change the date and time of travel with transportAPI
-* Find fast and quiet routes from cyclestreets
-
-Hint: Try using `?tapi_journey` to view the help files
-
+```{r, eval=FALSE}
+routes_transit_group_ml <- routes_transit_group[st_geometry_type(routes_transit_group) == "MULTILINESTRING", ]
+routes_transit_group <- routes_transit_group[st_geometry_type(routes_transit_group) != "MULTILINESTRING", ]
+routes_transit_group_ml <- st_line_merge(routes_transit_group_ml)
+routes_transit_group <- rbind(routes_transit_group, routes_transit_group_ml)
+```
 
 
 ## Network Analysis (dodgr) (20 minutes)
@@ -149,7 +173,14 @@ Hint: Try using `?tapi_journey` to view the help files
 We will now look to analyse the road network using `dodgr`. Fist lets find the distances between all our centroids for a cyclist. `dodgr_dists` returns a matrix of distances in km, note the speed of using dodgr to find 64 distances compared to using a routing service. `dodgr` works well for these type of calcualtion, but cannot do public transport timetables.
 
 ```{r, eval=TRUE, warning=FALSE}
-streetnet <- dodgr::weight_streetnet(roads)
+library(geofabrik)
+library(dodgr)
+roads <- get_geofabrik("west-yorkshire")
+roads <- roads[!is.na(roads$highway),]
+roads <- roads[,c( "osm_id","name","highway","maxspeed","oneway","lanes","bridge","foot","bicycle","lit","footway")]
+
+
+streetnet <- weight_streetnet(roads)
 distances <- dodgr::dodgr_dists(streetnet, as.matrix(flow2[,3:4]), as.matrix(flow2[,5:6]))
 colnames(distances) <- flow2$code_d
 rownames(distances) <- flow2$code_o
@@ -210,4 +241,11 @@ roads_betweeness <- sf::st_sf(cbind(roads_betweeness$dat, roads_betweeness$geome
 qtm(roads_betweeness, lines.col = "between", lines.lwd = 3)
 ```
 
+## Bonus Material (30 minutes)
+
+Open Trip Planner (OTP) is a powerful multimodal route planner written in JAVA. The `opentripplanner` package allows you to set up and use the OTP from R.
+
+**Exercises**
+
+Work though the vignettes [Getting Started](https://github.com/ITSLeeds/opentripplanner/blob/master/vignettes/getting_started.Rmd) and [Advanced Features](https://github.com/ITSLeeds/opentripplanner/blob/master/vignettes/advanced_features.Rmd)
 

@@ -87,12 +87,28 @@ saveRDS(routes_drive,"driving_routes.Rds")
 
 Finally lets join the routes to the original desire dataset.
 
-```{r, message=FALSE, eval=FALSE, echo=FALSE}
+```{r, message=FALSE, eval=FALSE, echo=TRUE}
 desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
                                                       "geo_code2" = "toPlace"))
 ```
 
-Note that some of the desire lines do not have a route. This is usually becuase the 
+Note that some of the desire lines do not have a route. This is usually because the routes start or end too far from the road network. 
+
+Exercise: Identify the missing routes, what reasons has OTP failed to find the routes, how could you fix this?
+
+## Network Analysis: Overline
+
+No we have the routes, we could ideitfy which are the busyest roads. The package `stplanr` has a function called `overline` to help with this.
+
+```{r, message=FALSE, eval=FALSE, echo=TRUE}
+rnet = overline(desire_drive, attrib = "car_driver")
+```
+
+Overline takes many overlapping routes and sums their values togther. In this case we have taken the number of drivers on each route and added them to get an idea of the busiest roads. This is the method used in the PCT to idetify the most important roads fo cycling.
+
+Exercies: Dicuss the limitations of this method, are the roads that overline idetifies the only busy roads?
+
+
 
 
 
@@ -109,59 +125,10 @@ roads <- sf::read_sf("http://download.geofabrik.de/europe/great-britain/england/
 roads <- roads[!is.na(roads$highway),] # Subset to just the roads
 ```
 
-**Exercises**
 
-Install and load the folloing packages:
 
-* `sf`
-* `stplanr`
-* `cyclestreets`
-* `tmap`
-* `transportAPI`
-* `opentripplanner` - optional
 
-Add the CycleStreets API Key to your R Environment
 
-Add the TransportAPI API key to your R Environment (Optional)
-
-Download and load the example data
-
-## Basic Routing (20 minutes)
-
-Let's start with finding a simple route from A to B. We will use two different routing services
-
-```{r, eval=TRUE, warning=FALSE}
-from <- c(-1.155884, 50.72186)
-to <- c(-1.173878, 50.72301)
-r_cs <- cyclestreets::journey(from, to)
-r_tapi <- transportAPI::tapi_journey(from, to, apitype = "public", base_url = "http://fcc.transportapi.com/")
-tmap_mode("view")
-qtm(r_cs) +
-  qtm(r_tapi)
-
-```
-
-Notice that `cyclestreets` has returned 8 rows, one for each road on the journey. While TransportAPI has returned 4 rows one row representing a direct walk, the other three a walk, bus, walk route. Notice the `route_option` and `route_stage` columns.
-
-Let's suppose you want a single line for each route.
-
-```{r, eval=TRUE, message=FALSE}
-r_cs$routeID <- 1
-r_cs <- r_cs %>%
-  dplyr::group_by(routeID) %>%
-  dplyr::summarise(distances = sum(distances),
-            time = sum(time),
-            busynance = sum(time))
-
-```
-
-We now have a single row but instead of a `LINESTRING` wen now have a `MULTILINESTRING`, we can convert to a linestring by using `st_line_merge()`. Note how the different columns where summarised.
-
-```{r, eval=FALSE}
-st_geometry_type(r_cs)
-r_cs <- st_line_merge(r_cs)
-st_geometry_type(r_cs)
-```
 
 **Exercise**
 Experiment with routing can you find out how to:
@@ -172,56 +139,7 @@ Experiment with routing can you find out how to:
 
 Hint: Try using `?tapi_journey` to view the help files
 
-## Batch Routing (20 minutes)
 
-One route is useful, may many routes is better! We will find the routes for the 8 most commuter desire lines on the Isle of Wight. First, we must turn the flow data into a set of start and end points. We will use the `stplanr` package. The `od2odf` function returns the start and end coordinates by combing the `flow` and `centroids` datasets by the shared `geo_code`.
-
-```{r, eval=TRUE}
-flow2 <- stplanr::od2odf(flow[,c("geo_code1","geo_code2")], as(centroids,"Spatial")) 
-# Note this function does not currently work with SF, so as("Spatial") required
-head(flow2)
-```
-
-
-The `cyclestreets` package doe not have an inbuilt batch routing option so we must build a simple loop
-
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-routes_cs <- list()
-for(i in 1:nrow(flow2)){
-  r_cs_sub <- cyclestreets::journey(as.numeric(flow2[i,3:4]), as.numeric(flow2[i,5:6]))
-  r_cs_sub$routeID <- paste0(flow2$code_o[i]," ",flow2$code_d[i])
-  routes_cs[[i]] <- r_cs_sub
-}
-```
-
-This leaves us with a list of data.frames. Which we can combine using `do.call(rbind)`. **Note** for large lists this is slow. consider using `dplyr::bind_rows()` and rebuilding the geometry column. We can also group them into a single line for each route.
-
-```{r, eval=TRUE, warning=FALSE}
-routes_cs <- do.call(rbind,routes_cs)
-routes_cs <- routes_cs %>%
-  dplyr::group_by(routeID) %>%
-  dplyr::summarise(distances = sum(distances),
-            time = sum(time),
-            busynance = sum(time))
-qtm(routes_cs)
-```
-
-The `transportAPI` package has a builtin batch routing function, and will also accept an SF point input.
-
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-from <- dplyr::left_join(flow, centroids, by = c("geo_code1" = "geo_code"))
-to   <- dplyr::left_join(flow, centroids, by = c("geo_code2" = "geo_code"))
-routes_tapi <- transportAPI::tapi_journey_batch(from$geometry, to$geometry, 
-                                                from$geo_code1, to$geo_code2,
-                                                base_url = "http://fcc.transportapi.com/")
-
-```
-
-**Exercises**
-
-Examine the different results produced by cyclestreets and transportAPI.
-
-* how would you compare travel times by bike an public transport?
 
 ## Network Analysis (dodgr) (20 minutes)
 
@@ -289,11 +207,4 @@ roads_betweeness <- sf::st_sf(cbind(roads_betweeness$dat, roads_betweeness$geome
 qtm(roads_betweeness, lines.col = "between", lines.lwd = 3)
 ```
 
-## Bonus Material (30 minutes)
-
-Open Trip Planner (OTP) is a powerful multimodal route planner written in JAVA. The `opentripplanner` package allows you to set up and use the OTP from R.
-
-**Exercises**
-
-Work though the vignettes [Getting Started](https://github.com/ITSLeeds/opentripplanner/blob/master/vignettes/getting_started.Rmd) and [Advanced Features](https://github.com/ITSLeeds/opentripplanner/blob/master/vignettes/advanced_features.Rmd)
 

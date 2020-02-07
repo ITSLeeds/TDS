@@ -47,6 +47,8 @@ library(sf)
 library(tidyverse)
 library(stplanr)
 library(opentripplanner)
+library(tmap)
+tmap_mode("view")
 otpcon <- otp_connect(hostname = Sys.getenv("robinIP"), port = 8080)
 ```
 
@@ -60,6 +62,13 @@ download.file(u, "desire_lines.geojson")
 desire_lines = read_sf("desire_lines.geojson")
 ```
 
+Exercise: Subset the `desire_lines` data frame so that it only has the folloing columns:
+"geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike", and "geometry"   
+
+```{r, message=FALSE, echo=FALSE}
+desire_lines = desire_lines[,c("geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike")]
+```
+
 This dataset has desire lines, but most routing packages need start and end points, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
 
 ```{r, message=FALSE}
@@ -67,6 +76,7 @@ desire = bind_cols(desire_lines, line2df(desire_lines))
 desire = st_drop_geometry(desire)
 desire_top = top_n(desire, 3, all)
 ```
+
 
 To find the routes for these desire lines.
 
@@ -80,10 +90,21 @@ routes_top = otp_plan(otpcon,
 
 We can plot those routes using the `tmap` package
 
-```{r, message=FALSE, eval=TRUE, echo=FALSE}
+```{r, message=FALSE, eval=FALSE, echo=FALSE}
 library(tmap)
 tmap_mode("view")
 qtm(routes_top)
+```
+
+We can also get Isochonres from OTP
+
+```{r, message=FALSE, eval=TRUE}
+isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870), 
+                          mode = c("BICYCLE","TRANSIT"),
+                          maxWalkDistance = 3000)
+isochrone$time = isochrone$time / 60
+isochrone <- st_buffer(isochrone, 0)
+qtm(isochrone, fill = "time")
 ```
 
 To save overloading the server I have pre-generated some extra routes.
@@ -118,7 +139,6 @@ routes_transit = read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.20
 
 Exercise: Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
 
-
 Finally lets join the routes to the original desire dataset.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
@@ -129,6 +149,11 @@ desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace",
 Note that some of the desire lines do not have a route. This is usually because the start or end point is too far from the road.
 
 Exercise: How many routes are missing for each mode? How could you improve this method so there were no missing routes?
+
+```{r, message=FALSE, eval=FALSE, echo=FALSE}
+summary(is.na(desire_drive$duration))
+desire_drive = desire_drive[is.na(desire_drive$duration),]
+```
 
 ## Line Merging
 
@@ -175,64 +200,75 @@ We will now look to analyse the road network using `dodgr`. Fist lets find the d
 ```{r, eval=TRUE, warning=FALSE}
 library(geofabrik)
 library(dodgr)
-roads <- get_geofabrik("west-yorkshire")
-roads <- roads[!is.na(roads$highway),]
-roads <- roads[,c( "osm_id","name","highway","maxspeed","oneway","lanes","bridge","foot","bicycle","lit","footway")]
+library(igraph)
+roads = get_geofabrik("isle-of-wight")
+roads = roads[!is.na(roads$highway),]
+roads = roads[,c( "osm_id","name","highway","maxspeed","oneway","lanes","bridge","foot","bicycle","lit","footway")]
+roads = roads[!roads$highway %in% c("proposed","construction"),]
+graph = weight_streetnet(roads)
+```
 
+Exercies Reporduce the Isle of Wight flow data `d_iow_origins` that you used in the Data Cleaning Practical
 
-streetnet <- weight_streetnet(roads)
-distances <- dodgr::dodgr_dists(streetnet, as.matrix(flow2[,3:4]), as.matrix(flow2[,5:6]))
-colnames(distances) <- flow2$code_d
-rownames(distances) <- flow2$code_o
-distances
+```{r, message=FALSE, echo=FALSE}
+d = read_csv("wu03ew_v2.csv")
+zones = pct::get_pct_zones(region = "isle-of-wight", geography = "msoa")
+names(d) = snakecase::to_snake_case(names(d))
+names(d)[5] = "metro"
+d_iow_origins = d %>% 
+  filter(area_of_residence %in% zones$geo_code) %>%
+  filter(area_of_workplace %in% zones$geo_code)
+```
+
+Now we need to add coordinates to these flows. Lets use the population weighted centroids in the `pct` package.
+
+```{r, message=FALSE, eval=TRUE}
+centroids = pct::get_pct_centroids("isle-of-wight", geography = "msoa")
+centroids = centroids[,"geo_code"]
+```
+
+We can extract the coordiantes out of a geometry column using `st_coordinates`
+
+```{r, message=FALSE, eval=TRUE}
+centroids = bind_cols(centroids, as.data.frame(st_coordinates(centroids)))
+centroids = st_drop_geometry(centroids)
 ```
 
 `dodgr` can also aggregate flows across a network, this allows you to find the total number of cyclists on a particular road.
 
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-# Make a flow count matrix
-flow3 <- data.frame(geo_code1 = rep(flow$geo_code1, times = nrow(flow)),
-                    geo_code2 = rep(flow$geo_code2, each = nrow(flow)))
-flow3 <- dplyr::left_join(flow3, flow[,c("geo_code1","geo_code2","bicycle")], by = c("geo_code1","geo_code2"))
-flow3$bicycle[is.na(flow3$bicycle)] <- 0
-flow3 <- matrix(flow3$bicycle, nrow = nrow(flow), byrow = TRUE)
-flow3 
-# Aggregate the flows across the road network
-streetnet <- dodgr::dodgr_flows_aggregate(streetnet, as.matrix(flow2[,3:4]), as.matrix(flow2[,5:6]), flows = flow3)
-```
-
-To visualise the results we must convert the `dodgr` graph back to an `sf` object.
 
 ```{r, eval=TRUE, warning=FALSE}
-# Make a flow count matrix
-roads_flow <- dodgr::dodgr_to_sfc(streetnet)
-roads_flow <- sf::st_sf(cbind(roads_flow$dat, roads_flow$geometry))
-roads_flow <- roads_flow[roads_flow$flow > 0,]
-qtm(roads_flow, lines.col = "flow", lines.lwd = 3)
+iow_od = od_to_odmatrix(d_iow_origins)
+centroids = centroids[match(centroids$geo_code, rownames(iow_od)),]
+summary(rownames(iow_od) == centroids$geo_code)
+
+verts = match_points_to_graph(verts = dodgr_vertices(graph), as.matrix(centroids[,c("X","Y")]))
+
+net = dodgr_flows_aggregate(graph, verts, verts, flows = iow_od)
+net = merge_directed_flows(net)
+# dodgr_flowmap(net) built in plotting
+net_sf = dodgr::dodgr_to_sf(net)
+qtm(net_sf, lines.col = "flow", lines.lwd = 3)
 ```
 
-**Exercises**
-The method above has introduced some double counting can you find and fix the flaw?
-
-Try re-downloading the whole flow dataset and producing route network for the whole of the Isle of Wight.
 
 ## Network Analysis (igraph) (20 minutes)
 
 `igraph` is a package for analysing all types of network, we will use `igraph` to identify any bottlenecks in the road network. We will do this by calculating the betweenness centrality of the major road network. The will provide a measure of the most "important" roads in the network. As this calculation takes a long time we will only do it for the major roads.
 
-```{r, eval=TRUE, warning=FALSE}
+```{r, eval=FALSE, warning=FALSE}
 # subset to main roads
-roads <- roads[roads$highway %in% c("primary","secondary","tertiary"),]
-
-streetnet <- dodgr::weight_streetnet(roads) #39074
-streetnet_cont <- dodgr::dodgr_contract_graph(streetnet) # Simplify the street network
+graph2 <- graph[graph$highway %in% c("primary","secondary","tertiary"),] 
+graph2 <- dodgr_contract_graph(graph) # Simplify the street network
 # convert to igraph and calualte betweeness
-streetnet_cont$graph$flow <- 0 # fix as bug with weight_streetnet
-graph <- dodgr::dodgr_to_igraph(streetnet_cont$graph)
-betweenness <- igraph::edge_betweenness(graph, directed = F) # This will take a while
+graph2_ig <- dodgr_to_igraph(graph2)
+betweenness <- igraph::edge_betweenness(graph2_ig, directed = FALSE, normalized = TRUE) # This will take a while
 
 # Transfer Value from contracted graph to main graph
-streetnet_cont$graph$between <- betweenness
+graph2$between <- betweenness
+graph2_sf = dodgr::dodgr_to_sf(graph2)
+qtm(graph2_sf, lines.col = "between", lines.lwd = 3)
+
 graph_join <- dplyr::left_join(streetnet_cont$edge_map, streetnet_cont$graph[,c("edge_id","between")], by = c("edge_new" = "edge_id"))
 graph_join$edge_old <- as.integer(graph_join$edge_old)
 streetnet <- dplyr::left_join(streetnet, graph_join, by = c("edge_id" = "edge_old"))

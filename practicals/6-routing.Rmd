@@ -177,7 +177,6 @@ routes_transit <- routes_transit[routes_transit$route_option == 1,]
 Now We will group the separate parts of the routes together.
 
 ```{r, eval=TRUE, message=FALSE}
-
 routes_transit_group <- routes_transit %>%
   dplyr::group_by(fromPlace, toPlace) %>%
   dplyr::summarise(duration = sum(duration),
@@ -277,23 +276,18 @@ qtm(graph2_sf, lines.col = "between", lines.lwd = 3)
 ```
 
 **Bonus Exercises**
-1. Work out how to to make the above plot using the uncontracted road network. Discuss in groups how this is possible.
-1. Calculate betweenness centrality using the dodgr package directly. Hint: `?dodgr_centrality` is in the development version of dodgr.
 
-```{r, eval=FALSE, warning=FALSE, echo=FALSE}
+1. Work out how to to make the above plot using the uncontracted road network. Discuss in groups how this is possible.
+
+```{r, eval=TRUE, warning=FALSE, echo=FALSE}
 graph3 = dodgr_uncontract_graph(graph2)
 graph3 = graph3[,names(graph2)]
+clear_dodgr_cache()
 graph3_sf = dodgr_to_sf(graph3)
-
 qtm(graph3_sf, lines.col = "between", lines.lwd = 3)
 ```
 
 
-## Bonus Material (30 minutes)
+2. Work though the OpenTripPlanner vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html) to run your own local trip planner.
 
-Open Trip Planner (OTP) is a powerful multimodal route planner written in JAVA. The `opentripplanner` package allows you to set up and use the OTP from R.
-
-**Bonus Exercises**
-
-Work though the vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html)
-
+3. Calculate betweenness centrality using the dodgr package directly. Hint: `?dodgr_centrality` is in the development version of dodgr.

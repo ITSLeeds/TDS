@@ -1,0 +1,392 @@
+---
+title: "Transport Data Science: from regional to street levels"
+subtitle: "`r emojifont::emoji('rocket')`<br/>Emerging discipline and community of practice?"
+author: "Robin Lovelace"
+institute: "University of Leeds"
+date: "Louvain-la-Neuve, 2020-02-07 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    css: [default, robot, robot-fonts]
+    lib_dir: libs
+    nature: 
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+background-image: url(https://d3l4am9dimtbet.cloudfront.net/wp-content/uploads/2018/07/In-Pics_-These-Mind-Blowing-Aerial-Shots-of-Mumbai-Were-Taken-by-a-Drone.jpg)
+
+<!-- 14h30-15h30 lecture part (this could already drift towards the practical part but doesn't have to ...) -->
+
+<!-- 15:30-16h00 coffee break -->
+
+<!-- 16h00-17h00 hands-on workshop (could be somewhat open-ended, we'll have the room all afternoon - but if we would go into extra time, we should make a short 'cut' around 17h such that those who have/want to go home can do so). -->
+
+
+# Introduction
+
+Source: [thebetterindia.com](https://www.thebetterindia.com/148450/mumbai-aerial-shots/)
+
+<!-- Mumbai is by [some](https://www.independent.co.uk/travel/worlds-biggest-cities-mexico-city-new-york-karachi-tokyo-lagos-kolkata-kinshasa-dhaka-delhi-a8158426.html) measures the world's largest city -->
+
+
+--
+
+Abstract: 
+Data Science has emerged as an area of high and consistent growth in many sectors. High tech industries such as search engine optimisation, marketing and retail analytics have been quick to adopt new workflows. Transport has arguably been slow to adapt to the transformations towards open source software (as opposed to proprietary products that still dominate), command line and scriptable interfaces (unlike the graphical user interfaces of tools such as Excel) and code sharing and version development via platforms such as GitHub.
+
+This talk demonstrates these new workflows, building on the [Transport chapter in the open source book Geocomputation with R](https://geocompr.robinlovelace.net/transport.html) and experience developing and deploying data science tools that are having a real world impact on transport policy and practice. It will provide insight into how multiple geographic scales of analysis were used to develop the [Propensity to Cycle Tool](http://www.pct.bike/), which Robin developed in collaboration with colleagues from 4 universities and which is being used by dozens of Local Authorities to develop strategic cycle networks. Furthermore, a live demo of the recently release [stats19](https://docs.ropensci.org/stats19/) package, which provides fast access to crash data for road safety research, will highlight the power of reproducibility and that transport data science is a practical field best discovered by doing it and collaboration using reproducible code.
+
+```{r, eval=FALSE}
+# to reproduce these slides do:
+pkgs = c("rgdal", "sf", "geojsonsf")
+install.packages(pkgs)
+```
+
+--
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+---
+
+## whoami
+
+```{r}
+system("whoami")
+```
+
+--
+
+.pull-left[
+- Environmental geographer
+- Learned R for PhD on energy and transport
+- Now work at the University of Leeds (ITS and LIDA)
+- Focus: Applied geocomputation
+- Strong interest in technology + reproducibility, e.g.:
+
+```{r, eval=FALSE}
+devtools::install_github("r-rust/gifski")
+system("youtube-dl https://youtu.be/CzxeJlgePV4 -o v.mp4")
+system("ffmpeg -i v.mp4 -t 00:00:03 -c copy out.mp4")
+system("ffmpeg -i out.mp4 frame%04d.png ")
+f = list.files(pattern = "frame")
+gifski::gifski(f, gif_file = "g.gif", width = 200, height = 200)
+```
+
+]
+
+--
+
+.pull-right[
+Image credit: Jeroen Ooms + others
+
+```{r, out.width="100%"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/39661313-534efd66-5047-11e8-8d99-a5597fe160ff.gif")
+```
+
+]
+
+---
+
+## Importance of Geographic data
+
+.pull-left[
+
+### Geographic data is everywhere
+
+### Underlies some of society's biggest issues
+
+### Can give general analyses local (actionable) meaning
+
+]
+
+--
+
+.pull-right[
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/Leeds-network.png")
+```
+
+Example: Propensity to Cycle Tool (PCT) in Manchester: http://pct.bike/m/?r=greater-manchester
+
+]
+
+---
+
+## Tools for evidence-based policy
+
+```{r, echo=FALSE, out.width="90%"}
+knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/front-page-leeds-pct-demo.png")
+```
+
+--
+
+Source - https://github.com/npct which hosts national web tool PCT [www.pct.bike](http://www.pct.bike/)
+
+---
+
+## Tools for reproducible research
+
+---
+
+# Classifying transport data
+
+Source: https://www.openstreetmap.org/edit#map=14/50.6711/4.6185
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/73912683-0f369980-48ad-11ea-9139-e24919a45368.png")
+```
+
+--
+
+
+---
+
+
+---
+
+## Information and data pyramids
+
+Data science is climbing the DIKW pyramid
+
+```{r, echo=FALSE, out.width="70%"}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/DIKW_Pyramid.svg/220px-DIKW_Pyramid.svg.png")
+```
+
+--
+
+Data science *can* convert data to information and graphics but *cannot*, on its own, create knowledge, let alone wisdom
+
+---
+
+## A geographic availability pyramid
+
+- Recommendations
+- Build this here!
+
+- City-specific datasets
+  - Bristol cycle count data
+
+- Hard-to-access national data
+
+- Open international/national datasets
+  - Open origin-destination data from UK Census
+
+- Globally available, low-grade data (bottom)
+  - OpenStreetMap, Elevation data
+
+---
+
+## An ease-of access pyramid
+
+- Data provision packages
+  - Use the pct package
+  - stats19 package
+
+- Pre-processed data
+  - E.g. downloading data from website www.pct.bike
+
+- Messy official data
+  - Raw STATS19 data
+
+---
+
+## A geographic level of detail pyramid
+
+- Agents
+- Route networks
+- Nodes
+- Routes
+- Desire lines
+- Transport zones
+
+
+---
+
+## Observations
+
+- Official sources are often smaller in sizes but higher in Quality
+
+- Unofficial sources provide higher volumes but tend to be noisy, e.g.: https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12081
+
+- Another way to classify data is by quality: signal/noise ratios
+
+- Globally available datasets would be at the bottom of this pyramid; local surveys at the top.
+
+Source: https://geocompr.robinlovelace.net/read-write.html
+
+
+- Which would be best to inform policy?
+
+---
+
+## Portals
+
+- UK geoportal, providing geographic data at many levels: https://geoportal.statistics.gov.uk
+- Other national geoportals exist, such as this: http://www.geoportal.org/
+- A good source of cleaned origin destination data is the Region downloads tab in the Propensity to Cycle Tool - see the Region data tab for West Yorkshire here, for example: http://www.pct.bike/m/?r=west-yorkshire
+- OpenStreetMap is an excellent source of geographic data with global coverage. You can download data on specific queries (e.g. highway=cycleway) from the overpass-turbo service: https://overpass-turbo.eu/ or with the **osmdata** package
+
+---
+
+## Online lists
+
+For other datasets, search online! Good starting points in your research may be:
+
+- The open data section in Geocomputation with R - https://geocompr.robinlovelace.net/read-write.html#retrieving-data
+- Transport datasets mentioned here: https://data.world/datasets/transportation
+- UK government transport data: https://ckan.publishing.service.gov.uk/publisher/department-for-transport
+
+---
+
+## Data packages
+
+- The **openrouteservice** github package provides routing data
+- The stats19 package can get road crash data for anywhere in Great Britain [@lovelace_stats19_2019] see here for info: https://itsleeds.github.io/stats19/
+- The pct package provides access to data in the PCT: https://github.com/ITSLeeds/pct
+- There are many other R packages to help access data
+
+---
+
+## Example: osmdata
+
+```{r, eval=FALSE, echo=FALSE}
+# remotes::install_github("itsleeds/geofabrik")
+library(geofabrik)
+library(osmdata)
+library(sf)
+system.time({ # around 2 seconds
+  louvain = opq("louvain-la-neuve") %>% 
+  add_osm_feature("highway", value = "primary|secondary|cycleway", value_exact = F) %>%
+  osmdata_sf()
+  })
+louvain_highway = louvain$osm_lines
+plot(louvain_highway)
+saveRDS(louvain_highway, "louvain_highway.Rds")
+piggyback::pb_upload("louvain_highway.Rds")
+```
+
+.pull-left[
+
+
+``` r
+library(osmdata)
+library(sf)
+system.time({ # around 2 seconds
+  n = "louvain-la-neuve"
+  v = "primary|secondary|cycleway"
+  louvain = opq(n) %>% 
+  add_osm_feature("highway", v,
+    value_exact = F) %>%
+  osmdata_sf()
+  })
+#>    user  system elapsed 
+#>   0.125   0.020   1.814
+louvain_highway = louvain$osm_lines
+plot(louvain_highway)
+```
+]
+
+--
+
+.pull-right[
+
+
+```{r, echo=FALSE}
+knitr::include_graphics("https://i.imgur.com/09yWU7V.png")
+```
+
+]
+
+---
+
+## Example: geofabrik
+
+```{r, eval=FALSE, echo=FALSE}
+# remotes::install_github("itsleeds/geofabrik")
+library(geofabrik)
+lvn_centroid = tmaptools::geocode_OSM("louvain-la-neuve", as.sf = T)
+system.time({ 
+  lvn = get_geofabrik(lvn_centroid, key = "highway", value = "cycleway")
+  })
+plot(louvain_highway)
+```
+
+
+``` r
+# remotes::install_github("itsleeds/geofabrik")
+library(geofabrik)
+lvn_centroid = tmaptools::geocode_OSM("louvain-la-neuve", as.sf = T)
+system.time({
+  lvn = get_geofabrik(lvn_centroid) # warning: downloads giant file
+  })
+#> although coordinates are longitude/latitude, st_contains assumes that they are planar
+#> The place is within these geofabrik zones: Europe, Belgium
+#> Selecting the smallest: Belgium
+#> Downloading http://download.geofabrik.de/europe/belgium-latest.osm.pbf to 
+#> ~/h/data/osm/Belgium.osm.pbf
+#> Old attributes: attributes=name,highway,waterway,aerialway,barrier,man_made
+#> New attributes: attributes=name,highway,waterway,aerialway,barrier,man_made,maxspeed,oneway,building,surface,landuse,natural,start_date,wall,service,lanes,layer,tracktype,bridge,foot,bicycle,lit,railway,footway
+#> Using ini file that can can be edited with file.edit(/tmp/RtmprktWUQ/ini_new.ini)
+#>    user  system elapsed 
+#>  72.514  18.150 269.507
+plot(louvain_highway)
+```
+
+<sup>Created on 2020-02-06 by the [reprex package](https://reprex.tidyverse.org) (v0.3.0)</sup>
+
+--
+
+- We made our code 100+ times slower!
+
+---
+
+## Geofabrik II: pre-downloaded data
+
+```{r}
+lvn_filename = geofabrik::gf_filename("Belgium")
+lvn_filename
+utils:::format.object_size(file.size(lvn_filename), units = "MB")
+# Around 1 GB in RAM...
+```
+
+```{r, eval=FALSE}
+library(geofabrik)
+system.time({
+    lvn = get_geofabrik(lvn_centroid, key = "highway", value = "cycleway")
+})
+```
+
+
+
+
+---
+
+# Thanks!
+
+Contact me at r. lovelace at leeds ac dot uk (email), `@robinlovelace` (twitter + github)
+
+--
+
+Check-out my repos at https://github.com/robinlovelace/
+
+--
+
+For more information on efficient workflows, see our book [*Efficient R Programming*](https://csgillespie.github.io/efficientR/)
+
+--
+
+Thanks to all the R developers who made this possible, including (for this presentation):
+
+[remark.js](https://remarkjs.com), [**knitr**](http://yihui.name/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+--
+
+Thanks to everyone for building a open and collaborative communities!

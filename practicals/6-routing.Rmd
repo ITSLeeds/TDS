@@ -200,6 +200,8 @@ routes_transit_group <- rbind(routes_transit_group, routes_transit_group_ml)
 
 ## Network Analysis (dodgr) (20 minutes)
 
+**Note** Some people have have problems running dodgr on Windows, if you do follow these [instructions](https://github.com/ITSLeeds/TDS/blob/master/practicals/dodgr-install.md).
+
 We will now look to analyse the road network using `dodgr`. First let's find the distances between all our centroids for a cyclist. `dodgr_dists` returns a matrix of distances in km, note the speed of using dodgr to find 64 distances compared to using a routing service. `dodgr` works well for these type of calculation, but cannot do public transport timetables.
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE}
@@ -249,7 +251,7 @@ summary(rownames(iow_od) == centroids$geo_code)
 
 verts = match_points_to_graph(verts = dodgr_vertices(graph), as.matrix(centroids[,c("X","Y")]))
 
-net = dodgr_flows_aggregate(graph, verts, verts, flows = iow_od)
+net = dodgr_flows_aggregate(graph, from = verts, to = verts, flows = iow_od)
 net = merge_directed_flows(net)
 # dodgr_flowmap(net) built in plotting
 net_sf = dodgr::dodgr_to_sf(net)

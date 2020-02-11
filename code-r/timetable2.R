@@ -84,7 +84,7 @@ seminar_ids = c(
   "mapping",
 )
 seminar_descriptions = c(
-  "mapping large datasets"
+  "Mapping large datasets"
 )
 
 seminar1_day_of_week = 1
@@ -96,12 +96,40 @@ seminar1$date = seminar1$week_commencing + (seminar1_day_of_week - 1)
 seminar1$DTSTART = lubridate::ymd_hm(paste(seminar1$date, seminar1_start_time)) 
 seminar1$DTEND = lubridate::ymd_hm(paste(seminar1$date, seminar1_end_time))
 seminar1$duration = (seminar1$DTEND - seminar1$DTSTART)
-seminar1$SUMMARY = paste0("TDS seminar ", 1:nrow(seminar1), ": ", seminar_ids)
-seminar1$LOCATION = "West Teaching Lab Cluster (B.16)"
-seminar1$DESCRIPTION = paste0(seminar_descriptions, " in ", seminar1$LOCATION)
-nrow(seminar1) # there are 6 practicals
+seminar1$SUMMARY = paste0("TDS seminar ", 1:nrow(seminar1))
+seminar1$LOCATION = "Institute for Transport Studies - 1.11"
+seminar1$DESCRIPTION = paste0(seminar_descriptions, " in ", seminar1$LOCATION, 
+                              ". See https://environment.leeds.ac.uk/transport/events/event/5963/mapping-human-population-a-data-science-approach"
+                              )
+nrow(seminar1) # there is 1 seminar
 
-timetable = bind_rows(lecture1, practical1, seminar1) 
+# deadlines ------------------------------------------------------
+
+deadline_ids = c(
+  "portfolio draft",
+  "portfolio deadline"
+)
+deadline_descriptions = c(
+  "Draft portfolio",
+  "Deadline: coursework, 2pm"
+)
+
+# Deadline is 15th May: https://minerva.leeds.ac.uk/webapps/blackboard/content/listContentEditable.jsp?content_id=_6292071_1&course_id=_504933_1&mode=reset
+
+deadline1_day_of_week = c(1, 5)
+deadline1_start_time = "11:00"
+deadline1_end_time = "11:30"
+deadline1 = tibble::tibble(week_num = as.character(c(22, 25)))
+deadline1 = dplyr::inner_join(deadline1, weeks)
+deadline1$date = deadline1$week_commencing + (deadline1_day_of_week - 1)
+deadline1$DTSTART = lubridate::ymd_hm(paste(deadline1$date, deadline1_start_time)) 
+deadline1$DTEND = lubridate::ymd_hm(paste(deadline1$date, deadline1_end_time))
+deadline1$duration = (deadline1$DTEND - deadline1$DTSTART)
+deadline1$SUMMARY = paste0("TDS deadline ", 1:nrow(deadline1))
+deadline1$LOCATION = "Institute for Transport Studies - 1.11"
+deadline1$DESCRIPTION = deadline_descriptions
+
+timetable = bind_rows(lecture1, practical1, seminar1, deadline1) 
 timetable$UID = purrr::map_chr(1:nrow(timetable), ~ calendar::ic_guid())
 timetable = timetable %>% 
   arrange(DTSTART) 
@@ -126,126 +154,126 @@ readr::write_csv(tt_min, "timetable.csv")
 
 # from old script ---------------------------------------------------------
 
-day_of_week = 2 
-session_ids = c(
-  "intro",
-  "software",
-  "structure",
-  "cleaning",
-  "accessing",
-  "processing",
-  "viz",
-  "project",
-  "ml",
-  "prof"
-  )
-session_descriptions = c(
-  "Introduction to transport data science",
-  "Software for practical data science",
-  "The structure of transport data",
-  "Data cleaning and subsetting",
-  "Accessing data from web sources",
-  "Routing",
-  "Data visualization",
-  "Project work",
-  "Machine learning",
-  "Professional issues"
-)
-
-library(rvest)
-# vignette("selectorgadget") # check how it works...
-u = "http://timetable.leeds.ac.uk/teaching/201920/reporting/Individual?objectclass=module&idtype=name&identifier=TRAN5340M01&template=SWSCUST+module+individual&days=1-7&periods=1-21&weeks=1-52"
-html = read_html(u)
-
-tt_html = html_nodes(html, ".spreadsheet") %>% html_text()
-extract_column = function(x, n) {
-  nodes = html_nodes(x, paste0(".spreadsheet td:nth-child(", n, ")"))
-  html_text(nodes)[-1]
-}
-extract_column_name = function(x, n) {
-  nodes = html_nodes(x, paste0(".spreadsheet td:nth-child(", n, ")"))
-  html_text(nodes)[1]
-}
-
-cols = c(1:3, 7:11)
-colum_names = purrr::map_chr(cols, ~ extract_column_name(html, .x))
-tt_list = purrr::map(cols, ~ extract_column(html, .x))
-names(tt_list) = colum_names
-tt_df = tibble::as_tibble(tt_list)
-tt_df$Weekday = day_of_week
-
-x = tt_df$Weeks[1]
-extract_weeks = function(x) {
-  r_expression = paste0(
-    "c(",
-    gsub(pattern = "-", replacement = ":", x = x),
-    ")"
-    )
-  eval(parse(text = r_expression))
-}
-
-extract_week_commencing = function(x) {
-  weeks_n = tibble::data_frame(week_num = as.character(extract_weeks(x)))
-  dplyr::inner_join(weeks_n, weeks)
-}
-extract_week_commencing(x)
-extract_attributes = function(tt_df) {
-  tt_i = extract_week_commencing(tt_df$Weeks[1])
-  tt_i$code = tt_df$`Module code (or codes if jointly taught)`[1] 
-  
-  tt_i$type = tt_df$`Type of activity`
-  tt_i$type = gsub(pattern = " 1| Based Learning 1", replacement = "", tt_i$type)
-  tt_i$type = gsub(pattern = "Computer", replacement = "Practical", tt_i$type)
-  
-  tt_i$LOCATION = tt_df$Location[1] 
-  tt_i$day_of_week = tt_df$Weekday[1] 
-  tt_i$DTSTART = lubridate::ymd_hm(paste(tt_i$week_commencing + day_of_week - 1, tt_df$Start[1])) 
-  tt_i$DTEND = lubridate::ymd_hm(paste(tt_i$week_commencing + day_of_week - 1, tt_df$End[1]))
-  tt_i$size = tt_df$Size[1]
-  tt_i$staff = tt_df$`Teaching staff`[1]
-  tt_i
-}
-
-# iterate over each type of event 
-i = 1
-for(i in seq(nrow(tt_df))) {
-  tti = extract_attributes(tt_df[i, ])
-  if(i == 1) {
-    tt = tti
-  } else (
-    tt = rbind(tt, tti)
-  )
-}
-
-tt$SUMMARY = paste0(
-  "TDS ",
-  tt$type,
-  ": ",
-  rep(session_ids, 2)
-  )
-tt$id = paste(rep(session_ids, 2), tt$type)
-tt$DESCRIPTION = paste0(rep(session_descriptions), ", ", gsub(pattern = " 1| Based Learning 1", replacement = "", tt$type))
-tt$staff = "Dr Robin Lovelace"
-tt$staff[grepl(pattern = "The structure of transport data, L|Project w", x = tt$DESCRIPTION)] = "Dr Richard Connors"
-tt$staff[grepl(pattern = "Routing", x = tt$DESCRIPTION)] = "Dr Malcolm Morgan"
-tt$DESCRIPTION = paste0(tt$DESCRIPTION, ", taught by: ", tt$staff)
-
-tt = dplyr::arrange(tt, DTSTART)
-tt_min = dplyr::select(tt, SUMMARY, DESCRIPTION, DTSTART, DTEND, LOCATION, UID = id)
-tt_min
-submission_deadline = tt_min[1, ]
-submission_deadline$SUMMARY = "Deadline: report submission"
-submission_deadline$DESCRIPTION = "Hand-in deadline of portfolio of work"
-submission_deadline$DTSTART = lubridate::ymd_hm("2019-05-07 09:00")
-submission_deadline$DTEND = lubridate::ymd_hm("2019-05-07 17:00")
-submission_deadline$LOCATION = "ITS reception (40 University Road) and online"
-submission_deadline$UID = "submission"
-tt_min = rbind(tt_min, submission_deadline)
-ic = calendar::ical(tt_min)
-calendar::ic_write(ic, "tds-timetable.ics")
-readr::write_csv(ic, "timetable.csv")
-ic
-readLines("tds-timetable.ics")
+# day_of_week = 2 
+# session_ids = c(
+#   "intro",
+#   "software",
+#   "structure",
+#   "cleaning",
+#   "accessing",
+#   "processing",
+#   "viz",
+#   "project",
+#   "ml",
+#   "prof"
+#   )
+# session_descriptions = c(
+#   "Introduction to transport data science",
+#   "Software for practical data science",
+#   "The structure of transport data",
+#   "Data cleaning and subsetting",
+#   "Accessing data from web sources",
+#   "Routing",
+#   "Data visualization",
+#   "Project work",
+#   "Machine learning",
+#   "Professional issues"
+# )
+# 
+# library(rvest)
+# # vignette("selectorgadget") # check how it works...
+# u = "http://timetable.leeds.ac.uk/teaching/201920/reporting/Individual?objectclass=module&idtype=name&identifier=TRAN5340M01&template=SWSCUST+module+individual&days=1-7&periods=1-21&weeks=1-52"
+# html = read_html(u)
+# 
+# tt_html = html_nodes(html, ".spreadsheet") %>% html_text()
+# extract_column = function(x, n) {
+#   nodes = html_nodes(x, paste0(".spreadsheet td:nth-child(", n, ")"))
+#   html_text(nodes)[-1]
+# }
+# extract_column_name = function(x, n) {
+#   nodes = html_nodes(x, paste0(".spreadsheet td:nth-child(", n, ")"))
+#   html_text(nodes)[1]
+# }
+# 
+# cols = c(1:3, 7:11)
+# colum_names = purrr::map_chr(cols, ~ extract_column_name(html, .x))
+# tt_list = purrr::map(cols, ~ extract_column(html, .x))
+# names(tt_list) = colum_names
+# tt_df = tibble::as_tibble(tt_list)
+# tt_df$Weekday = day_of_week
+# 
+# x = tt_df$Weeks[1]
+# extract_weeks = function(x) {
+#   r_expression = paste0(
+#     "c(",
+#     gsub(pattern = "-", replacement = ":", x = x),
+#     ")"
+#     )
+#   eval(parse(text = r_expression))
+# }
+# 
+# extract_week_commencing = function(x) {
+#   weeks_n = tibble::data_frame(week_num = as.character(extract_weeks(x)))
+#   dplyr::inner_join(weeks_n, weeks)
+# }
+# extract_week_commencing(x)
+# extract_attributes = function(tt_df) {
+#   tt_i = extract_week_commencing(tt_df$Weeks[1])
+#   tt_i$code = tt_df$`Module code (or codes if jointly taught)`[1] 
+#   
+#   tt_i$type = tt_df$`Type of activity`
+#   tt_i$type = gsub(pattern = " 1| Based Learning 1", replacement = "", tt_i$type)
+#   tt_i$type = gsub(pattern = "Computer", replacement = "Practical", tt_i$type)
+#   
+#   tt_i$LOCATION = tt_df$Location[1] 
+#   tt_i$day_of_week = tt_df$Weekday[1] 
+#   tt_i$DTSTART = lubridate::ymd_hm(paste(tt_i$week_commencing + day_of_week - 1, tt_df$Start[1])) 
+#   tt_i$DTEND = lubridate::ymd_hm(paste(tt_i$week_commencing + day_of_week - 1, tt_df$End[1]))
+#   tt_i$size = tt_df$Size[1]
+#   tt_i$staff = tt_df$`Teaching staff`[1]
+#   tt_i
+# }
+# 
+# # iterate over each type of event 
+# i = 1
+# for(i in seq(nrow(tt_df))) {
+#   tti = extract_attributes(tt_df[i, ])
+#   if(i == 1) {
+#     tt = tti
+#   } else (
+#     tt = rbind(tt, tti)
+#   )
+# }
+# 
+# tt$SUMMARY = paste0(
+#   "TDS ",
+#   tt$type,
+#   ": ",
+#   rep(session_ids, 2)
+#   )
+# tt$id = paste(rep(session_ids, 2), tt$type)
+# tt$DESCRIPTION = paste0(rep(session_descriptions), ", ", gsub(pattern = " 1| Based Learning 1", replacement = "", tt$type))
+# tt$staff = "Dr Robin Lovelace"
+# tt$staff[grepl(pattern = "The structure of transport data, L|Project w", x = tt$DESCRIPTION)] = "Dr Richard Connors"
+# tt$staff[grepl(pattern = "Routing", x = tt$DESCRIPTION)] = "Dr Malcolm Morgan"
+# tt$DESCRIPTION = paste0(tt$DESCRIPTION, ", taught by: ", tt$staff)
+# 
+# tt = dplyr::arrange(tt, DTSTART)
+# tt_min = dplyr::select(tt, SUMMARY, DESCRIPTION, DTSTART, DTEND, LOCATION, UID = id)
+# tt_min
+# submission_deadline = tt_min[1, ]
+# submission_deadline$SUMMARY = "Deadline: report submission"
+# submission_deadline$DESCRIPTION = "Hand-in deadline of portfolio of work"
+# submission_deadline$DTSTART = lubridate::ymd_hm("2019-05-07 09:00")
+# submission_deadline$DTEND = lubridate::ymd_hm("2019-05-07 17:00")
+# submission_deadline$LOCATION = "ITS reception (40 University Road) and online"
+# submission_deadline$UID = "submission"
+# tt_min = rbind(tt_min, submission_deadline)
+# ic = calendar::ical(tt_min)
+# calendar::ic_write(ic, "tds-timetable.ics")
+# readr::write_csv(ic, "timetable.csv")
+# ic
+# readLines("tds-timetable.ics")
 # Test code ----
 # html_node(tt_html)
 # mod_code = html_nodes(html, ".spreadsheet td:nth-child(1)") %>% html_text()

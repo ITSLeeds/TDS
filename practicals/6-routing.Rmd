@@ -252,6 +252,7 @@ summary(rownames(iow_od) == centroids$geo_code)
 verts = match_points_to_graph(verts = dodgr_vertices(graph), as.matrix(centroids[,c("X","Y")]))
 
 net = dodgr_flows_aggregate(graph, from = verts, to = verts, flows = iow_od)
+summary(net$flow)
 net = merge_directed_flows(net)
 # dodgr_flowmap(net) built in plotting
 net_sf = dodgr::dodgr_to_sf(net)

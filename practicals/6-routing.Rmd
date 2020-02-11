@@ -7,6 +7,22 @@ output: github_document
 bibliography: ../references.bib
 ---
 
+```{r, include=FALSE}
+# setup
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+# print pdf
+pagedown::chrome_print("practicals/6-routing.md")
+pagedown::chrome_print("practicals/6-routing.html")
+browseURL("practicals/6-routing.pdf")
+piggyback::pb_upload("practicals/6-routing.pdf")
+piggyback::pb_download_url("practicals/6-routing.pdf")
+```
+
+
+
 ## Setting Up (10 minutes)
 
 We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer.
@@ -50,7 +66,7 @@ library(stplanr)
 library(opentripplanner)
 library(tmap)
 tmap_mode("plot")
-otpcon <- otp_connect(hostname = Sys.getenv("robinIP"), port = 8080)
+otpcon <- otp_connect(hostname = "86.6.99.6", port = 8080)
 ```
 
 If you have connected successfully, then you should get a message "Router exists."
@@ -139,8 +155,13 @@ write_sf(routes_transit,"transit_routes.gpkg")
 ```
 
 ```{r, message=FALSE, eval=TRUE, echo=TRUE}
-routes_drive = read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/driving_routes.gpkg")
-routes_transit = read_sf("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/transit_routes.gpkg")
+u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/transit_routes.gpkg"
+download.file(url = u, destfile = "transit_routes.gpkg")
+u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/driving_routes.gpkg"
+download.file(url = u, destfile = "driving_routes.gpkg")
+
+routes_drive = read_sf("driving_routes.gpkg")
+routes_transit = read_sf("transit_routes.gpkg")
 ```
 
 **Exercise** Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
@@ -218,6 +239,9 @@ graph = weight_streetnet(roads)
 **Exercise**: Reproduce the Isle of Wight flow data `d_iow_origins` that you used in the Data Cleaning Practical
 
 ```{r, message=FALSE, echo=FALSE}
+u = "https://s3-eu-west-1.amazonaws.com/statistics.digitalresources.jisc.ac.uk/dkan/files/FLOW/wu03ew_v2/wu03ew_v2.zip"
+download.file(url = u, destfile = "wu03ew_v2.zip")
+unzip("wu03ew_v2.zip")
 d = read_csv("wu03ew_v2.csv")
 zones = pct::get_pct_zones(region = "isle-of-wight", geography = "msoa")
 names(d) = snakecase::to_snake_case(names(d))

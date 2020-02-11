@@ -254,6 +254,7 @@ verts = match_points_to_graph(verts = dodgr_vertices(graph), as.matrix(centroids
 net = dodgr_flows_aggregate(graph, from = verts, to = verts, flows = iow_od)
 summary(net$flow)
 net = merge_directed_flows(net)
+# net = merge_directed_graph(net) #function renamed on dev version
 # dodgr_flowmap(net) built in plotting
 net_sf = dodgr::dodgr_to_sf(net)
 qtm(net_sf, lines.col = "flow", lines.lwd = 3)

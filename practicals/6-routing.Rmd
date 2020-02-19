@@ -66,7 +66,7 @@ library(stplanr)
 library(opentripplanner)
 library(tmap)
 tmap_mode("plot")
-otpcon <- otp_connect(hostname = "86.6.99.6", port = 8080)
+otpcon = otp_connect(hostname = "86.6.99.6", port = 8080)
 ```
 
 If you have connected successfully, then you should get a message "Router exists."
@@ -125,7 +125,7 @@ isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870),
                           mode = c("BICYCLE","TRANSIT"),
                           maxWalkDistance = 3000)
 isochrone$time = isochrone$time / 60
-isochrone <- st_buffer(isochrone, 0)
+isochrone = st_buffer(isochrone, 0)
 qtm(isochrone, fill = "time")
 ```
 
@@ -192,13 +192,13 @@ Let's suppose you want a single line for each route.
 **Bonus Exercise**: Do the above, but make sure you always select the fastest option.
 
 ```{r, eval=TRUE, message=FALSE, echo=FALSE}
-routes_transit <- routes_transit[routes_transit$route_option == 1,]
+routes_transit = routes_transit[routes_transit$route_option == 1,]
 ```
 
 Now We will group the separate parts of the routes together.
 
 ```{r, eval=TRUE, message=FALSE}
-routes_transit_group <- routes_transit %>%
+routes_transit_group = routes_transit %>%
   dplyr::group_by(fromPlace, toPlace) %>%
   dplyr::summarise(duration = sum(duration),
                    startTime = min(startTime),
@@ -212,10 +212,10 @@ We now have a single row, but instead of a `LINESTRING`, we now have a mix of `M
 First, we must separate out the `MULTILINESTRING` and `LINESTRING`
 
 ```{r, eval=FALSE}
-routes_transit_group_ml <- routes_transit_group[st_geometry_type(routes_transit_group) == "MULTILINESTRING", ]
-routes_transit_group <- routes_transit_group[st_geometry_type(routes_transit_group) != "MULTILINESTRING", ]
-routes_transit_group_ml <- st_line_merge(routes_transit_group_ml)
-routes_transit_group <- rbind(routes_transit_group, routes_transit_group_ml)
+routes_transit_group_ml = routes_transit_group[st_geometry_type(routes_transit_group) == "MULTILINESTRING", ]
+routes_transit_group = routes_transit_group[st_geometry_type(routes_transit_group) != "MULTILINESTRING", ]
+routes_transit_group_ml = st_line_merge(routes_transit_group_ml)
+routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 ```
 
 
@@ -298,7 +298,7 @@ graph2_ig = dodgr_to_igraph(graph2)
 betweenness = igraph::edge_betweenness(graph2_ig, directed = FALSE) # This will take a while
 
 # Transfer Value from contracted graph to main graph
-graph2$between <- betweenness
+graph2$between = betweenness
 graph2_sf = dodgr_to_sf(graph2)
 qtm(graph2_sf, lines.col = "between", lines.lwd = 3)
 ```

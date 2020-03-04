@@ -1,17 +1,17 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-output: github_document
-# output:
-#   pdf_document:
-#     number_sections: true
+# output: github_document
+output:
+  pdf_document:
+    number_sections: true
 author: "Student 12345"
 # for html output:
 # output:
 #   html_document:
 #     number_sections: true
 # for pdf output:
-bibliography: references.bib
+bibliography: tds.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -292,5 +292,17 @@ Include here limitations and ideas for further research.
 
 What are the main things we have learned from this project?
 
-# References
+To make the code reproducible I saved the code and data as follows
 
+
+```{r, eval=FALSE}
+# Save outputs into zip file:
+zip(zipfile = "coursework-template.zip", files = c(
+  "coursework-template.Rmd",
+  "tds.bib",
+  "timetable.csv"
+))
+# piggyback::pb_upload("coursework-template.zip") # ignore this command
+```
+
+# References

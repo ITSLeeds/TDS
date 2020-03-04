@@ -1,10 +1,10 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-# output: github_document
-output:
-  pdf_document:
-    number_sections: true
+output: github_document
+# output:
+#   pdf_document:
+#     number_sections: true
 author: "Student 12345"
 # for html output:
 # output:
@@ -39,6 +39,11 @@ The information below provides guidance on the coursework. The fundamentals are:
 - Template: You can download a template .Rmd file as the bais of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
 
 For the coursework you will submit a pdf a document with a maximum of 10 pages that contains code and results demonstrating your transport data science skills.
+
+For an example of the type of submission files you should submit see these:
+
+- A PDF file in an appropriate format https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.pdf
+- A .zip file containing everything needed to reproduce the results: https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip
 
 ## Marks
 
@@ -303,6 +308,7 @@ zip(zipfile = "coursework-template.zip", files = c(
   "timetable.csv"
 ))
 # piggyback::pb_upload("coursework-template.zip") # ignore this command
+# piggyback::pb_upload("coursework-template.pdf") # ignore this command
 ```
 
 # References

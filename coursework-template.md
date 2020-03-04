@@ -38,6 +38,14 @@ For the coursework you will submit a pdf a document with a maximum of 10
 pages that contains code and results demonstrating your transport data
 science skills.
 
+For an example of the type of submission files you should submit see
+these:
+
+  - A PDF file in an appropriate format
+    <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.pdf>
+  - A .zip file containing everything needed to reproduce the results:
+    <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip>
+
 ## Marks
 
 Marks are awarded in 5 categories, each of which is evaluated out of 20
@@ -369,6 +377,19 @@ Include here limitations and ideas for further research.
 # Conclusion
 
 What are the main things we have learned from this project?
+
+To make the code reproducible I saved the code and data as follows
+
+``` r
+# Save outputs into zip file:
+zip(zipfile = "coursework-template.zip", files = c(
+  "coursework-template.Rmd",
+  "tds.bib",
+  "timetable.csv"
+))
+# piggyback::pb_upload("coursework-template.zip") # ignore this command
+# piggyback::pb_upload("coursework-template.pdf") # ignore this command
+```
 
 # References
 

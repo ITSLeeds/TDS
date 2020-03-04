@@ -231,11 +231,11 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 1. Discuss methods for gaining data using transport techniques such as routing and conversion of origin-destination data to geographic desire lines
 2. Describe how your team stored and transported data, including appropriate file formats
 
-    **Application choice and machine learning**
+    **Application choice and modelling**
 
 1. Choice of topic that has interesting datasets and important real world applications
 1. Appropriate use of methods for the choice of application
-1. Demonstrate the progression from a simplistic model of the data to machine learning techniques
+1. Demonstrate the progression from a simplistic model of the data to modelling techniques
 3. Discuss alternative approaches
 
     **Visualization**

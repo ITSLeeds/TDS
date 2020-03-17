@@ -42,6 +42,7 @@ lecture1$date = lecture1$week_commencing + (lecture1_day_of_week - 1)
 lecture1$DTSTART = lubridate::ymd_hm(paste(lecture1$date, lecture1_start_time)) 
 lecture1$DTEND = lubridate::ymd_hm(paste(lecture1$date, lecture1_end_time))
 lecture1$duration = (lecture1$DTEND - lecture1$DTSTART)
+lecture1$type = "Lecture"
 lecture1$SUMMARY = paste0("TDS Lecture ", 1:nrow(lecture1), ": ", lecture_ids)
 lecture1$LOCATION = "Business School Maurice Keyworth SR (1.15)"
 lecture1$DESCRIPTION = paste0(lecture1_description, " in ", lecture1$LOCATION)
@@ -53,14 +54,16 @@ practical_ids = c(
   "structure",
   "cleaning",
   "accessing",
-  "visualisation/ml",
+  "routing",
+  "visualisation",
   "project"
 )
 practical_descriptions = c(
   "The structure of transport data",
-  "Data cleaning and and routing",
+  "Data cleaning",
   "Accessing data from web sources",
-  "Data visualization and machine learning",
+  "Routing",
+  "Visualization",
   "Project work"
 )
 
@@ -73,6 +76,7 @@ practical1$date = practical1$week_commencing + (practical1_day_of_week - 1)
 practical1$DTSTART = lubridate::ymd_hm(paste(practical1$date, practical1_start_time)) 
 practical1$DTEND = lubridate::ymd_hm(paste(practical1$date, practical1_end_time))
 practical1$duration = (practical1$DTEND - practical1$DTSTART)
+practical1$type = "Computer practical"
 practical1$SUMMARY = paste0("TDS Practical ", 1:nrow(practical1), ": ", practical_ids)
 practical1$LOCATION = "West Teaching Lab Cluster (B.16)"
 practical1$DESCRIPTION = paste0(practical_descriptions, " in ", practical1$LOCATION)
@@ -81,7 +85,7 @@ nrow(practical1) # there are 6 practicals
 # seminars ------------------------------------------------------
 
 seminar_ids = c(
-  "mapping",
+  "mapping"
 )
 seminar_descriptions = c(
   "Mapping large datasets"
@@ -96,6 +100,7 @@ seminar1$date = seminar1$week_commencing + (seminar1_day_of_week - 1)
 seminar1$DTSTART = lubridate::ymd_hm(paste(seminar1$date, seminar1_start_time)) 
 seminar1$DTEND = lubridate::ymd_hm(paste(seminar1$date, seminar1_end_time))
 seminar1$duration = (seminar1$DTEND - seminar1$DTSTART)
+seminar1$type = "Seminar"
 seminar1$SUMMARY = paste0("TDS seminar ", 1:nrow(seminar1))
 seminar1$LOCATION = "Institute for Transport Studies - 1.11"
 seminar1$DESCRIPTION = paste0(seminar_descriptions, " in ", seminar1$LOCATION, 
@@ -125,11 +130,19 @@ deadline1$date = deadline1$week_commencing + (deadline1_day_of_week - 1)
 deadline1$DTSTART = lubridate::ymd_hm(paste(deadline1$date, deadline1_start_time)) 
 deadline1$DTEND = lubridate::ymd_hm(paste(deadline1$date, deadline1_end_time))
 deadline1$duration = (deadline1$DTEND - deadline1$DTSTART)
+deadline1$type = "Deadline"
 deadline1$SUMMARY = paste0("TDS deadline ", 1:nrow(deadline1))
 deadline1$LOCATION = "Institute for Transport Studies - 1.11"
 deadline1$DESCRIPTION = deadline_descriptions
 
 timetable = bind_rows(lecture1, practical1, seminar1, deadline1) 
+
+timetable %>% 
+  mutate(duration = difftime(DTEND, DTSTART, units = "hours")) %>% 
+  select(week_num, type, duration, SUMMARY, DESCRIPTION) %>% 
+  arrange(week_num) %>% 
+  View()
+
 timetable$UID = purrr::map_chr(1:nrow(timetable), ~ calendar::ic_guid())
 timetable = timetable %>% 
   arrange(DTSTART) 

@@ -1,2 +1,10 @@
 *.md
 *.Rmd*.csv
+*.gpkg
+*.xlsx
+*.zip
+*.csv
+*.xls
+*.Rmd
+*.pdf
+*.Rds

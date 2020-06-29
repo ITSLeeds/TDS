@@ -43,16 +43,18 @@ Not only does the module teach data skills, it also teaches the importance of un
 
 ## Learning outcomes
 
-Students will become confident at working in data science teams working on transport problems; in selecting appropriate tools to answer societal and business questions with a range of input data types; and understanding the wider implications of the increasing use of data science for transport planning. 
+- Become confident and skilled working with large and diverse transport datasets
+- Ability to identify appropriate datasets and use 'the right tool for the job' from the data scientist's toolkit to answer transport research questions
+- Understanding the landscape of transport data science applications and job market and be able to apply data science skills for applied transport planning, research and consultancy projects 
 
-Specifically, learning outcomes will include the ability to:
+<!-- Specifically, learning outcomes will include the ability to: -->
 
-- Identify available datasets and access and clean them
-- Combine datasets from multiple sources
-- Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
-- Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
-- Deciding when to use local computing power vs cloud services
-- Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods
+<!-- - Identify available datasets and access and clean them -->
+<!-- - Combine datasets from multiple sources -->
+<!-- - Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques -->
+<!-- - Visualise and communicate the results of transport data science, and know about setting-up interactive web applications -->
+<!-- - Deciding when to use local computing power vs cloud services -->
+<!-- - Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods -->
 
 ## Syllabus 
 

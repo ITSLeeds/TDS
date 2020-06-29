@@ -1,5 +1,5 @@
 ---
-bibliography: references.bib
+bibliography: tds.bib
 # output: github_document
 output: word_document
 ---
@@ -14,7 +14,7 @@ Module manager: Dr Robin [Lovelace](mailto:r.lovelace@leeds.ac.uk)
 
 Taught: Semester 2
 
-Year running: 2018/19
+Year running: 2020/2021
 
 [View Timetable](http://timetable.leeds.ac.uk/teaching/201819/reporting/Individual?objectclass=module&idtype=name&identifier=TRAN5340M01&&template=SWSCUST+module+Individual&days=1-7&weeks=1-52&periods=1-21)
 
@@ -23,24 +23,21 @@ This module is not approved as an Elective
 ## Module summary
 
 The quantity, diversity and availability of transport data is increasing rapidly, requiring skills in the management and interrogation of data and databases.
-Recent years have seen a new wave of 'big data' and 'data science' changing the world, with the Harvard Business Review describing Data Science as the 'sexiest job of the 21st century' (see [hbr.org](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)).
-Transport researchers increasingly need to take data from a wide range of sources and perform non-standard analyses methods on them to inform the decision-making process.
-
-Despite these developments the transport sector has been slow to adapt to new methods and workflows.
-The Transport Systems Catapult, for example, identified a skills gap in "skilled technical talent capable of handling and analysing very large datasets compiled from multiple sources" (see [ts.catapult.org.uk](https://ts.catapult.org.uk/news-events-gallery/news/report-warns-of-uk-skills-shortage-in-im-sector/)).
-
-This module takes a highly practical approach to learning about 'data science' tools and their application to investigating transport issues.
-The focus is on practical data science, enabling attendees to make use of a wide range of datasets to answer real-world transport planning questions .
+We are in the midst of an accelerating data revolution and data science have never been more important in the work place.
+Transport planners, consultancies and researchers increasingly need to take data from a wide range of sources and perform non-standard analyses methods on them to inform the decision-making process.
+There is high demand for "skilled technical talent capable of handling and analysing very large datasets compiled from multiple sources" in the transport sector according to the [Transport Systems Catapult](https://ts.catapult.org.uk/news-events-gallery/news/report-warns-of-uk-skills-shortage-in-im-sector/).
+This module teaches the skills needed to help get a high paid job in this context.
+More importantly, you will be empowered to support sustainable transport policies using new techniques and datasets, ranging from openly available origin-destination datasets to huge datasets from global positioning systems (GPS).
+Not only does the module teach data skills, it also teaches the importance of understanding how advanced data analysis, modelling and visualisation can support the global transition away from fossil fuels.
 
 ## Objectives
 
-- Understand the structure of transport datasets: spatial, temporal and demographic
-- Understand how to obtain, clean and store transport related data
-- Gain proficiency in command-line tools for handling large transport datasets
-- Learn machine learning and data modelling techniques
+- Understand the structure and origin of large transport datasets
+- Proficiency in command-line tools for handling large transport datasets
+- Knowledge of obtaining, cleaning and storing transport data
 - Produce data visualizations, static and interactive
-- Learn where to find large transport datasets and assess data quality
-- Learn how to join together the components of transport data science into a cohesive project portfolio 
+- Apply advanced methods, including geographic analysis, modelling or machine learning techniques
+- Consolidate transport data science skills in a cohesive project with real-world relevance
 
 <!-- - Learn how to use these skills in the wider context of a dynamic team environment, including project set-up (e.g. deciding between cloud services and local computing power) and problem definition; team workflow; sourcing and interrogating data; applying statistical methods; visualising data and communicating the results (e.g. via the deployment of web services). -->
 

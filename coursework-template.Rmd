@@ -86,6 +86,8 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 
 ## Ideas for coursework topics
 
+If this is a resit you must choose a different topic.
+
 If you are struggling for ideas and example code, these resources, in addition to the links provided in the lectures and practicals can help:
 
 1. Work through the stats19 training vignette to sharpen your R skills: https://docs.ropensci.org/stats19/articles/stats19-training.html
@@ -98,7 +100,7 @@ When working on the homework you should be thinking about the datasets that you 
 
 - Travel behaviour data for a region of choice downloaded with the pct package
 - Road crash data downloaded with the stats19 package
-- OpenStreetMap data downloaded with the osmdata or geofabrik packages
+- OpenStreetMap data downloaded with the osmdata or [osmextractr](https://github.com/ITSLeeds/osmextractr) packages
 
 You are free to pick a research topic and research aims and objectives. However, some example topics that you could choose have been provided:
 

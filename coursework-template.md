@@ -118,6 +118,8 @@ and which will take account of the following criteria:
 
 ## Ideas for coursework topics
 
+If this is a resit you must choose a different topic.
+
 If you are struggling for ideas and example code, these resources, in
 addition to the links provided in the lectures and practicals can help:
 
@@ -138,7 +140,8 @@ that you could use are:
   - Travel behaviour data for a region of choice downloaded with the pct
     package
   - Road crash data downloaded with the stats19 package
-  - OpenStreetMap data downloaded with the osmdata or geofabrik packages
+  - OpenStreetMap data downloaded with the osmdata or
+    [osmextractr](https://github.com/ITSLeeds/osmextractr) packages
 
 You are free to pick a research topic and research aims and objectives.
 However, some example topics that you could choose have been provided:
@@ -353,10 +356,6 @@ mapview::mapview(z) +
   mapview::mapview(sln_clean@sl, lwd = centrality_normalised * 3, zcol = "maxspeed")
 ```
 
-    ## QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-robin'
-    ## TypeError: Attempting to change the setter of an unconfigurable property.
-    ## TypeError: Attempting to change the setter of an unconfigurable property.
-
 ![](coursework-template_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 # Additional datasets
@@ -393,7 +392,7 @@ zip(zipfile = "coursework-template.zip", files = c(
 
 # References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-fox_data_2018">
 

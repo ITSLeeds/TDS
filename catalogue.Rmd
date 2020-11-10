@@ -6,7 +6,7 @@ output: word_document
 
 # Catalogue
 
-This is the module catalogue for [TRAN5340M](http://webprod3.leeds.ac.uk/catalogue/dynmodules.asp?Y=201920&M=TRAN-5340M), Transport Data Science
+This is the module catalogue for [TRAN5340M](http://webprod3.leeds.ac.uk/catalogue/dynmodules.asp?Y=202021&M=TRAN-5340M), Transport Data Science
 
 15 credits
 

@@ -1,8 +1,8 @@
 ---
 title: "Introduction to transport data science"
-subtitle: '<br/>Transport Data Science'
-author: "Robin Lovelace"
-date: 'University of Leeds, `r Sys.Date()`<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
+subtitle: '<br/>Module: Transport Data Science'
+author: "Dr Robin Lovelace"
+date: 'Institute for Transport Studies `r # Sys.Date()`<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">'
 output:
   xaringan::moon_reader:
     # css: ["default", "its.css"]
@@ -11,7 +11,9 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-bibliography: ../references.bib
+bibliography:
+  - references.bib
+  - ../tds.bib
 ---
 
 background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
@@ -21,6 +23,7 @@ class: center, bottom, inverse
 # Credit: Mandeep Lota via [flickr](https://www.flickr.com/photos/deepster2k/1096671706)
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
 options(htmltools.dir.version = FALSE)
 library(RefManageR)
 BibOptions(check.entries = FALSE, 
@@ -30,8 +33,14 @@ BibOptions(check.entries = FALSE,
            first.inits = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
-my_bib = ReadBib("../references.bib", check = FALSE)
+my_bib = c(
+  ReadBib("references.bib", check = FALSE)
+  ,
+  ReadBib("../tds.bib")
+)
+library(tmap)
 ```
+
 
 ---
 
@@ -54,51 +63,65 @@ my_bib = ReadBib("../references.bib", check = FALSE)
 
 --
 
-### Richard Connors
+<!-- Not working on it 2021 -->
+<!-- ### Richard Connors -->
 
-- Mathematician by training
-- Matlab programmer 
-- Expertise in dynamic traffic assignment
+<!-- - Mathematician by training -->
+<!-- - Matlab programmer  -->
+<!-- - Expertise in dynamic traffic assignment -->
 
 ---
+
 
 # The history of TDS
 
-- I inhereited this module from Charles Fox
-- Computer scientist by training, he ran it for 2 years
-- Expertise in Python for Bayesian methods and machine learning
-- Wrote lots of Python code that now lives in the module 'repo':
+- 2017: Transport Data Science created, led by Dr Charles Fox, Computer Scientist, author of Transport Data Science book `r Citep(my_bib, "fox_data_2018", .opts = list(cite.style = "authoryear"))`
+- The focus was on databases and Bayesian methods
+- 2019: I inherited the module, which was attended by ITS students
+- Summer 2019: Python code published in the module 'repo':
   - [github.com/ITSLeeds](https://github.com/ITSLeeds/TDS/tree/master/code-python)
-- Author of Transport Data Science book `r Citep(my_bib, "fox_data_2018", .opts = list(cite.style = "authoryear"))`
+- January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
+- March 2020: Switch to online teaching
+- 2021: Updated module, focus on methods
+- 2022: Expand, online course? book? stay in touch!
 
-```{r, echo=FALSE}
-knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
+```{r, echo=FALSE, eval=TRUE}
+# knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
+# blogdown::shortcode("1239930988416897033")
 ```
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Milestone passed in my academic career, first online-only delivery of lecture <a href="https://twitter.com/ITSLeeds?ref_src=twsrc%5Etfw">@ITSLeeds</a>, seems to have worked, live code demo with <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a>/<a href="https://twitter.com/rstudio?ref_src=twsrc%5Etfw">@rstudio</a>, recording, chat + all🎉<br><br>Thanks students for &#39;attending&#39; + remote participation, we&#39;ll get through this together.<a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> <a href="https://t.co/wlAUxmZj5r">pic.twitter.com/wlAUxmZj5r</a></p>&mdash; Robin Lovelace (@robinlovelace) <a href="https://twitter.com/robinlovelace/status/1239930988416897033?ref_src=twsrc%5Etfw">March 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 ---
 
-# Essential reading materials
+# Essential reading
 
-- See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md
+<!-- - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md -->
 
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) `r Citep(my_bib, "lovelace_stplanr_2017", .opts = list(cite.style = "authoryear"))`
-- Introductory and advanced content on geographic data in R, especially the [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))` 
-- Paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
+- Chapter 12, [Transportation](http://geocompr.robinlovelace.net/transport.html) of Geocomputation with R, a open book on geographic data in R (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))` 
 
-```{r geocompr-cover, echo=FALSE, out.width="20%"}
-knitr::include_graphics("https://geocompr.robinlovelace.net/images/cover.png")
+
+```{r geocompr-cover, echo=FALSE, out.height="300px"}
+knitr::include_graphics(c(
+  "https://geocompr.robinlovelace.net/images/cover.png",
+  "https://geocompr.robinlovelace.net/12-transport_files/figure-html/desire-1.png"
+  ))
 ```
 
 ---
-
 
 ## Core reading materials
 
-- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))` 
+- R for Data Science, an introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) `r Citep(my_bib, "grolemund_r_2016", .opts = list(cite.style = "authoryear"))` 
 
-- Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) `r Citep(my_bib, "james_introduction_2013", .opts = list(cite.style = "authoryear"))` 
+## Optional
 
+- If you're interested in network analysis/Python, see this paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
 
+- If you're interested in the range of transport modelling tools, see `r Citep(my_bib, "lovelace_open_2021", .opts = list(cite.style = "authoryear"))`
+<!-- [@lovelace_open_2021] -->
+
+For more references, see the bibliography at [github.com/ITSLeeds/TDS](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md#bibliography)
 
 ---
 
@@ -267,7 +290,7 @@ Still dominates transport planning models (Boyce and Williams 2015)
 
 # Existing products
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
 tms = readr::read_csv("../transport-software.csv")[1:5]
 tms = dplyr::arrange(tms, dplyr::desc(Citations))
 knitr::kable(tms, booktabs = TRUE, caption = "Sample of transport modelling software in use by practitioners. Note: citation counts based on searches for company/developer name, the product name and 'transport'. Data source: Google Scholar searches, October 2018.", format = "html")
@@ -315,7 +338,7 @@ Source: https://community.rstudio.com/about
 
 # A few prices
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 knitr::include_graphics("https://www.robinlovelace.net/presentations/price-transcad.png")
 ```
 
@@ -336,7 +359,7 @@ class: center, middle
 
 - Example: the Propensity to Cycle Tool ([PCT.bike](http://www.pct.bike/)) (Lovelace et al. 2017)
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 knitr::include_graphics("https://raw.githubusercontent.com/npct/pct-team/master/figures/early.png")
 ```
 
@@ -354,13 +377,13 @@ library(dplyr)
 library(sf)
 desire_lines_all = read_sf(u)
 desire_lines = desire_lines_all %>% 
-  top_n(1000, all)
+  top_n(10, all)
 write_sf(desire_lines, "desire_lines.geojson")
 piggyback::pb_upload("desire_lines.geojson")
 ```
 
 
-```{r, message=FALSE}
+```{r, message=FALSE, eval=TRUE}
 # Set-up, after installing R and checking out www.pct.bike:
 u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
 library(dplyr)
@@ -377,7 +400,7 @@ A fundamental part of data science is being able to understand your data.
 That requires visualisation, R is great for that:
 
 .pull-left[
-```{r, warning=FALSE}
+```{r, warning=FALSE, eval=TRUE}
 plot(desire_lines)
 ```
 
@@ -386,9 +409,8 @@ plot(desire_lines)
 .pull-right[
 - Interactively:
 
-```{r, message=FALSE}
+```{r, message=FALSE, eval=FALSE}
 library(tmap)
-ttm()
 tm_shape(desire_lines) + tm_lines("all")
 ```
 
@@ -436,7 +458,7 @@ knitr::include_graphics("https://www.cyipt.bike/images/existing-edit.png")
 - Example: StreetMix ([streetmix.net](https://streetmix.net/))
 
 ```{r, echo=FALSE, out.width="60%"}
-knitr::include_graphics("http://1p40p3gwj70rhpc423s8rzjaz-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/2016_0211_2ndAvePioneerSquareFlyer-streetmix.jpg")
+knitr::include_graphics("https://streetmix.net/images/thumbnail.png")
 ```
 
 ---

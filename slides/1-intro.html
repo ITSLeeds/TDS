@@ -107,58 +107,42 @@ For more references, see the bibliography at [github.com/ITSLeeds/TDS](https://g
 # This session in context
 
 -  ## &lt;font color="red"&gt; Introduction to transport data science &lt;/font&gt; 
-- Software for practical data science 
+&lt;!-- - Software for practical data science  --&gt;
 - **The structure of transport data**
-- Data cleaning and subsetting
-- Accessing data from web sources
 - Routing
+&lt;!-- - Data cleaning and subsetting --&gt;
+&lt;!-- - Accessing data from web sources --&gt;
 - Data visualization
 - Project work
-- Machine learning
-- Professional issues
+&lt;!-- - Machine learning --&gt;
+&lt;!-- - Professional issues --&gt;
  
 ---
 
 ## Objectives
 
-From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md):
+&lt;!-- From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md): --&gt;
+
+- Understand the structure of transport datasets
+- Understand how to obtain, clean and store transport related data
+- Gain proficiency in command-line tools for handling large transport datasets
+- Produce data visualizations, static and interactive
 
 
-```r
-# Understand the structure of transport datasets: spatial, temporal and demographic
-# Understand how to obtain, clean and store transport related data
-# Gain proficiency in command-line tools for handling large transport datasets
-# Learn machine learning and data modelling techniques
-# Produce data visualizations, static and interactive
-# Learn where to find large transport datasets and assess data quality
-```
 
 - &lt;font color="red"&gt; Learn how to join together the components of transport data science into a cohesive project portfolio  &lt;/font&gt; 
-
----
-
-## Learning outcomes
-
-
-```r
-# Identify available datasets and access and clean them
-# Combine datasets from multiple sources
-# Understand what machine learning is, which problems it is appropriate for compared with traditional statistical approaches, and how to implement machine learning techniques
-# Visualise and communicate the results of transport data science, and know about setting-up interactive web applications
-# Deciding when to use local computing power vs cloud services
-```
-
-- Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods
 
 ---
 
 ## Assessment (for those doing this as credit-bearing)
 
 - You will build-up a portfolio of work
-- 3000 words, up to 10 pages
+- 100% coursework assessed, you will submit by **Friday 14th May**:
+  - **a pdf document up to 10 pages long with figures, tables, references explaining how you used data science to research a transport problem**
+  - **reproducible code contained in an RMarkdown (.Rmd) document that produced the report**
 - Written in RMarkdown - will be graded for reproducibility
 - Code chunks and figures are encouraged
-- Will check-in after week 5
+- You will submit a non-assessed 2 page pdf + Rmd report by **Friday 26th March**
 
 ---
 
@@ -185,6 +169,10 @@ From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogu
 In other words...
 
 - Statistics that is actually useful!
+
+### Deeper question: why transport data science?
+
+- You must answer that question
 
 ---
 
@@ -244,9 +232,8 @@ class: center, middle
 
 .pull-left[
 
-### The four stage model
 
-![](https://www.robinlovelace.net/presentations/fourstage.png)&lt;!-- --&gt;
+&lt;img src="https://www.robinlovelace.net/presentations/fourstage.png" height="500px" /&gt;
 
 Still dominates transport planning models (Boyce and Williams 2015)
 ]
@@ -254,8 +241,9 @@ Still dominates transport planning models (Boyce and Williams 2015)
 
 --
 
+### The four stage model (left)
 
-### Impacting the durrent software landscape
+- Impacts the current software landscape
 
 - Dominated by a few proprietary products
 
@@ -429,7 +417,7 @@ That requires visualisation, R is great for that:
 plot(desire_lines)
 ```
 
-![](1-intro_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](1-intro_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -470,7 +458,7 @@ tm_shape(car_dependent_routes) +
   tm_lines(col = "percent_drive", lwd = "all", scale = 5, breaks = b, palette = "-inferno")
 ```
 
-![](1-intro_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](1-intro_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -502,15 +490,12 @@ How to decide?
 --
 
 - If priority: getting things done quick (with support from me ;) go with R
-- If you already know Python and want to experiment, go with that
-- If you want to be avant-garde and try something else, do it (as long as it's reproducible)
+- If you already know Python and are **100% confident you can generate reproducible results**, go with that
+- If you want to be avant-garde and try something else like Julia, do it (as long as it's reproducible)
 
 --
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Mk54CziKpHi65sdlwBZcCg.png)
-
-
-
 
 ---
 
@@ -532,10 +517,10 @@ Source: [github.com/nldoc/nlrx](https://github.com/nldoc/nlrx)
 
 ### Gamification
 
-![](https://www.robinlovelace.net/presentations/citybound.png)&lt;!-- --&gt;
+![](https://raw.githubusercontent.com/dabreegster/abstreet/master/book/exploring_traffic.gif)&lt;!-- --&gt;
 
 - Completely open source, written in [rust](https://github.com/citybound/citybound)
-- Source: video at https://aeplay.org/citybound
+- Source: video at https://github.com/dabreegster/abstreet/#ab-street
 
 ---
 
@@ -558,10 +543,15 @@ class: center, middle, inverse
 
 ## Practical session will involve...
 
-- Definition of transport data science
+&lt;!-- - Definition of transport data science --&gt;
 - About you, level and hopes for the course
-- Sketching research methods (you will need pens)
-- A very small computer practical
+- Thinking about research methods (you will need pens)
+- The structure of transport datasets
+  - How cities are divided up into zones
+  - Desire lines representing movement
+  - Routes between locations
+  - Route networks
+  - Agents
 
 ---
 

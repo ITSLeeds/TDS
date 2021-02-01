@@ -177,7 +177,7 @@ zones = spDataLarge::bristol_zones
 plot(zones)
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ## Reading-in and processing basic data
 
@@ -279,7 +279,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 -   Add transparency so it looks like this (hint: use `alpha =` in the
     `geom_point()` function call):
@@ -288,7 +288,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 -   Add a colour for each carrier, so it looks something like this:
 
@@ -299,7 +299,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 -   Bonus 1: find the average air time of those flights with a distance
     of 1000 to 2000 miles
@@ -315,7 +315,7 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ## Homework
 

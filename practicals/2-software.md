@@ -2,7 +2,22 @@ Software for transport data science
 ================
 Robin Lovelace
 University of Leeds,
-2021-01-29<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+2021-02-01<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+
+## Agenda
+
+-   Introduction to the module and team - 30 min
+    <!-- Each person to say  1) their name and where they are based 2) why they took the module and 3) their level of knowledge of coding. -->
+
+-   Live demo: getting set-up with RStudio - 25 minutes
+
+-   5 minute break
+
+-   Working together - Visualising transport data in the stplanr
+    package - 30 minutes
+
+-   Working alone - running the code in Sections 12.1 to 12.4 the
+    Transport chapter of Geocomputation with R - 30 minutes
 
 ## Pre-requisites
 
@@ -34,9 +49,9 @@ library(tidyverse)
     ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✔ ggplot2 3.3.3     ✔ purrr   0.3.4
-    ## ✔ tibble  3.0.5     ✔ dplyr   1.0.3
+    ## ✔ tibble  3.0.6     ✔ dplyr   1.0.3
     ## ✔ tidyr   1.1.2     ✔ stringr 1.4.0
-    ## ✔ readr   1.4.0     ✔ forcats 0.5.0
+    ## ✔ readr   1.4.0     ✔ forcats 0.5.1
 
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
@@ -61,6 +76,87 @@ file.edit("code/learning-tidyverse.R")
 
 We’re going to start by looking at the main types of transport data:[2]
 
+In this section we will look at basic transport data in the R package
+**stplanr**.
+
+Attach the `tidyverse`, `stplanr` and `sf` packages as follows:
+
+``` r
+library(tidyverse)
+library(stplanr)
+library(sf)
+```
+
+    ## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
+
+The `stplanr` package contains some data that we can use to demonstrate
+principles in Data Science, illustrated in the Figure below. Source:
+Chapter 1 of R for Data Science (Grolemund and Wickham 2016) [available
+online](https://r4ds.had.co.nz/introduction.html).
+
+![](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
+
+``` r
+# import
+od_data = stplanr::od_data_sample
+```
+
+``` r
+# tidy
+od_data = od_data %>%
+  rename(walk = foot)
+```
+
+``` r
+# transform
+od_data_walk = od_data %>% 
+  filter(walk > 0) %>% 
+  select(geo_code1, geo_code2, all, car_driver, walk) %>% 
+  mutate(proportion_walk = walk / all, proportion_drive = car_driver / all)
+```
+
+``` r
+# visualise
+plot(od_data_walk)
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+# model
+model1 = lm(proportion_walk ~ proportion_drive, data = od_data_walk)
+od_data_walk$proportion_walk_predicted = model1$fitted.values
+```
+
+``` r
+# visualise
+ggplot(od_data_walk) +
+  geom_point(aes(proportion_drive, proportion_walk)) +
+  geom_line(aes(proportion_drive, proportion_walk_predicted))
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+# transform
+# ...
+```
+
+Exercises
+
+1.  What is the class of the data in `od_data`?
+2.  Subset (filter) the data to only include OD pairs in which people
+    walk
+3.  Calculate the percentage who cycle in each OD pair in which at least
+    1 person cycles
+4.  Is there a positive relationship between walking and cycling in the
+    data?
+5.  Plot the zones representing the `geo_code` variables in the OD data
+6.  Bonus: use the function `od2line()` in to convert the OD dataset
+    into geographic desire lines
+
+## Processing origin-destination data in Bristol
+
 ``` r
 od = spDataLarge::bristol_od
 head(od)
@@ -77,17 +173,11 @@ head(od)
     ## 6 E02002985 E02003054    42       4     0         21     0
 
 ``` r
-library(sf)
-```
-
-    ## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
-
-``` r
 zones = spDataLarge::bristol_zones
 plot(zones)
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ## Reading-in and processing basic data
 
@@ -189,7 +279,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 -   Add transparency so it looks like this (hint: use `alpha =` in the
     `geom_point()` function call):
@@ -198,7 +288,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 -   Add a colour for each carrier, so it looks something like this:
 
@@ -209,7 +299,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 -   Bonus 1: find the average air time of those flights with a distance
     of 1000 to 2000 miles
@@ -225,7 +315,7 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ## Homework
 
@@ -251,17 +341,28 @@ file.edit("learning-tidyverse.Rmd")
 -   Bonus: create a GitHub repo and publish the results of of your work
     (hint: putting `output: github_document` may help here!)
 
-1.  Work-through the remaining exercises of the first sections in R4DS
+2.  Work-through the remaining exercises of the first sections in R4DS
     chapters 3 and 5
 
 -   Write and R script, with comments, to show your working (and prove
     you’ve done it!)
 
-1.  Create an RMarkdown file containing reproducible code outlining what
+3.  Create an RMarkdown file containing reproducible code outlining what
     you learned today
 
-2.  Identify a dataset you would like to work with for the practical
+4.  Identify a dataset you would like to work with for the practical
     next week.
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-grolemund_r_2016" class="csl-entry">
+
+Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*.
+O’Reilly Media.
+
+</div>
+
+</div>
 
 [1]  Note: if you want to install the development version of a package
 from GitHub, you can do so. Try, for example, running the following

@@ -17,7 +17,12 @@ University of Leeds,
     package - 30 minutes
 
 -   Working alone - running the code in Sections 12.1 to 12.4 the
-    Transport chapter of Geocomputation with R - 30 minutes
+    Transport chapter of Geocomputation with R and answering the
+    questions for the Bristol dataset - 1 hr
+
+-   Bonus: Work through [Chapter
+    5](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of
+    R for Data Science
 
 ## Pre-requisites
 
@@ -230,8 +235,8 @@ d_updated = d %>%
 
 ## Processing medium sized data and basic visualisation (30 minutes)
 
-This section will use content from the R for Data Science book
-(**grolemund\_data\_2016?**).
+This section will use content from Chapter 5 of the R for Data Science
+book (**grolemund\_data\_2016?**).
 
 -   Read [section
     5.1](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter)

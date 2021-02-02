@@ -132,8 +132,47 @@ Exercises
 5. Bonus: use the function `od2line()` in to convert the OD dataset into geographic desire lines
 
 ```{r, echo=FALSE}
-# Todo: add code that answers the questions above
+#1
+class(od_data)
 ```
+
+```{r, echo=FALSE}
+#2 
+od_data_walk = od_data %>% 
+  filter(walk > 0)
+```
+```{r, echo=FALSE}
+#3
+od_data %>% 
+  filter(bicycle > 0) %>% 
+  mutate(proportion_cycle = bicycle/all)
+```
+```{r, echo=FALSE}
+#4
+od_data_new = od_data %>% 
+  filter(walk > 0, bicycle>0 ) %>% 
+  select(bicycle, walk) 
+
+model = lm(walk ~ bicycle, data = od_data_new)
+od_data_new$walk_predicted = model$fitted.values
+
+ggplot(od_data_new) +
+  geom_point(aes(bicycle, walk)) +
+  geom_line(aes(bicycle, walk_predicted))
+```
+```{r, echo=FALSE}
+#5
+zones = sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/z.geojson")
+zones_leeds=zones %>% 
+  filter(lad_name=="Leeds")
+plot(zones_leeds)
+```
+```{r, echo=FALSE}
+#6
+desire_lines = od2line(flow = od_data, zones)
+plot(desire_lines)
+```
+
 
 
 ## Processing origin-destination data in Bristol

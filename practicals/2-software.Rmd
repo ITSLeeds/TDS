@@ -143,9 +143,9 @@ od_data_walk = od_data %>%
 ```
 ```{r, echo=FALSE}
 #3
-od_data %>% 
+od_data = od_data %>% 
   filter(bicycle > 0) %>% 
-  mutate(proportion_cycle = bicycle/all)
+  mutate(perc_cycle = (bicycle/all) * 100)
 ```
 ```{r, echo=FALSE}
 #4
@@ -163,9 +163,9 @@ ggplot(od_data_new) +
 ```{r, echo=FALSE}
 #5
 zones = sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/z.geojson")
-zones_leeds=zones %>% 
-  filter(lad_name=="Leeds")
-plot(zones_leeds)
+zones_leeds = zones %>% 
+  filter(lad_name == "Leeds")
+plot(zones_leeds$geometry)
 ```
 ```{r, echo=FALSE}
 #6

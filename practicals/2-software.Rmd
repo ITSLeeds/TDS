@@ -180,16 +180,103 @@ plot(desire_lines)
 
 ## Processing origin-destination data in Bristol
 
+This section is based on Chapter 12 of Geocomputation with R: https://geocompr.robinlovelace.net/transport.html
+
+The task is to reproduce the results shown in that chapter on your own computer.
+Some code to get started on a subset of the data is shown below.
+
+Start with a medium-sized dataset:
 
 ```{r}
+# import
 od = spDataLarge::bristol_od
 head(od)
 ```
 
 ```{r}
+# tidy
 zones = spDataLarge::bristol_zones
-plot(zones)
+zones = zones %>% 
+  mutate(local_authority = word(string = name, 1))
+plot(zones %>% select(local_authority), key.pos = 1)
 ```
+
+```{r, eval=FALSE, echo=FALSE}
+# Find central data
+# bristol_centre = geo_code("bristol")
+#> [1] -2.597298 51.453802
+```
+
+```{r}
+# transform
+bristol_sf = tmaptools::geocode_OSM("bristol", as.sf = TRUE, return.first.only = T, geometry = "point")
+mapview::mapview(bristol_sf)
+bristol_buffer_10km = geo_buffer(bristol_sf, dist = 10000)
+zones_central = zones[bristol_buffer_10km, , op = sf::st_within]
+# visualise
+mapview::mapview(zones_central)
+```
+
+
+```{r}
+# transform
+od_central = od %>%
+  filter(o %in% zones_central$geo_code) %>% 
+  filter(d %in% zones_central$geo_code) 
+nrow(od_central) / nrow(od)
+desire_lines = od2line(od_central, zones_central)
+desire_lines$distance_direct_m = as.numeric(st_length(desire_lines))
+desire_lines = desire_lines %>% 
+  mutate(proportion_active = (bicycle + foot) / all)
+```
+
+```{r, fig.show='hold', out.width="40%"}
+# visualise
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active))
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active, size = all), alpha = 0.3)
+```
+
+```{r}
+# model/visualise
+m1 = lm(proportion_active ~ 
+          distance_direct_m + I(distance_direct_m^2),
+        data = desire_lines)
+desire_lines = desire_lines %>% 
+  mutate(
+    new_active_travel = m1$fitted.values * car_driver,
+    new_total_active = new_active_travel + bicycle + foot,
+    new_proportion_active = new_total_active / all
+    ) %>% 
+  arrange(proportion_active)
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active, size = all), alpha = 0.3) +
+  geom_point(aes(distance_direct_m, new_proportion_active, size = all), alpha = 0.3, colour = "blue")
+
+```
+
+```{r}
+# visualise
+ggplot(desire_lines) +
+  geom_sf(aes(colour = new_proportion_active, alpha = all))
+```
+
+```{r}
+library(tmap)
+tm_shape(desire_lines) +
+  tm_lines(palette = "-viridis", breaks = c(0, 5, 10, 20, 40, 100) / 100,
+    lwd = "all",
+    scale = 9,
+    title.lwd = "Number of trips",
+    alpha = 0.6,
+    col = c("proportion_active", "new_proportion_active"),
+    title = "Active travel (%)"
+  ) +
+  tm_scale_bar()
+```
+
+
 
 
 ## Reading-in and processing basic data

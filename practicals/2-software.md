@@ -163,7 +163,17 @@ Exercises
 
 ## Processing origin-destination data in Bristol
 
+This section is based on Chapter 12 of Geocomputation with R:
+<https://geocompr.robinlovelace.net/transport.html>
+
+The task is to reproduce the results shown in that chapter on your own
+computer. Some code to get started on a subset of the data is shown
+below.
+
+Start with a medium-sized dataset:
+
 ``` r
+# import
 od = spDataLarge::bristol_od
 head(od)
 ```
@@ -179,11 +189,114 @@ head(od)
     ## 6 E02002985 E02003054    42       4     0         21     0
 
 ``` r
+# tidy
 zones = spDataLarge::bristol_zones
-plot(zones)
+zones = zones %>% 
+  mutate(local_authority = word(string = name, 1))
+plot(zones %>% select(local_authority), key.pos = 1)
 ```
 
 ![](2-software_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+``` r
+# transform
+bristol_sf = tmaptools::geocode_OSM("bristol", as.sf = TRUE, return.first.only = T, geometry = "point")
+mapview::mapview(bristol_sf)
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+``` r
+bristol_buffer_10km = geo_buffer(bristol_sf, dist = 10000)
+zones_central = zones[bristol_buffer_10km, , op = sf::st_within]
+```
+
+    ## although coordinates are longitude/latitude, st_within assumes that they are planar
+
+``` r
+# visualise
+mapview::mapview(zones_central)
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->
+
+``` r
+# transform
+od_central = od %>%
+  filter(o %in% zones_central$geo_code) %>% 
+  filter(d %in% zones_central$geo_code) 
+nrow(od_central) / nrow(od)
+```
+
+    ## [1] 0.5140893
+
+``` r
+desire_lines = od2line(od_central, zones_central)
+```
+
+    ## Creating centroids representing desire line start and end points.
+
+``` r
+desire_lines$distance_direct_m = as.numeric(st_length(desire_lines))
+desire_lines = desire_lines %>% 
+  mutate(proportion_active = (bicycle + foot) / all)
+```
+
+``` r
+# visualise
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active))
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active, size = all), alpha = 0.3)
+```
+
+<img src="2-software_files/figure-gfm/unnamed-chunk-22-1.png" width="40%" /><img src="2-software_files/figure-gfm/unnamed-chunk-22-2.png" width="40%" />
+
+``` r
+# model/visualise
+m1 = lm(proportion_active ~ 
+          distance_direct_m + I(distance_direct_m^2),
+        data = desire_lines)
+desire_lines = desire_lines %>% 
+  mutate(
+    new_active_travel = m1$fitted.values * car_driver,
+    new_total_active = new_active_travel + bicycle + foot,
+    new_proportion_active = new_total_active / all
+    ) %>% 
+  arrange(proportion_active)
+ggplot(desire_lines) +
+  geom_point(aes(distance_direct_m, proportion_active, size = all), alpha = 0.3) +
+  geom_point(aes(distance_direct_m, new_proportion_active, size = all), alpha = 0.3, colour = "blue")
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+``` r
+# visualise
+ggplot(desire_lines) +
+  geom_sf(aes(colour = new_proportion_active, alpha = all))
+```
+
+![](2-software_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+``` r
+library(tmap)
+tm_shape(desire_lines) +
+  tm_lines(palette = "-viridis", breaks = c(0, 5, 10, 20, 40, 100) / 100,
+    lwd = "all",
+    scale = 9,
+    title.lwd = "Number of trips",
+    alpha = 0.6,
+    col = c("proportion_active", "new_proportion_active"),
+    title = "Active travel (%)"
+  ) +
+  tm_scale_bar()
+```
+
+    ## Legend labels were too wide. Therefore, legend.text.size has been set to 0.46. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+    ## Legend labels were too wide. Therefore, legend.text.size has been set to 0.46. Increase legend.width (argument of tm_layout) to make the legend wider and therefore the labels larger.
+
+![](2-software_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ## Reading-in and processing basic data
 
@@ -285,7 +398,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 -   Add transparency so it looks like this (hint: use `alpha =` in the
     `geom_point()` function call):
@@ -294,7 +407,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
 -   Add a colour for each carrier, so it looks something like this:
 
@@ -305,7 +418,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 -   Bonus 1: find the average air time of those flights with a distance
     of 1000 to 2000 miles
@@ -321,7 +434,7 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 ## Homework
 

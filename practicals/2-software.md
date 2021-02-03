@@ -2,7 +2,7 @@ Software for transport data science
 ================
 Robin Lovelace
 University of Leeds,
-2021-02-01<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+2021-02-03<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
 
 ## Agenda
 
@@ -150,8 +150,9 @@ ggplot(od_data_walk) +
 Exercises
 
 1.  What is the class of the data in `od_data`?
-2.  Subset (filter) the data to only include OD pairs in which people
-    walk
+2.  Subset (filter) the data to only include OD pairs in which at least
+    one person (`> 0`) person walks (bonus: on what % of the OD pairs
+    does at least 1 person walk?)
 3.  Calculate the percentage who cycle in each OD pair in which at least
     1 person cycles
 4.  Is there a positive relationship between walking and cycling in the
@@ -182,7 +183,7 @@ zones = spDataLarge::bristol_zones
 plot(zones)
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ## Reading-in and processing basic data
 
@@ -284,7 +285,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 -   Add transparency so it looks like this (hint: use `alpha =` in the
     `geom_point()` function call):
@@ -293,7 +294,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 -   Add a colour for each carrier, so it looks something like this:
 
@@ -304,7 +305,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 -   Bonus 1: find the average air time of those flights with a distance
     of 1000 to 2000 miles
@@ -320,7 +321,7 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 ## Homework
 

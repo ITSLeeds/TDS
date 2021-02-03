@@ -125,55 +125,58 @@ ggplot(od_data_walk) +
 Exercises
 
 1. What is the class of the data in `od_data`?
-1. Subset (filter) the data to only include OD pairs in which people walk
+1. Subset (filter) the data to only include OD pairs in which at least one person (`> 0`) person walks (bonus: on what % of the OD pairs does at least 1 person walk?)
 2. Calculate the percentage who cycle in each OD pair in which at least 1 person cycles
 3. Is there a positive relationship between walking and cycling in the data?
 4. Plot the zones representing the `geo_code` variables in the OD data
 5. Bonus: use the function `od2line()` in to convert the OD dataset into geographic desire lines
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 #1
 class(od_data)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 #2 
 od_data_walk = od_data %>% 
   filter(walk > 0)
+nrow(od_data_walk) / nrow(od_data)
 ```
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, eval=FALSE}
 #3
 od_data = od_data %>% 
   filter(bicycle > 0) %>% 
   mutate(perc_cycle = (bicycle/all) * 100)
 ```
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, eval=FALSE}
 #4
 od_data_new = od_data %>% 
   filter(walk > 0, bicycle>0 ) %>% 
-  select(bicycle, walk) 
+  select(bicycle, walk, all) 
 
-model = lm(walk ~ bicycle, data = od_data_new)
+model = lm(walk ~ bicycle, weights = all, data = od_data_new)
 od_data_new$walk_predicted = model$fitted.values
 
 ggplot(od_data_new) +
-  geom_point(aes(bicycle, walk)) +
+  geom_point(aes(bicycle, walk, size = all)) +
   geom_line(aes(bicycle, walk_predicted))
 ```
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, eval=FALSE}
 #5
 zones = sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/z.geojson")
 zones_leeds = zones %>% 
   filter(lad_name == "Leeds")
 plot(zones_leeds$geometry)
 ```
-```{r, echo=FALSE}
+
+```{r, echo=FALSE, eval=FALSE}
 #6
 desire_lines = od2line(flow = od_data, zones)
 plot(desire_lines)
 ```
-
-
 
 ## Processing origin-destination data in Bristol
 
@@ -182,7 +185,6 @@ plot(desire_lines)
 od = spDataLarge::bristol_od
 head(od)
 ```
-
 
 ```{r}
 zones = spDataLarge::bristol_zones
@@ -240,8 +242,6 @@ Your script will start with something like this:
 library(tidyverse)
 library(nycflights13)
 ```
-
-
 
 - Take a random sample of 10,000 flights and assign it to an object with the following line of code:
 

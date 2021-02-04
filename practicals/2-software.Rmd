@@ -274,6 +274,7 @@ tm_shape(desire_lines) +
     title = "Active travel (%)"
   ) +
   tm_scale_bar()
+
 ```
 
 

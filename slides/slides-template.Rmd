@@ -2,7 +2,7 @@
 title: "Slide title"
 subtitle: '<br/>Module: Transport Data Science'
 author: "Robin Lovelace"
-date: 'University of Leeds, `r Sys.Date()`<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">'
+date: 'University of Leeds `r # Sys.Date()()`<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">'
 output:
   xaringan::moon_reader:
     # css: ["default", "its.css"]
@@ -11,7 +11,7 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-bibliography: ../references.bib
+bibliography: ../tds.bib
 ---
 
 background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
@@ -28,7 +28,7 @@ BibOptions(check.entries = FALSE,
            first.inits = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
-my_bib = ReadBib("../references.bib", check = FALSE)
+my_bib = ReadBib("../tds.bib", check = FALSE)
 ```
 
 ---

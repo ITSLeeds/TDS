@@ -1,7 +1,7 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-# output: github_document
+output: github_document
 # output:
 #   pdf_document:
 #     number_sections: true

@@ -13,9 +13,9 @@ your coursework submission.
 
 As outlined in the module catalogue, the coursework should be:
 
-  - A maximum of 3000 words long, excluding code, figure captions and
+-   A maximum of 3000 words long, excluding code, figure captions and
     references
-  - A maximum of 10 pages long, excluding references and appendices (you
+-   A maximum of 10 pages long, excluding references and appendices (you
     should include your best work and think about maximising the use of
     space - the chunk option `out.width="50%"`, for example, can help
     with this as outlined
@@ -26,11 +26,11 @@ As outlined in the module catalogue, the coursework should be:
 The information below provides guidance on the coursework. The
 fundamentals are:
 
-  - Deadline: Friday 15th May, 14:00
-  - Format: a PDF file (max 10 pages) and an Rmd file or a .zip file
+-   Deadline: Friday 15th May, 14:00
+-   Format: a PDF file (max 10 pages) and an Rmd file or a .zip file
     containing the Rmd file and minimal dataset needed to reproduce the
     results if possible (40 MB max size)
-  - Template: You can download a template .Rmd file as the bais of your
+-   Template: You can download a template .Rmd file as the bais of your
     submission:
     <https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd>
 
@@ -41,9 +41,9 @@ science skills.
 For an example of the type of submission files you should submit see
 these:
 
-  - A PDF file in an appropriate format
+-   A PDF file in an appropriate format
     <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.pdf>
-  - A .zip file containing everything needed to reproduce the results:
+-   A .zip file containing everything needed to reproduce the results:
     <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip>
 
 ## Marks
@@ -63,7 +63,7 @@ and which will take account of the following criteria:
     and consider and their advantages and disadvantages.
 
 4.  Describe code that you have written as part of the analysis.
-    
+
     **Data, processing access and cleaning**
 
 5.  Describe how your team obtained and cleaned data
@@ -77,7 +77,7 @@ and which will take account of the following criteria:
 
 8.  Describe how your team stored and transported data, including
     appropriate file formats
-    
+
     **Application choice and modelling**
 
 9.  Choice of topic that has interesting datasets and important real
@@ -89,7 +89,7 @@ and which will take account of the following criteria:
     modelling techniques
 
 12. Discuss alternative approaches
-    
+
     **Visualization**
 
 13. Include high quality, attractive and innovative visualisations
@@ -99,7 +99,7 @@ and which will take account of the following criteria:
 15. Describe the theory about why they were designed this way
 
 16. Describe how your own work uses concepts from the literature
-    
+
     **Understand the data science process**
 
 17. The results presented are reproducible using code shared in the
@@ -137,44 +137,45 @@ When working on the homework you should be thinking about the datasets
 that you want to use for your coursework assignment. Ideas for datasets
 that you could use are:
 
-  - Travel behaviour data for a region of choice downloaded with the pct
+-   Travel behaviour data for a region of choice downloaded with the pct
     package
-  - Road crash data downloaded with the stats19 package
-  - OpenStreetMap data downloaded with the osmdata or
+-   Road crash data downloaded with the stats19 package
+-   OpenStreetMap data downloaded with the osmdata or
     [osmextractr](https://github.com/ITSLeeds/osmextractr) packages
 
 You are free to pick a research topic and research aims and objectives.
 However, some example topics that you could choose have been provided:
 
-  - What explanatory variables best predict the level of walking in
+-   What explanatory variables best predict the level of walking in
     Leeds, and how do walking levels relate to pedestrian safety? You
-    could use the command `pct::get_desire_lines(region =
-    "west-yorkshire")` to get data on walking desire lines and
-    `get_stats19()` to get road crash data for Leeds. In terms of the
-    topics covered in the lectures you could:
-      - Show understanding of data science in context with a brief
+    could use the command
+    `pct::get_desire_lines(region = "west-yorkshire")` to get data on
+    walking desire lines and `get_stats19()` to get road crash data for
+    Leeds. In terms of the topics covered in the lectures you could:
+    -   Show understanding of data science in context with a brief
         introduction that touches on the definition of transport data
         science
-      - Demonstrate understanding of data structures by converting from
+    -   Demonstrate understanding of data structures by converting from
         a data frame of road crashes to an sf object
-      - Show routes, e.g. by getting route data with
+    -   Show routes, e.g. by getting route data with
         `pct::get_pct_routes_fast()`
-      - Show your data visualisation skills by visualising the datasets
-      - Demonstrate understanding of modelling with a simple model to
+    -   Show your data visualisation skills by visualising the datasets
+    -   Demonstrate understanding of modelling with a simple model to
         explain why the rate of walking varies, e.g. with the distance
         of the trip and variables that you will calculate (e.g. distance
         from the city centre)
 
 # Information about RMarkdown
 
-This is an R Markdown file. You can set the output by changing `output:
-github_document` to something different, like `output: html_document`.
-You will need to submit your work as a pdf document, which can be
-generated by converting html output to pdf (e.g. with the `pagedown`
-package) or (recommended) by setting the output to `pdf_document`. The
-first lines of your RMarkdown document could look something like this to
-ensure that the output is a PDF document and that the R code does not
-run (set `eval = FALSE` to not run the R code):
+This is an R Markdown file. You can set the output by changing
+`output: github_document` to something different, like
+`output: html_document`. You will need to submit your work as a pdf
+document, which can be generated by converting html output to pdf
+(e.g. with the `pagedown` package) or (recommended) by setting the
+output to `pdf_document`. The first lines of your RMarkdown document
+could look something like this to ensure that the output is a PDF
+document and that the R code does not run (set `eval = FALSE` to not run
+the R code):
 
     ---
     title: "Coursework submission for Transport Data Science (TRAN5340M)"
@@ -197,14 +198,14 @@ code chunks are run and a markdown file (.md) suitable for publishing to
 GitHub is generated.
 
 To ensure the document is reproducible, you should include a code chunk
-that shows which packages you used, e.g. to reproduce the results ensure
-you have installed the necessary packages as follows:
+that shows which packages you used. You may need to install new
+packages:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("itsleeds/pct")
-remotes::install_github("itsleeds/geofabrik")
-remotes::install_github("ropensci/stats19")
+install.packages("osmextract")
+install.packages("pct")
+install.packages("stats19")
 ```
 
 We load the package as follows:
@@ -218,9 +219,8 @@ library(tmap)
 ```
 
 You can add references manually or with `[@citation-key]` references
-linking to a .bib file like
-this(<span class="citeproc-not-found" data-reference-id="lovelace_stplanr_2017">**???**</span>).
-And this (Fox 2018).
+linking to a .bib file like this(**lovelace\_stplanr\_2017?**). And this
+(Fox 2018).
 
 ## Including Code
 
@@ -256,7 +256,7 @@ commands:
 ``` r
 library(pct)
 region_name = "isle-of-wight"
-z = get_pct_zones(region = region_name)
+z = get_pct_zones(region = region_name, geography = "msoa")
 od = get_od()
 od_in_zones = od %>% 
   filter(geo_code1 %in% z$geo_code) %>% 
@@ -273,22 +273,31 @@ osm_data = opq("isle of wight") %>%
   osmdata_sf()
 ```
 
-You can get large OSM datasets with `geofabrik`:
+You can get large OSM datasets with `osmextract`:
 
 ``` r
-library(geofabrik)
-iow_highways = get_geofabrik(name = "Isle of Wight", layer = "lines")
+iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
+```
+
+    ## Reading layer `lines' from data source `/mnt/57982e2a-2874-4246-a6fe-115c199bc6bd/data/osm/geofabrik_isle-of-wight-latest.gpkg' using driver `GPKG'
+    ## Simple feature collection with 44424 features and 11 fields
+    ## geometry type:  LINESTRING
+    ## dimension:      XY
+    ## bbox:           xmin: -5.401978 ymin: 43.35489 xmax: -0.175775 ymax: 50.89599
+    ## geographic CRS: WGS 84
+
+``` r
 summary(as.factor(iow_highways$highway))
 ```
 
     ##      bridleway   construction       cycleway        footway  living_street 
-    ##            170             16            139           5436              3 
+    ##            168             18            140           5436              3 
     ##           path     pedestrian        primary   primary_link       proposed 
-    ##            370             18            548             18             12 
+    ##            383             18            548             18             12 
     ##    residential      secondary secondary_link        service          steps 
-    ##           2400            370              1           6746            368 
+    ##           2402            370              1           6820            369 
     ##       tertiary  tertiary_link          track   unclassified           NA's 
-    ##            467              3           4312            835          22555
+    ##            467              3           4289            846          22113
 
 ``` r
 iow_highways2 = iow_highways %>% 
@@ -298,13 +307,13 @@ summary(as.factor(iow_highways2$highway))
 ```
 
     ##      bridleway   construction       cycleway  living_street           path 
-    ##            170             16            139              3            370 
+    ##            168             18            140              3            383 
     ##     pedestrian       proposed      secondary secondary_link          steps 
-    ##             18             12            370              1            368 
+    ##             18             12            370              1            369 
     ##       tertiary  tertiary_link   unclassified 
-    ##            467              3            835
+    ##            467              3            846
 
-You could get road casualty data with the `stats19` pakckage, as shown
+You could get road casualty data with the `stats19` package, as shown
 below.
 
 ``` r
@@ -334,29 +343,10 @@ plot(desire_lines)
 
 # Route analysis
 
-See [here](https://geocompr.robinlovelace.net/transport.html#routes) and
-[here](https://www.r-spatial.org/r/2019/09/26/spatial-networks.html) for
-details.
+A next step could be route network analysis.
 
-``` r
-sln = SpatialLinesNetwork(iow_highways2)
-sln_clean = sln_clean_graph(sln)
-plot(sln_clean@sl$`_ogr_geometry_`)
-```
-
-![](coursework-template_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
-
-``` r
-centrality = igraph::edge_betweenness(sln_clean@g)
-centrality_normalised = centrality / mean(centrality)
-```
-
-``` r
-mapview::mapview(z) +
-  mapview::mapview(sln_clean@sl, lwd = centrality_normalised * 3, zcol = "maxspeed")
-```
-
-![](coursework-template_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+See <https://luukvdmeer.github.io/sfnetworks/> for an approach we could
+use (this could be a coursework topic on its own).
 
 # Additional datasets
 
@@ -365,9 +355,9 @@ mapview::mapview(z) +
 Here you could explain how you explored answers to policy questions such
 as:
 
-  - how to make the roads safer?
-  - how to reduce congestion?
-  - where to build bike parking?
+-   how to make the roads safer?
+-   how to reduce congestion?
+-   where to build bike parking?
 
 # Discussion
 
@@ -392,9 +382,9 @@ zip(zipfile = "coursework-template.zip", files = c(
 
 # References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-fox_data_2018">
+<div id="ref-fox_data_2018" class="csl-entry">
 
 Fox, Charles. 2018. *Data Science for Transport: A Self-Study Guide with
 Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.

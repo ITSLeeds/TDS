@@ -143,13 +143,14 @@ See here for more info: https://rmarkdown.rstudio.com/lesson-2.html
 
 When you open this file in RStudio and click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
 
-To ensure the document is reproducible, you should include a code chunk that shows which packages you used, e.g. to reproduce the results ensure you have installed the necessary packages as follows:
+To ensure the document is reproducible, you should include a code chunk that shows which packages you used.
+You may need to install new packages:
 
 ```{r, message=FALSE, eval=FALSE}
 # install.packages("remotes")
-remotes::install_github("itsleeds/pct")
-remotes::install_github("itsleeds/geofabrik")
-remotes::install_github("ropensci/stats19")
+install.packages("osmextract")
+install.packages("pct")
+install.packages("stats19")
 ```
 
 We load the package as follows:
@@ -192,7 +193,7 @@ We got data for the Isle of Wight with the following commands:
 ```{r, message=FALSE}
 library(pct)
 region_name = "isle-of-wight"
-z = get_pct_zones(region = region_name)
+z = get_pct_zones(region = region_name, geography = "msoa")
 od = get_od()
 od_in_zones = od %>% 
   filter(geo_code1 %in% z$geo_code) %>% 
@@ -219,11 +220,10 @@ u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/osm_data_highways_
 osm_data = readRDS(url(u))
 ```
 
-You can get large OSM datasets with `geofabrik`:
+You can get large OSM datasets with `osmextract`:
 
 ```{r}
-library(geofabrik)
-iow_highways = get_geofabrik(name = "Isle of Wight", layer = "lines")
+iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
 summary(as.factor(iow_highways$highway))
 iow_highways2 = iow_highways %>% 
   filter(!is.na(highway)) %>% 
@@ -232,7 +232,7 @@ summary(as.factor(iow_highways2$highway))
 ```
 
 
-You could get road casualty data with the `stats19` pakckage, as shown below.
+You could get road casualty data with the `stats19` package, as shown below.
 
 ```{r}
 crashes = stats19::get_stats19(year = 2018, output_format = "sf") %>% 
@@ -257,24 +257,26 @@ plot(desire_lines)
 
 # Route analysis
 
-See [here](https://geocompr.robinlovelace.net/transport.html#routes) and [here](https://www.r-spatial.org/r/2019/09/26/spatial-networks.html) for details.
+A next step could be route network analysis.
+
+See https://luukvdmeer.github.io/sfnetworks/ for an approach we could use (this could be a coursework topic on its own).
 
 ```{r, echo=FALSE}
 # devtools::install_github("luukvdmeer/sfnetworks")
 ```
 
 
-```{r}
-sln = SpatialLinesNetwork(iow_highways2)
-sln_clean = sln_clean_graph(sln)
-plot(sln_clean@sl$`_ogr_geometry_`)
-centrality = igraph::edge_betweenness(sln_clean@g)
-centrality_normalised = centrality / mean(centrality)
+```{r, echo=FALSE}
+# sln = SpatialLinesNetwork(iow_highways2)
+# sln_clean = sln_clean_graph(sln)
+# plot(sln_clean@sl$`_ogr_geometry_`)
+# centrality = igraph::edge_betweenness(sln_clean@g)
+# centrality_normalised = centrality / mean(centrality)
 ```
 
-```{r}
-mapview::mapview(z) +
-  mapview::mapview(sln_clean@sl, lwd = centrality_normalised * 3, zcol = "maxspeed")
+```{r, echo=FALSE}
+# mapview::mapview(z) +
+#   mapview::mapview(sln_clean@sl, lwd = centrality_normalised * 3, zcol = "maxspeed")
 ```
 
 

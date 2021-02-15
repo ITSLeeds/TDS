@@ -43,6 +43,11 @@ If that does not work the packages we will be using are:
 * igraph
 * ropensci/osmextract
 
+New packages to install:
+
+```{r, eval=FALSE}
+install.packages("opentripplanner")
+```
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 library(sf)
@@ -65,14 +70,27 @@ knitr::include_graphics("otp_screenshot.png")
 
 ### Connecting to OpenTripPlanner
 
-To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`. In this example I have saved the hostname of the server as a variable called "robinIP" in my Renviron file by using `usethis::edit_r_environ()` 
+```{r, echo=FALSE, eval=FALSE}
+piggyback::pb_upload("otp_TDS.zip")
+piggyback::pb_download_url("otp_TDS.zip")
+# https://github.com/ITSLeeds/TDS/releases/download/0.20.1/otp_TDS.zip
+```
+
+
+```{r, eval=FALSE, engine='bash'}
+# java –Xmx10000M -d64 -jar "D:/OneDrive - University of Leeds/Data/opentripplanner/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "D:/OneDrive - University of Leeds/Data/opentripplanner/graphs" --server --port 8080 --securePort 8081
+java –Xmx10000M -d64 -jar "~/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "~/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
+```
+
+
+To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`. In this example I have saved the hostname of the server as a variable called "robinIP" in my Renviron file by using `usethis::edit_r_environ()`.
 
 However, you can also just set it manually.
 
-
-
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
-otpcon = otp_connect(hostname = "localhost", 
+ip = "localhost"
+# ip = "robinIP"
+otpcon = otp_connect(hostname = ip, 
                      port = 8080,
                      router = "west-yorkshire")
 ```

@@ -12,8 +12,8 @@ output:
       highlightStyle: github
       highlightLines: true
 bibliography:
-  - references.bib
-  - ../tds.bib
+  # - references.bib
+  # - ../tds.bib
 ---
 
 background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
@@ -34,8 +34,6 @@ BibOptions(check.entries = FALSE,
            hyperlink = FALSE, 
            dashed = FALSE)
 my_bib = c(
-  ReadBib("references.bib", check = FALSE)
-  ,
   ReadBib("../tds.bib")
 )
 library(tmap)

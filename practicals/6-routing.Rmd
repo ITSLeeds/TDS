@@ -79,7 +79,10 @@ piggyback::pb_download_url("otp_TDS.zip")
 
 ```{r, eval=FALSE, engine='bash'}
 # java –Xmx10000M -d64 -jar "D:/OneDrive - University of Leeds/Data/opentripplanner/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "D:/OneDrive - University of Leeds/Data/opentripplanner/graphs" --server --port 8080 --securePort 8081
-java –Xmx10000M -d64 -jar "~/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "~/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
+sudo update-alternatives --config java
+# java --version
+java -version
+java -Xmx10000M -d64 -jar "/home/robin/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "/home/robin/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
 ```
 
 
@@ -89,7 +92,7 @@ However, you can also just set it manually.
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ip = "localhost"
-# ip = "robinIP"
+# ip = "xx.x.218.83" # an actual server
 otpcon = otp_connect(hostname = ip, 
                      port = 8080,
                      router = "west-yorkshire")
@@ -124,24 +127,29 @@ This dataset has desire lines, but most routing packages need start and endpoint
 qtm(desire_lines)
 tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "car_driver", scale = 4, palette = "viridis")
-
 ```
 
 
-```{r, message=FALSE}
+```{r, eval=FALSE, eval=FALSE}
 desire = bind_cols(desire_lines, line2df(desire_lines))
 desire = st_drop_geometry(desire)
 desire_top = top_n(desire, 3, all)
-```
-
-To find the routes for these desire lines.
-
-```{r, message=FALSE, eval=TRUE}
+# pre stplanr::route() way of doing it:
 routes_top = otp_plan(otpcon,
                       fromPlace = as.matrix(desire_top[,c("fx","fy")]),
                       toPlace = as.matrix(desire_top[,c("tx","ty")]),
                       mode = "CAR")
+```
 
+To find the routes for these desire lines, we can route them as follows:
+
+```{r, message=FALSE, eval=TRUE}
+routes_top = route(
+  l = desire_lines %>% top_n(3, all),
+  route_fun = otp_plan,
+  mode = "CAR",
+  otpcon = otpcon
+  )
 ```
 
 We can plot those routes using the `tmap` package.
@@ -165,13 +173,20 @@ tm_shape(isochrone) +
 To save overloading the server, I have pre-generated some extra routes.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
-routes_drive = otp_plan(otpcon,
+routes_drive = route(
+  l = desire_lines,
+  route_fun = otp_plan,
+  mode = "CAR",
+  otpcon = otpcon
+  )
+  
+routes_dr2 = otp_plan(otpcon,
                       fromPlace = as.matrix(desire[,c("fx","fy")]),
                       toPlace = as.matrix(desire[,c("tx","ty")]),
                       fromID = desire$geo_code1,
                       toID = desire$geo_code2,
                       mode = "CAR",
-                      ncore = 4)
+                      )
 
 
 
@@ -183,7 +198,7 @@ routes_transit = otp_plan(otpcon,
                       mode = c("TRANSIT","WALK"),
                       maxWalkDistance = 1500,
                       ncore = 4)
-write_sf(routes_drive,"driving_routes.gpkg")
+write_sf(routes_drive, "driving_routes.gpkg")
 write_sf(routes_transit,"transit_routes.gpkg")
 ```
 
@@ -199,9 +214,10 @@ routes_transit = read_sf("transit_routes.gpkg")
 
 **Exercise** Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
 
-Finally, let's join the routes to the original desire dataset.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
+# No longer needed - route() joins
+# Finally, let's join the routes to the original desire dataset.
 desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
                                                       "geo_code2" = "toPlace"))
 ```

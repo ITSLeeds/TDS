@@ -92,9 +92,11 @@ However, you can also just set it manually.
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ip = "localhost"
+ip = "otp.saferactive.org"
 # ip = "xx.x.218.83" # an actual server
 otpcon = otp_connect(hostname = ip, 
-                     port = 8080,
+                     port = 80,
+                     # port = 8080,
                      router = "west-yorkshire")
 ```
 

@@ -60,14 +60,6 @@ routes. What strengths/limitations can you find?
 
 ### Connecting to OpenTripPlanner
 
-``` bash
-# java –Xmx10000M -d64 -jar "D:/OneDrive - University of Leeds/Data/opentripplanner/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "D:/OneDrive - University of Leeds/Data/opentripplanner/graphs" --server --port 8080 --securePort 8081
-sudo update-alternatives --config java
-# java --version
-java -version
-java -Xmx10000M -d64 -jar "/home/robin/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "/home/robin/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
-```
-
 To allow R to connect to the OpenTripPlanner server, we will use the
 `opentripplanner` package and the function `otp_connect`. In this
 example I have saved the hostname of the server as a variable called
@@ -76,10 +68,10 @@ example I have saved the hostname of the server as a variable called
 However, you can also just set it manually.
 
 ``` r
-ip = "localhost"
-# ip = "xx.x.218.83" # an actual server
+# ip = "localhost" # to run it on your computer (see final bonus exercise)
+ip = "otp.saferactive.org" # an actual server
 otpcon = otp_connect(hostname = ip, 
-                     port = 8080,
+                     port = 80,
                      router = "west-yorkshire")
 ```
 
@@ -87,18 +79,42 @@ If you have connected successfully, then you should get a message
 “Router exists.”
 
 To get some routes, we will start by importing some data we have used
-previously.
+previously. Note that the data frame has 78 columns (only a few of which
+are useful) and 1k rows:
 
 ``` r
 u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
-download.file(u, "desire_lines.geojson")
-desire_lines = read_sf("desire_lines.geojson")
+desire_lines = read_sf(u)
+dim(desire_lines)
 ```
 
-**Exercise** Subset the `desire_lines` data frame so that it only has
-the following columns: “geo\_code1,” “geo\_code2,” “all,” “bicycle,”
-“foot,” “car\_driver,” “car\_passenger,” “train,” “taxi,” “motorbike,”
-and “geometry”
+    ## [1] 1000   78
+
+**Exercise** Subset the and overwrite the `desire_lines` data frame with
+the `=` assignment operator so that it only has the following columns:
+geo\_code1, geo\_code2, all, bicycle, foot, car\_driver, and geometry.
+You can test the that the operation worked by executing the object name,
+the result should look like that shown below.
+
+    ## Simple feature collection with 1000 features and 6 fields
+    ## geometry type:  LINESTRING
+    ## dimension:      XY
+    ## bbox:           xmin: -2.104536 ymin: 53.5695 xmax: -1.153171 ymax: 54.00022
+    ## geographic CRS: WGS 84
+    ## # A tibble: 1,000 x 7
+    ##    geo_code1 geo_code2   all bicycle  foot car_driver                   geometry
+    ##    <chr>     <chr>     <int>   <int> <int>      <int>           <LINESTRING [°]>
+    ##  1 E02002183 E02002184   537       8   137        317 (-1.880148 53.94245, -1.8…
+    ##  2 E02002183 E02002186   176       1     3        143 (-1.880148 53.94245, -1.9…
+    ##  3 E02002184 E02002185   325       4     6        217 (-1.81851 53.92598, -1.75…
+    ##  4 E02002184 E02002186   334       1     5        256 (-1.81851 53.92598, -1.94…
+    ##  5 E02002184 E02002187   159       1     7        113 (-1.81851 53.92598, -1.74…
+    ##  6 E02002184 E02002333   191       2     3        139 (-1.81851 53.92598, -1.69…
+    ##  7 E02002186 E02002188   259       6     5        204 (-1.941534 53.91154, -1.8…
+    ##  8 E02002186 E02002189   233       4    10        155 (-1.941534 53.91154, -1.9…
+    ##  9 E02002186 E02002190   714       7    19        478 (-1.941534 53.91154, -1.9…
+    ## 10 E02002186 E02002191   341       1    12        188 (-1.941534 53.91154, -1.9…
+    ## # … with 990 more rows
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will extract the points from the lines using the
@@ -126,22 +142,23 @@ tm_shape(desire_lines) +
 
 ![](6-routing_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
-``` r
-desire = bind_cols(desire_lines, line2df(desire_lines))
-desire = st_drop_geometry(desire)
-desire_top = top_n(desire, 3, all)
-```
-
-To find the routes for these desire lines.
+To find the routes for the first three desire lines use the following
+command:
 
 ``` r
-routes_top = otp_plan(otpcon,
-                      fromPlace = as.matrix(desire_top[,c("fx","fy")]),
-                      toPlace = as.matrix(desire_top[,c("tx","ty")]),
-                      mode = "CAR")
+desire_top = top_n(desire_lines, 3, all)
+routes_top = route(
+  l = desire_top,
+  route_fun = otp_plan,
+  mode = "CAR",
+  otpcon = otpcon
+  )
 ```
 
-We can plot those routes using the `tmap` package.
+We can plot those routes using the `tmap` package, the result should
+appear as follows (if you set `tmap_mode("view")`)
+
+![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 We can also get Isochones from OTP.
 
@@ -171,8 +188,6 @@ routes_transit = read_sf("transit_routes.gpkg")
 **Exercise** Examine these two new datasets `routes_drive` and
 `routes_transit` plot them on a map, what useful information do they
 contain what is missing?
-
-Finally, let’s join the routes to the original desire dataset.
 
 Note that some of the desire lines do not have a route. This is usually
 because the start or endpoint is too far from the road.
@@ -263,7 +278,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:06
+    ## Estimated time to calculate centrality for full graph is 00:00:04
 
 ``` r
 centrality = dodgr_centrality(graph)

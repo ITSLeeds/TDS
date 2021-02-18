@@ -77,44 +77,47 @@ piggyback::pb_download_url("otp_TDS.zip")
 ```
 
 
-```{r, eval=FALSE, engine='bash'}
+```{r, eval=FALSE, engine='bash', echo=FALSE}
 # java –Xmx10000M -d64 -jar "D:/OneDrive - University of Leeds/Data/opentripplanner/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "D:/OneDrive - University of Leeds/Data/opentripplanner/graphs" --server --port 8080 --securePort 8081
 sudo update-alternatives --config java
 # java --version
 java -version
 java -Xmx10000M -d64 -jar "/home/robin/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "/home/robin/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
+# ip = "xx.x.218.83" 
 ```
-
 
 To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`. In this example I have saved the hostname of the server as a variable called "robinIP" in my Renviron file by using `usethis::edit_r_environ()`.
 
 However, you can also just set it manually.
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
-ip = "localhost"
-ip = "otp.saferactive.org"
-# ip = "xx.x.218.83" # an actual server
+# ip = "localhost" # to run it on your computer (see final bonus exercise)
+ip = "otp.saferactive.org" # an actual server
 otpcon = otp_connect(hostname = ip, 
                      port = 80,
-                     # port = 8080,
                      router = "west-yorkshire")
 ```
 
 If you have connected successfully, then you should get a message "Router exists."
 
 To get some routes, we will start by importing some data we have used previously.
+Note that the data frame has 78 columns (only a few of which are useful) and 1k rows:
 
 ```{r, message=FALSE}
 u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
-download.file(u, "desire_lines.geojson")
-desire_lines = read_sf("desire_lines.geojson")
+desire_lines = read_sf(u)
+dim(desire_lines)
 ```
 
-**Exercise** Subset the `desire_lines` data frame so that it only has the following columns:
-"geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike", and "geometry"   
+**Exercise** Subset the and overwrite the `desire_lines` data frame with the `=` assignment operator so that it only has the following columns: geo_code1, geo_code2, all, bicycle, foot, car_driver, and geometry.
+You can test the that the operation worked by executing the object name, the result should look like that shown below.
 
 ```{r, message=FALSE, echo=FALSE}
-desire_lines = desire_lines[,c("geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike")]
+# names(desire_lines)
+desire_lines = desire_lines %>% 
+  select(matches("geo_code"), all:car_driver)
+# desire_lines = desire_lines[,c("geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike")]
+desire_lines
 ```
 
 This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
@@ -132,31 +135,31 @@ tm_shape(desire_lines) +
 ```
 
 
-```{r, eval=FALSE, eval=FALSE}
+```{r, eval=FALSE, eval=FALSE, echo=FALSE}
+# pre stplanr::route() way of doing it, to be deleted
 desire = bind_cols(desire_lines, line2df(desire_lines))
 desire = st_drop_geometry(desire)
-desire_top = top_n(desire, 3, all)
-# pre stplanr::route() way of doing it:
 routes_top = otp_plan(otpcon,
                       fromPlace = as.matrix(desire_top[,c("fx","fy")]),
                       toPlace = as.matrix(desire_top[,c("tx","ty")]),
                       mode = "CAR")
 ```
 
-To find the routes for these desire lines, we can route them as follows:
+To find the routes for the first three desire lines use the following command:
 
 ```{r, message=FALSE, eval=TRUE}
+desire_top = top_n(desire_lines, 3, all)
 routes_top = route(
-  l = desire_lines %>% top_n(3, all),
+  l = desire_top,
   route_fun = otp_plan,
   mode = "CAR",
   otpcon = otpcon
   )
 ```
 
-We can plot those routes using the `tmap` package.
+We can plot those routes using the `tmap` package, the result should appear as follows (if you set `tmap_mode("view")`)
 
-```{r, message=FALSE, eval=FALSE, echo=FALSE}
+```{r, message=FALSE, echo=FALSE}
 tmap_mode("view")
 qtm(routes_top)
 ```

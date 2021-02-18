@@ -6,14 +6,9 @@ University of Leeds
 
 ## Setting Up (10 minutes)
 
-We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup
-of your computer.
+<!-- We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer. -->
 
-``` r
-source("https://git.io/JvGjF")
-```
-
-If that does not work the packages we will be using are:
+The packages we will be using are:
 
 -   sf
 -   tidyverse
@@ -43,8 +38,9 @@ tmap_mode("plot")
 ## Using OpenTripPlanner to get routes
 
 We have setup the Multi-modal routing service OpenTripPlanner for West
-Yorkshire. Try typing the URL shown during the session into your
-browser. You should see somthign like this:
+Yorkshire. Try typing this URL — otp. saferactive. org (no spaces) —
+during the session into your browser. You should see something like
+this:
 
 <div class="figure" style="text-align: center">
 

@@ -25,13 +25,13 @@ piggyback::pb_download_url("practicals/6-routing.pdf")
 
 ## Setting Up (10 minutes)
 
-We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer.
+<!-- We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer. -->
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```{r, eval=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
 source("https://git.io/JvGjF")
 ```
 
-If that does not work the packages we will be using are:
+The packages we will be using are:
 
 * sf
 * tidyverse
@@ -41,7 +41,7 @@ If that does not work the packages we will be using are:
 * dodgr
 * opentripplanner
 * igraph
-* ropensci/osmextract
+* osmextract
 
 New packages to install:
 
@@ -60,7 +60,7 @@ tmap_mode("plot")
 
 ## Using OpenTripPlanner to get routes
 
-We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire. Try typing the URL shown during the session into your browser. You should see somthign like this:
+We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire. Try typing this URL --- otp. saferactive. org (no spaces) --- during the session into your browser. You should see something like this:
 
 ```{r, echo = FALSE, fig.align='center', fig.cap="\\label{fig:otpgui}OTP Web GUI"}
 knitr::include_graphics("otp_screenshot.png")

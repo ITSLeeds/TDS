@@ -21,40 +21,24 @@ piggyback::pb_upload("practicals/6-routing.pdf")
 piggyback::pb_download_url("practicals/6-routing.pdf")
 ```
 
-
-
 ## Setting Up (10 minutes)
 
-<!-- We will use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer. -->
+If you have not installed the package before hand. You can use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, eval=FALSE, message=FALSE, warning=FALSE, echo=TRUE}
 source("https://git.io/JvGjF")
 ```
 
 The packages we will be using are:
 
-* sf
-* tidyverse
-* tmap
-* pct
-* stplanr
-* dodgr
-* opentripplanner
-* igraph
-* osmextract
-
-New packages to install:
-
-```{r, eval=FALSE}
-install.packages("opentripplanner")
-```
-
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 library(sf)
 library(tidyverse)
 library(stplanr)
+library(dodgr)
 library(opentripplanner)
 library(tmap)
+library(osmextract)
 tmap_mode("plot")
 ```
 
@@ -66,7 +50,9 @@ We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire
 knitr::include_graphics("otp_screenshot.png")
 ```
 
-**Exercise**: Play with the web interface, finding different types of routes. What strengths/limitations can you find?
+**Exercise**
+
+1. Play with the web interface, finding different types of routes. What strengths/limitations can you find?
 
 ### Connecting to OpenTripPlanner
 
@@ -109,36 +95,44 @@ desire_lines = read_sf(u)
 dim(desire_lines)
 ```
 
-**Exercise** Subset the and overwrite the `desire_lines` data frame with the `=` assignment operator so that it only has the following columns: geo_code1, geo_code2, all, bicycle, foot, car_driver, and geometry.
+**Exercise** 
+
+2. Subset the and overwrite the `desire_lines` data frame with the `=` assignment operator so that it only has the following columns: geo_code1, geo_code2, all, bicycle, foot, car_driver, and geometry.
 You can test the that the operation worked by executing the object name, the result should look like that shown below.
 
 ```{r, message=FALSE, echo=FALSE}
-# names(desire_lines)
 desire_lines = desire_lines %>% 
   select(matches("geo_code"), all:car_driver)
-# desire_lines = desire_lines[,c("geo_code1", "geo_code2", "all", "bicycle", "foot", "car_driver", "car_passenger", "train", "taxi", "motorbike")]
-desire_lines
 ```
 
 This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
 
-**Exercises**
-1. Use the `tmap` package to plot the `desire_lines`. Choose different ways to visualise the data so you can understand local commuter travel patterns.
-1. Produce a data frame called `desire` which contains the coordinates of the start and endpoints of the lines in `desire_lines` but not the geometries.
-1. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`
-1. Find the driving routes for `desire_top` and call them `routes_top` using `otp_plan`
+**Exercise**
 
-```{r, message=FALSE}
-qtm(desire_lines)
+3. Use the `tmap` package to plot the `desire_lines`. Choose different ways to visualise the data so you can understand local commuter travel patterns. See example plot below.
+
+4. Produce a data frame called `desire` which contains the coordinates of the start and endpoints of the lines in `desire_lines` but not the geometries. Hint `?stplanr::line2df` and `?dplyr::bind_cols`
+
+5. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`. Hint `?dplyr::slice_max`
+
+6. Find the driving routes for `desire_top` and call them `routes_top` using `otp_plan`
+
+```{r, message=FALSE, echo=FALSE}
 tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "car_driver", scale = 4, palette = "viridis")
 ```
 
 
-```{r, eval=FALSE, eval=FALSE, echo=FALSE}
-# pre stplanr::route() way of doing it, to be deleted
+```{r, eval=TRUE, echo=FALSE}
+
 desire = bind_cols(desire_lines, line2df(desire_lines))
 desire = st_drop_geometry(desire)
+#desire_top = top_n(desire, 3, all)
+desire_top = slice_max(desire, order_by = all, n = 3)
+desire_top
+```
+
+```{r, eval=FALSE, eval=FALSE, echo=FALSE}
 routes_top = otp_plan(otpcon,
                       fromPlace = as.matrix(desire_top[,c("fx","fy")]),
                       toPlace = as.matrix(desire_top[,c("tx","ty")]),
@@ -147,26 +141,13 @@ routes_top = otp_plan(otpcon,
 
 To find the routes for the first three desire lines use the following command:
 
+**Exercise**
+
+7. Plot `routes_top` using the `tmap` package in interactive mode
+
+We can also get Isochrones from OTP.
+
 ```{r, message=FALSE, eval=TRUE}
-desire_top = top_n(desire_lines, 3, all)
-routes_top = route(
-  l = desire_top,
-  route_fun = otp_plan,
-  mode = "CAR",
-  otpcon = otpcon
-  )
-```
-
-We can plot those routes using the `tmap` package, the result should appear as follows (if you set `tmap_mode("view")`)
-
-```{r, message=FALSE, echo=FALSE}
-tmap_mode("view")
-qtm(routes_top)
-```
-
-We can also get Isochones from OTP.
-
-```{r, message=FALSE, eval=TRUE, message=FALSE}
 isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870), 
                           mode = c("BICYCLE","TRANSIT"),
                           maxWalkDistance = 3000)
@@ -217,23 +198,70 @@ routes_drive = read_sf("driving_routes.gpkg")
 routes_transit = read_sf("transit_routes.gpkg")
 ```
 
-**Exercise** Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
+## Joining Flow data to Routes
+
+**Exercise**
+
+8. Subset the and overwrite the `routes_drive` and `routes_transit` data frame with the `=` assignment operator so that it only has the following columns: fromPlace, toPlace, mode, route_option, distance, and geom.
 
 
-```{r, message=FALSE, eval=FALSE, echo=FALSE}
-# No longer needed - route() joins
-# Finally, let's join the routes to the original desire dataset.
-desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
-                                                      "geo_code2" = "toPlace"))
+```{r, message=FALSE, echo=FALSE}
+routes_drive = routes_drive %>% 
+  select(fromPlace, toPlace, mode, route_option, distance, geom)
+
+routes_transit = routes_transit %>% 
+  select(fromPlace, toPlace, mode, route_option, distance, geom)
+
 ```
 
-Note that some of the desire lines do not have a route. This is usually because the start or endpoint is too far from the road.
+9. Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
 
-**Exercise** How many routes are missing for each mode? How could you improve this method, so there were no missing routes?
+10. Create a new dataset called `desire_drive` by joining the `desire` and `routes_drive` datasets. Hint `?dplyr::left_join`
 
-```{r, message=FALSE, eval=FALSE, echo=FALSE}
-summary(is.na(desire_drive$duration))
-desire_drive = desire_drive[is.na(desire_drive$duration),]
+11. Create a new dataset called `desire_transit` by joining the `desire` and `routes_transit` datasets. Hint `?dplyr::left_join`
+
+**Note** that some of the desire lines do not have a route. This is usually because the start or endpoint is too far from the road.
+
+12. How many routes are missing for each mode? How could you improve this method, so there were no missing routes?
+
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
+                                                      "geo_code2" = "toPlace"))
+desire_transit = left_join(desire, routes_transit, by = c("geo_code1" = "fromPlace", 
+                                                      "geo_code2" = "toPlace"))
+
+desire_drive = st_as_sf(desire_drive)
+desire_transit = st_as_sf(desire_transit)
+```
+
+13. Remove from the `desire_drive` and `desire_transit` data frames rows which represent desire lines that are missing route data.
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+desire_drive = desire_drive[!is.na(desire_drive$mode),]
+desire_transit = desire_transit[!is.na(desire_transit$mode),]
+
+```
+
+14. Try to plot the `desire_drive` and `desire_transit` dataset with the `tmap` package. You may find they have lost their `sf` class. In which case use `sf::st_as_sf` to convert them back to sf objects.
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+tm_shape(desire_drive) +
+  tm_lines(lwd = 2, col = "car_driver", palette = "-viridis")
+```
+## Route Networks
+
+Now we have the number of commuters and their routes, we can produce a route network map using `stplanr::overline`.
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+rnet_drive <- overline(desire_drive, "car_driver")
+```
+**Exercise**
+15. Make a route network for driving and plot it using the `tmap` package. How is is different from just plotting the routes?
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+tm_shape(rnet_drive) +
+  tm_lines(lwd = 2, col = "car_driver", style = "jenks", palette = "-viridis")
 ```
 
 ## Line Merging
@@ -242,8 +270,13 @@ Notice that `routes_transit` has returned separate rows for each mode (WALK, RAI
 
 Let's suppose you want a single line for each route.
 
-**Exercise**: Filter the `routes_transit` to contain only one route option per origin-destination pair.
-**Bonus Exercise**: Do the above, but make sure you always select the fastest option.
+**Exercise**: 
+
+16. Filter the `routes_transit` to contain only one route option per origin-destination pair.
+
+**Bonus Exercise**: 
+
+17. Do the above, but make sure you always select the fastest option.
 
 ```{r, eval=TRUE, message=FALSE, echo=FALSE}
 routes_transit = routes_transit %>%
@@ -255,10 +288,7 @@ Now We will group the separate parts of the routes together.
 ```{r, eval=TRUE, message=FALSE}
 routes_transit_group = routes_transit %>%
   dplyr::group_by(fromPlace, toPlace) %>%
-  dplyr::summarise(duration = sum(duration),
-                   startTime = min(startTime),
-                   endTime = max(endTime),
-                   distance = sum(distance))
+  dplyr::summarise(distance = sum(distance))
 
 ```
 
@@ -280,11 +310,11 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 We will now look to analyse the road network using `dodgr`. First let's find the distances between all our centroids for a cyclist. `dodgr_dists` returns a matrix of distances in km, note the speed of using dodgr to find 64 distances compared to using a routing service. `dodgr` works well for these type of calculation, but cannot do public transport timetables.
 
-```{r, eval=TRUE, warning=FALSE, message=FALSE}
+```{r, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(osmextract)
 library(dodgr)
 library(igraph)
-roads = oe_get("isle-of-wight", extra_tags = c("maxspeed","oneway"))
+roads = oe_get("Isle of Wight", extra_tags = c("maxspeed","oneway"))
 roads = roads[!is.na(roads$highway),]
 road_types = c("residential","secondary","tertiary",
                         "unclassified","primary","primary_link",
@@ -314,8 +344,11 @@ tm_shape(centrality_sf) +
 
 ```
 
-**Exercise**: Use `dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
+**Exercise**
+
+18. Use `dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
 
 **Bonus Exercises**
-1. Work though the OpenTripPlanner vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html) to run your own local trip planner.
+
+19. Work though the OpenTripPlanner vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html) to run your own local trip planner.
 

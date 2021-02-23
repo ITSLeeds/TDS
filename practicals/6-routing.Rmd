@@ -21,7 +21,7 @@ piggyback::pb_upload("practicals/6-routing.pdf")
 piggyback::pb_download_url("practicals/6-routing.pdf")
 ```
 
-## Setting Up (10 minutes)
+## Setting Up
 
 If you have not installed the package before hand. You can use [ITS Go](https://itsleeds.github.io/go/) to do an easy setup of your computer
 
@@ -72,9 +72,7 @@ java -Xmx10000M -d64 -jar "/home/robin/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.
 # ip = "xx.x.218.83" 
 ```
 
-To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`. In this example I have saved the hostname of the server as a variable called "robinIP" in my Renviron file by using `usethis::edit_r_environ()`.
-
-However, you can also just set it manually.
+To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`.
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 # ip = "localhost" # to run it on your computer (see final bonus exercise)
@@ -105,23 +103,21 @@ desire_lines = desire_lines %>%
   select(matches("geo_code"), all:car_driver)
 ```
 
-This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
-
-**Exercise**
-
 3. Use the `tmap` package to plot the `desire_lines`. Choose different ways to visualise the data so you can understand local commuter travel patterns. See example plot below.
-
-4. Produce a data frame called `desire` which contains the coordinates of the start and endpoints of the lines in `desire_lines` but not the geometries. Hint `?stplanr::line2df` and `?dplyr::bind_cols`
-
-5. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`. Hint `?dplyr::slice_max`
-
-6. Find the driving routes for `desire_top` and call them `routes_top` using `otp_plan`
 
 ```{r, message=FALSE, echo=FALSE}
 tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "car_driver", scale = 4, palette = "viridis")
 ```
 
+
+This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
+
+**Exercise**
+
+4. Produce a data frame called `desire` which contains the coordinates of the start and endpoints of the lines in `desire_lines` but not the geometries. Hint `?stplanr::line2df` and `?dplyr::bind_cols`
+
+5. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`. Hint `?dplyr::slice_max`
 
 ```{r, eval=TRUE, echo=FALSE}
 
@@ -132,16 +128,16 @@ desire_top = slice_max(desire, order_by = all, n = 3)
 desire_top
 ```
 
-```{r, eval=FALSE, eval=FALSE, echo=FALSE}
+6. Find the driving routes for `desire_top` and call them `routes_top` using `otp_plan`
+
+To find the routes for the first three desire lines use the following command:
+
+```{r, eval=FALSE, eval=FALSE, echo=TRUE}
 routes_top = otp_plan(otpcon,
                       fromPlace = as.matrix(desire_top[,c("fx","fy")]),
                       toPlace = as.matrix(desire_top[,c("tx","ty")]),
                       mode = "CAR")
 ```
-
-To find the routes for the first three desire lines use the following command:
-
-**Exercise**
 
 7. Plot `routes_top` using the `tmap` package in interactive mode
 
@@ -156,7 +152,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-To save overloading the server, I have pre-generated some extra routes.
+To save overloading the server, I have pre-generated some extra routes. Download these routes and load them into R.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
 routes_drive = route(
@@ -199,6 +195,10 @@ routes_transit = read_sf("transit_routes.gpkg")
 ```
 
 ## Joining Flow data to Routes
+
+Routes are useful, but in Transport Data Science we often want to combine routes with flow data (the number of travellers). This next section will address how to join datasets together.
+
+If you are unfamiliar with database joins read [this short summary](http://www.sql-join.com/sql-join-types)
 
 **Exercise**
 
@@ -249,11 +249,15 @@ desire_transit = desire_transit[!is.na(desire_transit$mode),]
 tm_shape(desire_drive) +
   tm_lines(lwd = 2, col = "car_driver", palette = "-viridis")
 ```
+
+
 ## Route Networks
+
+Route networks (also called flow maps) show transport demand on different parts of the road network.
 
 Now we have the number of commuters and their routes, we can produce a route network map using `stplanr::overline`.
 
-```{r, message=FALSE, eval=TRUE, echo=FALSE}
+```{r, message=FALSE, eval=TRUE, echo=TRUE}
 rnet_drive <- overline(desire_drive, "car_driver")
 ```
 **Exercise**
@@ -274,9 +278,6 @@ Let's suppose you want a single line for each route.
 
 16. Filter the `routes_transit` to contain only one route option per origin-destination pair.
 
-**Bonus Exercise**: 
-
-17. Do the above, but make sure you always select the fastest option.
 
 ```{r, eval=TRUE, message=FALSE, echo=FALSE}
 routes_transit = routes_transit %>%
@@ -304,16 +305,19 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 ```
 
 
-## Network Analysis (dodgr) (20 minutes)
+**Bonus Exercise**: 
+
+17. Do the above, but make sure you always select the fastest option.
+
+## Network Analysis (dodgr)
 
 **Note** Some people have have problems running dodgr on Windows, if you do follow these [instructions](https://github.com/ITSLeeds/TDS/blob/master/practicals/dodgr-install.md).
 
-We will now look to analyse the road network using `dodgr`. First let's find the distances between all our centroids for a cyclist. `dodgr_dists` returns a matrix of distances in km, note the speed of using dodgr to find 64 distances compared to using a routing service. `dodgr` works well for these type of calculation, but cannot do public transport timetables.
+We will now analyse the road network using `dodgr`. 
+
+
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
-library(osmextract)
-library(dodgr)
-library(igraph)
 roads = oe_get("Isle of Wight", extra_tags = c("maxspeed","oneway"))
 roads = roads[!is.na(roads$highway),]
 road_types = c("residential","secondary","tertiary",
@@ -323,9 +327,8 @@ roads = roads[roads$highway %in% road_types, ]
 graph = weight_streetnet(roads)
 ```
 
-<!-- **Exercise**: Reproduce the Isle of Wight flow data `d_iow_origins` that you used in the Data Cleaning Practical -->
 
-We will find the betweeness centrality of the Isle of Wight road network. THis can take a long time, so first lets check how long it will take. 
+We will find the betweenness centrality of the Isle of Wight road network. THis can take a long time, so first lets check how long it will take. 
 
 ```{r, message=TRUE, echo=TRUE}
 estimate_centrality_time(graph)

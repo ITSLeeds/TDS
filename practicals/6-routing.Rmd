@@ -274,7 +274,7 @@ Notice that `routes_transit` has returned separate rows for each mode (WALK, RAI
 
 Let's suppose you want a single line for each route.
 
-**Exercise**: 
+**Exercise**
 
 16. Filter the `routes_transit` to contain only one route option per origin-destination pair.
 
@@ -293,7 +293,7 @@ routes_transit_group = routes_transit %>%
 
 ```
 
-We now have a single row, but instead of a `LINESTRING`, we now have a mix of `MULTILINESTRING` and `LINESTRING`, we can convert to a linestring by using `st_line_merge()`. Note how the different columns where summarised.
+We now have a single row, but instead of a `LINESTRING`, we now have a mix of `MULTILINESTRING` and `LINESTRING`, we can convert to a `LINESTRING` by using `st_line_merge()`. Note how the different columns where summarised.
 
 First, we must separate out the `MULTILINESTRING` and `LINESTRING`
 
@@ -304,18 +304,26 @@ routes_transit_group_ml = st_line_merge(routes_transit_group_ml)
 routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 ```
 
+**Exercise**
+
+17. Plot the transit routes, what do you notice about them?
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+tm_shape(routes_transit_group) +
+  tm_lines(lwd = 2, col = "black", palette = "-viridis")
+```
 
 **Bonus Exercise**: 
 
-17. Do the above, but make sure you always select the fastest option.
+18. Redo exercise 16 but make sure you always select the fastest option.
 
 ## Network Analysis (dodgr)
 
 **Note** Some people have have problems running dodgr on Windows, if you do follow these [instructions](https://github.com/ITSLeeds/TDS/blob/master/practicals/dodgr-install.md).
 
-We will now analyse the road network using `dodgr`. 
+We will now analyse the road network using `dodgr`. Network analysis can take a very long time on large areas. So we will use the example of the [Isle of Wight](https://en.wikipedia.org/wiki/Isle_of_Wight), which is ideal for transport studies as it is small, but has a full transport system including a railway and the last commercial hovercraft service in the world.
 
-
+First we need to download the roads network from the OpenStreetMap using `osmextract`. We will removed most of the paths and other features and just focus on the main roads. Then use `dodgr::weight_streetnet` to produce a graph of the road network.
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
 roads = oe_get("Isle of Wight", extra_tags = c("maxspeed","oneway"))
@@ -328,16 +336,25 @@ graph = weight_streetnet(roads)
 ```
 
 
-We will find the betweenness centrality of the Isle of Wight road network. THis can take a long time, so first lets check how long it will take. 
+We will find the betweenness centrality of the Isle of Wight road network. This can take a long time, so first lets check how long it will take. 
 
 ```{r, message=TRUE, echo=TRUE}
 estimate_centrality_time(graph)
 centrality = dodgr_centrality(graph)
+```
 
+We can convert a `dodgr` graph back into a sf data frame for plotting using `dodgr_to_sf`
 
+```{r, message=TRUE, echo=TRUE, results='hide'}
 clear_dodgr_cache()
-
 centrality_sf = dodgr_to_sf(centrality)
+```
+
+**Exercise**
+
+19. Plot the centrality of the Isle of Wight road network. What can centrality tell you about a road network?
+
+```{r, message=TRUE, echo=FALSE}
 tm_shape(centrality_sf) +
   tm_lines("centrality",
            lwd = 3,
@@ -347,11 +364,13 @@ tm_shape(centrality_sf) +
 
 ```
 
-**Exercise**
-
-18. Use `dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
+20. Use `dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
 
 **Bonus Exercises**
 
-19. Work though the OpenTripPlanner vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html) to run your own local trip planner.
+21. Work though the OpenTripPlanner vignettes [Getting Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html) and [Advanced Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html) to run your own local trip planner for the Isle of Wight.
+
+**Note** To use OpenTripPlanner on your own computer requires Java 8. See the [Prerequisites](https://docs.ropensci.org/opentripplanner/articles/prerequisites.html) for more details. If you can't install Java 8 try some of the examples in the vignettes but modify them for West Yorkshire.
+
+22. Read the `dodgr` [vignettes](https://atfutures.github.io/dodgr/articles/index.html)
 

@@ -133,9 +133,11 @@ desire_top
 To find the routes for the first three desire lines use the following command:
 
 ```{r, eval=FALSE, eval=FALSE, echo=TRUE}
+desire_top_origin = as.matrix(desire_top[,c("fx","fy")])
+desire_top_destination = as.matrix(desire_top[,c("tx","ty")])
 routes_top = otp_plan(otpcon,
-                      fromPlace = as.matrix(desire_top[,c("fx","fy")]),
-                      toPlace = as.matrix(desire_top[,c("tx","ty")]),
+                      fromPlace = desire_top_origin,
+                      toPlace = desire_top_destination,
                       mode = "CAR")
 ```
 

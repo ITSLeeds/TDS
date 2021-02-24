@@ -36,11 +36,8 @@ this:
 <div class="figure" style="text-align: center">
 
 <img src="otp_screenshot.png" alt="\label{fig:otpgui}OTP Web GUI" width="1920" />
-
 <p class="caption">
-
 OTP Web GUI
-
 </p>
 
 </div>
@@ -106,7 +103,7 @@ endpoints, so we will extract the points from the lines using the
     commuters and create a new data frame called `desire_top`. Hint
     `?dplyr::slice_max`
 
-<!-- end list -->
+<!-- -->
 
     ## # A tibble: 3 x 11
     ##   geo_code1 geo_code2   all bicycle  foot car_driver    L1    fx    fy    tx
@@ -114,7 +111,7 @@ endpoints, so we will extract the points from the lines using the
     ## 1 E02006852 E02006875  1240     105   119        402   998 -1.58  53.8 -1.55
     ## 2 E02006861 E02006875  1198      58   495        130   999 -1.57  53.8 -1.55
     ## 3 E02002404 E02006875  1159      10   811         96   721 -1.52  53.8 -1.55
-    ## # ... with 1 more variable: ty <dbl>
+    ## # … with 1 more variable: ty <dbl>
 
 6.  Find the driving routes for `desire_top` and call them `routes_top`
     using `otp_plan`
@@ -123,9 +120,11 @@ To find the routes for the first three desire lines use the following
 command:
 
 ``` r
+desire_top_origin = as.matrix(desire_top[,c("fx","fy")])
+desire_top_destination = as.matrix(desire_top[,c("tx","ty")])
 routes_top = otp_plan(otpcon,
-                      fromPlace = as.matrix(desire_top[,c("fx","fy")]),
-                      toPlace = as.matrix(desire_top[,c("tx","ty")]),
+                      fromPlace = desire_top_origin,
+                      toPlace = desire_top_destination,
                       mode = "CAR")
 ```
 
@@ -296,7 +295,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:03
+    ## Estimated time to calculate centrality for full graph is 00:00:06
 
 ``` r
 centrality = dodgr_centrality(graph)

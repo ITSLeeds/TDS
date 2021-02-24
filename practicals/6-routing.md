@@ -16,13 +16,13 @@ source("https://git.io/JvGjF")
 The packages we will be using are:
 
 ``` r
-library(sf)
-library(tidyverse)
-library(stplanr)
-library(dodgr)
-library(opentripplanner)
-library(tmap)
-library(osmextract)
+library(sf) # Spatial data functions
+library(tidyverse) # General data manipulation
+library(stplanr) # General transport data functions
+library(dodgr) # Local routing and network analysis
+library(opentripplanner) # Connect to and use OpenTripPlanner
+library(tmap) # Make maps
+library(osmextract) # Download and import OpenStreetMap data
 tmap_mode("plot")
 ```
 
@@ -36,8 +36,11 @@ this:
 <div class="figure" style="text-align: center">
 
 <img src="otp_screenshot.png" alt="\label{fig:otpgui}OTP Web GUI" width="1920" />
+
 <p class="caption">
+
 OTP Web GUI
+
 </p>
 
 </div>
@@ -91,7 +94,7 @@ dim(desire_lines)
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will extract the points from the lines using the
-`line2df` function. An then select the top 3 desire lines.
+`stplanr::line2df` function. An then select the top 3 desire lines.
 
 **Exercise**
 
@@ -103,7 +106,7 @@ endpoints, so we will extract the points from the lines using the
     commuters and create a new data frame called `desire_top`. Hint
     `?dplyr::slice_max`
 
-<!-- -->
+<!-- end list -->
 
     ## # A tibble: 3 x 11
     ##   geo_code1 geo_code2   all bicycle  foot car_driver    L1    fx    fy    tx
@@ -111,10 +114,10 @@ endpoints, so we will extract the points from the lines using the
     ## 1 E02006852 E02006875  1240     105   119        402   998 -1.58  53.8 -1.55
     ## 2 E02006861 E02006875  1198      58   495        130   999 -1.57  53.8 -1.55
     ## 3 E02002404 E02006875  1159      10   811         96   721 -1.52  53.8 -1.55
-    ## # … with 1 more variable: ty <dbl>
+    ## # ... with 1 more variable: ty <dbl>
 
 6.  Find the driving routes for `desire_top` and call them `routes_top`
-    using `otp_plan`
+    using `opentripplanner::otp_plan`
 
 To find the routes for the first three desire lines use the following
 command:
@@ -273,9 +276,9 @@ system including a railway and the last commercial hovercraft service in
 the world.
 
 First we need to download the roads network from the OpenStreetMap using
-`osmextract`. We will removed most of the paths and other features and
-just focus on the main roads. Then use `dodgr::weight_streetnet` to
-produce a graph of the road network.
+`osmextract::oe_get`. We will removed most of the paths and other
+features and just focus on the main roads. Then use
+`dodgr::weight_streetnet` to produce a graph of the road network.
 
 ``` r
 roads = oe_get("Isle of Wight", extra_tags = c("maxspeed","oneway"))
@@ -295,14 +298,14 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:06
+    ## Estimated time to calculate centrality for full graph is 00:00:03
 
 ``` r
 centrality = dodgr_centrality(graph)
 ```
 
 We can convert a `dodgr` graph back into a sf data frame for plotting
-using `dodgr_to_sf`
+using `dodgr::dodgr_to_sf`
 
 ``` r
 clear_dodgr_cache()
@@ -316,8 +319,8 @@ centrality_sf = dodgr_to_sf(centrality)
 
 ![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
-20. Use `dodgr_contract_graph` before calculating centrality, how does
-    this affect the computation time and the results?
+20. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
+    does this affect the computation time and the results?
 
 **Bonus Exercises**
 

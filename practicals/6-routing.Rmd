@@ -32,13 +32,13 @@ source("https://git.io/JvGjF")
 The packages we will be using are:
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
-library(sf)
-library(tidyverse)
-library(stplanr)
-library(dodgr)
-library(opentripplanner)
-library(tmap)
-library(osmextract)
+library(sf) # Spatial data functions
+library(tidyverse) # General data manipulation
+library(stplanr) # General transport data functions
+library(dodgr) # Local routing and network analysis
+library(opentripplanner) # Connect to and use OpenTripPlanner
+library(tmap) # Make maps
+library(osmextract) # Download and import OpenStreetMap data
 tmap_mode("plot")
 ```
 
@@ -111,7 +111,7 @@ tm_shape(desire_lines) +
 ```
 
 
-This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `line2df` function. An then select the top 3 desire lines.
+This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `stplanr::line2df` function. An then select the top 3 desire lines.
 
 **Exercise**
 
@@ -128,7 +128,7 @@ desire_top = slice_max(desire, order_by = all, n = 3)
 desire_top
 ```
 
-6. Find the driving routes for `desire_top` and call them `routes_top` using `otp_plan`
+6. Find the driving routes for `desire_top` and call them `routes_top` using `opentripplanner::otp_plan`
 
 To find the routes for the first three desire lines use the following command:
 
@@ -325,7 +325,7 @@ tm_shape(routes_transit_group) +
 
 We will now analyse the road network using `dodgr`. Network analysis can take a very long time on large areas. So we will use the example of the [Isle of Wight](https://en.wikipedia.org/wiki/Isle_of_Wight), which is ideal for transport studies as it is small, but has a full transport system including a railway and the last commercial hovercraft service in the world.
 
-First we need to download the roads network from the OpenStreetMap using `osmextract`. We will removed most of the paths and other features and just focus on the main roads. Then use `dodgr::weight_streetnet` to produce a graph of the road network.
+First we need to download the roads network from the OpenStreetMap using `osmextract::oe_get`. We will removed most of the paths and other features and just focus on the main roads. Then use `dodgr::weight_streetnet` to produce a graph of the road network.
 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
 roads = oe_get("Isle of Wight", extra_tags = c("maxspeed","oneway"))
@@ -345,7 +345,7 @@ estimate_centrality_time(graph)
 centrality = dodgr_centrality(graph)
 ```
 
-We can convert a `dodgr` graph back into a sf data frame for plotting using `dodgr_to_sf`
+We can convert a `dodgr` graph back into a sf data frame for plotting using `dodgr::dodgr_to_sf`
 
 ```{r, message=TRUE, echo=TRUE, results='hide'}
 clear_dodgr_cache()
@@ -366,7 +366,7 @@ tm_shape(centrality_sf) +
 
 ```
 
-20. Use `dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
+20. Use `dodgr::dodgr_contract_graph` before calculating centrality, how does this affect the computation time and the results?
 
 **Bonus Exercises**
 

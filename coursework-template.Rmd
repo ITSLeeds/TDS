@@ -1,7 +1,7 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-# output: github_document
+output: github_document
 # output:
 #   pdf_document:
 #     number_sections: true
@@ -11,7 +11,7 @@ author: "Student 12345"
 #   html_document:
 #     number_sections: true
 # for pdf output:
-bibliography: tds.bib
+# bibliography: tds.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -34,16 +34,23 @@ As outlined in the module catalogue, the coursework should be:
 
 The information below provides guidance on the coursework. The fundamentals are:
 
-- Deadline: Friday 15th May, 14:00
-- Format: a PDF file (max 10 pages) and an Rmd file or a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
-- Template: You can download a template .Rmd file as the bais of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
+- Deadline: Friday 14th May, 14:00
+- Format: a PDF file (max 10 pages) and an Rmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
+- Template: You can download a template .Rmd file as the basis of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
 
 For the coursework you will submit a pdf a document with a maximum of 10 pages that contains code and results demonstrating your transport data science skills.
 
-For an example of the type of submission files you should submit see these:
+You should submit you work in  .zip file containing everything needed to reproduce the results: https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip
 
-- A PDF file in an appropriate format https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.pdf
-- A .zip file containing everything needed to reproduce the results: https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip
+## The process of writing your coursework
+
+Creating a good data science project involves these stages:
+
+- Brainstorming: what kind of topics and research questions are you interested in?
+- Dataset identification: what datasets are available on the topic? If there are not good datasets related to the topic you may want to rethink your topic.
+- Data processing: what did you do to read-in the data?
+- Exploratory data analysis: visualisation, describing the data
+- Modelling/communication
 
 ## Marks
 
@@ -86,9 +93,11 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 
 ## Ideas for coursework topics
 
-If this is a resit you must choose a different topic.
+There are many topics available, e.g. see here: https://github.com/ITSLeeds/TDS/blob/master/messages/practical2-homework.md
 
 If you are struggling for ideas and example code, these resources, in addition to the links provided in the lectures and practicals can help:
+
+If this is a resit you must choose a different topic.
 
 1. Work through the stats19 training vignette to sharpen your R skills: https://docs.ropensci.org/stats19/articles/stats19-training.html
 

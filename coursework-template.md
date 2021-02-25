@@ -26,11 +26,11 @@ As outlined in the module catalogue, the coursework should be:
 The information below provides guidance on the coursework. The
 fundamentals are:
 
--   Deadline: Friday 15th May, 14:00
--   Format: a PDF file (max 10 pages) and an Rmd file or a .zip file
+-   Deadline: Friday 14th May, 14:00
+-   Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
     containing the Rmd file and minimal dataset needed to reproduce the
     results if possible (40 MB max size)
--   Template: You can download a template .Rmd file as the bais of your
+-   Template: You can download a template .Rmd file as the basis of your
     submission:
     <https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd>
 
@@ -38,13 +38,22 @@ For the coursework you will submit a pdf a document with a maximum of 10
 pages that contains code and results demonstrating your transport data
 science skills.
 
-For an example of the type of submission files you should submit see
-these:
+You should submit you work in .zip file containing everything needed to
+reproduce the results:
+<https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip>
 
--   A PDF file in an appropriate format
-    <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.pdf>
--   A .zip file containing everything needed to reproduce the results:
-    <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip>
+## The process of writing your coursework
+
+Creating a good data science project involves these stages:
+
+-   Brainstorming: what kind of topics and research questions are you
+    interested in?
+-   Dataset identification: what datasets are available on the topic? If
+    there are not good datasets related to the topic you may want to
+    rethink your topic.
+-   Data processing: what did you do to read-in the data?
+-   Exploratory data analysis: visualisation, describing the data
+-   Modelling/communication
 
 ## Marks
 
@@ -118,10 +127,13 @@ and which will take account of the following criteria:
 
 ## Ideas for coursework topics
 
-If this is a resit you must choose a different topic.
+There are many topics available, e.g. see here:
+<https://github.com/ITSLeeds/TDS/blob/master/messages/practical2-homework.md>
 
 If you are struggling for ideas and example code, these resources, in
 addition to the links provided in the lectures and practicals can help:
+
+If this is a resit you must choose a different topic.
 
 1.  Work through the stats19 training vignette to sharpen your R skills:
     <https://docs.ropensci.org/stats19/articles/stats19-training.html>

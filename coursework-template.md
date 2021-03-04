@@ -220,15 +220,14 @@ and which will take account of the following criteria:
 8.  Describe how your team stored and transported data, including
     appropriate file formats
 
-    **Application choice and modelling**
+    **Application choice and potential impact**
 
 9.  Choice of topic that has interesting datasets and important real
     world applications
 
 10. Appropriate use of methods for the choice of application
 
-11. Demonstrate the progression from a simplistic model of the data to
-    modelling techniques
+11. Explain the potential impacts of the work
 
 12. Discuss alternative approaches
 
@@ -252,8 +251,7 @@ and which will take account of the following criteria:
     to make it work on larger datasets, e.g. with reference to a
     benchmark to test different methods/implementations.
 
-19. Provide evidence of teamwork, e.g. how work was divided, scheduled,
-    and managed.
+19. Provide evidence of building on previous research.
 
 20. Give examples of how you communicated your own ideas to the target
     audience of the report and within the group.

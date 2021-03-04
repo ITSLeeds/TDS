@@ -34,6 +34,13 @@ As outlined in the module catalogue, the coursework should be:
 
 The information below provides guidance on the coursework. The fundamentals are:
 
+- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas: Friday 26th March - use this to ask questions and outline:
+  - A draft title of your topic
+  - The main dataset that you will use and other datasets that you could use
+  - Ideas on a research question
+  - Questions you would like to ask about the topic, e.g. 'is this a suitable dataset?'
+  - 1 or more references to the academic literature related to the topic
+  - Any preliminary analysis you have done
 - Deadline: Friday 14th May, 14:00
 - Format: a PDF file (max 10 pages) and an Rmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
 - Template: You can download a template .Rmd file as the basis of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
@@ -42,15 +49,86 @@ For the coursework you will submit a pdf a document with a maximum of 10 pages t
 
 You should submit you work in  .zip file containing everything needed to reproduce the results: https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip
 
-## The process of writing your coursework
+## Choosing a topic and writing your coursework
 
-Creating a good data science project involves these stages:
+You will need to choose a topic, one or more datasets to analyse and research questions for the 10 page coursework report.
+
+Designing and writing a good data science project involves many stages, not just writing and and knitting an Rmd document reporting data analysis methods and results.
+The process involves:
 
 - Brainstorming: what kind of topics and research questions are you interested in?
 - Dataset identification: what datasets are available on the topic? If there are not good datasets related to the topic you may want to rethink your topic.
+- Research questions: what questions do you want to know
 - Data processing: what did you do to read-in the data?
 - Exploratory data analysis: visualisation, describing the data
 - Modelling/communication
+
+As in real world data science work, there are many options to choose from.
+You should decide on a topic based on your personal interest and the availability of a good dataset.
+You can choose from and adapt one of the following options or choose a topic of your own.
+
+
+### Topics
+
+- Data collection and analysis
+  - Analysis of a large transport dataset, e.g. https://www.nature.com/articles/sdata201889
+
+- Infrastructure and travel behaviour
+  - What are the relationships between specific types of infrastructure and travel, e.g. between fast roads and walking?
+  - How do official sources of infrastructure data (e.g. the [CID](https://github.com/PublicHealthDataGeek/CycleInfraLnd/)) compare with crowd-sourced datasets such as OpenStreetMap (which can be accessed with the new [`osmextract` R package](https://github.com/ropensci/osmextract))
+  - Machine learning and image recognition to understand transport infrastructure - see https://telraam.net/ for example 
+
+- Changing transport systems
+  - Modelling change in transport systems, e.g. by comparing before/after data for different countries/cities, which countries had the hardest lockdowns and where have changes been longer term? - see here for open data: https://github.com/ActiveConclusion/COVID19_mobility
+  - How have movement patterns changed during the Coronavirus pandemic and what impact is that likely to have long term (see [here](https://saferactive.github.io/trafficalmr/articles/report3.html) for some graphics on this)
+  
+- Software development
+  - Creating a package to make a particular data source more accessible, see https://github.com/ropensci/stats19 for an example
+  - Integration between R and A/B Street - see https://github.com/a-b-street/abstr
+  
+- Road safety - how can we makes roads and transport systems in general safer?
+  
+- Other
+  - Other topics are welcome
+  
+### Datasets 
+
+You should choose the main dataset that you will use for the coursework based on the topic and the availability of datasets. If you are interested in a particular dataset that could help you decide a topic. Good datasets include:
+
+- STATS19 road crash data (other countries have other datasets), e.g. using data from the `stats19` package: https://docs.ropensci.org/stats19/
+- 'PCT' data from UK travel behaviour - see https://itsleeds.github.io/pct/
+- OpenStreetMap data (global, you will need to think of a subset by area/type), e.g. from the https://docs.ropensci.org/osmextract/index.html package
+- Open data from a single city, e.g. Seattle: https://data-seattlecitygis.opendata.arcgis.com/
+- See here: https://github.com/awesomedata/awesome-public-datasets#transportation
+- And here: https://github.com/CUTR-at-USF/awesome-transit
+
+### Specific coursework options
+
+If you are struggling for ideas and example code, these resources, in addition to the links provided in the lectures and practicals can help:
+
+If this is a resit you must choose a different topic.
+
+<!-- 1. Work through the stats19 training vignette to sharpen your R skills: https://docs.ropensci.org/stats19/articles/stats19-training.html -->
+
+<!-- 2. Take a look at the Model Basics chapter (and the next if interested) of the book R for Data Science: https://r4ds.had.co.nz/model-basics.html -->
+
+<!-- 3. Try to reproduce the results presented in the ML practical: https://github.com/ITSLeeds/TDS/blob/master/practicals/9-ml.md -->
+
+<!-- When working on the homework you should be thinking about the datasets that you want to use for your coursework assignment. Ideas for datasets that you could use are: -->
+
+You could pick one of these topics:
+
+- What explanatory variables best predict the level of walking in Leeds (or a different English city), and how do walking levels relate to pedestrian safety? You could use the command `pct::get_desire_lines(region = "west-yorkshire")` to get data on walking desire lines and `get_stats19()` to get road crash data for Leeds. In terms of the topics covered in the lectures you could:
+  - Show understanding of data science in context with a brief introduction that touches on the definition of transport data science
+  - Demonstrate understanding of data structures by converting from a data frame of road crashes to an sf object
+  - Show routes, e.g. by getting route data with `pct::get_pct_routes_fast()`
+  - Show your data visualisation skills by visualising the datasets
+  - Demonstrate understanding of modelling with a simple model to explain why the rate of walking varies, e.g. with the distance of the trip and variables that you will calculate (e.g. distance from the city centre)
+
+- What factors are associated with low levels of walking and cycling and high road traffic casualty rates in the UK?
+
+- How accessible are parks and other amenities for different areas of a particular city 
+  - This could be done using data from OSM and perhaps official data from local government
 
 ## Marks
 
@@ -90,36 +168,6 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 1. Evaluation of the computational efficiency of the approach taken and discuss how scalable the code used is and changes that could be made to make it work on larger datasets, e.g. with reference to a benchmark to test different methods/implementations.
 1. Provide evidence of teamwork, e.g. how work was divided, scheduled, and managed.
 2. Give examples of how you communicated your own ideas to the target audience of the report and within the group.
-
-## Ideas for coursework topics
-
-There are many topics available, e.g. see here: https://github.com/ITSLeeds/TDS/blob/master/messages/practical2-homework.md
-
-If you are struggling for ideas and example code, these resources, in addition to the links provided in the lectures and practicals can help:
-
-If this is a resit you must choose a different topic.
-
-1. Work through the stats19 training vignette to sharpen your R skills: https://docs.ropensci.org/stats19/articles/stats19-training.html
-
-2. Take a look at the Model Basics chapter (and the next if interested) of the book R for Data Science: https://r4ds.had.co.nz/model-basics.html
-
-3. Try to reproduce the results presented in the ML practical: https://github.com/ITSLeeds/TDS/blob/master/practicals/9-ml.md
-
-When working on the homework you should be thinking about the datasets that you want to use for your coursework assignment. Ideas for datasets that you could use are:
-
-- Travel behaviour data for a region of choice downloaded with the pct package
-- Road crash data downloaded with the stats19 package
-- OpenStreetMap data downloaded with the osmdata or [osmextractr](https://github.com/ITSLeeds/osmextractr) packages
-
-You are free to pick a research topic and research aims and objectives. However, some example topics that you could choose have been provided:
-
-- What explanatory variables best predict the level of walking in Leeds, and how do walking levels relate to pedestrian safety? You could use the command `pct::get_desire_lines(region = "west-yorkshire")` to get data on walking desire lines and `get_stats19()` to get road crash data for Leeds. In terms of the topics covered in the lectures you could:
-  - Show understanding of data science in context with a brief introduction that touches on the definition of transport data science
-  - Demonstrate understanding of data structures by converting from a data frame of road crashes to an sf object
-  - Show routes, e.g. by getting route data with `pct::get_pct_routes_fast()`
-  - Show your data visualisation skills by visualising the datasets
-  - Demonstrate understanding of modelling with a simple model to explain why the rate of walking varies, e.g. with the distance of the trip and variables that you will calculate (e.g. distance from the city centre)
-
 
 # Information about RMarkdown
 
@@ -325,3 +373,18 @@ zip(zipfile = "coursework-template.zip", files = c(
 ```
 
 # References
+
+Add your references here.
+
+Reference 1
+
+Reference 2
+
+...
+
+Lovelace, R., 2021. Open source tools for geographic analysis in transport planning. J Geogr Syst. https://doi.org/10.1007/s10109-020-00342-2
+
+Boeing, G., 2021. Spatial information and the legibility of urban form: Big data in urban morphology. International Journal of Information Management 56, 102013. https://doi.org/10.1016/j.ijinfomgt.2019.09.009
+
+
+

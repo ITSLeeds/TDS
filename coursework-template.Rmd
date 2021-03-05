@@ -143,15 +143,15 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 
     **Data, processing access and cleaning**
 
-1. Describe how your team obtained and cleaned data
+1. Describe how you obtained and cleaned data
 1. Describe methods for cleaning the data and how this added value to it
 1. Discuss methods for gaining data using transport techniques such as routing and conversion of origin-destination data to geographic desire lines
-2. Describe how your team stored and transported data, including appropriate file formats
+2. Describe how you stored and transported data, including appropriate file formats
 
-    **Application choice and potential impact**
+    **Application choice and impact**
 
 1. Choice of topic that has interesting datasets and important real world applications
-1. Appropriate use of methods for the choice of application
+1. Appropriate use of methods for the choice of application, building on previous work
 1. Explain the potential impacts of the work
 3. Discuss alternative approaches
 
@@ -166,7 +166,7 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 
 1. The results presented are reproducible using code shared in the report submission or on a code-sharing platform.
 1. Evaluation of the computational efficiency of the approach taken and discuss how scalable the code used is and changes that could be made to make it work on larger datasets, e.g. with reference to a benchmark to test different methods/implementations.
-1. Provide evidence of building on previous research.
+1. Provide evidence of project planning, e.g. how work was divided, scheduled, and managed.
 2. Give examples of how you communicated your own ideas to the target audience of the report and within the group.
 
 # Information about RMarkdown

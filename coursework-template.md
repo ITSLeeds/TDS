@@ -208,7 +208,7 @@ and which will take account of the following criteria:
 
     **Data, processing access and cleaning**
 
-5.  Describe how your team obtained and cleaned data
+5.  Describe how you obtained and cleaned data
 
 6.  Describe methods for cleaning the data and how this added value to
     it
@@ -217,15 +217,16 @@ and which will take account of the following criteria:
     routing and conversion of origin-destination data to geographic
     desire lines
 
-8.  Describe how your team stored and transported data, including
-    appropriate file formats
+8.  Describe how you stored and transported data, including appropriate
+    file formats
 
-    **Application choice and potential impact**
+    **Application choice and impact**
 
 9.  Choice of topic that has interesting datasets and important real
     world applications
 
-10. Appropriate use of methods for the choice of application
+10. Appropriate use of methods for the choice of application, building
+    on previous work
 
 11. Explain the potential impacts of the work
 
@@ -251,7 +252,8 @@ and which will take account of the following criteria:
     to make it work on larger datasets, e.g. with reference to a
     benchmark to test different methods/implementations.
 
-19. Provide evidence of building on previous research.
+19. Provide evidence of project planning, e.g. how work was divided,
+    scheduled, and managed.
 
 20. Give examples of how you communicated your own ideas to the target
     audience of the report and within the group.

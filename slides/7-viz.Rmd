@@ -2,7 +2,7 @@
 title: "Visualising transport data"
 subtitle: "`r emojifont::emoji('world_map')` <br/>from base (rock) to shiny (clouds)"
 author: "Robin Lovelace"
-date: "`r Sys.Date()`"
+date: "`r # Sys.Date()`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -84,6 +84,7 @@ knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/7/
 ## Good, bad, ugly, wrong
 
 - Aim must be good graphics, but first it's important to avoid pitfalls
+- Source: Free and open book [Data Visualisation](https://clauswilke.com/dataviz/introduction.html)
 
 ```{r, echo=FALSE, out.width="80%"}
 knitr::include_graphics("https://serialmentor.com/dataviz/introduction_files/figure-html/ugly-bad-wrong-examples-1.png")

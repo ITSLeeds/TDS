@@ -23,11 +23,12 @@ As outlined in the module catalogue, the coursework should be:
 
 # Coursework guidance
 
-The information below provides guidance on the coursework. The
-fundamentals are:
+The information below provides guidance on the coursework.
+
+## 1 pager
 
 -   Deadline for non-assessed submission of a .zip file containing a 1
-    or 2 page pdf document with ideas: Friday 26th March - use this to
+    or 2 page pdf document with ideas: Monday 29th March - use this to
     ask questions and outline:
     -   A draft title of your topic
     -   The main dataset that you will use and other datasets that you
@@ -38,6 +39,9 @@ fundamentals are:
     -   1 or more references to the academic literature related to the
         topic
     -   Any preliminary analysis you have done
+
+## Final submission
+
 -   Deadline: Friday 14th May, 14:00
 -   Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
     containing the Rmd file and minimal dataset needed to reproduce the
@@ -374,10 +378,10 @@ iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
 
     ## Reading layer `lines' from data source `/mnt/57982e2a-2874-4246-a6fe-115c199bc6bd/data/osm/geofabrik_isle-of-wight-latest.gpkg' using driver `GPKG'
     ## Simple feature collection with 44424 features and 11 fields
-    ## geometry type:  LINESTRING
-    ## dimension:      XY
-    ## bbox:           xmin: -5.401978 ymin: 43.35489 xmax: -0.175775 ymax: 50.89599
-    ## geographic CRS: WGS 84
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -5.401978 ymin: 43.35489 xmax: -0.175775 ymax: 50.89599
+    ## Geodetic CRS:  WGS 84
 
 ``` r
 summary(as.factor(iow_highways$highway))

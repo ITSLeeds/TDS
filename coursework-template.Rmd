@@ -32,15 +32,20 @@ As outlined in the module catalogue, the coursework should be:
 
 # Coursework guidance
 
-The information below provides guidance on the coursework. The fundamentals are:
+The information below provides guidance on the coursework. 
 
-- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas: Friday 26th March - use this to ask questions and outline:
+## 1 pager
+
+- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas: Monday 29th March - use this to ask questions and outline:
   - A draft title of your topic
   - The main dataset that you will use and other datasets that you could use
   - Ideas on a research question
   - Questions you would like to ask about the topic, e.g. 'is this a suitable dataset?'
   - 1 or more references to the academic literature related to the topic
   - Any preliminary analysis you have done
+
+## Final submission
+
 - Deadline: Friday 14th May, 14:00
 - Format: a PDF file (max 10 pages) and an Rmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
 - Template: You can download a template .Rmd file as the basis of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd

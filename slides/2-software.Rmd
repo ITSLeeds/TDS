@@ -51,7 +51,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 <!--  - Professional issues -->
 
 ```{r, message=FALSE}
-timetable = readr::read_csv(here::here("timetable.csv"))
+timetable = readr::read_csv(here::here("timetable-2020.csv"))
 timetable$Date = as.Date(timetable$DTSTART)
 timetable %>% 
   select(SUMMARY, DESCRIPTION, Date) %>% 
@@ -64,7 +64,7 @@ timetable %>%
 ## Practical sessions
 
 ```{r, message=FALSE}
-timetable = readr::read_csv(here::here("timetable.csv"))
+timetable = readr::read_csv(here::here("timetable-2020.csv"))
 timetable$Date = as.Date(timetable$DTSTART)
 timetable %>% 
   select(SUMMARY, DESCRIPTION, Date) %>% 

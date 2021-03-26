@@ -2,14 +2,16 @@ Coursework submission for Transport Data Science (TRAN5340M)
 ================
 Student 12345
 
-# Introduction
+# Guidance
 
 This template contains information and suggested headings for the TDS
-module. Do not submit coursework that contains this note or any text
-(other than the headings) from this template. It is just designed to get
-you started. You will submit the .Rmd file, optionally included in a
-.zip file if you want to include data, and the resulting PDF document as
-your coursework submission.
+module. It is based on an RMarkdown file. See the source code here:
+<https://github.com/ITSLeeds/TDS/blob/master/coursework-template.Rmd> .
+Do not submit coursework that contains this note or any text (other than
+the headings) from this template. It is just designed to get you
+started. You will submit the .Rmd file, optionally included in a .zip
+file if you want to include data, and the resulting PDF document as your
+coursework submission.
 
 As outlined in the module catalogue, the coursework should be:
 
@@ -21,11 +23,9 @@ As outlined in the module catalogue, the coursework should be:
     with this as outlined
     [here](https://bookdown.org/yihui/bookdown/figures.html) )
 
-# Coursework guidance
-
 The information below provides guidance on the coursework.
 
-## 1 pager
+## 0.1 One-pager
 
 -   Deadline for non-assessed submission of a .zip file containing a 1
     or 2 page pdf document with ideas: Monday 29th March - use this to
@@ -40,7 +40,7 @@ The information below provides guidance on the coursework.
         topic
     -   Any preliminary analysis you have done
 
-## Final submission
+## 0.2 Final submission
 
 -   Deadline: Friday 14th May, 14:00
 -   Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
@@ -58,7 +58,7 @@ You should submit you work in .zip file containing everything needed to
 reproduce the results:
 <https://github.com/ITSLeeds/TDS/releases/download/0.20.1/coursework-template.zip>
 
-## Choosing a topic and writing your coursework
+## 0.3 Choosing a topic and writing your coursework
 
 You will need to choose a topic, one or more datasets to analyse and
 research questions for the 10 page coursework report.
@@ -82,7 +82,7 @@ from. You should decide on a topic based on your personal interest and
 the availability of a good dataset. You can choose from and adapt one of
 the following options or choose a topic of your own.
 
-### Topics
+### 0.3.1 Topics
 
 -   Data collection and analysis
 
@@ -128,7 +128,7 @@ the following options or choose a topic of your own.
 
     -   Other topics are welcome
 
-### Datasets
+### 0.3.2 Datasets
 
 You should choose the main dataset that you will use for the coursework
 based on the topic and the availability of datasets. If you are
@@ -149,7 +149,7 @@ Good datasets include:
     <https://github.com/awesomedata/awesome-public-datasets#transportation>
 -   And here: <https://github.com/CUTR-at-USF/awesome-transit>
 
-### Specific coursework options
+### 0.3.3 Specific coursework options
 
 If you are struggling for ideas and example code, these resources, in
 addition to the links provided in the lectures and practicals can help:
@@ -192,7 +192,7 @@ You could pick one of these topics:
     -   This could be done using data from OSM and perhaps official data
         from local government
 
-## Marks
+## 0.4 Marks
 
 Marks are awarded in 5 categories, each of which is evaluated out of 20
 and which will take account of the following criteria:
@@ -262,7 +262,20 @@ and which will take account of the following criteria:
 20. Give examples of how you communicated your own ideas to the target
     audience of the report and within the group.
 
-# Information about RMarkdown
+## 0.5 Report structure
+
+The report should have a logical structure with key headings such as:
+
+-   Introduction
+-   Input data and data cleaning
+-   Exploratory data analysis
+-   Discussion (e.g. strengths and weaknesses)
+-   Conclusion (e.g. how the results could be used and next steps)
+-   References
+
+An example report structure is shown below.
+
+## 0.6 Information about RMarkdown
 
 This is an R Markdown file. You can set the output by changing
 `output: github_document` to something different, like
@@ -319,7 +332,7 @@ You can add references manually or with `[@citation-key]` references
 linking to a .bib file like this\[@lovelace\_stplanr\_2017\]. And this
 \[@fox\_data\_2018\].
 
-## Including Code
+## 0.7 Including Code
 
 You can include R code in the document as follows:
 
@@ -335,7 +348,7 @@ summary(cars)
     ##  3rd Qu.:19.0   3rd Qu.: 56.00  
     ##  Max.   :25.0   Max.   :120.00
 
-## Including Plots
+## 0.8 Including Plots
 
 You can also embed plots, for example:
 
@@ -344,7 +357,11 @@ You can also embed plots, for example:
 Note that the `echo = FALSE` parameter was added to the code chunk to
 prevent printing of the R code that generated the plot.
 
-# Datasets used
+# 1 Introduction
+
+This example report explores road casualty data in the Isle of Wight.
+
+# 2 Datasets used
 
 You can get zone, OD and even route data for any city in the UK with the
 following commands. We got data for the Isle of Wight with the following
@@ -430,7 +447,7 @@ tm_shape(z) +
 
 ![](coursework-template_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-# Descriptive analysis
+# 3 Descriptive analysis
 
 ``` r
 plot(desire_lines)
@@ -438,16 +455,16 @@ plot(desire_lines)
 
 ![](coursework-template_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-# Route analysis
+# 4 Route analysis
 
 A next step could be route network analysis.
 
 See <https://luukvdmeer.github.io/sfnetworks/> for an approach we could
 use (this could be a coursework topic on its own).
 
-# Additional datasets
+# 5 Additional datasets
 
-# Policy analysis
+# 6 Policy analysis
 
 Here you could explain how you explored answers to policy questions such
 as:
@@ -456,11 +473,11 @@ as:
 -   how to reduce congestion?
 -   where to build bike parking?
 
-# Discussion
+# 7 Discussion
 
 Include here limitations and ideas for further research.
 
-# Conclusion
+# 8 Conclusion
 
 What are the main things we have learned from this project?
 
@@ -477,7 +494,7 @@ zip(zipfile = "coursework-template.zip", files = c(
 # piggyback::pb_upload("coursework-template.pdf") # ignore this command
 ```
 
-# References
+# 9 References
 
 Add your references here.
 

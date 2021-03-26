@@ -1,7 +1,9 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-output: github_document
+output:
+  github_document:
+    number_sections: true
 # output:
 #   pdf_document:
 #     number_sections: true
@@ -18,9 +20,10 @@ author: "Student 12345"
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = TRUE)
 ```
 
-# Introduction
+# Guidance {-}
 
 This template contains information and suggested headings for the TDS module.
+It is based on an RMarkdown file. See the source code here: https://github.com/ITSLeeds/TDS/blob/master/coursework-template.Rmd .
 Do not submit coursework that contains this note or any text (other than the headings) from this template.
 It is just designed to get you started. You will submit the .Rmd file, optionally included in a .zip file if you want to include data, and the resulting PDF document as your coursework submission.
 
@@ -30,11 +33,9 @@ As outlined in the module catalogue, the coursework should be:
 - A maximum of 10 pages long, excluding references and appendices (you should include your best work and think about maximising the use of space - the chunk option `out.width="50%"`, for example, can help with this as outlined [here](https://bookdown.org/yihui/bookdown/figures.html) )
 
 
-# Coursework guidance
-
 The information below provides guidance on the coursework. 
 
-## 1 pager
+## One-pager
 
 - Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas: Monday 29th March - use this to ask questions and outline:
   - A draft title of your topic
@@ -174,7 +175,20 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 1. Provide evidence of project planning, e.g. how work was divided, scheduled, and managed.
 2. Give examples of how you communicated your own ideas to the target audience of the report and within the group.
 
-# Information about RMarkdown
+## Report structure
+
+The report should have a logical structure with key headings such as:
+
+- Introduction
+- Input data and data cleaning
+- Exploratory data analysis
+- Discussion (e.g. strengths and weaknesses)
+- Conclusion (e.g. how the results could be used and next steps)
+- References
+
+An example report structure is shown below.
+
+## Information about RMarkdown
 
 This is an R Markdown file.
 You can set the output by changing `output: github_document` to something different, like `output: html_document`.
@@ -246,6 +260,10 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Introduction
+
+This example report explores road casualty data in the Isle of Wight.
 
 # Datasets used
 

@@ -232,7 +232,7 @@ and which will take account of the following criteria:
 10. Appropriate use of methods for the choice of application, building
     on previous work
 
-11. Explain the potential impacts of the work
+11. Explain the potential impacts of the work and originality
 
 12. Discuss alternative approaches
 

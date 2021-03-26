@@ -157,7 +157,7 @@ Marks are awarded in 5 categories, each of which is evaluated out of 20 and whic
 
 1. Choice of topic that has interesting datasets and important real world applications
 1. Appropriate use of methods for the choice of application, building on previous work
-1. Explain the potential impacts of the work
+1. Explain the potential impacts of the work and originality
 3. Discuss alternative approaches
 
     **Visualization**

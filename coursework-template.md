@@ -23,6 +23,10 @@ As outlined in the module catalogue, the coursework should be:
     with this as outlined
     [here](https://bookdown.org/yihui/bookdown/figures.html) )
 
+An example of a good submission can be found here (requires a University
+of Leeds login):
+<https://leeds365.sharepoint.com/sites/msteams_cbf52a/Shared%20Documents/General/stats19-example.zip>
+
 The information below provides guidance on the coursework.
 
 ## 0.1 One-pager

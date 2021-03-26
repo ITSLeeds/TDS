@@ -32,6 +32,7 @@ As outlined in the module catalogue, the coursework should be:
 - A maximum of 3000 words long, excluding code, figure captions and references
 - A maximum of 10 pages long, excluding references and appendices (you should include your best work and think about maximising the use of space - the chunk option `out.width="50%"`, for example, can help with this as outlined [here](https://bookdown.org/yihui/bookdown/figures.html) )
 
+An example of a good submission can be found here (requires a University of Leeds login): https://leeds365.sharepoint.com/sites/msteams_cbf52a/Shared%20Documents/General/stats19-example.zip
 
 The information below provides guidance on the coursework. 
 

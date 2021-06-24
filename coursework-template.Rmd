@@ -164,10 +164,10 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 
     **Understand data science processes, concepts, methods and approaches**
 
-1. Demonstrate understanding of core concepts of data science, such as cleaning and reshaping data (e.g. data aggregation and dimension reduction), combining multiple datasets, joining, exploratory data analysis and visualisation
+1. Demonstrate understanding of core concepts of data science, such as cleaning and reshaping data (e.g. data aggregation and dimension reduction), combining multiple datasets, joining, exploratory data analysis and visualisation, and how the work could be tranferred to different contexts (e.g. other time periods, cities and countries)
 1. Discuss alternative methods/approaches that could have been used to research the topic (e.g. qualitative research, use of alternative data sources), and consider and their advantages and disadvantages compared with your data science approach
-1. Enable reproducibility, by documenting key parts the code have written as part of the analysis, e.g. with reference to a key code chunk shown in the report and with reference to particular lines of code in the RMarkdown file underpinning the analysis, links to online resources for others wanting to reproduce the analysis for another area, and links to the input data
-1. The report is fully reproducible, including generation of figures where possible and guidance on how to reproduce the results (e.g. provided in a footnote in the report or with a link to code stored in a platform such as GitHub/GitLab)
+1. Enable reproducibility, by documenting key parts the code have written as part of the analysis, e.g. with reference to a key code chunk shown in the report and with reference to particular lines of code in the RMarkdown file underpinning the analysis, links to online resources for others wanting to reproduce the analysis for another area, and links to the input data, the report is fully reproducible, including generation of figures where possible and guidance on how to reproduce the results (e.g. provided in a footnote in the report or with a link to code stored in a platform such as GitHub/GitLab)
+1. Discussion of the limitations of the analysis and implications for the findings and how they could be addressed in future research and what type of data collection activities could address those limitations
 
 ## Report structure
 

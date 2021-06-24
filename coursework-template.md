@@ -198,73 +198,81 @@ You could pick one of these topics:
 
 ## 0.4 Marks
 
-Marks are awarded in 5 categories, each of which is evaluated out of 20
-and which will take account of the following criteria:
-
-**Understanding of concepts, methods and approaches**
-
-1.  Demonstrate understanding of core concepts of data science,
-    including data cleaning/wrangling, joining, exploratory analysis and
-    visualisation.
-
-2.  Implement methods appropriate to the objectives of the report.
-
-3.  Discuss alternative methods/approaches that could have been used,
-    and consider and their advantages and disadvantages.
-
-4.  Describe code that you have written as part of the analysis.
+Marks are awarded in 4 categories, accounting for the following
+criteria:
 
     **Data, processing access and cleaning**
 
-5.  Describe how you obtained and cleaned data
+1.  The selection and effective use of input datasets that are large
+    (e.g. covering multiple years), complex (e.g. containing multiple
+    variables) and diverse (e.g. input datasets from multiple sources
+    are used and where appropriate combined in the analysis)
 
-6.  Describe methods for cleaning the data and how this added value to
-    it
+2.  Describe how the data was collected and implications for data
+    quality, and outline how the input datasets were downloaded (with a
+    reproducible example if possible)
 
-7.  Discuss methods for gaining data using transport techniques such as
-    routing and conversion of origin-destination data to geographic
-    desire lines
+3.  Evidence of data cleaning techniques and adding value to the dataset
+    (e.g. by creating new variables or by joining two datasets)
 
-8.  Describe how you stored and transported data, including appropriate
-    file formats
+4.  Use of transport planning techniques such as use of buffers,
+    scenarios, origin-destination data analysis geographic desire lines
+    and routing
 
-    **Application choice and impact**
+    **Choice of topic and impact**
 
-9.  Choice of topic that has interesting datasets and important real
-    world applications
+5.  Topic selection, including originality, availability of datasets
+    related to the topic and relevance to solving transport planning
+    problems
 
-10. Appropriate use of methods for the choice of application, building
-    on previous work
+6.  Discuss alternative topics considered and justify the topic
 
-11. Explain the potential impacts of the work and originality
+7.  Make specific recommendations for further research or policies that
+    are supported by the data analysis undertaken
 
-12. Discuss alternative approaches
+8.  Explain the potential impacts of the work
 
     **Visualization**
 
-13. Include high quality, attractive and innovative visualisations
+9.  Creation of figures that are readable and well-described (e.g. with
+    captions and description)
 
-14. Describe how they were produced, including code
+10. High quality, attractive and innovative visualisations
 
-15. Describe the theory about why they were designed this way
+11. Description of visualisation techniques, e.g. with reference to
+    particular packages, commands, or the literature on how to produce
+    effective data visualisations
 
-16. Describe how your own work uses concepts from the literature
+12. Using visualisation techniques appropriate to the topic and data and
+    interpreting the results correctly (e.g. mentioning potential
+    confounding factors that could account for observed patterns)
 
-    **Understand the data science process**
+    **Understand data science processes, concepts, methods and
+    approaches**
 
-17. The results presented are reproducible using code shared in the
-    report submission or on a code-sharing platform.
+13. Demonstrate understanding of core concepts of data science, such as
+    cleaning and reshaping data (e.g. data aggregation and dimension
+    reduction), combining multiple datasets, joining, exploratory data
+    analysis and visualisation
 
-18. Evaluation of the computational efficiency of the approach taken and
-    discuss how scalable the code used is and changes that could be made
-    to make it work on larger datasets, e.g. with reference to a
-    benchmark to test different methods/implementations.
+14. Discuss alternative methods/approaches that could have been used to
+    research the topic (e.g. qualitative research, use of alternative
+    data sources), and consider and their advantages and disadvantages
+    compared with your data science approach
 
-19. Provide evidence of project planning, e.g. how work was divided,
-    scheduled, and managed.
+15. Enable reproducibility, by documenting key parts the code have
+    written as part of the analysis, e.g. with reference to a key code
+    chunk shown in the report and with reference to particular lines of
+    code in the RMarkdown file underpinning the analysis, links to
+    online resources for others wanting to reproduce the analysis for
+    another area, and links to the input data, the report is fully
+    reproducible, including generation of figures where possible and
+    guidance on how to reproduce the results (e.g. provided in a
+    footnote in the report or with a link to code stored in a platform
+    such as GitHub/GitLab)
 
-20. Give examples of how you communicated your own ideas to the target
-    audience of the report and within the group.
+16. Discussion of the limitations of the analysis and implications for
+    the findings
 
 ## 0.5 Report structure
 
@@ -398,7 +406,7 @@ iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
 ```
 
     ## Reading layer `lines' from data source `/mnt/57982e2a-2874-4246-a6fe-115c199bc6bd/data/osm/geofabrik_isle-of-wight-latest.gpkg' using driver `GPKG'
-    ## Simple feature collection with 44424 features and 11 fields
+    ## Simple feature collection with 44424 features and 17 fields
     ## Geometry type: LINESTRING
     ## Dimension:     XY
     ## Bounding box:  xmin: -5.401978 ymin: 43.35489 xmax: -0.175775 ymax: 50.89599

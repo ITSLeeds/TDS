@@ -1,0 +1,378 @@
+---
+title: 'TRAN 5340M: Transport Data Science'
+# subtitle: Part of the MSc in Mathematical Transport Modeling, Insititute for Transport Studies
+author: Dr Robin Lovelace, r.lovelace atleeds dotac.uk
+output:
+  # word_document:
+  # html_document:
+  github_document:
+    number_section: true
+bibliography: tds.bib
+---
+
+<!-- # Introduction -->
+<!-- Welcome to Transport Data Science.  -->
+<!-- Please make sure to read everything here in detail before the class begins. -->
+
+# Module Description
+This module provides a broad outline of ……….  Over the course of the year we will become more familiar with a broad range of processes and environments, ……………  We will examine ……………………. Lectures will familiarise you with key concepts and topics; you will get more chance to interact with the subject material in workshops; while practicals and field days will provide you with hands-on experience.  [Edit as appropriate to include seminars, tutorials etc.]
+
+Further details of the module, including the full module description, learning outcomes, and reading list can be found on the module catalogue.  Please click on the link below for either postgraduate or undergraduate catalogue:
+Postgraduate Module Catalogue
+Undergraduate Module Catalogue
+
+Links with other modules
+This module builds on material and ideas presented in TRANXXXX.  You will find points of intersection with a number of level 2 modules; ….  The module feeds into several level 3 modules, including…
+[Edit as appropriate, or delete if not relevant.]
+
+Module Teaching Team
+
+The module convenor/leader/manager [delete as appropriate] is ………  Please see table below for the contact information of each member of the module team:
+
+Staff Name	Room Location	Email Address	Contact Hours during termtime*
+Staff Name	Room Location	Email Address	Contact Hours during termtime*
+
+[*Staff should consider whether it is useful to publicise regular office hours.  You may prefer to have an ‘open door’ policy.]
+Please email with any questions, and feel free to ask any member of the teaching team for help or clarification after the lectures or during their office hours.
+
+On line information
+All teaching materials and resources are accessed through Minerva.  This may include PowerPoint slides, hand outs, web links to reading lists, audio or video recordings of lectures, excerpts from external audio or video sources, discussion forums etc.
+
+All past exams for modules are available online in the Examinations Section of the Examinations and Assessment area on the website.
+
+Assessment(s) & Dates
+[Please make sure that the information in this section is consistent with the module’s entry in the module catalogue.]  Assessment for this module takes the form of: [Please list all components including any exam or pass to progress elements – this must be identical to the list on the module catalogue.  The deadline for submitting work is 2pm on the specified day. Module Leaders should not set deadlines on Fridays, or on the last day of term.]
+1)	… -- max word length … words; deadline, week, date and time; proportion of the total assessment and any other relevant information.
+2)	Exam, exam period it will take place, duration, and percentage of total assessment
+NB The deadline for submitting work is 2pm on the day of the deadline, unless otherwise stated.
+
+Assessment Return Date to students
+As stated in the Code of Practice on Assessment, coursework will normally be returned in no more than 15 working days.  We will endeavour to avoid delays but will inform you if any should arise.  
+[Please note that the SES office will require two working days to sort and turn around any coursework handed back to them, so you will need to consider this when setting your return date for coursework to students.  If there are multiple assessments, make sure that there is AT LEAST one week between return of the coursework and student submission of the next.]
+
+Re-sit Requirements
+If you fail this module, you can register to re-sit the failed components at the next available opportunity.  [Staff to insert here information on what the re-sit consists of.  It could be the same as the original assessment, in which case this can simply be stated.  NB You do not need to provide the detail, simply state the assessment format; e.g. single exam, an assignment or combination thereof.]
+
+Covid-19 Information
+For queries related to the University’s policy on Covid-19 please visit https://coronavirus.leeds.ac.uk/ and https://coronavirus.leeds.ac.uk/supporting-students-and-staff/ for the most up to date information and advise on how we can support you.
+ 
+
+
+## Module description
+
+The quantity, diversity and availability of transport data is increasing rapidly, requiring skills in the management and interrogation of data and databases.
+Recent years have seen a new wave of 'big data' and 'data science' changing the world, with the Harvard Business Review describing Data Science as the 'sexiest job of the 21st century' (see [hbr.org](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)).
+Transport researchers increasingly need to take data from a wide range of sources and perform non-standard analyses methods on them to inform the decision-making process.
+
+Data science skills are sought after and data scientists are [well paid](https://towardsdatascience.com/salary-breakdown-of-the-top-data-science-jobs-cf83c6464a59).
+More importantly for job satisfaction, data scientists have the potential to tackle some of the world's greatest challenges [@olmos_data_2020].
+Opportunities for data scientists to support transport planning to be more effective and aligned to the public interest are shown in the Figure below.
+Data science skills and dedicated data scientists have a huge amount to offer transport planners, especially when considering large transport systems [@graells-garrido_adoptiondriven_2020] and the urgent problem of rapid decarbonisation to tackle the climate crises, which cannot be solved using traditional methods alone [@lovelace_open_2020].
+
+```{r}
+
+```
+
+
+Despite these developments the transport sector has been slow to adapt to new methods and workflows [@lovelace_open_2021].
+The Transport Systems Catapult, for example, identified a skills gap in "skilled technical talent capable of handling and analysing very large datasets compiled from multiple sources" (see [ts.catapult.org.uk](https://ts.catapult.org.uk/news-events-gallery/news/report-warns-of-uk-skills-shortage-in-im-sector/)).
+
+This module takes a highly practical approach to learning about 'data science' tools and their application to investigating transport issues.
+The focus is on practical data science, enabling attendees to make use of a wide range of datasets to answer real-world transport planning questions.
+The course objectives are to:
+
+- Understand the structure of transport datasets: spatial, temporal and demographic.
+- Understand how to obtain, clean and store transport related data.
+- Gain proficiency in command-line tools for handling large transport datasets.
+- Learn machine learning and data modelling techniques
+- Produce data visualizations, static and interactive
+- Learn where to find large transport datasets and assess data quality
+- Learn how to join together the components of transport data science into a cohesive project portfolio 
+
+<!-- Such projects typically include: -->
+<!-- - Finding the right question to ask, including ethical issues -->
+<!-- - Obtaining the right data -->
+<!-- - Data cleaning -->
+<!-- - Conceptual database design -->
+<!-- 1- Computational database issues, include big data systems -->
+<!-- - Statistics and machine learning analytics -->
+<!-- - Visualization and presentation -->
+<!-- - Appreciate the relevance and limitations of data-centric analysis applied -->
+<!-- to transport problems, compared with other types of modeling and fore- -->
+<!-- casting. -->
+<!-- Some of the topics we will cover are: -->
+<!-- - Practical database manipulation with SQL -->
+<!-- - Classical relational database design -->
+<!-- - Data for transport -->
+<!-- - Data scraping from semi-structured web sources -->
+<!-- - Machine learning tools Bayesian networks -->
+<!-- - Ontological issues in database design -->
+<!-- - Beyond SQL  the big data revolution and the Hadoop stack -->
+<!-- - Data visualization -->
+<!-- - Professional and ethical issues of big data in transport -->
+<!-- - Transport data analysis mini-project will be integrated throughout the -->
+<!-- module. -->
+<!-- Some of the skills you will learn include: -->
+<!-- - -->
+<!-- What is a relational database and in which circumstances is it a useful -->
+<!-- tool -->
+<!-- - How to design and create a relational database to house `raw' data -->
+<!-- - How to interrogate such data using SQL and hence provide appropriate -->
+<!-- data for transport modeling -->
+<!-- - -->
+<!-- How machine learning and other tools can provide understanding of the -->
+<!-- data and its structure. -->
+<!-- - -->
+<!-- How to visualize the data stored in a database. -->
+<!-- General skills for life we will develop include: -->
+<!-- - Analytic skills -->
+<!-- - Creative problem solving -->
+<!-- - Critical thinking -->
+<!-- - Research skills -->
+<!-- - Team working -->
+
+# About the lecturer
+
+Robin is Associate Professor of Transport Data Science Institute for Transport Studies, University of Leeds.
+He researches scalable, open source and interactive transport models.
+He has a degree in Geography from the University of Bristol, an MSc in Environmental Science and Management from the University of York and a PhD from the university of Sheffield.
+Robin is also a programmer and has contributed many software tools and resources to the data science and transport communities.
+For more information, see my page on the University of Leeds' website: https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace
+
+# Pre-requisites
+
+You should use the VLE site and https://github.com/ITSLeeds/TDS to find web links to content.
+These materials may be updated throughout the module so please check you have the latest versions.
+
+## Computing
+
+You will be expected to have a laptop with recent versions of R and RStudio installed.
+See instructions here for getting an up-to-date R installation: https://csgillespie.github.io/efficientR/set-up.html#installing-r
+
+It is also recommended that you install GitHub Desktop (or command line git on Linux and Mac), Docker, Python, QGIS and transport modelling tools such as SUMO but these are not essential.
+
+There are also some requirements for pre-module reading:
+
+## Essential
+
+- The [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2019]
+
+
+## Core
+
+- Paper on open source tools for geographic analysis in transport planning [@lovelace_open_2021]
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
+<!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx_2017]
+
+## Optional
+
+- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr_2018]
+- Book on transport data science in Python [@fox_data_2018]
+- For context, a report on the 'transport data revolution' [@transportsystemscatapult_transport_2015]
+<!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
+- An academic paper describing the development of a web application for the Department for Transport [@goodman_scenarios_2019]
+
+<!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
+<!-- Will Transform How We Live, Work and Think. -->
+<!-- John Murray publica- -->
+<!-- tions. -->
+<!-- - -->
+<!-- Townsend, A.M. Smart Cities - Big Data, Civic Hackers, and the Quest -->
+<!-- for a New Utopia. Norton 2014. -->
+<!-- - -->
+<!-- Lohr, S. 2015. Dataism. One World Publications. -->
+<!-- Please also have a look at my own paper which is discussed in the rst session: -->
+<!-- 3- -->
+<!-- Charles Fox, Peter Billington, Dominic Paulo, and Clive Cooper. -->
+<!-- Ori- -->
+<!-- gin destination analysis on the London orbital automated number plate -->
+<!-- recognition network. In European Transport Conference, 2010. -->
+<!-- A blog full of beautiful examples of data science  perhaps you will contribute -->
+<!-- to it one day? -->
+<!-- - -->
+<!-- www.informationisbeautiful.net -->
+<!-- For fun - but making serious points about what might be possible with data: -->
+<!-- - -->
+<!-- Movie: Minority Report. 20th Century Fox, 2002. (Or read the Philip K -->
+<!-- Dick short story if you prefer) -->
+<!-- - -->
+<!-- Video game: Sim City. Maxis, 2003. (or free clones such as http://www.opencity.info/) -->
+<!-- If you like money, try searching this jobs website for data scientist salaries: -->
+
+<!-- ## Specific/online resources -->
+
+<!-- - For 'data science' and transport jobs on see sites such as www.cwjobs.co.uk -->
+
+
+<!-- Riley, Hobson and Bence. -->
+<!-- Mathematical Methods for Physics and En- -->
+<!-- gineering (3rd edition): A Comprehensive Guide. Cambridge University -->
+<!-- Press 2006. -->
+
+<!-- You should be familiar with junior-school and high-school programming, prefer- -->
+<!-- ably in Python, as covered in, -->
+<!-- - -->
+<!-- 5 -->
+<!-- J.R. Briggs. Python for Kids. No Starch Press, 2012. [For ages 10+] -->
+
+<!-- Note: If you are new to quickly reading and mapping out large chucks of knowledge, the mind mapping approach can help. -->
+
+# Team working
+
+Although individual reports will be submitted, you are encouraged to collaborate throughout the course.
+Group projects that are based on a single topic or dataset, but with each member focussing on a different aspect for the report, are allowed.
+
+# Course information
+
+- The class schedule is available on the central ITS timetable webpage.
+- Session format will vary but will typically include a presentation and discussion of new topics, then project work where the lecturer is available to help with practical work.
+- Much of the work contributing to the final report will be done outside class hours
+
+Questions are encouraged so please just ask if you have any doubts.
+It may also help if you:
+
+1. ask course colleagues for help
+2. search the Internet for technical problems before asking
+3. create a reproducible example to highlight the question in code
+4. mention who you have asked and paste what you have found on the net in your email to me to show that you have done 1 and 2.
+
+# Credit assignment
+
+This is a 15 credit module.
+
+## Examination method
+
+This is not a traditional lecture course.
+The module is 100% examined by a report on a single team project.
+The coursework can be a **maximum** of **10 pages** long and **3000 words** in total, excluding references.
+Quality is valued over quantity.
+
+The coursework is a 'portfolio' of work that you will build-up over the course of the project.
+**It will be submitted on the Friday of week 24**.
+
+The purpose of all the readings, talking, and exercises is to help you build the skills and ideas needed to deliver this project and report.
+<!-- The class will work together as one team to deliver results. -->
+Reports receiving a high grade will cite references to academic papers and other resources used in the work.
+They can include resources in the taught material or resources that go beyond what has been taught in class.
+
+## Marking scheme
+
+To achieve a PASS, the report must demonstrate an understanding of the techniques covered in the practical sessions, with reference to concepts underlying Data Science, taught in the lectures.
+At least two outputs (images, tables, model results) must be presented to demonstrate the results of your work.
+There will be a basic explanation of the underlying code.
+To achieve a DISTINCTION the report must include text that shows understanding that goes beyond the material presented in the module from at least one session.
+
+High marks will be awarded to reports that show awareness of skills useful in industry and the ability to use theoretical concepts to inform the work.
+Data scientists rarely work alone so marks will also be awarded for evidence of collaboration, e.g. the adaptation of someone else's (or some organisation's) code/method with full credit to the original.
+
+<!-- The module leader does not award marks, though may recommend them as a first marker. -->
+<!-- The final awards are made by a second marker examiner. -->
+Marks are awarded in 5 categories, each of which is evaluated out of 20 and which will take account of the following criteria:
+
+**Data, processing access and cleaning**
+
+1. The selection and effective use of input datasets that are large (e.g. covering multiple years), complex (e.g. containing multiple variables) and diverse (e.g. input datasets from multiple sources are used and where appropriate combined in the analysis)
+1. Describe how the data was collected and implications for data quality, and outline how the input datasets were downloaded (with a reproducible example if possible)
+1. Evidence of data cleaning techniques and adding value to the dataset (e.g. by creating new variables or by joining two datasets)
+1. Use of transport planning techniques such as use of buffers, scenarios, origin-destination data analysis geographic desire lines and routing
+
+    **Choice of topic and impact**
+
+1. Topic selection, including originality, availability of datasets related to the topic and relevance to solving transport planning problems
+1. Discuss alternative topics considered and justify the topic
+1. Make specific recommendations for further research or policies that are supported by the data analysis undertaken
+1. Explain the potential impacts of the work
+
+    **Visualization**
+
+1. Creation of figures that are readable and well-described (e.g. with captions and description)
+1. High quality, attractive and innovative visualisations
+1. Description of visualisation techniques, e.g. with reference to particular packages, commands, or the literature on how to produce effective data visualisations
+1. Using visualisation techniques appropriate to the topic and data and interpreting the results correctly (e.g. mentioning potential confounding factors that could account for observed patterns)
+
+    **Understand data science processes, concepts, methods and approaches**
+
+1. Demonstrate understanding of core concepts of data science, such as cleaning and reshaping data (e.g. data aggregation and dimension reduction), combining multiple datasets, joining, exploratory data analysis and visualisation, and how the work could be tranferred to different contexts (e.g. other time periods, cities and countries)
+1. Discuss alternative methods/approaches that could have been used to research the topic (e.g. qualitative research, use of alternative data sources), and consider and their advantages and disadvantages compared with your data science approach
+1. Enable reproducibility, by documenting key parts the code have written as part of the analysis, e.g. with reference to a key code chunk shown in the report and with reference to particular lines of code in the RMarkdown file underpinning the analysis, links to online resources for others wanting to reproduce the analysis for another area, and links to the input data, the report is fully reproducible, including generation of figures where possible and guidance on how to reproduce the results (e.g. provided in a footnote in the report or with a link to code stored in a platform such as GitHub/GitLab)
+1. Discussion of the limitations of the analysis and implications for the findings and how they could be addressed in future research and what type of data collection activities could address those limitations
+
+# ITS/Leeds standard processes
+
+**Coursework submission**:
+
+All coursework should be submitted via the VLE in a .zip file that contains a PDF file of up to 10 pages, and RMarkdown file that generated the PDF file and any other data files or code that generated the results.
+Note: there is a maximum size of 30 MB on the size of the .ZIP file.
+
+Do not put your name on your coursework but do put your ID number and module number on the front cover.
+
+All coursework should be submitted electronically through turnitin on the VLE by the 2pm on the day of the deadline.
+5 marks are deducted for a submission that is made after the 2pm deadline on day one, and any time until 2pm on day 2.
+Thereafter students lose a further 5 marks for each subsequent period of 24 hours.
+If your assessed work is over 14 days late, you
+will receive a mark of 20 on the 20-90 scale or a mark of 0 on the 0-100 scale.
+
+It is your responsibility to make sure that you have allowed enough time to submit your work and that you have a receipt.
+If your receipt does not appear in your inbox straightaway you can go back to the submission area and request a receipt in order to have confirmation that you have submitted your work successfully.
+
+Students with dyslexia Students with dyslexia should request a dyslexia coversheet be attached to their work when handing coursework.
+Coursework Extension Requests Note: Extensions are only granted in
+cases were a student has experienced serious difficulty which has prevented the
+completion of work within the normal time period. This may be due to illness,
+bereavement, family problems or similar.
+They are not granted for minor or
+short term problems, including IT issues
+Should you have any mitigating circumstances which lead to you wanting to
+request an extension to your coursework deadline, or prevent you from attending
+an examination please contact ITS Student Education Service Oce before the
+day of the deadline or examination.
+Mitigating circumstances are significantly disruptive or unexpected events
+which are beyond your control but which might affect your academic performance. If this applies, you should inform your parent school as soon as possible.
+
+**Plagiarism.** Please make sure that you know what constitutes as plagiarism.
+The University defines plagiarism as presenting someone else's work as
+your own, including images and other material as well as text. Do not plagiarise, collude, or cheat in any way.
+All instances of plagiarism will be treated
+severely according to University disciplinary procedures. If you are unsure, check
+the University Library's plagiarism web pages: http://library.leeds.ac.uk/skills-plagiarism
+
+**Referencing.** Referencing is the acknowledgment of the sources you used when producing your piece of work.
+Referencing correctly is important to demonstrate how widely you have researched your subject, to show the basis of your arguments and conclusions, and to avoid plagiarism.
+You need to give the person reading your assignment enough information to nd the sources you have consulted.
+This is done by including citations in your work and providing a list
+of references.
+You are expected to use the University's version of the Harvard referencing style for your assignments for this module.
+Guidance on how to include citations within your text and how to reference die rent types of material using Harvard is provided here: http://library.leeds.ac.uk/skills-referencing. 
+
+I personally recommend using Zotero, a free and open source reference management system.
+Used in sync with writing software such as RStudio with the **citr** package installed can make referencing fun!
+
+**Reading Materials.**
+You are encouraged to read widely and engage with
+the peer-reviewed academic journal articles. Reading lists are not exhaustive:
+just because a paper is not mentioned on the reading list does not mean that it
+is not worthwhile. You are expected to conduct your own searches for relevant
+journal articles.
+
+Library Skills is available to all students and can help
+develop a wide range of academic skills and strategies.
+There are workshops
+available in the Laidlaw Library on lots of die rent topics, including planning
+your essay or dissertation, writing academically and presentation skills. For 1-to-1 support on academic study skills you can talk to a Learning Advisor who
+can help you with developing a wide range of academic skills and strategies on
+topics including academic writing, critical thinking, researching and maths. See: https://library.leeds.ac.uk/skills
+
+# Feedback
+
+Only your final report is assessed formally as part of your MSc grade. However we recommend that you make some notes each week on the topics
+presented, which I am able to read and give feedback on.
+
+You are encouraged to give each other feedback as you work together.
+Please provide feedback to me on my teaching in the following ways:
+- Formally, by completing a module evaluation at the end
+- Informally, by talking to me in and after class. Please come and talk to me and let me know how I am doing and if there are things we
+can improve about the course presentation as we go along.
+
+
+# References

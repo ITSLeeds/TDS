@@ -64,6 +64,41 @@ programming and data science experience in previous professional or
 academic work, in languages such as R or Python, also constitutes
 sufficient pre-requisite knowledge for the course.
 
+## Course reading
+
+Before the course starts you should read key texts on transport data
+science.
+
+**Essential**
+
+-   The [transport
+    chapter](http://geocompr.robinlovelace.net/transport.html)
+    (available free [online](http://geocompr.robinlovelace.net/))
+    (Lovelace, Nowosad, and Muenchow 2019)
+
+**Core**
+
+-   Paper on open source tools for geographic analysis in transport
+    planning (Lovelace 2021)
+-   Introduction to data science with R (available free
+    [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham 2016)
+    <!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
+-   Paper on analysing OSM data in Python (available
+    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
+
+**Optional**
+
+-   Paper on the **stplanr** paper for transport planning (available
+    [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
+    (Lovelace and Ellison 2018)
+-   Book on transport data science in Python (Fox 2018)
+-   Papers describing the use of data science to solve transport
+    planning problems (e.g. Szell et al. 2021;
+    **orozco_datadriven_2020?**)
+    <!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
+-   An academic paper describing the development of a web application
+    for the Department for Transport (**goodman_scenarios_2019?**)
+
 <!-- ## Course locations -->
 <!-- See the image below for the course locations and the following links: -->
 <!-- The lectures will be in the Business School Maurice Keyworth SR (1.15): http://students.leeds.ac.uk/room/1-01-087-2730-01-115 -->
@@ -118,6 +153,66 @@ question please open an issue here (you’ll need a GitHub account):
 <!-- - A Python package for OSM data analysis: https://github.com/gboeing/osmnx -->
 <!-- # Building the website -->
 <!-- To publish the slides and other content online, the following commands were used: -->
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-boeing_osmnx_2017" class="csl-entry">
+
+Boeing, Geoff. 2017. “OSMnx: New Methods for Acquiring, Constructing,
+Analyzing, and Visualizing Complex Street Networks.” *Computers,
+Environment and Urban Systems* 65 (September): 126–39.
+<https://doi.org/gbvjxq>.
+
+</div>
+
+<div id="ref-fox_data_2018" class="csl-entry">
+
+Fox, Charles. 2018. *Data Science for Transport: A Self-Study Guide with
+Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.
+
+</div>
+
+<div id="ref-grolemund_r_2016" class="csl-entry">
+
+Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*.
+O’Reilly Media.
+
+</div>
+
+<div id="ref-lovelace_open_2021" class="csl-entry">
+
+Lovelace, Robin. 2021. “Open Source Tools for Geographic Analysis in
+Transport Planning.” *Journal of Geographical Systems*, January.
+<https://doi.org/ghtnrp>.
+
+</div>
+
+<div id="ref-lovelace_stplanr_2018" class="csl-entry">
+
+Lovelace, Robin, and Richard Ellison. 2018. “Stplanr: A Package for
+Transport Planning.” *The R Journal* 10 (2): 7–23.
+<https://doi.org/gkb499>.
+
+</div>
+
+<div id="ref-lovelace_geocomputation_2019" class="csl-entry">
+
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019.
+*Geocomputation with R*. CRC Press.
+
+</div>
+
+<div id="ref-szell_growing_2021" class="csl-entry">
+
+Szell, Michael, Sayat Mimar, Tyler Perlman, Gourab Ghoshal, and Roberta
+Sinatra. 2021. “Growing Urban Bicycle Networks.” *arXiv:2107.02185
+\[Physics\]*, July. <https://arxiv.org/abs/2107.02185>.
+
+</div>
+
+</div>
 
 [1]  For further guidance on setting-up your computer to run R and
 RStudio for spatial data, see these links, we recommend Chapter 2 of

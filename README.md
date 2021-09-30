@@ -93,11 +93,10 @@ science.
     (Lovelace and Ellison 2018)
 -   Book on transport data science in Python (Fox 2018)
 -   Papers describing the use of data science to solve transport
-    planning problems (e.g. Szell et al. 2021;
-    **orozco_datadriven_2020?**)
+    planning problems (e.g. Szell et al. 2021; Orozco et al. 2020)
     <!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
 -   An academic paper describing the development of a web application
-    for the Department for Transport (**goodman_scenarios_2019?**)
+    for the Department for Transport (Goodman et al. 2019)
 
 <!-- ## Course locations -->
 <!-- See the image below for the course locations and the following links: -->
@@ -174,6 +173,16 @@ Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.
 
 </div>
 
+<div id="ref-goodman_scenarios_2019" class="csl-entry">
+
+Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred,
+Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019.
+“Scenarios of Cycling to School in England, and Associated Health and
+Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” *Journal
+of Transport & Health* 12 (March): 263–78. <https://doi.org/ghdcfx>.
+
+</div>
+
 <div id="ref-grolemund_r_2016" class="csl-entry">
 
 Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*.
@@ -201,6 +210,15 @@ Transport Planning.” *The R Journal* 10 (2): 7–23.
 
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019.
 *Geocomputation with R*. CRC Press.
+
+</div>
+
+<div id="ref-orozco_datadriven_2020" class="csl-entry">
+
+Orozco, Luis, Federico Battiston, Gerardo Iñiguez, and Michael Szell.
+2020. “Data-Driven Strategies for Optimal Bicycle Network Growth.”
+*Royal Society Open Science* 7 (December): 201130.
+<https://doi.org/10.1098/rsos.201130>.
 
 </div>
 

@@ -96,7 +96,6 @@ See the [the course website](https://github.com/ITSLeeds/TDS#prerequisites) web 
 
 You will be expected to have a laptop with recent versions of R and RStudio installed.
 
-
 ## Course reading
 Before the course starts you should read key texts on transport data science.
 

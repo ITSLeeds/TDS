@@ -4,8 +4,8 @@ title: 'TRAN 5340M: Transport Data Science'
 author: Dr Robin Lovelace, r.lovelace atleeds dotac.uk
 output:
   # word_document:
-  bookdown::html_document2:
-  # bookdown::github_document2
+  # bookdown::html_document2:
+  bookdown::github_document2
 bibliography: tds.bib
 ---
 
@@ -191,8 +191,7 @@ This is a 15 credit module that is 100% assessed through coursework.
 The module is 100% examined by a report on a single project that showcases skills you have learned during the course on a real transport dataset.
 The coursework can be a **maximum** of **10 pages** long in total, excluding references.
 Quality is valued over quantity.
-
-The coursework is a 'portfolio' of work that you will build-up over the course of the project.
+The coursework is a 'portfolio' of work the showcases some key skills and techniques that you have learned or mastered during the module.
 
 ## Coursework Format
 

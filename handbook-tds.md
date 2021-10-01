@@ -206,17 +206,19 @@ module pre-requisites.
 You will be expected to have a laptop with recent versions of R and
 RStudio installed.
 
+## 3.1 Course reading
+
 Before the course starts you should read key texts on transport data
 science.
 
-## 3.1 Essential
+**Essential**
 
 -   The [transport
     chapter](http://geocompr.robinlovelace.net/transport.html)
     (available free [online](http://geocompr.robinlovelace.net/))
     (Lovelace, Nowosad, and Muenchow 2019)
 
-## 3.2 Core
+**Core**
 
 -   Paper on open source tools for geographic analysis in transport
     planning (Lovelace 2021)
@@ -226,17 +228,17 @@ science.
 -   Paper on analysing OSM data in Python (available
     [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
 
-## 3.3 Optional
+**Optional**
 
 -   Paper on the **stplanr** paper for transport planning (available
     [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
     (Lovelace and Ellison 2018)
 -   Book on transport data science in Python (Fox 2018)
--   For context, a report on the ‘transport data revolution’ (Transport
-    Systems Catapult 2015)
+-   Papers describing the use of data science to solve transport
+    planning problems (e.g. Szell et al. 2021; Orozco et al. 2020)
     <!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
 -   An academic paper describing the development of a web application
-    for the Department for Transport (**goodman_scenarios_2019?**)
+    for the Department for Transport (Goodman et al. 2019)
 
 <!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
 <!-- Will Transform How We Live, Work and Think. -->
@@ -314,10 +316,9 @@ This is a 15 credit module that is 100% assessed through coursework.
 The module is 100% examined by a report on a single project that
 showcases skills you have learned during the course on a real transport
 dataset. The coursework can be a **maximum** of **10 pages** long in
-total, excluding references. Quality is valued over quantity.
-
-The coursework is a ‘portfolio’ of work that you will build-up over the
-course of the project.
+total, excluding references. Quality is valued over quantity. The
+coursework is a ‘portfolio’ of work the showcases some key skills and
+techniques that you have learned or mastered during the module.
 
 ## 5.2 Coursework Format
 
@@ -575,6 +576,16 @@ Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.
 
 </div>
 
+<div id="ref-goodman_scenarios_2019" class="csl-entry">
+
+Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred,
+Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019.
+“Scenarios of Cycling to School in England, and Associated Health and
+Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” *Journal
+of Transport & Health* 12 (March): 263–78. <https://doi.org/ghdcfx>.
+
+</div>
+
 <div id="ref-graells-garrido_adoptiondriven_2020" class="csl-entry">
 
 Graells-Garrido, Eduardo, Vanessa Peña-Araya, and Loreto Bravo. 2020.
@@ -632,10 +643,20 @@ Technologies* 115 (June): 102640. <https://doi.org/gh6f9s>.
 
 </div>
 
-<div id="ref-transportsystemscatapult_transport_2015" class="csl-entry">
+<div id="ref-orozco_datadriven_2020" class="csl-entry">
 
-Transport Systems Catapult. 2015. “The Transport Data Revolution.”
-Government. Transport Systems Catapult.
+Orozco, Luis, Federico Battiston, Gerardo Iñiguez, and Michael Szell.
+2020. “Data-Driven Strategies for Optimal Bicycle Network Growth.”
+*Royal Society Open Science* 7 (December): 201130.
+<https://doi.org/10.1098/rsos.201130>.
+
+</div>
+
+<div id="ref-szell_growing_2021" class="csl-entry">
+
+Szell, Michael, Sayat Mimar, Tyler Perlman, Gourab Ghoshal, and Roberta
+Sinatra. 2021. “Growing Urban Bicycle Networks.” *arXiv:2107.02185
+\[Physics\]*, July. <https://arxiv.org/abs/2107.02185>.
 
 </div>
 

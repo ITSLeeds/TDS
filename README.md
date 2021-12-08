@@ -42,7 +42,7 @@ RAM. See [Section 1.5 of the online guide Reproducible Road Safety
 Research with
 R](https://itsleeds.github.io/rrsrr/introduction.html#installing-r-and-rstudio)
 for instructions on how to install key packages we will use in the
-module.[1]
+module.[^1]
 
 It is also recommended that you have installed and have experience with
 GitHub Desktop (or command line git on Linux and Mac), Docker, Python,
@@ -66,62 +66,17 @@ sufficient pre-requisite knowledge for the course.
 
 ## Course reading
 
-Before the course starts you should read key texts on transport data
-science.
+See the [handbook](handbook-tds.md).
 
-**Essential**
-
--   The [transport
-    chapter](http://geocompr.robinlovelace.net/transport.html)
-    (available free [online](http://geocompr.robinlovelace.net/))
-    (Lovelace, Nowosad, and Muenchow 2019)
-
-**Core**
-
--   Paper on open source tools for geographic analysis in transport
-    planning (Lovelace 2021)
--   Introduction to data science with R (available free
-    [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham 2016)
-    <!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
--   Paper on analysing OSM data in Python (available
-    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
-
-**Optional**
-
--   Paper on the **stplanr** paper for transport planning (available
-    [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
-    (Lovelace and Ellison 2018)
--   Book on transport data science in Python (Fox 2018)
--   Papers describing the use of data science to solve transport
-    planning problems (e.g. Szell et al. 2021; Orozco et al. 2020)
-    <!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
--   An academic paper describing the development of a web application
-    for the Department for Transport (Goodman et al. 2019)
-
-<!-- ## Course locations -->
-<!-- See the image below for the course locations and the following links: -->
-<!-- The lectures will be in the Business School Maurice Keyworth SR (1.15): http://students.leeds.ac.uk/room/1-01-087-2730-01-115 -->
-<!-- The practicals will be in the West Teaching Lab Cluster (B.16): http://it.leeds.ac.uk/site/custom_scripts/clusters.php -->
-
-# Slides and lectures
-
-Slides can be found online:
-
--   See <https://itsleeds.github.io/TDS/slides/1-intro.html#1> for the
-    introductory slides, for example
--   Videos of the lectures can be found on the University of Leeds’
-    Blackboard system (you must must
-    [register](https://www.leeds.ac.uk/info/101040/applying/86/how_to_apply_for_masters_courses)
-    to courses such as [Data Science and
-    Analytics](https://courses.leeds.ac.uk/i071/data-science-and-analytics-msc)
-    or [Transport Planning and the
-    Environment](https://courses.leeds.ac.uk/a386/transport-planning-and-the-environment-msc)
-    to take the course)
+<!-- # Slides and lectures -->
+<!-- Slides can be found online: -->
+<!-- - See https://itsleeds.github.io/TDS/slides/1-intro.html#1 for the introductory slides, for example -->
+<!-- - Videos of the lectures can be found on the University of Leeds' Blackboard system (you must must [register](https://www.leeds.ac.uk/info/101040/applying/86/how_to_apply_for_masters_courses) to courses such as [Data Science and Analytics](https://courses.leeds.ac.uk/i071/data-science-and-analytics-msc) or [Transport Planning and the Environment](https://courses.leeds.ac.uk/a386/transport-planning-and-the-environment-msc) to take the course) -->
 
 # Assessment (for those doing this as credit-bearing)
 
 -   You will build-up a portfolio of work
--   100% coursework assessed, you will submit by **Friday 14th May**:
+-   100% coursework assessed, you will submit by **Friday 13th May**:
     -   **a pdf document up to 10 pages long with figures, tables,
         references explaining how you used data science to research a
         transport problem**
@@ -155,90 +110,13 @@ question please open an issue here (you’ll need a GitHub account):
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-boeing_osmnx_2017" class="csl-entry">
-
-Boeing, Geoff. 2017. “OSMnx: New Methods for Acquiring, Constructing,
-Analyzing, and Visualizing Complex Street Networks.” *Computers,
-Environment and Urban Systems* 65 (September): 126–39.
-<https://doi.org/gbvjxq>.
-
-</div>
-
-<div id="ref-fox_data_2018" class="csl-entry">
-
-Fox, Charles. 2018. *Data Science for Transport: A Self-Study Guide with
-Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.
-
-</div>
-
-<div id="ref-goodman_scenarios_2019" class="csl-entry">
-
-Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred,
-Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019.
-“Scenarios of Cycling to School in England, and Associated Health and
-Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” *Journal
-of Transport & Health* 12 (March): 263–78. <https://doi.org/ghdcfx>.
-
-</div>
-
-<div id="ref-grolemund_r_2016" class="csl-entry">
-
-Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*.
-O’Reilly Media.
-
-</div>
-
-<div id="ref-lovelace_open_2021" class="csl-entry">
-
-Lovelace, Robin. 2021. “Open Source Tools for Geographic Analysis in
-Transport Planning.” *Journal of Geographical Systems*, January.
-<https://doi.org/ghtnrp>.
-
-</div>
-
-<div id="ref-lovelace_stplanr_2018" class="csl-entry">
-
-Lovelace, Robin, and Richard Ellison. 2018. “Stplanr: A Package for
-Transport Planning.” *The R Journal* 10 (2): 7–23.
-<https://doi.org/gkb499>.
-
-</div>
-
-<div id="ref-lovelace_geocomputation_2019" class="csl-entry">
-
-Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019.
-*Geocomputation with R*. CRC Press.
-
-</div>
-
-<div id="ref-orozco_datadriven_2020" class="csl-entry">
-
-Orozco, Luis, Federico Battiston, Gerardo Iñiguez, and Michael Szell.
-2020. “Data-Driven Strategies for Optimal Bicycle Network Growth.”
-*Royal Society Open Science* 7 (December): 201130.
-<https://doi.org/10.1098/rsos.201130>.
-
-</div>
-
-<div id="ref-szell_growing_2021" class="csl-entry">
-
-Szell, Michael, Sayat Mimar, Tyler Perlman, Gourab Ghoshal, and Roberta
-Sinatra. 2021. “Growing Urban Bicycle Networks.” *arXiv:2107.02185
-\[Physics\]*, July. <https://arxiv.org/abs/2107.02185>.
-
-</div>
-
-</div>
-
-[1]  For further guidance on setting-up your computer to run R and
-RStudio for spatial data, see these links, we recommend Chapter 2 of
-Geocomputation with R (the Prerequisites section contains links for
-installing spatial software on Mac, Linux and Windows):
-<https://geocompr.robinlovelace.net/spatial-class.html> and Chapter 2 of
-the online book *Efficient R Programming*, particularly sections 2.3 and
-2.5, for details on R installation and
-[set-up](https://csgillespie.github.io/efficientR/set-up.html) and the
-[project management
-section](https://csgillespie.github.io/efficientR/set-up.html#project-management).
+[^1]:  For further guidance on setting-up your computer to run R and
+    RStudio for spatial data, see these links, we recommend Chapter 2 of
+    Geocomputation with R (the Prerequisites section contains links for
+    installing spatial software on Mac, Linux and Windows):
+    <https://geocompr.robinlovelace.net/spatial-class.html> and Chapter
+    2 of the online book *Efficient R Programming*, particularly
+    sections 2.3 and 2.5, for details on R installation and
+    [set-up](https://csgillespie.github.io/efficientR/set-up.html) and
+    the [project management
+    section](https://csgillespie.github.io/efficientR/set-up.html#project-management).

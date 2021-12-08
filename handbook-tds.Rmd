@@ -6,10 +6,11 @@ output:
   # word_document:
   # bookdown::html_document2:
   bookdown::github_document2
-bibliography: tds.bib
+bibliography: tds-handbook.bib
 ---
 
 ```{r, include=FALSE}
+rbbt::bbt_update_bib("handbook-tds.Rmd", "tds-handbook.bib")
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -99,25 +100,21 @@ You will be expected to have a laptop with recent versions of R and RStudio inst
 ## Course reading
 Before the course starts you should read key texts on transport data science.
 
-**Essential**
-
-- The [transport chapter](http://geocompr.robinlovelace.net/transport.html) (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2019]
-
 **Core**
 
-- Paper on open source tools for geographic analysis in transport planning [@lovelace_open_2021]
-- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_r_2016]
-<!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
-- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx_2017]
+- The [transport chapter](http://geocompr.robinlovelace.net/transport.html) of Geocompution with R (available free [online](http://geocompr.robinlovelace.net/)) [@lovelace_geocomputation_2019]
+- Introduction to data science with R (available free [online](http://r4ds.had.co.nz/)) [@grolemund_data_2016]
 
 **Optional**
 
-- Paper on the **stplanr** paper for transport planning (available [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html)) [@lovelace_stplanr_2018]
-- Book on transport data science in Python [@fox_data_2018]
+- Paper on open source tools for geographic analysis in transport planning [@lovelace_open_2021]
 - Papers describing the use of data science to solve transport planning problems [e.g. @szell_growing_2021; @orozco_datadriven_2020]
-<!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
-- An academic paper describing the development of a web application for the Department for Transport [@goodman_scenarios_2019]
+- Academic paper describing the development of a web application for the Department for Transport [@goodman_scenarios_2019]
+- Paper on analysing OSM data in Python (available [online](https://arxiv.org/pdf/1611.01890)) [@boeing_osmnx_2017]
 
+
+<!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
+<!-- - Book on transport data science in Python [@fox_data_2018] -->
 <!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
 <!-- Will Transform How We Live, Work and Think. -->
 <!-- John Murray publica- -->

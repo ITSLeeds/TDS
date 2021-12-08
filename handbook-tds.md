@@ -211,35 +211,29 @@ RStudio installed.
 Before the course starts you should read key texts on transport data
 science.
 
-**Essential**
-
--   The [transport
-    chapter](http://geocompr.robinlovelace.net/transport.html)
-    (available free [online](http://geocompr.robinlovelace.net/))
-    (Lovelace, Nowosad, and Muenchow 2019)
-
 **Core**
 
--   Paper on open source tools for geographic analysis in transport
-    planning (Lovelace 2021)
+-   The [transport
+    chapter](http://geocompr.robinlovelace.net/transport.html) of
+    Geocompution with R (available free
+    [online](http://geocompr.robinlovelace.net/)) (Lovelace, Nowosad,
+    and Muenchow 2019)
 -   Introduction to data science with R (available free
     [online](http://r4ds.had.co.nz/)) (Grolemund and Wickham 2016)
-    <!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
--   Paper on analysing OSM data in Python (available
-    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
 
 **Optional**
 
--   Paper on the **stplanr** paper for transport planning (available
-    [online](https://cran.r-project.org/web/packages/stplanr/vignettes/stplanr-paper.html))
-    (Lovelace and Ellison 2018)
--   Book on transport data science in Python (Fox 2018)
+-   Paper on open source tools for geographic analysis in transport
+    planning (Lovelace 2021)
 -   Papers describing the use of data science to solve transport
     planning problems (e.g. Szell et al. 2021; Orozco et al. 2020)
-    <!-- - Seminal text on visualisation (available [online](https://github.com/yowenter/books/blob/master/Design/Edward%20R%20Tufte%20-The%20Visual%20Display%20of%20Quantitative%20Information.pdf), style available in the [tufte](https://github.com/rstudio/tufte) R package) [@tufte_visual_2001] -->
--   An academic paper describing the development of a web application
-    for the Department for Transport (Goodman et al. 2019)
+-   Academic paper describing the development of a web application for
+    the Department for Transport (Goodman et al. 2019)
+-   Paper on analysing OSM data in Python (available
+    [online](https://arxiv.org/pdf/1611.01890)) (Boeing 2017)
 
+<!-- - Introductory textbook introducing machine learning with lucid prose and worked examples in R (available free [online](http://www-bcf.usc.edu/~gareth/ISL/index.html)) [@james_introduction_2013] -->
+<!-- - Book on transport data science in Python [@fox_data_2018] -->
 <!-- Mayer-Schonberger V. and Cukier K. 2013. Big Data: A Revolution That -->
 <!-- Will Transform How We Live, Work and Think. -->
 <!-- John Murray publica- -->
@@ -565,14 +559,7 @@ modelling.
 Boeing, Geoff. 2017. “OSMnx: New Methods for Acquiring, Constructing,
 Analyzing, and Visualizing Complex Street Networks.” *Computers,
 Environment and Urban Systems* 65 (September): 126–39.
-<https://doi.org/gbvjxq>.
-
-</div>
-
-<div id="ref-fox_data_2018" class="csl-entry">
-
-Fox, Charles. 2018. *Data Science for Transport: A Self-Study Guide with
-Computer Exercises*. 1st ed. 2018 edition. New York, NY: Springer.
+<https://doi.org/10.1016/j.compenvurbsys.2017.05.004>.
 
 </div>
 
@@ -582,7 +569,8 @@ Goodman, Anna, Ilan Fridman Rojas, James Woodcock, Rachel Aldred,
 Nikolai Berkoff, Malcolm Morgan, Ali Abbas, and Robin Lovelace. 2019.
 “Scenarios of Cycling to School in England, and Associated Health and
 Carbon Impacts: Application of the ‘Propensity to Cycle Tool’.” *Journal
-of Transport & Health* 12 (March): 263–78. <https://doi.org/ghdcfx>.
+of Transport & Health* 12 (March): 263–78.
+<https://doi.org/10.1016/j.jth.2019.01.008>.
 
 </div>
 
@@ -590,15 +578,15 @@ of Transport & Health* 12 (March): 263–78. <https://doi.org/ghdcfx>.
 
 Graells-Garrido, Eduardo, Vanessa Peña-Araya, and Loreto Bravo. 2020.
 “Adoption-Driven Data Science for Transportation Planning: Methodology,
-Case Study, and Lessons Learned.” *Sustainability* 12 (15): 6001.
+Case Study, and Lessons Learned.” *Sustainability* 12 (15, 15): 6001.
 <https://doi.org/10.3390/su12156001>.
 
 </div>
 
-<div id="ref-grolemund_r_2016" class="csl-entry">
+<div id="ref-grolemund_data_2016" class="csl-entry">
 
-Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*.
-O’Reilly Media.
+Grolemund, Garrett, and Hadley Wickham. 2016. *R for Data Science*. 1
+edition. O’Reilly Media.
 
 </div>
 
@@ -606,15 +594,7 @@ O’Reilly Media.
 
 Lovelace, Robin. 2021. “Open Source Tools for Geographic Analysis in
 Transport Planning.” *Journal of Geographical Systems*, January.
-<https://doi.org/ghtnrp>.
-
-</div>
-
-<div id="ref-lovelace_stplanr_2018" class="csl-entry">
-
-Lovelace, Robin, and Richard Ellison. 2018. “Stplanr: A Package for
-Transport Planning.” *The R Journal* 10 (2): 7–23.
-<https://doi.org/gkb499>.
+<https://doi.org/10.1007/s10109-020-00342-2>.
 
 </div>
 
@@ -622,6 +602,7 @@ Transport Planning.” *The R Journal* 10 (2): 7–23.
 
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019.
 *Geocomputation with R*. CRC Press.
+<https://geocompr.robinlovelace.net/>.
 
 </div>
 
@@ -629,7 +610,8 @@ Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019.
 
 Lovelace, Robin, John Parkin, and Tom Cohen. 2020. “Open Access
 Transport Models: A Leverage Point in Sustainable Transport Planning.”
-*Transport Policy* 97 (October): 47–54. <https://doi.org/ghfsg6>.
+*Transport Policy* 97 (October): 47–54.
+<https://doi.org/10.1016/j.tranpol.2020.06.015>.
 
 </div>
 
@@ -639,7 +621,8 @@ Olmos, Luis E., Maria Sol Tadeo, Dimitris Vlachogiannis, Fahad Alhasoun,
 Xavier Espinet Alegre, Catalina Ochoa, Felipe Targa, and Marta C.
 González. 2020. “A Data Science Framework for Planning the Growth of
 Bicycle Infrastructures.” *Transportation Research Part C: Emerging
-Technologies* 115 (June): 102640. <https://doi.org/gh6f9s>.
+Technologies* 115 (June): 102640.
+<https://doi.org/10.1016/j.trc.2020.102640>.
 
 </div>
 
@@ -655,8 +638,8 @@ Orozco, Luis, Federico Battiston, Gerardo Iñiguez, and Michael Szell.
 <div id="ref-szell_growing_2021" class="csl-entry">
 
 Szell, Michael, Sayat Mimar, Tyler Perlman, Gourab Ghoshal, and Roberta
-Sinatra. 2021. “Growing Urban Bicycle Networks.” *arXiv:2107.02185
-\[Physics\]*, July. <https://arxiv.org/abs/2107.02185>.
+Sinatra. 2021. “Growing Urban Bicycle Networks.” July 5, 2021.
+<http://arxiv.org/abs/2107.02185>.
 
 </div>
 

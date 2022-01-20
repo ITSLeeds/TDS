@@ -33,17 +33,7 @@ Yorkshire. Try typing this URL — otp. saferactive. org (no spaces) —
 during the session into your browser. You should see something like
 this:
 
-<div class="figure" style="text-align: center">
-
-<img src="otp_screenshot.png" alt="\label{fig:otpgui}OTP Web GUI" width="1920" />
-
-<p class="caption">
-
-OTP Web GUI
-
-</p>
-
-</div>
+<img src="otp_screenshot.png" title="OTP Web GUI" alt="OTP Web GUI" style="display: block; margin: auto;" />
 
 **Exercise**
 
@@ -71,20 +61,20 @@ previously. Note that the data frame has 78 columns (only a few of which
 are useful) and 1k rows:
 
 ``` r
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/desire_lines_100.geojson"
 desire_lines = read_sf(u)
 dim(desire_lines)
 ```
 
-    ## [1] 1000   78
+    ## [1] 101  78
 
 **Exercise**
 
 2.  Subset the and overwrite the `desire_lines` data frame with the `=`
     assignment operator so that it only has the following columns:
-    geo\_code1, geo\_code2, all, bicycle, foot, car\_driver, and
-    geometry. You can test the that the operation worked by executing
-    the object name, the result should look like that shown below.
+    geo_code1, geo_code2, all, bicycle, foot, car_driver, and geometry.
+    You can test the that the operation worked by executing the object
+    name, the result should look like that shown below.
 
 3.  Use the `tmap` package to plot the `desire_lines`. Choose different
     ways to visualise the data so you can understand local commuter
@@ -106,15 +96,10 @@ endpoints, so we will extract the points from the lines using the
     commuters and create a new data frame called `desire_top`. Hint
     `?dplyr::slice_max`
 
-<!-- end list -->
-
-    ## # A tibble: 3 x 11
-    ##   geo_code1 geo_code2   all bicycle  foot car_driver    L1    fx    fy    tx
-    ##   <chr>     <chr>     <int>   <int> <int>      <int> <dbl> <dbl> <dbl> <dbl>
-    ## 1 E02006852 E02006875  1240     105   119        402   998 -1.58  53.8 -1.55
-    ## 2 E02006861 E02006875  1198      58   495        130   999 -1.57  53.8 -1.55
-    ## 3 E02002404 E02006875  1159      10   811         96   721 -1.52  53.8 -1.55
-    ## # ... with 1 more variable: ty <dbl>
+``` r
+desire_top = desire_lines %>% 
+  top_n(n = 3, wt = car_driver)
+```
 
 6.  Find the driving routes for `desire_top` and call them `routes_top`
     using `opentripplanner::otp_plan`
@@ -123,19 +108,39 @@ To find the routes for the first three desire lines use the following
 command:
 
 ``` r
-desire_top_origin = as.matrix(desire_top[,c("fx","fy")])
-desire_top_destination = as.matrix(desire_top[,c("tx","ty")])
-routes_top = otp_plan(otpcon,
-                      fromPlace = desire_top_origin,
-                      toPlace = desire_top_destination,
-                      mode = "CAR")
+routes_drive_top = route(
+  l = desire_top,
+  route_fun = otp_plan,
+  mode = "CAR",
+  otpcon = otpcon
+  )
 ```
 
-7.  Plot `routes_top` using the `tmap` package in interactive mode
+7.  Plot `routes_drive_top` using the `tmap` package in interactive
+    mode. You should see something like the image below.
+
+``` r
+tmap_mode("view")
+```
+
+    ## tmap mode set to interactive viewing
+
+``` r
+tm_shape(routes_drive_top) + tm_lines()
+```
+
+![](6-routing_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+tmap_mode("plot")
+```
+
+    ## tmap mode set to plotting
 
 We can also get Isochrones from OTP.
 
 ``` r
+sf::sf_use_s2(FALSE)
 isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870), 
                           mode = c("BICYCLE","TRANSIT"),
                           maxWalkDistance = 3000)
@@ -144,61 +149,17 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
-To save overloading the server, I have pre-generated some extra routes.
+To save overloading the server, we have pre-generated some extra routes.
 Download these routes and load them into R.
 
 ``` r
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/transit_routes.gpkg"
-download.file(url = u, destfile = "transit_routes.gpkg", mode = "wb")
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/driving_routes.gpkg"
-download.file(url = u, destfile = "driving_routes.gpkg", mode = "wb")
-
-routes_drive = read_sf("driving_routes.gpkg")
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/routes_drive.geojson"
+routes_drive = read_sf(u)
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/routes_transit.geojson"
 routes_transit = read_sf("transit_routes.gpkg")
 ```
-
-## Joining Flow data to Routes
-
-Routes are useful, but in Transport Data Science we often want to
-combine routes with flow data (the number of travellers). This next
-section will address how to join datasets together.
-
-If you are unfamiliar with database joins read [this short
-summary](http://www.sql-join.com/sql-join-types)
-
-**Exercise**
-
-8.  Subset the and overwrite the `routes_drive` and `routes_transit`
-    data frame with the `=` assignment operator so that it only has the
-    following columns: fromPlace, toPlace, mode, route\_option,
-    distance, and geom.
-
-9.  Examine these two new datasets `routes_drive` and `routes_transit`
-    plot them on a map, what useful information do they contain what is
-    missing?
-
-10. Create a new dataset called `desire_drive` by joining the `desire`
-    and `routes_drive` datasets. Hint `?dplyr::left_join`
-
-11. Create a new dataset called `desire_transit` by joining the `desire`
-    and `routes_transit` datasets. Hint `?dplyr::left_join`
-
-**Note** that some of the desire lines do not have a route. This is
-usually because the start or endpoint is too far from the road.
-
-12. How many routes are missing for each mode? How could you improve
-    this method, so there were no missing routes?
-
-13. Remove from the `desire_drive` and `desire_transit` data frames rows
-    which represent desire lines that are missing route data.
-
-14. Try to plot the `desire_drive` and `desire_transit` dataset with the
-    `tmap` package. You may find they have lost their `sf` class. In
-    which case use `sf::st_as_sf` to convert them back to sf objects.
-
-![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ## Route Networks
 
@@ -209,13 +170,13 @@ Now we have the number of commuters and their routes, we can produce a
 route network map using `stplanr::overline`.
 
 ``` r
-rnet_drive <- overline(desire_drive, "car_driver")
+rnet_drive <- overline(routes_drive, "car_driver")
 ```
 
 **Exercise** 15. Make a route network for driving and plot it using the
 `tmap` package. How is is different from just plotting the routes?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ## Line Merging
 
@@ -256,7 +217,7 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 17. Plot the transit routes, what do you notice about them?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 **Bonus Exercise**:
 
@@ -298,7 +259,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:03
+    ## Estimated time to calculate centrality for full graph is 00:00:04
 
 ``` r
 centrality = dodgr_centrality(graph)
@@ -312,12 +273,14 @@ clear_dodgr_cache()
 centrality_sf = dodgr_to_sf(centrality)
 ```
 
+    ## old-style crs object detected; please recreate object with a recent sf::st_crs()
+
 **Exercise**
 
 19. Plot the centrality of the Isle of Wight road network. What can
     centrality tell you about a road network?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 20. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
     does this affect the computation time and the results?

@@ -46,7 +46,7 @@ tmap_mode("plot")
 
 We have setup the Multi-modal routing service OpenTripPlanner for West Yorkshire. Try typing this URL --- otp. saferactive. org (no spaces) --- during the session into your browser. You should see something like this:
 
-```{r, echo = FALSE, fig.align='center', fig.cap="\\label{fig:otpgui}OTP Web GUI"}
+```{r otpgui, echo = FALSE, fig.align='center', fig.cap="OTP Web GUI"}
 knitr::include_graphics("otp_screenshot.png")
 ```
 
@@ -87,8 +87,20 @@ If you have connected successfully, then you should get a message "Router exists
 To get some routes, we will start by importing some data we have used previously.
 Note that the data frame has 78 columns (only a few of which are useful) and 1k rows:
 
-```{r, message=FALSE}
+```{r, echo=FALSE, eval=FALSE}
+# filter out desire lines to generate top ~100 not top 1000 for faster processing
 u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
+desire_lines = read_sf(u)
+desire_lines = desire_lines %>% 
+  top_n(n = 100, wt = all)
+sf::st_write(desire_lines, "desire_lines_100.geojson")
+piggyback::pb_upload("desire_lines_100.geojson")
+piggyback::pb_download_url("desire_lines_100.geojson")
+```
+
+
+```{r, message=FALSE}
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/desire_lines_100.geojson"
 desire_lines = read_sf(u)
 dim(desire_lines)
 ```
@@ -119,33 +131,38 @@ This dataset has desire lines, but most routing packages need start and endpoint
 
 5. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`. Hint `?dplyr::slice_max`
 
-```{r, eval=TRUE, echo=FALSE}
-
-desire = bind_cols(desire_lines, line2df(desire_lines))
-desire = st_drop_geometry(desire)
-#desire_top = top_n(desire, 3, all)
-desire_top = slice_max(desire, order_by = all, n = 3)
-desire_top
+```{r, eval=TRUE}
+desire_top = desire_lines %>% 
+  top_n(n = 3, wt = car_driver)
 ```
 
 6. Find the driving routes for `desire_top` and call them `routes_top` using `opentripplanner::otp_plan`
 
 To find the routes for the first three desire lines use the following command:
 
-```{r, eval=FALSE, eval=FALSE, echo=TRUE}
-desire_top_origin = as.matrix(desire_top[,c("fx","fy")])
-desire_top_destination = as.matrix(desire_top[,c("tx","ty")])
-routes_top = otp_plan(otpcon,
-                      fromPlace = desire_top_origin,
-                      toPlace = desire_top_destination,
-                      mode = "CAR")
+```{r, message=FALSE}
+routes_drive_top = route(
+  l = desire_top,
+  route_fun = otp_plan,
+  mode = "CAR",
+  otpcon = otpcon
+  )
 ```
 
-7. Plot `routes_top` using the `tmap` package in interactive mode
+
+7. Plot `routes_drive_top` using the `tmap` package in interactive mode. You should see something like the image below.
+
+```{r}
+tmap_mode("view")
+tm_shape(routes_drive_top) + tm_lines()
+tmap_mode("plot")
+```
+
 
 We can also get Isochrones from OTP.
 
 ```{r, message=FALSE, eval=TRUE}
+sf::sf_use_s2(FALSE)
 isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870), 
                           mode = c("BICYCLE","TRANSIT"),
                           maxWalkDistance = 3000)
@@ -154,7 +171,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-To save overloading the server, I have pre-generated some extra routes. Download these routes and load them into R.
+To save overloading the server, we have pre-generated some extra routes. Download these routes and load them into R.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
 routes_drive = route(
@@ -163,17 +180,34 @@ routes_drive = route(
   mode = "CAR",
   otpcon = otpcon
   )
+sf::write_sf(routes_drive, "routes_drive.geojson")
+piggyback::pb_upload("routes_drive.geojson")
+piggyback::pb_download_url("routes_drive.geojson")
+
+# Sys.time() - 60 * 60 * 24 * 356
+# date_time = structure(1611914661.99076, class = c("POSIXct", "POSIXt"))
+date_time = lubridate::ymd_hms("2021-02-06 17:04:30") 
+routes_transit = route(
+  l = desire_lines,
+  route_fun = otp_plan,
+  mode = c("WALK", "TRANSIT"),
+  otpcon = otpcon,
+  date_time = date_time
+  )
+sf::write_sf(routes_transit, "routes_transit.geojson")
+piggyback::pb_upload("routes_transit.geojson")
+piggyback::pb_download_url("routes_transit.geojson")
   
-routes_dr2 = otp_plan(otpcon,
-                      fromPlace = as.matrix(desire[,c("fx","fy")]),
-                      toPlace = as.matrix(desire[,c("tx","ty")]),
-                      fromID = desire$geo_code1,
-                      toID = desire$geo_code2,
-                      mode = "CAR",
-                      )
-
-
-
+# routes_dr2 = otp_plan(otpcon,
+#                       fromPlace = as.matrix(desire[,c("fx","fy")]),
+#                       toPlace = as.matrix(desire[,c("tx","ty")]),
+#                       fromID = desire$geo_code1,
+#                       toID = desire$geo_code2,
+#                       mode = "CAR",
+#                       )
+# 
+# 
+# 
 routes_transit = otp_plan(otpcon,
                       fromPlace = as.matrix(desire[,c("fx","fy")]),
                       toPlace = as.matrix(desire[,c("tx","ty")]),
@@ -182,73 +216,19 @@ routes_transit = otp_plan(otpcon,
                       mode = c("TRANSIT","WALK"),
                       maxWalkDistance = 1500,
                       ncore = 4)
-write_sf(routes_drive, "driving_routes.gpkg")
-write_sf(routes_transit,"transit_routes.gpkg")
+# write_sf(routes_drive, "driving_routes.gpkg")
+# write_sf(routes_transit,"transit_routes.gpkg")
 ```
 
 ```{r, message=FALSE, eval=TRUE, echo=TRUE}
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/transit_routes.gpkg"
-download.file(url = u, destfile = "transit_routes.gpkg", mode = "wb")
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.20.1/driving_routes.gpkg"
-download.file(url = u, destfile = "driving_routes.gpkg", mode = "wb")
-
-routes_drive = read_sf("driving_routes.gpkg")
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/routes_drive.geojson"
+routes_drive = read_sf(u)
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/routes_transit.geojson"
 routes_transit = read_sf("transit_routes.gpkg")
 ```
 
-## Joining Flow data to Routes
-
-Routes are useful, but in Transport Data Science we often want to combine routes with flow data (the number of travellers). This next section will address how to join datasets together.
-
-If you are unfamiliar with database joins read [this short summary](http://www.sql-join.com/sql-join-types)
-
-**Exercise**
-
-8. Subset the and overwrite the `routes_drive` and `routes_transit` data frame with the `=` assignment operator so that it only has the following columns: fromPlace, toPlace, mode, route_option, distance, and geom.
-
-
-```{r, message=FALSE, echo=FALSE}
-routes_drive = routes_drive %>% 
-  select(fromPlace, toPlace, mode, route_option, distance, geom)
-
-routes_transit = routes_transit %>% 
-  select(fromPlace, toPlace, mode, route_option, distance, geom)
-
-```
-
-9. Examine these two new datasets `routes_drive` and `routes_transit` plot them on a map, what useful information do they contain what is missing?
-
-10. Create a new dataset called `desire_drive` by joining the `desire` and `routes_drive` datasets. Hint `?dplyr::left_join`
-
-11. Create a new dataset called `desire_transit` by joining the `desire` and `routes_transit` datasets. Hint `?dplyr::left_join`
-
-**Note** that some of the desire lines do not have a route. This is usually because the start or endpoint is too far from the road.
-
-12. How many routes are missing for each mode? How could you improve this method, so there were no missing routes?
-
-
-```{r, message=FALSE, eval=TRUE, echo=FALSE}
-desire_drive = left_join(desire, routes_drive, by = c("geo_code1" = "fromPlace", 
-                                                      "geo_code2" = "toPlace"))
-desire_transit = left_join(desire, routes_transit, by = c("geo_code1" = "fromPlace", 
-                                                      "geo_code2" = "toPlace"))
-
-desire_drive = st_as_sf(desire_drive)
-desire_transit = st_as_sf(desire_transit)
-```
-
-13. Remove from the `desire_drive` and `desire_transit` data frames rows which represent desire lines that are missing route data.
-
-```{r, message=FALSE, eval=TRUE, echo=FALSE}
-desire_drive = desire_drive[!is.na(desire_drive$mode),]
-desire_transit = desire_transit[!is.na(desire_transit$mode),]
-
-```
-
-14. Try to plot the `desire_drive` and `desire_transit` dataset with the `tmap` package. You may find they have lost their `sf` class. In which case use `sf::st_as_sf` to convert them back to sf objects.
-
-```{r, message=FALSE, eval=TRUE, echo=FALSE}
-tm_shape(desire_drive) +
+```{r, message=FALSE, eval=FALSE, echo=FALSE}
+tm_shape(routes_drive) +
   tm_lines(lwd = 2, col = "car_driver", palette = "-viridis")
 ```
 
@@ -260,7 +240,7 @@ Route networks (also called flow maps) show transport demand on different parts 
 Now we have the number of commuters and their routes, we can produce a route network map using `stplanr::overline`.
 
 ```{r, message=FALSE, eval=TRUE, echo=TRUE}
-rnet_drive <- overline(desire_drive, "car_driver")
+rnet_drive <- overline(routes_drive, "car_driver")
 ```
 **Exercise**
 15. Make a route network for driving and plot it using the `tmap` package. How is is different from just plotting the routes?

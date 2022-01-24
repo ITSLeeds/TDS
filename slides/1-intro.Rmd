@@ -13,7 +13,7 @@ output:
       highlightLines: true
 bibliography:
   # - references.bib
-  # - ../tds.bib
+  - ../tds.bib
 ---
 
 background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
@@ -37,6 +37,7 @@ my_bib = c(
   ReadBib("../tds.bib")
 )
 library(tmap)
+library(tidyverse)
 ```
 
 
@@ -60,6 +61,12 @@ library(tmap)
 - Expertise in machine learning and routing
 
 --
+
+### Joey Talbot
+
+- PhD in Tropical Ecology
+- Worked for Transport for New Homes
+- Research Fellow in Transport Data Science
 
 <!-- Not working on it 2021 -->
 <!-- ### Richard Connors -->
@@ -90,6 +97,10 @@ library(tmap)
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Milestone passed in my academic career, first online-only delivery of lecture <a href="https://twitter.com/ITSLeeds?ref_src=twsrc%5Etfw">@ITSLeeds</a>, seems to have worked, live code demo with <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a>/<a href="https://twitter.com/rstudio?ref_src=twsrc%5Etfw">@rstudio</a>, recording, chat + all🎉<br><br>Thanks students for &#39;attending&#39; + remote participation, we&#39;ll get through this together.<a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;ref_src=twsrc%5Etfw">#coronavirus</a> <a href="https://t.co/wlAUxmZj5r">pic.twitter.com/wlAUxmZj5r</a></p>&mdash; Robin Lovelace (@robinlovelace) <a href="https://twitter.com/robinlovelace/status/1239930988416897033?ref_src=twsrc%5Etfw">March 17, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
+???
+
+Skip this bit
+
 ---
 
 # Essential reading
@@ -114,6 +125,10 @@ knitr::include_graphics(c(
 
 ## Optional
 
+There are many good resources on data science for transport applications. 
+Do your own research and reading!
+The following are good:
+
 - If you're interested in network analysis/Python, see this paper on analysing OSM data in Python `r Citep(my_bib, "boeing_osmnx_2017", .opts = list(cite.style = "authoryear"))` (available [online](https://arxiv.org/pdf/1611.01890)) 
 
 - If you're interested in the range of transport modelling tools, see `r Citep(my_bib, "lovelace_open_2021", .opts = list(cite.style = "authoryear"))`
@@ -132,10 +147,44 @@ For more references, see the bibliography at [github.com/ITSLeeds/TDS](https://g
 <!-- - Data cleaning and subsetting -->
 <!-- - Accessing data from web sources -->
 - Data visualization
-- Project work
+- Project work + data science in practice
 <!-- - Machine learning -->
 <!-- - Professional issues -->
+
+See timetable online: https://github.com/ITSLeeds/TDS
+
+And an .ics file you can add to your calendar [here](https://teams.microsoft.com/l/team/19%3aRoB5IN0Rdk4rip9Y0bwQ5TyyO0FEeB76ei27wK8XIqM1%40thread.tacv2/conversations?groupId=0ee6f3e6-292e-4139-af39-4399feb06434&tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb).
  
+```{r, message=FALSE}
+timetable = read_csv("../timetable.csv")
+nrow(timetable)
+timetable = timetable %>% 
+  mutate(`Duration (Hours)` = duration) %>% 
+  select(-description, -duration) %>%
+  rename_with(str_to_title)
+```
+
+---
+
+## Timetable: January and February
+
+```{r, echo=FALSE}
+timetable %>% 
+  slice(1:8) %>% 
+  knitr::kable()
+```
+
+---
+
+## Timetable: March to May
+
+```{r, echo=FALSE}
+timetable %>% 
+  slice(9:nrow(timetable)) %>% 
+  knitr::kable()
+```
+
+
 ---
 
 ## Objectives

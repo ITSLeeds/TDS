@@ -84,85 +84,86 @@ otpcon = otp_connect(hostname = ip,
 
 If you have connected successfully, then you should get a message "Router exists."
 
-To get some routes, we will start by importing some data we have used previously.
-Note that the data frame has 78 columns (only a few of which are useful) and 1k rows:
-
-```{r, echo=FALSE, eval=FALSE}
-# filter out desire lines to generate top ~100 not top 1000 for faster processing
-u = "https://github.com/ITSLeeds/TDS/releases/download/0.1/desire_lines.geojson"
-desire_lines = read_sf(u)
-desire_lines = desire_lines %>% 
-  top_n(n = 100, wt = all)
-sf::st_write(desire_lines, "desire_lines_100.geojson")
-piggyback::pb_upload("desire_lines_100.geojson")
-piggyback::pb_download_url("desire_lines_100.geojson")
-```
+To get some routes, we will start by importing some data. The `NTEM_flow.geojson` dataset the contains the top desire lines in West Yorkshire. It was produced from a transport model called the [National Trip End Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national-trip-end-model-ntem) an research from the [University of Leeds](https://github.com/ITSLeeds/NTEM2OD).
 
 
 ```{r, message=FALSE}
-u = "https://github.com/ITSLeeds/TDS/releases/download/22/desire_lines_100.geojson"
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_flow.geojson"
 desire_lines = read_sf(u)
-dim(desire_lines)
+head(desire_lines)
 ```
+We will also download the points that represent the possible start and end point of trips in the model
+
+```{r, message=FALSE}
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_cents.geojson"
+centroids = read_sf(u)
+head(centroids)
+```
+
 
 **Exercise** 
 
-2. Subset the and overwrite the `desire_lines` data frame with the `=` assignment operator so that it only has the following columns: geo_code1, geo_code2, all, bicycle, foot, car_driver, and geometry.
-You can test the that the operation worked by executing the object name, the result should look like that shown below.
+2. Plot the `desire_lines` and `centroids` objects using the `tmap` to show the number of travellers on each desire_line and the locations of all centroids.
 
-```{r, message=FALSE, echo=FALSE}
-desire_lines = desire_lines %>% 
-  select(matches("geo_code"), all:car_driver)
-```
-
-3. Use the `tmap` package to plot the `desire_lines`. Choose different ways to visualise the data so you can understand local commuter travel patterns. See example plot below.
-
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE, echo=TRUE}
+tmap_mode("plot") #Change to view for interactive map
 tm_shape(desire_lines) +
-  tm_lines(lwd = "all", col = "car_driver", scale = 4, palette = "viridis")
+  tm_lines(lwd = "all", col = "all", scale = 4, palette = "viridis")
+```
+
+3. Produce some different maps for each mode of travel in the `desire_lines` dataset. How do the numbers of travellers change for walking, driving, and train travel? See example plot below.
+
+```{r, message=FALSE, echo=FALSE}
+tmap_mode("view") #Change to view for interactive map
+tm_shape(desire_lines) +
+  tm_lines(lwd = "rail", col = "rail", scale = 4, palette = "viridis", style = "jenks")
 ```
 
 
-This dataset has desire lines, but most routing packages need start and endpoints, so we will extract the points from the lines using the `stplanr::line2df` function. An then select the top 3 desire lines.
+This dataset has desire lines, but most routing packages need start and endpoints, so we will match the centroids with the top 3 desire lines.
 
 **Exercise**
 
-4. Produce a data frame called `desire` which contains the coordinates of the start and endpoints of the lines in `desire_lines` but not the geometries. Hint `?stplanr::line2df` and `?dplyr::bind_cols`
+4. Produce a data frame called `desire_top` which contains the top three `desire_lines` for all travellers. Hint `?top_n`
 
-5. Subset out the top three desire lines by the total number of commuters and create a new data frame called `desire_top`. Hint `?dplyr::slice_max`
-
-```{r, eval=TRUE}
+```{r, eval=TRUE, echo=FALSE}
 desire_top = desire_lines %>% 
-  top_n(n = 3, wt = car_driver)
+  top_n(n = 3, wt = all)
 ```
 
-6. Find the driving routes for `desire_top` and call them `routes_top` using `opentripplanner::otp_plan`
+5. Create a dataset called `fromPlace` from the `centroids` dataset where `centroids$Zone_Code` matches `desire_top$from`. Hint `?match()`.
+
+```{r, eval=TRUE, echo=FALSE}
+fromPlace = centroids[match(desire_top$from, centroids$Zone_Code),]
+```
+6. Create a dataset called `toPlace` from the `centroids` dataset where `centroids$Zone_Code` matches `desire_top$to`.
+
+```{r, eval=TRUE, echo=FALSE}
+toPlace = centroids[match(desire_top$to, centroids$Zone_Code),]
+```
+
+6. Find the driving routes between `fromPlace` and `toPlace` call them `routes_drive_top` using `opentripplanner::otp_plan`
 
 To find the routes for the first three desire lines use the following command:
 
 ```{r, message=FALSE}
-routes_drive_top = route(
-  l = desire_top,
-  route_fun = otp_plan,
-  mode = "CAR",
-  otpcon = otpcon
-  )
+routes_drive_top = otp_plan(otpcon = otpcon,
+                            fromPlace = fromPlace,
+                            toPlace = toPlace,
+                            mode = "CAR")
 ```
 
-
-7. Plot `routes_drive_top` using the `tmap` package in interactive mode. You should see something like the image below.
+7. Plot `routes_drive_top` using the `tmap` package mode. You should see something like the image below.
 
 ```{r}
-tmap_mode("view")
-tm_shape(routes_drive_top) + tm_lines()
 tmap_mode("plot")
+tm_shape(routes_drive_top) + tm_lines()
 ```
 
 
 We can also get Isochrones from OTP.
 
 ```{r, message=FALSE, eval=TRUE}
-sf::sf_use_s2(FALSE)
 isochrone = otp_isochrone(otpcon, fromPlace = c(-1.558655, 53.807870), 
                           mode = c("BICYCLE","TRANSIT"),
                           maxWalkDistance = 3000)
@@ -174,50 +175,29 @@ tm_shape(isochrone) +
 To save overloading the server, we have pre-generated some extra routes. Download these routes and load them into R.
 
 ```{r, message=FALSE, eval=FALSE, echo=FALSE}
-routes_drive = route(
-  l = desire_lines,
-  route_fun = otp_plan,
-  mode = "CAR",
-  otpcon = otpcon
-  )
+fromPlace = centroids[match(desire_lines$from, centroids$Zone_Code),]
+toPlace = centroids[match(desire_lines$to, centroids$Zone_Code),]
+routes_drive = otp_plan(otpcon = otpcon,
+                            fromPlace = fromPlace,
+                            toPlace = toPlace,
+                            mode = "CAR",
+                            ncores = 20)
+
 sf::write_sf(routes_drive, "routes_drive.geojson")
 piggyback::pb_upload("routes_drive.geojson")
 piggyback::pb_download_url("routes_drive.geojson")
 
-# Sys.time() - 60 * 60 * 24 * 356
-# date_time = structure(1611914661.99076, class = c("POSIXct", "POSIXt"))
-date_time = lubridate::ymd_hms("2021-02-06 17:04:30") 
-routes_transit = route(
-  l = desire_lines,
-  route_fun = otp_plan,
-  mode = c("WALK", "TRANSIT"),
-  otpcon = otpcon,
-  date_time = date_time
-  )
+date_time = lubridate::ymd_hms("2022-01-25 09:00:00") 
+routes_transit = otp_plan(otpcon = otpcon,
+                            fromPlace = fromPlace,
+                            toPlace = toPlace,
+                            mode = c("WALK","TRANSIT"),
+                            date_time = date_time,
+                            ncores = 20,
+                            maxWalkDistance = 2000)
 sf::write_sf(routes_transit, "routes_transit.geojson")
 piggyback::pb_upload("routes_transit.geojson")
 piggyback::pb_download_url("routes_transit.geojson")
-  
-# routes_dr2 = otp_plan(otpcon,
-#                       fromPlace = as.matrix(desire[,c("fx","fy")]),
-#                       toPlace = as.matrix(desire[,c("tx","ty")]),
-#                       fromID = desire$geo_code1,
-#                       toID = desire$geo_code2,
-#                       mode = "CAR",
-#                       )
-# 
-# 
-# 
-routes_transit = otp_plan(otpcon,
-                      fromPlace = as.matrix(desire[,c("fx","fy")]),
-                      toPlace = as.matrix(desire[,c("tx","ty")]),
-                      fromID = desire$geo_code1,
-                      toID = desire$geo_code2,
-                      mode = c("TRANSIT","WALK"),
-                      maxWalkDistance = 1500,
-                      ncore = 4)
-# write_sf(routes_drive, "driving_routes.gpkg")
-# write_sf(routes_transit,"transit_routes.gpkg")
 ```
 
 ```{r, message=FALSE, eval=TRUE, echo=TRUE}

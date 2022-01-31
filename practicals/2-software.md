@@ -1,26 +1,20 @@
 Software for transport data science
 ================
 Robin Lovelace
-University of Leeds,
-2021-02-03<br/><img class="img-footer" alt="" src="http://www.stephanehess.me.uk/images/picture3.png">
+University of Leeds
+<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
 
 ## Agenda
 
--   Introduction to the module and team - 30 min
-    <!-- Each person to say  1) their name and where they are based 2) why they took the module and 3) their level of knowledge of coding. -->
+<!-- - Introduction to the module and team - 30 min -->
+<!-- Each person to say  1) their name and where they are based 2) why they took the module and 3) their level of knowledge of coding. -->
 
--   Live demo: getting set-up with RStudio - 25 minutes
-
--   5 minute break
-
--   Working together - Visualising transport data in the stplanr
-    package - 30 minutes
-
--   Working alone - running the code in Sections 12.1 to 12.4 the
-    Transport chapter of Geocomputation with R and answering the
-    questions for the Bristol dataset - 1 hr
-
--   Bonus: Work through [Chapter
+1.  Project set-up and using RStudio - 30 minutes
+2.  Getting started with transport data in the stplanr package - 30
+    minutes
+3.  Working alone through the questions on processing OD data - 1 hr
+    <!-- running the code in Sections 12.1 to 12.4 the Transport chapter of Geocomputation with R and answering the questions for the Bristol dataset  - 1 hr  -->
+4.  Bonus: Work through [Chapter
     5](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of
     R for Data Science
 
@@ -28,7 +22,7 @@ University of Leeds,
 
 You need to have a number of packages installed and loaded. Install the
 packages by typing in the following commands into RStudio (you do not
-need to add the comments after the `#` symbol):[1]
+need to add the comments after the `#` symbol):[^1]
 
 ``` r
 install.packages("remotes")
@@ -51,25 +45,25 @@ Load the tidyverse package as follows:
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 
-    ## ✔ ggplot2 3.3.3     ✔ purrr   0.3.4
-    ## ✔ tibble  3.0.6     ✔ dplyr   1.0.3
-    ## ✔ tidyr   1.1.2     ✔ stringr 1.4.0
-    ## ✔ readr   1.4.0     ✔ forcats 0.5.1
+    ## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+    ## ✔ tibble  3.1.6     ✔ dplyr   1.0.7
+    ## ✔ tidyr   1.1.4     ✔ stringr 1.4.0
+    ## ✔ readr   2.1.1     ✔ forcats 0.5.1
 
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
-## Project set-up and tidyverse testing (30 minutes)
+# 1 Project set-up and tidyverse testing
 
--   Check your packages are up-to-date with `update.packages()`
--   Create an RStudio project with an appropriate name for this module
+1.  Check your packages are up1.to-date with `update.packages()`
+2.  Create an RStudio project with an appropriate name for this module
     (e.g. `TDSmodule`)
--   Create appropriate files for code, data and anything else
+3.  Create appropriate files for code, data and anything else
     (e.g. images)
--   Create a script called `learning-tidyverse.R`, e.g. with the
+4.  Create a script called `learning-tidyverse.R`, e.g. with the
     following command:
 
 ``` r
@@ -77,9 +71,9 @@ dir.create("code") #
 file.edit("code/learning-tidyverse.R")
 ```
 
-## Getting started with transport data
+# 2 Getting started with transport data
 
-We’re going to start by looking at the main types of transport data:[2]
+We’re going to start by looking at the main types of transport data:[^2]
 
 In this section we will look at basic transport data in the R package
 **stplanr**.
@@ -89,10 +83,16 @@ Attach the `tidyverse`, `stplanr` and `sf` packages as follows:
 ``` r
 library(tidyverse)
 library(stplanr)
+```
+
+    ## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.10.1-CAPI-1.16.0
+    ## and GEOS at installation 3.9.1-CAPI-1.14.2differ
+
+``` r
 library(sf)
 ```
 
-    ## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 7.0.0
+    ## Linking to GEOS 3.10.1, GDAL 3.4.0, PROJ 8.2.0; sf_use_s2() is TRUE
 
 The `stplanr` package contains some data that we can use to demonstrate
 principles in Data Science, illustrated in the Figure below. Source:
@@ -161,7 +161,7 @@ Exercises
 6.  Bonus: use the function `od2line()` in to convert the OD dataset
     into geographic desire lines
 
-## Processing origin-destination data in Bristol
+# 3 Processing origin-destination data in Bristol
 
 This section is based on Chapter 12 of Geocomputation with R:
 <https://geocompr.robinlovelace.net/transport.html>
@@ -178,7 +178,7 @@ od = spDataLarge::bristol_od
 head(od)
 ```
 
-    ## # A tibble: 6 x 7
+    ## # A tibble: 6 × 7
     ##   o         d           all bicycle  foot car_driver train
     ##   <chr>     <chr>     <dbl>   <dbl> <dbl>      <dbl> <dbl>
     ## 1 E02002985 E02002985   209       5   127         59     0
@@ -209,11 +209,6 @@ mapview::mapview(bristol_sf)
 ``` r
 bristol_buffer_10km = geo_buffer(bristol_sf, dist = 10000)
 zones_central = zones[bristol_buffer_10km, , op = sf::st_within]
-```
-
-    ## although coordinates are longitude/latitude, st_within assumes that they are planar
-
-``` r
 # visualise
 mapview::mapview(zones_central)
 ```
@@ -298,59 +293,10 @@ tm_shape(desire_lines) +
 
 ![](2-software_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
-## Reading-in and processing basic data
-
-Read-in coffee data:
-
-``` r
-u = paste0(
-  "https://github.com/ITSLeeds/TDS/",
-  "raw/master/sample-data/everyone.csv"
-  )
-d = read_csv(u)
-```
-
-    ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## cols(
-    ##   person_name = col_character(),
-    ##   n_coffee = col_double(),
-    ##   like_bus_travel = col_logical()
-    ## )
-
-Create a new variable called ‘n\_coffee\_yr’ with the following command:
-
-``` r
-d$n_coffee_yr = d$n_coffee * 52
-```
-
-Find the mean number of cups of coffee people drink per year (and the
-total)
-
-Note: the same result can be achieved as follows:
-
-``` r
-d_updated = mutate(d, n_coffee_yr = n_coffee * 52)
-
-# or 
-d_updated = d %>% 
-  mutate(n_coffee_yr = n_coffee * 52)
-```
-
--   Which do you prefer?
-
--   Filter-out only those who travel by bus
-
--   Bonus: Create a new dataset that keeps only the `person_name` and
-    `n_coffee_yr` variables (hint: use the `select()` function)
-
--   Bonus: do those who travel by bus drink more or less coffee than
-    those who do not?
-
-## Processing medium sized data and basic visualisation (30 minutes)
+# 4 Processing medium sized data and basic visualisation
 
 This section will use content from Chapter 5 of the R for Data Science
-book (**grolemund\_data\_2016?**).
+book (**grolemund_data_2016?**).
 
 -   Read [section
     5.1](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter)
@@ -398,7 +344,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 -   Add transparency so it looks like this (hint: use `alpha =` in the
     `geom_point()` function call):
@@ -407,7 +353,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 -   Add a colour for each carrier, so it looks something like this:
 
@@ -418,7 +364,7 @@ ggplot(f) +
 
     ## Warning: Removed 2117 rows containing missing values (geom_point).
 
-![](2-software_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 -   Bonus 1: find the average air time of those flights with a distance
     of 1000 to 2000 miles
@@ -434,9 +380,9 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](2-software_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](2-software_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
-## Homework
+# 5 Homework
 
 1.  create a reproducible document
 
@@ -469,8 +415,8 @@ file.edit("learning-tidyverse.Rmd")
 3.  Create an RMarkdown file containing reproducible code outlining what
     you learned today
 
-4.  Identify a dataset you would like to work with for the practical
-    next week.
+4.  Try mapping OD data for West Yorkshire in preparation for the next
+    practical on routing
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
@@ -483,10 +429,10 @@ O’Reilly Media.
 
 </div>
 
-[1]  Note: if you want to install the development version of a package
-from GitHub, you can do so. Try, for example, running the following
-command: `remotes::install_github("ITSLeeds/pct")`
+[^1]:  Note: if you want to install the development version of a package
+    from GitHub, you can do so. Try, for example, running the following
+    command: `remotes::install_github("ITSLeeds/pct")`
 
-[2]  Note: if you want to get zone data for a different region you can
-do so, e.g. with:
-`zones = sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/z.geojson")`
+[^2]:  Note: if you want to get zone data for a different region you can
+    do so, e.g. with:
+    `zones = sf::read_sf("https://github.com/npct/pct-outputs-regional-notR/raw/master/commute/msoa/west-yorkshire/z.geojson")`

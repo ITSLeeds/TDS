@@ -3,22 +3,23 @@ title: "Software for transport data science"
 subtitle: '<br/>Practical'
 author: "Robin Lovelace"
 date: 'University of Leeds `r # Sys.Date()()`<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">'
-output: github_document
+output:
+  github_document:
+    number_sections: true
 bibliography: ../tds.bib
 ---
 
-## Agenda
+## Agenda {-}
 
-- Introduction to the module and team - 30 min
+<!-- - Introduction to the module and team - 30 min -->
 <!-- Each person to say  1) their name and where they are based 2) why they took the module and 3) their level of knowledge of coding. -->
-- Live demo: getting set-up with RStudio - 25 minutes
-- 5 minute break
+1. Project set-up and using RStudio - 30 minutes
+1. Getting started with transport data in the stplanr package - 30 minutes
+1. Working alone through the questions on processing OD data - 1 hr
+<!-- running the code in Sections 12.1 to 12.4 the Transport chapter of Geocomputation with R and answering the questions for the Bristol dataset  - 1 hr  -->
+1. Bonus: Work through [Chapter 5](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science
 
-- Working together - Visualising transport data in the stplanr package - 30 minutes
-- Working alone - running the code in Sections 12.1 to 12.4 the Transport chapter of Geocomputation with R and answering the questions for the Bristol dataset  - 1 hr 
-- Bonus: Work through [Chapter 5](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science
-
-## Pre-requisites
+## Pre-requisites {-}
 
 You need to have a number of packages installed and loaded.
 Install the packages by typing in the following commands into RStudio (you do not need to add the comments after the `#` symbol):^[
@@ -47,19 +48,19 @@ Load the tidyverse package as follows:
 library(tidyverse)
 ```
 
-## Project set-up and tidyverse testing (30 minutes)
+# Project set-up and tidyverse testing
 
-- Check your packages are up-to-date with `update.packages()`
-- Create an RStudio project with an appropriate name for this module (e.g. `TDSmodule`)
-- Create appropriate files for code, data and anything else (e.g. images)
-- Create a script called `learning-tidyverse.R`, e.g. with the following command:
+1. Check your packages are up1.to-date with `update.packages()`
+1. Create an RStudio project with an appropriate name for this module (e.g. `TDSmodule`)
+1. Create appropriate files for code, data and anything else (e.g. images)
+1. Create a script called `learning-tidyverse.R`, e.g. with the following command:
 
 ```r
 dir.create("code") # 
 file.edit("code/learning-tidyverse.R")
 ```
 
-## Getting started with transport data
+# Getting started with transport data
 
 We're going to start by looking at the main types of transport data:^[
 Note: if you want to get zone data for a different region you can do so, e.g. with: 
@@ -178,7 +179,7 @@ desire_lines = od2line(flow = od_data, zones)
 plot(desire_lines)
 ```
 
-## Processing origin-destination data in Bristol
+# Processing origin-destination data in Bristol
 
 This section is based on Chapter 12 of Geocomputation with R: https://geocompr.robinlovelace.net/transport.html
 
@@ -277,48 +278,7 @@ tm_shape(desire_lines) +
 
 ```
 
-
-
-
-## Reading-in and processing basic data
-
-Read-in coffee data:
-
-```{r}
-u = paste0(
-  "https://github.com/ITSLeeds/TDS/",
-  "raw/master/sample-data/everyone.csv"
-  )
-d = read_csv(u)
-```
-
-Create a new variable called 'n_coffee_yr' with the following command:
-
-```{r}
-d$n_coffee_yr = d$n_coffee * 52
-```
-
-Find the mean number of cups of coffee people drink per year (and the total)
-
-Note: the same result can be achieved as follows:
-
-```{r}
-d_updated = mutate(d, n_coffee_yr = n_coffee * 52)
-
-# or 
-d_updated = d %>% 
-  mutate(n_coffee_yr = n_coffee * 52)
-```
-
-- Which do you prefer?
-
-- Filter-out only those who travel by bus
-
-- Bonus: Create a new dataset that keeps only the `person_name` and `n_coffee_yr` variables (hint: use the `select()` function)
-
-- Bonus: do those who travel by bus drink more or less coffee than those who do not?
-
-## Processing medium sized data and basic visualisation (30 minutes)
+# Processing medium sized data and basic visualisation
 
 This section will use content from Chapter 5 of the R for Data Science book [@grolemund_data_2016].
 
@@ -389,7 +349,7 @@ ggplot(f) +
   geom_line(aes(pred, distance))
 ```
 
-## Homework
+# Homework
 
 1) create a reproducible document 
 
@@ -452,4 +412,4 @@ nrow(result2)
 
 3) Create an RMarkdown file containing reproducible code outlining what you learned today
 
-4) Identify a dataset you would like to work with for the practical next week.
+4) Try mapping OD data for West Yorkshire in preparation for the next practical on routing

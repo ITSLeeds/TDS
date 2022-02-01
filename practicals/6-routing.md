@@ -1,6 +1,6 @@
 Routing
 ================
-Malcolm Morgan
+Malcolm Morgan and Robin Lovelace
 University of Leeds
 <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
 
@@ -12,6 +12,29 @@ Go](https://itsleeds.github.io/go/) to do an easy setup of your computer
 ``` r
 source("https://git.io/JvGjF")
 ```
+
+Note: for this practical to work you need to have installed a recent
+version of `stplanr` (at least version 0.8.7). Check the version you
+have installed with the following command:
+
+``` r
+packageVersion("stplanr")
+```
+
+    ## [1] '0.8.7'
+
+Install the latest CRAN version with the following commands:
+
+``` r
+install.packages("remotes") # install the remotes package
+```
+
+``` r
+remotes::install_cran("stplanr") # install the stplanr package if not up-to-date
+```
+
+    ## Skipping install of 'stplanr' from a cran remote, the SHA1 (0.8.7) has not changed since last install.
+    ##   Use `force = TRUE` to force installation
 
 The packages we will be using are:
 
@@ -122,13 +145,13 @@ tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "all", scale = 4, palette = "viridis")
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 3.  Produce some different maps for each mode of travel in the
     `desire_lines` dataset. How do the numbers of travellers change for
     walking, driving, and train travel? See example plot below.
 
-![](6-routing_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will match the centroids with the top 3 desire lines.
@@ -148,7 +171,7 @@ command:
 routes_drive_top = route(l = desire_top, route_fun = otp_plan, otpcon = otpcon, mode = "CAR")
 ```
 
-7.  Plot `routes_drive_top` using the `tmap` package mode. You should
+6.  Plot `routes_drive_top` using the `tmap` package mode. You should
     see something like the image below.
 
 ``` r
@@ -161,7 +184,7 @@ tmap_mode("plot")
 tm_shape(routes_drive_top) + tm_lines()
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 We can also get Isochrones from OTP.
 
@@ -174,7 +197,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 To save overloading the server, we have pre-generated some extra routes.
 Download these routes and load them into R.
@@ -190,11 +213,11 @@ We will now join the number of drivers onto the driving routes.
 
 **Exercise**
 
-8.  Create a dataset called `n_driver` from `desire_lines` which only
+7.  Create a dataset called `n_driver` from `desire_lines` which only
     have the columns `from` `to` and `drive`. Hint ?dplyr::select and
     ?sf::st_drop_geometry
 
-9.  Join the `n_driver` data onto the `routes_drive` data by linking
+8.  Join the `n_driver` data onto the `routes_drive` data by linking
     `fromPlace = from` and `toPlace = to`. Hint ?dplyr::left_join.
 
 ## Route Networks
@@ -209,10 +232,10 @@ route network map using `stplanr::overline`.
 rnet_drive <- overline(routes_drive, "drive")
 ```
 
-**Exercise** 15. Make a route network for driving and plot it using the
+**Exercise** 9. Make a route network for driving and plot it using the
 `tmap` package. How is is different from just plotting the routes?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 ## Line Merging
 
@@ -224,7 +247,7 @@ Let’s suppose you want a single line for each route.
 
 **Exercise**
 
-16. Filter the `routes_transit` to contain only one route option per
+10. Filter the `routes_transit` to contain only one route option per
     origin-destination pair and only the columns `fromPlace` `toPlace`
     `distance` `geometry`
 
@@ -252,13 +275,13 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 **Exercise**
 
-17. Plot the transit routes, what do you notice about them?
+11. Plot the transit routes, what do you notice about them?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 **Bonus Exercise**:
 
-18. Redo exercise 16 but make sure you always select the fastest option.
+12. Redo exercise 16 but make sure you always select the fastest option.
     You may need to re-download the `routes_transit` data.
 
 ## Network Analysis (dodgr)
@@ -316,17 +339,17 @@ centrality_sf = dodgr_to_sf(centrality)
 
 **Exercise**
 
-19. Plot the centrality of the Isle of Wight road network. What can
+13. Plot the centrality of the Isle of Wight road network. What can
     centrality tell you about a road network?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
-20. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
+14. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
     does this affect the computation time and the results?
 
 **Bonus Exercises**
 
-21. Work though the OpenTripPlanner vignettes [Getting
+15. Work though the OpenTripPlanner vignettes [Getting
     Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html)
     and [Advanced
     Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html)
@@ -338,5 +361,5 @@ See the
 for more details. If you can’t install Java 8 try some of the examples
 in the vignettes but modify them for West Yorkshire.
 
-22. Read the `dodgr`
+16. Read the `dodgr`
     [vignettes](https://atfutures.github.io/dodgr/articles/index.html)

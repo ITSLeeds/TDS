@@ -1,7 +1,7 @@
 ---
 title: "Routing"
 subtitle: '<br/>Practical'
-author: "Malcolm Morgan"
+author: "Malcolm Morgan and Robin Lovelace"
 date: 'University of Leeds `r # Sys.Date()()`<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">'
 output: github_document
 bibliography: ../tds.bib
@@ -27,6 +27,30 @@ If you have not installed the package before hand. You can use [ITS Go](https://
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, echo=TRUE}
 source("https://git.io/JvGjF")
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# also works:
+source("https://tinyurl.com/itsgo")
+```
+
+
+Note: for this practical to work you need to have installed a recent version of `stplanr` (at least version 0.8.7).
+Check the version you have installed with the following command:
+
+```{r}
+packageVersion("stplanr")
+```
+
+Install the latest CRAN version with the following commands:
+
+```{r, eval=FALSE}
+install.packages("remotes") # install the remotes package
+```
+
+
+```{r}
+remotes::install_cran("stplanr") # install the stplanr package if not up-to-date
 ```
 
 The packages we will be using are:

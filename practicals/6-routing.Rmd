@@ -270,6 +270,7 @@ rnet_drive <- overline(routes_drive, "drive")
 ```
 
 **Exercise**
+
 9. Make a route network for driving and plot it using the `tmap` package. How is is different from just plotting the routes?
 
 ```{r, message=FALSE, eval=TRUE, echo=FALSE}

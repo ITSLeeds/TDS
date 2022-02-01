@@ -228,7 +228,7 @@ routes_transit = route(
 #                             ncores = 20,
 #                             maxWalkDistance = 2000)
 summary(st_is_valid(routes_transit))
-routes_transit <- st_make_valid(routes_transit)
+routes_transit = st_make_valid(routes_transit)
 sf::write_sf(routes_transit, "routes_transit.geojson", delete_dsn = TRUE)
 piggyback::pb_upload("routes_transit.geojson")
 ```
@@ -266,7 +266,7 @@ Route networks (also called flow maps) show transport demand on different parts 
 Now we have the number of drivers and their routes, we can produce a route network map using `stplanr::overline`.
 
 ```{r, message=FALSE, eval=TRUE, echo=TRUE}
-rnet_drive <- overline(routes_drive, "drive")
+rnet_drive = overline(routes_drive, "drive")
 ```
 
 **Exercise**

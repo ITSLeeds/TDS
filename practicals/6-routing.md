@@ -29,6 +29,13 @@ Install the latest CRAN version with the following commands:
 install.packages("remotes") # install the remotes package
 ```
 
+If the installation fails, install `terra` with the [following
+command](https://github.com/rspatial/terra/).
+
+``` r
+install.packages('terra', repos='https://rspatial.r-universe.dev')
+```
+
 ``` r
 remotes::install_cran("stplanr") # install the stplanr package if not up-to-date
 ```
@@ -145,13 +152,13 @@ tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "all", scale = 4, palette = "viridis")
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 3.  Produce some different maps for each mode of travel in the
     `desire_lines` dataset. How do the numbers of travellers change for
     walking, driving, and train travel? See example plot below.
 
-![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will match the centroids with the top 3 desire lines.
@@ -184,7 +191,7 @@ tmap_mode("plot")
 tm_shape(routes_drive_top) + tm_lines()
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 We can also get Isochrones from OTP.
 
@@ -197,7 +204,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 To save overloading the server, we have pre-generated some extra routes.
 Download these routes and load them into R.
@@ -229,13 +236,15 @@ Now we have the number of drivers and their routes, we can produce a
 route network map using `stplanr::overline`.
 
 ``` r
-rnet_drive <- overline(routes_drive, "drive")
+rnet_drive = overline(routes_drive, "drive")
 ```
 
-**Exercise** 9. Make a route network for driving and plot it using the
-`tmap` package. How is is different from just plotting the routes?
+**Exercise**
 
-![](6-routing_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+9.  Make a route network for driving and plot it using the `tmap`
+    package. How is is different from just plotting the routes?
+
+![](6-routing_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ## Line Merging
 
@@ -277,7 +286,7 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 11. Plot the transit routes, what do you notice about them?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 **Bonus Exercise**:
 
@@ -321,7 +330,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:03
+    ## Estimated time to calculate centrality for full graph is 00:00:04
 
 ``` r
 centrality = dodgr_centrality(graph)
@@ -342,7 +351,7 @@ centrality_sf = dodgr_to_sf(centrality)
 13. Plot the centrality of the Isle of Wight road network. What can
     centrality tell you about a road network?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 14. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
     does this affect the computation time and the results?

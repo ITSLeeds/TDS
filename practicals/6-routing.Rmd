@@ -48,6 +48,12 @@ Install the latest CRAN version with the following commands:
 install.packages("remotes") # install the remotes package
 ```
 
+If the installation fails, install `terra` with the [following command](https://github.com/rspatial/terra/).
+
+```{r, eval=FALSE}
+install.packages('terra', repos='https://rspatial.r-universe.dev')
+```
+
 
 ```{r}
 remotes::install_cran("stplanr") # install the stplanr package if not up-to-date

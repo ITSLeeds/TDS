@@ -10,18 +10,48 @@ If you have not installed the package before hand. You can use [ITS
 Go](https://itsleeds.github.io/go/) to do an easy setup of your computer
 
 ``` r
-source("https://tinyurl.com/itsgo")
+source("https://git.io/JvGjF")
 ```
+
+Note: for this practical to work you need to have installed a recent
+version of `stplanr` (at least version 0.8.7). Check the version you
+have installed with the following command:
+
+``` r
+packageVersion("stplanr")
+```
+
+    ## [1] '0.8.7'
+
+Install the latest CRAN version with the following commands:
+
+``` r
+install.packages("remotes") # install the remotes package
+```
+
+If the installation fails, install `terra` with the [following
+command](https://github.com/rspatial/terra/).
+
+``` r
+install.packages('terra', repos='https://rspatial.r-universe.dev')
+```
+
+``` r
+remotes::install_cran("stplanr") # install the stplanr package if not up-to-date
+```
+
+    ## Skipping install of 'stplanr' from a cran remote, the SHA1 (0.8.7) has not changed since last install.
+    ##   Use `force = TRUE` to force installation
 
 The packages we will be using are:
 
 ``` r
-library(sf) # Spatial data functions
-library(tidyverse) # General data manipulation
-library(stplanr) # General transport data functions
-library(dodgr) # Local routing and network analysis
+library(sf)         # Spatial data functions
+library(tidyverse)  # General data manipulation
+library(stplanr)    # General transport data functions
+library(dodgr)      # Local routing and network analysis
 library(opentripplanner) # Connect to and use OpenTripPlanner
-library(tmap) # Make maps
+library(tmap)       # Make maps
 library(osmextract) # Download and import OpenStreetMap data
 tmap_mode("plot")
 ```
@@ -33,7 +63,7 @@ Yorkshire. Try typing this URL — otp. saferactive. org (no spaces) —
 during the session into your browser. You should see something like
 this:
 
-<img src="otp_screenshot.png" title="OTP Web GUI" alt="OTP Web GUI" style="display: block; margin: auto;" />
+<img src="https://github.com/ITSLeeds/TDS/blob/master/practicals/otp_screenshot.png?raw=true" title="OTP Web GUI" alt="OTP Web GUI" style="display: block; margin: auto;" />
 
 **Exercise**
 
@@ -64,8 +94,51 @@ Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national
 an research from the [University of
 Leeds](https://github.com/ITSLeeds/NTEM2OD).
 
+``` r
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_flow.geojson"
+desire_lines = read_sf(u)
+head(desire_lines)
+```
+
+    ## Simple feature collection with 6 features and 9 fields
+    ## Geometry type: LINESTRING
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -1.547 ymin: 53.7065 xmax: -1.2403 ymax: 53.7979
+    ## Geodetic CRS:  WGS 84
+    ## # A tibble: 6 × 10
+    ##   from      to          all drive passenger  walk cycle  rail   bus
+    ##   <chr>     <chr>     <dbl> <dbl>     <dbl> <dbl> <dbl> <dbl> <dbl>
+    ## 1 E02002444 E02002443  1374    55        24  1121     0     0   174
+    ## 2 E02002443 E02002445  1189   100        44   868     4     0   173
+    ## 3 E02002442 E02002440  1494    83        40  1139    23     0   209
+    ## 4 E02002442 E02002441  1747   349       168   906    62     0   262
+    ## 5 E02002447 E02002448  4930    70        36  4162    98     0   564
+    ## 6 E02006876 E02006875 10314  1854       942  4680   251     0  2587
+    ## # … with 1 more variable: geometry <LINESTRING [°]>
+
 We will also download the points that represent the possible start and
 end point of trips in the model
+
+``` r
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_cents.geojson"
+centroids = read_sf(u)
+head(centroids)
+```
+
+    ## Simple feature collection with 6 features and 3 fields
+    ## Geometry type: POINT
+    ## Dimension:     XY
+    ## Bounding box:  xmin: -1.504671 ymin: 53.70647 xmax: -1.240289 ymax: 53.71751
+    ## Geodetic CRS:  WGS 84
+    ## # A tibble: 6 × 4
+    ##   Zone_Code rural_urban region                               geometry
+    ##   <chr>     <chr>       <chr>                             <POINT [°]>
+    ## 1 E02002446 Urban       Yorkshire and The Humber (-1.429355 53.70823)
+    ## 2 E02002447 Urban       Yorkshire and The Humber (-1.240289 53.70647)
+    ## 3 E02002444 Urban       Yorkshire and The Humber (-1.475509 53.71247)
+    ## 4 E02002445 Urban       Yorkshire and The Humber (-1.504671 53.71042)
+    ## 5 E02002442 Urban       Yorkshire and The Humber (-1.337374 53.71751)
+    ## 6 E02002443 Urban       Yorkshire and The Humber (-1.490287 53.71438)
 
 **Exercise**
 
@@ -76,18 +149,16 @@ end point of trips in the model
 ``` r
 tmap_mode("plot") #Change to view for interactive map
 tm_shape(desire_lines) +
-  tm_lines(lwd = "all", col = "all", scale = 4, palette = "viridis") +
-  tm_shape(centroids) +
-  tm_dots()
+  tm_lines(lwd = "all", col = "all", scale = 4, palette = "viridis")
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 3.  Produce some different maps for each mode of travel in the
     `desire_lines` dataset. How do the numbers of travellers change for
     walking, driving, and train travel? See example plot below.
 
-![](6-routing_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will match the centroids with the top 3 desire lines.
@@ -95,42 +166,32 @@ endpoints, so we will match the centroids with the top 3 desire lines.
 **Exercise**
 
 4.  Produce a data frame called `desire_top` which contains the top
-    three `desire_lines` for all travellers.
+    three `desire_lines` for all travellers. Hint `?top_n`
 
-Hint `?top_n`
+5.  Create a new object called `routes_drive_top`, with driving routes
+    between the OD pairs represented in the `desire_top` object.
 
-5.  Create a dataset called `fromPlace` from the `centroids` dataset
-    where `centroids$Zone_Code` matches `desire_top$from`.
-
-Hint `?match()`.
-
-6.  Create a dataset called `toPlace` from the `centroids` dataset where
-    `centroids$Zone_Code` matches `desire_top$to`.
-
-7.  Find the driving routes between `fromPlace` and `toPlace` call them
-    `routes_drive_top` using `opentripplanner::otp_plan`
-
-To find the routes for the first three desire lines use the following
+Calculate routes for the first three desire lines with the following
 command:
 
 ``` r
-routes_drive_top = otp_plan(otpcon = otpcon,
-                            fromPlace = fromPlace,
-                            toPlace = toPlace,
-                            fromID = fromPlace$Zone_Code,
-                            toID = toPlace$Zone_Code,
-                            mode = "CAR")
+routes_drive_top = route(l = desire_top, route_fun = otp_plan, otpcon = otpcon, mode = "CAR")
 ```
 
-8.  Plot `routes_drive_top` using the `tmap` package mode. You should
+6.  Plot `routes_drive_top` using the `tmap` package mode. You should
     see something like the image below.
 
 ``` r
 tmap_mode("plot")
+```
+
+    ## tmap mode set to plotting
+
+``` r
 tm_shape(routes_drive_top) + tm_lines()
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 We can also get Isochrones from OTP.
 
@@ -143,7 +204,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 To save overloading the server, we have pre-generated some extra routes.
 Download these routes and load them into R.
@@ -159,11 +220,11 @@ We will now join the number of drivers onto the driving routes.
 
 **Exercise**
 
-9.  Create a dataset called `n_driver` from `desire_lines` which only
+7.  Create a dataset called `n_driver` from `desire_lines` which only
     have the columns `from` `to` and `drive`. Hint ?dplyr::select and
     ?sf::st_drop_geometry
 
-10. Join the `n_driver` data onto the `routes_drive` data by linking
+8.  Join the `n_driver` data onto the `routes_drive` data by linking
     `fromPlace = from` and `toPlace = to`. Hint ?dplyr::left_join.
 
 ## Route Networks
@@ -180,10 +241,10 @@ rnet_drive = overline(routes_drive, "drive")
 
 **Exercise**
 
-11. Make a route network for driving and plot it using the `tmap`
+9.  Make a route network for driving and plot it using the `tmap`
     package. How is is different from just plotting the routes?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 ## Line Merging
 
@@ -195,7 +256,7 @@ Let’s suppose you want a single line for each route.
 
 **Exercise**
 
-12. Filter the `routes_transit` to contain only one route option per
+10. Filter the `routes_transit` to contain only one route option per
     origin-destination pair and only the columns `fromPlace` `toPlace`
     `distance` `geometry`
 
@@ -223,13 +284,13 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 **Exercise**
 
-13. Plot the transit routes, what do you notice about them?
+11. Plot the transit routes, what do you notice about them?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 **Bonus Exercise**:
 
-14. Redo exercise 12 but make sure you always select the fastest option.
+12. Redo exercise 16 but make sure you always select the fastest option.
     You may need to re-download the `routes_transit` data.
 
 ## Network Analysis (dodgr)
@@ -269,7 +330,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:09
+    ## Estimated time to calculate centrality for full graph is 00:00:04
 
 ``` r
 centrality = dodgr_centrality(graph)
@@ -283,19 +344,21 @@ clear_dodgr_cache()
 centrality_sf = dodgr_to_sf(centrality)
 ```
 
+    ## old-style crs object detected; please recreate object with a recent sf::st_crs()
+
 **Exercise**
 
-15. Plot the centrality of the Isle of Wight road network. What can
+13. Plot the centrality of the Isle of Wight road network. What can
     centrality tell you about a road network?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
-16. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
+14. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
     does this affect the computation time and the results?
 
 **Bonus Exercises**
 
-17. Work though the OpenTripPlanner vignettes [Getting
+15. Work though the OpenTripPlanner vignettes [Getting
     Started](https://docs.ropensci.org/opentripplanner/articles/opentripplanner.html)
     and [Advanced
     Features](https://docs.ropensci.org/opentripplanner/articles/advanced_features.html)
@@ -307,5 +370,5 @@ See the
 for more details. If you can’t install Java 8 try some of the examples
 in the vignettes but modify them for West Yorkshire.
 
-18. Read the `dodgr`
+16. Read the `dodgr`
     [vignettes](https://atfutures.github.io/dodgr/articles/index.html)

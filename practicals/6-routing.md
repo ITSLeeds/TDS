@@ -38,8 +38,7 @@ this:
 **Exercise**
 
 1.  Play with the web interface, finding different types of routes. What
-    strengths/limitations can you find? Note for public tranport
-    timetables set your date to
+    strengths/limitations can you find?
 
 ### Connecting to OpenTripPlanner
 

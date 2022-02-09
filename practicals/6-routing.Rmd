@@ -89,13 +89,13 @@ If you have connected successfully, then you should get a message "Router exists
 To get some routes, we will start by importing some data. The `NTEM_flow.geojson` dataset the contains the top desire lines in West Yorkshire. It was produced from a transport model called the [National Trip End Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national-trip-end-model-ntem) an research from the [University of Leeds](https://github.com/ITSLeeds/NTEM2OD).
 
 
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE}
 u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_flow.geojson"
 desire_lines = read_sf(u)
 ```
 We will also download the points that represent the possible start and end point of trips in the model
 
-```{r, message=FALSE, echo=FALSE}
+```{r, message=FALSE}
 u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_cents.geojson"
 centroids = read_sf(u)
 ```

@@ -76,8 +76,18 @@ Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national
 an research from the [University of
 Leeds](https://github.com/ITSLeeds/NTEM2OD).
 
+``` r
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_flow.geojson"
+desire_lines = read_sf(u)
+```
+
 We will also download the points that represent the possible start and
 end point of trips in the model
+
+``` r
+u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_cents.geojson"
+centroids = read_sf(u)
+```
 
 **Exercise**
 

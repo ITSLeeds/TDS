@@ -35,17 +35,7 @@ Yorkshire. Try typing this URL — otp. saferactive. org (no spaces) —
 during the session into your browser. You should see something like
 this:
 
-<div class="figure" style="text-align: center">
-
-<img src="otp_screenshot.png" alt="OTP Web GUI" width="1920" />
-
-<p class="caption">
-
-OTP Web GUI
-
-</p>
-
-</div>
+<img src="otp_screenshot.png" title="OTP Web GUI" alt="OTP Web GUI" style="display: block; margin: auto;" />
 
 **Exercise**
 
@@ -92,10 +82,8 @@ centroids = read_sf(u)
 **Exercise**
 
 2.  Plot the `desire_lines` and `centroids` objects using the `tmap` to
-    show the number of travellers on each desire\_line and the locations
+    show the number of travellers on each desire_line and the locations
     of all centroids.
-
-<!-- end list -->
 
 ``` r
 tmap_mode("plot") #Change to view for interactive map
@@ -149,8 +137,6 @@ routes_drive_top = otp_plan(otpcon = otpcon,
 8.  Plot `routes_drive_top` using the `tmap` package mode. You should
     see something like the image below.
 
-<!-- end list -->
-
 ``` r
 tmap_mode("plot")
 tm_shape(routes_drive_top) + tm_lines()
@@ -188,10 +174,10 @@ We will now join the number of drivers onto the driving routes.
 
 9.  Create a dataset called `n_driver` from `desire_lines` which only
     have the columns `from` `to` and `drive`. Hint ?dplyr::select and
-    ?sf::st\_drop\_geometry
+    ?sf::st_drop_geometry
 
 10. Join the `n_driver` data onto the `routes_drive` data by linking
-    `fromPlace = from` and `toPlace = to`. Hint ?dplyr::left\_join.
+    `fromPlace = from` and `toPlace = to`. Hint ?dplyr::left_join.
 
 ## Route Networks
 
@@ -296,7 +282,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:51
+    ## Estimated time to calculate centrality for full graph is 00:00:07
 
 ``` r
 centrality = dodgr_centrality(graph)

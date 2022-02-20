@@ -78,19 +78,19 @@ You can choose from and adapt one of the following options or choose a topic of 
 ### Topics
 
 - Data collection and analysis
+  - What is the relationship between travel behaviour (e.g. as manifested in origin-destination data represented as desire lines, routes and route networks) and road traffic casualties in a transport region (e.g. London, West Midlands and other regions in the `pct::pct_regions$region_name` data)
   - Analysis of a large transport dataset, e.g. https://www.nature.com/articles/sdata201889
-
 - Infrastructure and travel behaviour
   - What are the relationships between specific types of infrastructure and travel, e.g. between fast roads and walking?
   - How do official sources of infrastructure data (e.g. the [CID](https://github.com/PublicHealthDataGeek/CycleInfraLnd/)) compare with crowd-sourced datasets such as OpenStreetMap (which can be accessed with the new [`osmextract` R package](https://github.com/ropensci/osmextract))
-  - Machine learning and image recognition to understand transport infrastructure - see https://telraam.net/ for example 
+  - Using new data sources to support transport planning, e.g. using data from https://telraam.net/ or https://dataforgood.facebook.com/dfg/tools/high-resolution-population-density-maps 
 
 - Changing transport systems
   - Modelling change in transport systems, e.g. by comparing before/after data for different countries/cities, which countries had the hardest lockdowns and where have changes been longer term? - see here for open data: https://github.com/ActiveConclusion/COVID19_mobility
   - How have movement patterns changed during the Coronavirus pandemic and what impact is that likely to have long term (see [here](https://saferactive.github.io/trafficalmr/articles/report3.html) for some graphics on this)
   
 - Software development
-  - Creating a package to make a particular data source more accessible, see https://github.com/ropensci/stats19 for an example
+  - Creating a package to make a particular data source more accessible, see https://github.com/ropensci/stats19 and https://github.com/elipousson/crashapi examples
   - Integration between R and A/B Street - see https://github.com/a-b-street/abstr
   
 - Road safety - how can we makes roads and transport systems in general safer?
@@ -105,9 +105,11 @@ You should choose the main dataset that you will use for the coursework based on
 - STATS19 road crash data (other countries have other datasets), e.g. using data from the `stats19` package: https://docs.ropensci.org/stats19/
 - 'PCT' data from UK travel behaviour - see https://itsleeds.github.io/pct/
 - OpenStreetMap data (global, you will need to think of a subset by area/type), e.g. from the https://docs.ropensci.org/osmextract/index.html package
+- Traffic count data, e.g. from the DfT, as described here: https://github.com/ITSLeeds/dftTrafficCounts
 - Open data from a single city, e.g. Seattle: https://data-seattlecitygis.opendata.arcgis.com/
 - See here: https://github.com/awesomedata/awesome-public-datasets#transportation
 - And here: https://github.com/CUTR-at-USF/awesome-transit
+- and [here](https://github.com/ITSLeeds/opentransportdata)
 
 ### Specific coursework options
 

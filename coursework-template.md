@@ -90,6 +90,11 @@ the following options or choose a topic of your own.
 
 -   Data collection and analysis
 
+    -   What is the relationship between travel behaviour (e.g. as
+        manifested in origin-destination data represented as desire
+        lines, routes and route networks) and road traffic casualties in
+        a transport region (e.g. London, West Midlands and other regions
+        in the `pct::pct_regions$region_name` data)
     -   Analysis of a large transport dataset,
         e.g. <https://www.nature.com/articles/sdata201889>
 
@@ -102,8 +107,9 @@ the following options or choose a topic of your own.
         compare with crowd-sourced datasets such as OpenStreetMap (which
         can be accessed with the new [`osmextract` R
         package](https://github.com/ropensci/osmextract))
-    -   Machine learning and image recognition to understand transport
-        infrastructure - see <https://telraam.net/> for example
+    -   Using new data sources to support transport planning, e.g. using
+        data from <https://telraam.net/> or
+        <https://dataforgood.facebook.com/dfg/tools/high-resolution-population-density-maps>
 
 -   Changing transport systems
 
@@ -120,8 +126,8 @@ the following options or choose a topic of your own.
 -   Software development
 
     -   Creating a package to make a particular data source more
-        accessible, see <https://github.com/ropensci/stats19> for an
-        example
+        accessible, see <https://github.com/ropensci/stats19> and
+        <https://github.com/elipousson/crashapi> examples
     -   Integration between R and A/B Street - see
         <https://github.com/a-b-street/abstr>
 
@@ -147,11 +153,14 @@ Good datasets include:
 -   OpenStreetMap data (global, you will need to think of a subset by
     area/type), e.g. from the
     <https://docs.ropensci.org/osmextract/index.html> package
+-   Traffic count data, e.g. from the DfT, as described here:
+    <https://github.com/ITSLeeds/dftTrafficCounts>
 -   Open data from a single city, e.g. Seattle:
     <https://data-seattlecitygis.opendata.arcgis.com/>
 -   See here:
     <https://github.com/awesomedata/awesome-public-datasets#transportation>
 -   And here: <https://github.com/CUTR-at-USF/awesome-transit>
+-   and [here](https://github.com/ITSLeeds/opentransportdata)
 
 ### 0.3.3 Specific coursework options
 
@@ -253,7 +262,8 @@ criteria:
 13. Demonstrate understanding of core concepts of data science, such as
     cleaning and reshaping data (e.g. data aggregation and dimension
     reduction), combining multiple datasets, joining, exploratory data
-    analysis and visualisation
+    analysis and visualisation, and how the work could be tranferred to
+    different contexts (e.g. other time periods, cities and countries)
 
 14. Discuss alternative methods/approaches that could have been used to
     research the topic (e.g. qualitative research, use of alternative
@@ -272,7 +282,9 @@ criteria:
     such as GitHub/GitLab)
 
 16. Discussion of the limitations of the analysis and implications for
-    the findings
+    the findings and how they could be addressed in future research and
+    what type of data collection activities could address those
+    limitations
 
 ## 0.5 Report structure
 
@@ -341,8 +353,8 @@ library(tmap)
 ```
 
 You can add references manually or with `[@citation-key]` references
-linking to a .bib file like this\[@lovelace\_stplanr\_2017\]. And this
-\[@fox\_data\_2018\].
+linking to a .bib file like this\[@lovelace_stplanr_2017\]. And this
+\[@fox_data_2018\].
 
 ## 0.7 Including Code
 
@@ -405,11 +417,13 @@ You can get large OSM datasets with `osmextract`:
 iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
 ```
 
-    ## Reading layer `lines' from data source `/mnt/57982e2a-2874-4246-a6fe-115c199bc6bd/data/osm/geofabrik_isle-of-wight-latest.gpkg' using driver `GPKG'
-    ## Simple feature collection with 44424 features and 17 fields
+    ## Reading layer `lines' from data source 
+    ##   `/mnt/57982e2a-2874-4246-a6fe-115c199bc6bd/data/osm/geofabrik_isle-of-wight-latest.gpkg' 
+    ##   using driver `GPKG'
+    ## Simple feature collection with 47705 features and 11 fields
     ## Geometry type: LINESTRING
     ## Dimension:     XY
-    ## Bounding box:  xmin: -5.401978 ymin: 43.35489 xmax: -0.175775 ymax: 50.89599
+    ## Bounding box:  xmin: -5.715479 ymin: 43.35489 xmax: 1.92832 ymax: 51.16517
     ## Geodetic CRS:  WGS 84
 
 ``` r
@@ -417,13 +431,13 @@ summary(as.factor(iow_highways$highway))
 ```
 
     ##      bridleway   construction       cycleway        footway  living_street 
-    ##            168             18            140           5436              3 
+    ##            166             25            193           5626              3 
     ##           path     pedestrian        primary   primary_link       proposed 
-    ##            383             18            548             18             12 
+    ##            600             28            586             20             12 
     ##    residential      secondary secondary_link        service          steps 
-    ##           2402            370              1           6820            369 
+    ##           2628            384              1           7506            403 
     ##       tertiary  tertiary_link          track   unclassified           NA's 
-    ##            467              3           4289            846          22113
+    ##            509              2           4230            864          23919
 
 ``` r
 iow_highways2 = iow_highways %>% 
@@ -433,11 +447,11 @@ summary(as.factor(iow_highways2$highway))
 ```
 
     ##      bridleway   construction       cycleway  living_street           path 
-    ##            168             18            140              3            383 
+    ##            166             25            193              3            600 
     ##     pedestrian       proposed      secondary secondary_link          steps 
-    ##             18             12            370              1            369 
+    ##             28             12            384              1            403 
     ##       tertiary  tertiary_link   unclassified 
-    ##            467              3            846
+    ##            509              2            864
 
 You could get road casualty data with the `stats19` package, as shown
 below.

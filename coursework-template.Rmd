@@ -27,24 +27,27 @@ It is based on an RMarkdown file. See the source code here: https://github.com/I
 Do not submit coursework that contains this note or any text (other than the headings) from this template.
 It is just designed to get you started. You will submit the .Rmd file, optionally included in a .zip file if you want to include data, and the resulting PDF document as your coursework submission.
 
-As outlined in the module catalogue, the coursework should be:
-
-- A maximum of 3000 words long, excluding code, figure captions and references
-- A maximum of 10 pages long, excluding references and appendices (you should include your best work and think about maximising the use of space - the chunk option `out.width="50%"`, for example, can help with this as outlined [here](https://bookdown.org/yihui/bookdown/figures.html) )
+As outlined in the module catalogue, the coursework should be a maximum of 10 pages long, excluding references and appendices (you should include your best work and think about maximising the use of space - the chunk option `out.width="50%"`, for example, can help with this as outlined [here](https://bookdown.org/yihui/bookdown/figures.html) )
 
 An example of a good submission can be found here (requires a University of Leeds login): https://leeds365.sharepoint.com/sites/msteams_cbf52a/Shared%20Documents/General/stats19-example.zip
 
 The information below provides guidance on the coursework. 
 
-## One-pager
+## Two pager
 
-- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas: Monday 29th March - use this to ask questions and outline:
+- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas before the final submission. The document will allow you to ask questions (e.g. "does this sound like a reasonable input dataset and topic?") and describe progress on reading in input datasets and the analysis plan. The document will contain:
   - A draft title of your topic
   - The main dataset that you will use and other datasets that you could use
   - Ideas on a research question
   - Questions you would like to ask about the topic, e.g. 'is this a suitable dataset?'
-  - 1 or more references to the academic literature related to the topic
+  - 2 or more references to the academic literature related to the topic
   - Any preliminary analysis you have done
+  - The structure of the document could include
+    - Topics considered
+    - Input datasets
+    - Analysis plan - I suggest creating a workflow diagram for this, e.g. as presented [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
+    - Motivation for choosing this topic
+    - Questions and options
 
 ## Final submission
 

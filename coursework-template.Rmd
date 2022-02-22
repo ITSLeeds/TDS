@@ -35,7 +35,7 @@ The information below provides guidance on the coursework.
 
 ## Two pager
 
-- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas before the final submission. The document will allow you to ask questions (e.g. "does this sound like a reasonable input dataset and topic?") and describe progress on reading in input datasets and the analysis plan. The document will contain:
+- Deadline for non-assessed submission of a 1 or 2 page pdf document with ideas before the final submission. The document will allow you to ask questions (e.g. "does this sound like a reasonable input dataset and topic?") and describe progress on reading in input datasets and the analysis plan. The document will contain:
   - A draft title of your topic
   - The main dataset that you will use and other datasets that you could use
   - Ideas on a research question
@@ -146,28 +146,28 @@ You could pick one of these topics:
 
 Marks are awarded in 4 categories, accounting for the following criteria:
 
-    **Data, processing access and cleaning**
+  **Data, processing access and cleaning**
 
 1. The selection and effective use of input datasets that are large (e.g. covering multiple years), complex (e.g. containing multiple variables) and diverse (e.g. input datasets from multiple sources are used and where appropriate combined in the analysis)
 1. Describe how the data was collected and implications for data quality, and outline how the input datasets were downloaded (with a reproducible example if possible)
 1. Evidence of data cleaning techniques and adding value to the dataset (e.g. by creating new variables or by joining two datasets)
 1. Use of transport planning techniques such as use of buffers, scenarios, origin-destination data analysis geographic desire lines and routing
 
-    **Choice of topic and impact**
+  **Choice of topic and impact**
 
 1. Topic selection, including originality, availability of datasets related to the topic and relevance to solving transport planning problems
 1. Discuss alternative topics considered and justify the topic
 1. Make specific recommendations for further research or policies that are supported by the data analysis undertaken
 1. Explain the potential impacts of the work
 
-    **Visualization**
+  **Visualization**
 
 1. Creation of figures that are readable and well-described (e.g. with captions and description)
 1. High quality, attractive and innovative visualisations
 1. Description of visualisation techniques, e.g. with reference to particular packages, commands, or the literature on how to produce effective data visualisations
 1. Using visualisation techniques appropriate to the topic and data and interpreting the results correctly (e.g. mentioning potential confounding factors that could account for observed patterns)
 
-    **Understand data science processes, concepts, methods and approaches**
+  **Understand data science processes, concepts, methods and approaches**
 
 1. Demonstrate understanding of core concepts of data science, such as cleaning and reshaping data (e.g. data aggregation and dimension reduction), combining multiple datasets, joining, exploratory data analysis and visualisation, and how the work could be tranferred to different contexts (e.g. other time periods, cities and countries)
 1. Discuss alternative methods/approaches that could have been used to research the topic (e.g. qualitative research, use of alternative data sources), and consider and their advantages and disadvantages compared with your data science approach

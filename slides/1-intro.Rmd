@@ -62,11 +62,17 @@ library(tidyverse)
 
 --
 
-### Joey Talbot
+### Demonstrators
 
-- PhD in Tropical Ecology
-- Worked for Transport for New Homes
-- Research Fellow in Transport Data Science
+- Hussein Mahfouz
+- Juan Pablo Fonseca Zamorra
+- Caroline Tait
+
+<!-- ### Joey Talbot -->
+
+<!-- - PhD in Tropical Ecology -->
+<!-- - Worked for Transport for New Homes -->
+<!-- - Research Fellow in Transport Data Science -->
 
 <!-- Not working on it 2021 -->
 <!-- ### Richard Connors -->
@@ -87,8 +93,8 @@ library(tidyverse)
   - [github.com/ITSLeeds](https://github.com/ITSLeeds/TDS/tree/master/code-python)
 - January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
 - March 2020: Switch to online teaching
-- 2021: Updated module, focus on methods
-- 2022: Expand, online course? book? stay in touch!
+- 2021-2023: Updated module, focus on methods
+- 2024+: Expand, online course? book? stay in touch!
 
 ```{r, echo=FALSE, eval=TRUE}
 # knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
@@ -113,7 +119,7 @@ Skip this bit
 ```{r geocompr-cover, echo=FALSE, out.height="300px"}
 knitr::include_graphics(c(
   "https://geocompr.robinlovelace.net/images/cover.png",
-  "https://geocompr.robinlovelace.net/12-transport_files/figure-html/desire-1.png"
+  "https://r.geocompx.org/13-transport_files/figure-html/desire-1.png"
   ))
 ```
 
@@ -153,7 +159,7 @@ For more references, see the bibliography at [github.com/ITSLeeds/TDS](https://g
 
 See timetable online: https://github.com/ITSLeeds/TDS
 
-And an .ics file you can add to your calendar [here](https://teams.microsoft.com/l/team/19%3aRoB5IN0Rdk4rip9Y0bwQ5TyyO0FEeB76ei27wK8XIqM1%40thread.tacv2/conversations?groupId=0ee6f3e6-292e-4139-af39-4399feb06434&tenantId=bdeaeda8-c81d-45ce-863e-5232a535b7cb).
+And an .ics file you can add to your calendar [here](https://github.com/ITSLeeds/TDS/raw/master/timetable.ics).
  
 ```{r, message=FALSE}
 timetable = read_csv("../timetable.csv")
@@ -212,7 +218,7 @@ timetable %>%
 ## Assessment (for those doing this as credit-bearing)
 
 - You will build-up a portfolio of work
-- 100% coursework assessed, you will submit by **Friday 13th May**:
+- 100% coursework assessed, you will submit by **Friday 19th May**:
   - **a pdf document up to 10 pages long with figures, tables, references explaining how you used data science to research a transport problem**
   - **reproducible code contained in an RMarkdown (.Rmd) document that produced the report**
 - Written in RMarkdown - will be graded for reproducibility

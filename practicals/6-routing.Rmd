@@ -89,9 +89,18 @@ knitr::include_graphics("https://github.com/ITSLeeds/TDS/blob/master/practicals/
 
 ```{r, echo=FALSE, eval=FALSE}
 piggyback::pb_upload("otp_TDS.zip")
-piggyback::pb_download_url("otp_TDS.zip")
+piggyback::pb_download("otp_TDS.zip", tag = "0.20.1")
+unzip("otp_TDS.zip")
 # https://github.com/ITSLeeds/TDS/releases/download/0.20.1/otp_TDS.zip
 ```
+
+<!-- Note: for advanced users you can set-up routing locally with the following commands: -->
+
+```{r, eval=FALSE, echo=FALSE}
+otp_dl_jar(path = "~/programs/", version = "2.1.0")
+```
+
+
 
 
 ```{r, eval=FALSE, engine='bash', echo=FALSE}
@@ -99,9 +108,23 @@ piggyback::pb_download_url("otp_TDS.zip")
 sudo update-alternatives --config java
 # java --version
 java -version
-java -Xmx10000M -d64 -jar "/home/robin/programs/otp1.5/otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "/home/robin/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
+# java -Xmx10000M -d64 -jar "/home/" --router west-yorkshire --graphs "/home/robin/programs/otp1.5/otp_TDS/graphs" --server --port 8080 --securePort 8081
+java -Xmx10000M -jar "/home/rlatemin/R/x86_64-pc-linux-gnu-library/4.2/opentripplanner/jar/otp-2.1.0-shaded.jar" --router west-yorkshire --graphs "/home/rlatemin/github/itsleeds/TDS/otp_TDS/graphs" --server --port 8080 --securePort 8081
 # ip = "xx.x.218.83" 
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+otp_build_graph()
+# 
+otp_setup(
+  otp = "/home/rlatemin/R/x86_64-pc-linux-gnu-library/4.2/opentripplanner/jar/otp-2.1.0-shaded.jar", 
+  dir = "/home/rlatemin/github/itsleeds/TDS/otp_TDS", 
+  router = "west-yorkshire",
+  memory = 5000,
+  port = 8080
+  )
+```
+
 
 To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`.
 
@@ -123,6 +146,7 @@ u = "https://github.com/ITSLeeds/TDS/releases/download/22/NTEM_flow.geojson"
 desire_lines = read_sf(u)
 head(desire_lines)
 ```
+
 We will also download the points that represent the possible start and end point of trips in the model
 
 ```{r, message=FALSE}

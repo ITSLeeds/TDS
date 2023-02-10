@@ -21,7 +21,7 @@ have installed with the following command:
 packageVersion("stplanr")
 ```
 
-    ## [1] '0.8.7'
+    ## [1] '1.0.2'
 
 Install the latest CRAN version with the following commands:
 
@@ -40,7 +40,7 @@ install.packages('terra', repos='https://rspatial.r-universe.dev')
 remotes::install_cran("stplanr") # install the stplanr package if not up-to-date
 ```
 
-    ## Skipping install of 'stplanr' from a cran remote, the SHA1 (0.8.7) has not changed since last install.
+    ## Skipping install of 'stplanr' from a cran remote, the SHA1 (1.0.2) has not changed since last install.
     ##   Use `force = TRUE` to force installation
 
 The packages we will be using are:
@@ -63,7 +63,14 @@ Yorkshire. Try typing this URL — otp. saferactive. org (no spaces) —
 during the session into your browser. You should see something like
 this:
 
-<img src="https://github.com/ITSLeeds/TDS/blob/master/practicals/otp_screenshot.png?raw=true" title="OTP Web GUI" alt="OTP Web GUI" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="https://github.com/ITSLeeds/TDS/blob/master/practicals/otp_screenshot.png?raw=true" alt="OTP Web GUI"  />
+<p class="caption">
+OTP Web GUI
+</p>
+
+</div>
 
 **Exercise**
 
@@ -76,10 +83,10 @@ To allow R to connect to the OpenTripPlanner server, we will use the
 `opentripplanner` package and the function `otp_connect`.
 
 ``` r
-# ip = "localhost" # to run it on your computer (see final bonus exercise)
-ip = "otp.saferactive.org" # an actual server
+ip = "localhost" # to run it on your computer (see final bonus exercise)
 otpcon = otp_connect(hostname = ip, 
-                     port = 80,
+                     # port = 2052,
+                     port = 8080,
                      router = "west-yorkshire")
 ```
 
@@ -330,7 +337,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:06
+    ## Estimated time to calculate centrality for full graph is 00:00:02
 
 ``` r
 centrality = dodgr_centrality(graph)
@@ -343,8 +350,6 @@ using `dodgr::dodgr_to_sf`
 clear_dodgr_cache()
 centrality_sf = dodgr_to_sf(centrality)
 ```
-
-    ## old-style crs object detected; please recreate object with a recent sf::st_crs()
 
 **Exercise**
 

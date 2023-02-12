@@ -54,8 +54,8 @@ OTP Web GUI
 1.  Play with the web interface, finding different types of routes. What
     strengths/limitations can you find?
 
-Note that the URL is in the form of `ip:port` not these down as you will
-use them below.
+Notice that the URL is in the form of `ip:port` note these down as you
+will use them below.
 
 ### Connecting to OpenTripPlanner
 
@@ -73,7 +73,25 @@ otpcon = otp_connect(hostname = ip,
 If you have connected successfully, then you should get a message
 “Router exists.”
 
-To get some routes, we will start by importing some data. The
+Create a test route. Notice than in the web UI the coordiante are
+`Lat/Lng` but R uses `Lng/Lat`
+
+``` r
+routes_test = otp_plan(otpcon = otpcon,
+                            fromPlace = c(-1.55555, 53.81005), #Lng/Lat
+                            toPlace = c(-1.54710, 53.79519),
+                            mode = "WALK") 
+```
+
+You can use multiple modes and combinations try:
+
+- `mode = "WALK"`
+- `mode = c("WALK","TRANSIT")`
+- `mode = c("BICYCLE","TRANSIT")`
+- `mode = "CAR"`
+- `mode = c("CAR_PARK","TRANSIT")`
+
+To get some more routes, we will start by importing some data. The
 `NTEM_flow.geojson` dataset the contains the top desire lines in West
 Yorkshire. It was produced from a transport model called the [National
 Trip End
@@ -141,13 +159,13 @@ tm_shape(desire_lines) +
   tm_dots(col = "red")
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 3.  Produce some different maps for each mode of travel in the
     `desire_lines` dataset. How do the numbers of travellers change for
     walking, driving, and train travel? See example plot below.
 
-![](6-routing_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 This dataset has desire lines, but most routing packages need start and
 endpoints, so we will extract the start and endpoints using the package
@@ -199,7 +217,7 @@ routes_drive_top = otp_plan(otpcon = otpcon,
 tm_shape(routes_drive_top) + tm_lines()
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 We can also get Isochrones from OTP.
 
@@ -213,7 +231,7 @@ tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
 ```
 
-![](6-routing_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 To save you time and to prevent overloading the server, we have
 pre-generated some extra routes. Download these routes and load them
@@ -239,7 +257,7 @@ We will now join the number of drivers onto the driving routes.
 
 10. Plot the routes showing the number of drivers on each route.
 
-![](6-routing_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ## Route Networks (also called flow maps)
 
@@ -260,7 +278,7 @@ rnet_drive = overline(routes_drive, "drive")
 10. Make a route network for driving and plot it using the `tmap`
     package. How is is different from just plotting the routes?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 ## Line Merging
 
@@ -302,7 +320,7 @@ routes_transit_group = rbind(routes_transit_group, routes_transit_group_ml)
 
 12. Plot the transit routes, what do you notice about them?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 **Bonus Exercise**:
 
@@ -353,7 +371,7 @@ take.
 estimate_centrality_time(graph)
 ```
 
-    ## Estimated time to calculate centrality for full graph is 00:00:06
+    ## Estimated time to calculate centrality for full graph is 00:00:07
 
 ``` r
 centrality = dodgr_centrality(graph)
@@ -372,7 +390,7 @@ centrality_sf = dodgr_to_sf(centrality)
 14. Plot the centrality of the Isle of Wight road network. What can
     centrality tell you about a road network?
 
-![](6-routing_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](6-routing_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 15. Use `dodgr::dodgr_contract_graph` before calculating centrality, how
     does this affect the computation time and the results?

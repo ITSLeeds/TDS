@@ -57,7 +57,7 @@ knitr::include_graphics("https://github.com/ITSLeeds/TDS/blob/master/practicals/
 
 1. Play with the web interface, finding different types of routes. What strengths/limitations can you find?
 
-Note that the URL is in the form of `ip:port` not these down as you will use them below.
+Notice that the URL is in the form of `ip:port` note these down as you will use them below.
 
 ### Connecting to OpenTripPlanner
 
@@ -95,7 +95,24 @@ otpcon = otp_connect(hostname = ip,
 
 If you have connected successfully, then you should get a message "Router exists."
 
-To get some routes, we will start by importing some data. The `NTEM_flow.geojson` dataset the contains the top desire lines in West Yorkshire. It was produced from a transport model called the [National Trip End Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national-trip-end-model-ntem) and research from the [University of Leeds](https://github.com/ITSLeeds/NTEM2OD).
+Create a test route. Notice than in the web UI the coordiante are `Lat/Lng` but R uses `Lng/Lat`
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+routes_test = otp_plan(otpcon = otpcon,
+                            fromPlace = c(-1.55555, 53.81005), #Lng/Lat
+                            toPlace = c(-1.54710, 53.79519),
+                            mode = "WALK") 
+```
+You can use multiple modes and combinations try:
+
+* `mode = "WALK"`
+* `mode = c("WALK","TRANSIT")`
+* `mode = c("BICYCLE","TRANSIT")`
+* `mode = "CAR"`
+* `mode = c("CAR_PARK","TRANSIT")`
+
+
+To get some more routes, we will start by importing some data. The `NTEM_flow.geojson` dataset the contains the top desire lines in West Yorkshire. It was produced from a transport model called the [National Trip End Model](https://data.gov.uk/dataset/11bc7aaf-ddf6-4133-a91d-84e6f20a663e/national-trip-end-model-ntem) and research from the [University of Leeds](https://github.com/ITSLeeds/NTEM2OD).
 
 
 ```{r, message=FALSE}

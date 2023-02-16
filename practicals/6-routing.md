@@ -174,7 +174,7 @@ endpoints, so we will extract the start and endpoints using the package
 **Exercise**
 
 4.  Produce a data frame called `desire_top` which contains the top
-    three `desire_lines` for all travellers. Hint `?top_n`
+    three `desire_lines` for all travellers. Hint `?slice_max`
 
 5.  We need to extract start and end point from those desire lines. We
     would also like to give each place an ID value

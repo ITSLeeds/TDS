@@ -155,11 +155,11 @@ This dataset has desire lines, but most routing packages need start and endpoint
 
 **Exercise**
 
-4. Produce a data frame called `desire_top` which contains the top three `desire_lines` for all travellers. Hint `?top_n`
+4. Produce a data frame called `desire_top` which contains the top three `desire_lines` for all travellers. Hint `?slice_max`
 
 ```{r, eval=TRUE, echo=FALSE}
 desire_top = desire_lines %>% 
-  top_n(n = 3, wt = all)
+  slice_max(order_by = all,n = 3)
 ```
 
 5. We need to extract start and end point from those desire lines. We would also like to give each place an ID value

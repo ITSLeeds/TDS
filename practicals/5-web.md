@@ -4,15 +4,116 @@ Robin Lovelace
 University of Leeds
 <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
 
-## Review of homework exercise: demo with RMarkdown then individual Q&A
-
 We will be using these packages in this practical:
 
+## Bonus Exercises - Some advanced R concepts
+
+### Functions
+
+By now you are familiar with using R functions e.g. `sum()`. But you can
+also write your own functions in R.
+
 ``` r
-library(sf)
-library(stats19)
-library(tidyverse)
+myfunction = function(x){
+  x = x ^ 2
+  x
+}
 ```
+
+This function takes in an input value and squares it. Give it a go:
+
+``` r
+myfunction(1:10)
+```
+
+You can pass multiple argument to a function
+
+``` r
+myfunction2 = function(x, y){
+  z = x * y
+  z
+}
+
+myfunction2(x= 1:10, y = 2)
+```
+
+    ##  [1]  2  4  6  8 10 12 14 16 18 20
+
+It is good practice to write functions when you have a task you need to
+do many times. You can replace many lines of code with a single function
+and avoid repeating code.
+
+### Loops
+
+Loops are how you tell R to repeat something. They can be useful for
+iterating over a dataset.
+
+``` r
+for(i in 1:5){
+  x = i * 10
+  message("'i' is ",i,", 10x 'i' is ",x)
+}
+```
+
+While loops can be useful the can also be very slow if used wrongly.
+Lets use a more complex example. We will make a muliple ring buffer of
+100, 200, 300, 400, 500m.
+
+``` r
+# Make a point in Leeds
+pt = st_sfc(st_point(c(-1.556995, 53.808111)), crs = 4326)
+# Make point into SF data frame
+pt = st_sf(data.frame(id = 1, geometry = pt))
+# Transfrom to British national grid
+pt = st_transform(pt, 27700)
+```
+
+First a bad example
+
+This will work, but it is a bad example because each time you run
+`buffers = rbind(buffers, buff)` the `buffers` object is copied. Copying
+data slows down R and will make this function get exponentially slower
+as the number of iterations increases.
+
+A good example
+
+Here we created and empty list of length 5 and added each buffer to the
+end of the list. This avoids the copying and so the process will be much
+faster.
+
+Then we used the `bind_rows` function to combine the list of data.frames
+into a single data.frame.
+
+**Bonus** R has even faster ways to iterate such as the `apply` and
+`purrr::map` families of functions. Read up about these functions
+
+### The FizzBuzz Challange
+
+Write a function to play the children’s game of FizzBuzz.
+
+Rules of FizzBuzz
+
+- You count up from 1, saying each number but:
+- If the Number is a multiple of 3 you say Fizz
+- If the number is a multiple of 5 you say Buzz
+- If the number is a multiple of 3 and 5 you say FizzBuzz
+
+E.g. 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz,Buzz,11,Fizz,13,14,FizzBuzz
+
+Write a function that can play FizzBuzz for any number of rounds, and
+write the resutls to the console using `message`. Compare the speed of
+your code with other students solutions using `bench::mark`.
+
+``` r
+bench::mark(f1 = myfunction(1:10),
+            f2 = myfunction2(1:10,1:10))
+```
+
+    ## # A tibble: 2 × 6
+    ##   expression      min   median `itr/sec` mem_alloc `gc/sec`
+    ##   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+    ## 1 f1            400ns    700ns   974364.        0B      0  
+    ## 2 f2            700ns    900ns   873313.    10.5KB     87.3
 
 ## Accessing crowd-sourced data from OSM
 
@@ -58,11 +159,11 @@ casualties_2018 = get_stats19(year = 2018, type = "cas")
 
     ## Warning: 22715 parsing failures.
     ##   row            col               expected        actual                                                                                                  file
-    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpYnDEqF/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpYnDEqF/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpYnDEqF/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpYnDEqF/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpYnDEqF/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
     ## ..... .............. ...................... ............. .....................................................................................................
     ## See problems(...) for more details.
 
@@ -207,7 +308,7 @@ Read through Section
 [8.2](https://geocompr.robinlovelace.net/read-write.html#retrieving-data)
 and 8.3 of Geocomputation with R.
 
-Complete Excersises 4, 5, 6 and 7 of the chapter
+Complete Exercises 4, 5, 6 and 7 of the chapter
 
 ## Bonus 1: osmextract
 

@@ -20,15 +20,166 @@ piggyback::pb_upload("practicals/5-web.pdf")
 piggyback::pb_download_url("practicals/5-web.pdf")
 ```
 
-## Review of homework exercise: demo with RMarkdown then individual Q&A
-
 We will be using these packages in this practical:
 
-```{r, eval=FALSE}
+```{r, eval=TRUE, echo=FALSE}
 library(sf)
 library(stats19)
 library(tidyverse)
 ```
+
+## Bonus Exercises - Some advanced R concepts
+
+### Functions
+
+By now you are familiar with using R functions e.g. `sum()`. But you can also write your own functions in R.
+
+```{r example_func, eval=TRUE}
+myfunction = function(x){
+  x = x ^ 2
+  x
+}
+```
+
+This function takes in an input value and squares it. Give it a go:
+
+```{r example_func2, eval=FALSE}
+myfunction(1:10)
+```
+You can pass multiple argument to a function
+
+```{r example_func3, eval=TRUE}
+myfunction2 = function(x, y){
+  z = x * y
+  z
+}
+
+myfunction2(x= 1:10, y = 2)
+```
+It is good practice to write functions when you have a task you need to do many times. You can replace many lines of code with a single function and avoid repeating code. 
+
+### Loops
+
+Loops are how you tell R to repeat something. They can be useful for iterating over a dataset.
+
+
+```{r example_loop, eval=TRUE}
+for(i in 1:5){
+  x = i * 10
+  message("'i' is ",i,", 10x 'i' is ",x)
+}
+```
+While loops can be useful the can also be very slow if used wrongly. Lets use a more complex example. We will make a muliple ring buffer of 100, 200, 300, 400, 500m.
+
+```{r make_point, eval=TRUE}
+# Make a point in Leeds
+pt = st_sfc(st_point(c(-1.556995, 53.808111)), crs = 4326)
+# Make point into SF data frame
+pt = st_sf(data.frame(id = 1, geometry = pt))
+# Transfrom to British national grid
+pt = st_transform(pt, 27700)
+
+```
+
+First a bad example
+
+```{r loop_bad, eval=TRUE, echo=FALSE, fig.show='hide'}
+buffers = st_buffer(pt, 100)
+
+for(i in 2:5){
+  dist = i * 100
+  buff = st_buffer(pt, dist)
+  buffers = rbind(buffers, buff)
+}
+plot(buffers$geometry)
+```
+This will work, but it is a bad example because each time you run `buffers = rbind(buffers, buff)` the `buffers` object is copied. Copying data slows down R and will make this function get exponentially slower as the number of iterations increases.
+
+A good example
+
+```{r loop_good, eval=TRUE, echo=FALSE, fig.show='hide'}
+buffers = vector("list", 5)
+for(i in 1:5){
+  dist = i * 100
+  buffers[[i]] = st_buffer(pt, dist)
+}
+buffers = dplyr::bind_rows(buffers)
+plot(buffers$geometry)
+```
+Here we created and empty list of length 5 and added each buffer to the end of the list. This avoids the copying and so the process will be much faster.
+
+Then we used the `bind_rows` function to combine the list of data.frames into a single data.frame.
+
+**Bonus** R has even faster ways to iterate such as the `apply` and `purrr::map` families of functions. Read up about these functions
+
+
+### The FizzBuzz Challange
+
+Write a function to play the children's game of FizzBuzz.
+
+Rules of FizzBuzz
+
+- You count up from 1, saying each number but:
+- If the Number is a multiple of 3 you say Fizz
+- If the number is a multiple of 5 you say Buzz
+- If the number is a multiple of 3 and 5 you say FizzBuzz
+
+E.g. 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz,Buzz,11,Fizz,13,14,FizzBuzz
+
+Write a function that can play FizzBuzz for any number of rounds, and write the resutls to the console using `message`.
+Compare the speed of your code with other students solutions using `bench::mark`.
+
+```{r benchmark, eval=TRUE}
+bench::mark(f1 = myfunction(1:10),
+            f2 = myfunction2(1:10,1:10))
+```
+
+```{r fizbuzz, eval=FALSE, echo=FALSE, include=FALSE}
+
+
+fizzbuzz1 <- function(n){
+  res = list()
+  for(i in 1:n){
+    if(i %% 3 == 0 & i %% 5 == 0){
+      res[[i]] = "FizzBuzz"
+    }
+    if(i %% 3 == 0 & i %% 5 != 0){
+      res[[i]] = "Fizz"
+    }
+    if(i %% 3 != 0 & i %% 5 == 0){
+      res[[i]] = "Buzz"
+    }
+    if(i %% 3 != 0 & i %% 5 != 0){
+      res[[i]] = as.character(i)
+    }
+  }
+  unlist(res)
+}
+
+fizzbuzz2 <- function(n){
+  z = purrr::map_chr(1:n,function(x, out = c("Fizz","Buzz",x)){
+    mod3 = (x %% 3) == 0
+    mod5 = (x %% 5) == 0
+    if(mod3){
+      if(mod5){
+        "FizzBuzz"
+      } else{
+        "Fizz"
+      }
+    } else if(mod5){
+      "Buzz"
+    } else{
+      as.character(x)
+    }
+  })
+  z
+}
+
+bench::mark(f1 = fizzbuzz1(100),
+            f2 = fizzbuzz2(100))
+```
+
+
 
 ## Accessing crowd-sourced data from OSM
 
@@ -158,7 +309,7 @@ Bonus (if you have time and a decent computer): download and import the 'car.zip
 
 Read through Section [8.2](https://geocompr.robinlovelace.net/read-write.html#retrieving-data) and 8.3 of Geocomputation with R. 
 
-Complete Excersises 4, 5, 6 and 7 of the chapter
+Complete Exercises 4, 5, 6 and 7 of the chapter
 
 ## Bonus 1: osmextract
 

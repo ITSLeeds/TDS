@@ -83,7 +83,7 @@ pt = st_transform(pt, 27700)
 
 First a bad example
 
-```{r loop_bad, eval=TRUE, echo=FALSE, fig.show='hide'}
+```{r loop_bad, eval=TRUE, echo=TRUE, fig.show='hide'}
 buffers = st_buffer(pt, 100)
 
 for(i in 2:5){
@@ -97,7 +97,7 @@ This will work, but it is a bad example because each time you run `buffers = rbi
 
 A good example
 
-```{r loop_good, eval=TRUE, echo=FALSE, fig.show='hide'}
+```{r loop_good, eval=TRUE, echo=TRUE, fig.show='hide'}
 buffers = vector("list", 5)
 for(i in 1:5){
   dist = i * 100
@@ -124,9 +124,9 @@ Rules of FizzBuzz
 - If the number is a multiple of 5 you say Buzz
 - If the number is a multiple of 3 and 5 you say FizzBuzz
 
-E.g. 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz,Buzz,11,Fizz,13,14,FizzBuzz
+E.g. `1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz`
 
-Write a function that can play FizzBuzz for any number of rounds, and write the resutls to the console using `message`.
+Write a function that can play FizzBuzz for any number of rounds.
 Compare the speed of your code with other students solutions using `bench::mark`.
 
 ```{r benchmark, eval=TRUE}

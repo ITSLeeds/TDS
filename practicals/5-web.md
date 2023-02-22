@@ -70,12 +70,33 @@ pt = st_transform(pt, 27700)
 
 First a bad example
 
+``` r
+buffers = st_buffer(pt, 100)
+
+for(i in 2:5){
+  dist = i * 100
+  buff = st_buffer(pt, dist)
+  buffers = rbind(buffers, buff)
+}
+plot(buffers$geometry)
+```
+
 This will work, but it is a bad example because each time you run
 `buffers = rbind(buffers, buff)` the `buffers` object is copied. Copying
 data slows down R and will make this function get exponentially slower
 as the number of iterations increases.
 
 A good example
+
+``` r
+buffers = vector("list", 5)
+for(i in 1:5){
+  dist = i * 100
+  buffers[[i]] = st_buffer(pt, dist)
+}
+buffers = dplyr::bind_rows(buffers)
+plot(buffers$geometry)
+```
 
 Here we created and empty list of length 5 and added each buffer to the
 end of the list. This avoids the copying and so the process will be much
@@ -98,11 +119,12 @@ Rules of FizzBuzz
 - If the number is a multiple of 5 you say Buzz
 - If the number is a multiple of 3 and 5 you say FizzBuzz
 
-E.g. 1,2,Fizz,4,Buzz,Fizz,7,8,Fizz,Buzz,11,Fizz,13,14,FizzBuzz
+E.g.
+`1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz`
 
-Write a function that can play FizzBuzz for any number of rounds, and
-write the resutls to the console using `message`. Compare the speed of
-your code with other students solutions using `bench::mark`.
+Write a function that can play FizzBuzz for any number of rounds.
+Compare the speed of your code with other students solutions using
+`bench::mark`.
 
 ``` r
 bench::mark(f1 = myfunction(1:10),
@@ -112,8 +134,8 @@ bench::mark(f1 = myfunction(1:10),
     ## # A tibble: 2 × 6
     ##   expression      min   median `itr/sec` mem_alloc `gc/sec`
     ##   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-    ## 1 f1            400ns    700ns   974364.        0B      0  
-    ## 2 f2            700ns    900ns   873313.    10.5KB     87.3
+    ## 1 f1            400ns    600ns   967989.        0B      0  
+    ## 2 f2            700ns    900ns   883124.    10.5KB     88.3
 
 ## Accessing crowd-sourced data from OSM
 
@@ -159,11 +181,11 @@ casualties_2018 = get_stats19(year = 2018, type = "cas")
 
     ## Warning: 22715 parsing failures.
     ##   row            col               expected        actual                                                                                                  file
-    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpQFQy40/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
     ## ..... .............. ...................... ............. .....................................................................................................
     ## See problems(...) for more details.
 

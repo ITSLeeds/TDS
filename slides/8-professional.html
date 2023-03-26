@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Professional transport data science workflows</title>
+    <title>Professional transport data science workflows and project work</title>
     <meta charset="utf-8" />
     <meta name="author" content="Robin Lovelace" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,10 +12,18 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Professional transport data science workflows
+.title[
+# Professional transport data science workflows and project work
+]
+.subtitle[
 ## <br/>Module: Transport Data Science
+]
+.author[
 ### Robin Lovelace
+]
+.date[
 ### University of Leeds <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
+]
 
 ---
 
@@ -54,18 +62,25 @@ When's the deadline?
 
 
 ```r
-as.Date("2020-05-14")
+as.Date("2023-05-19")
 ```
 
 ```
-## [1] "2020-05-14"
+## [1] "2023-05-19"
 ```
-
-**2020-05-14**
 
 --
 
-Friday 14th May
+
+```r
+# Friday 19th May
+as.Date("2023-05-19") - Sys.Date()
+```
+
+```
+## Time difference of 54 days
+```
+
 
 --
 
@@ -85,9 +100,11 @@ Remember the marking criteria:
     
 ---
 
-## '1 pager' document on plans
+## '2 pager' document on plans
 
-- Submit a .zip file containing an .Rmd file and a 1 page pdf
+- Well done everyone who submitted a .zip file containing an .Rmd file and a 1 page pdf
+
+- Based on feedback that you received, and subsequent work, can each person state:
 
   - A draft title of your topic
   - The main dataset that you will use and other datasets that you could use
@@ -165,40 +182,40 @@ Source: [R for Data Science](https://r4ds.had.co.nz/introduction.html) open sour
 
 &lt;!-- - [Applied statistics](https://machinelearningmastery.com/relationship-between-applied-statistics-and-machine-learning/) vs ML: a continuum --&gt;
 
-![](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2018/04/Glossary-Mapping-Terms-in-Statistics-to-Terms-in-Machine-Learning.png)
+&lt;!-- ![](https://3qeqpr26caki16dnhd19sv6by6v-wpengine.netdna-ssl.com/wp-content/uploads/2018/04/Glossary-Mapping-Terms-in-Statistics-to-Terms-in-Machine-Learning.png) --&gt;
 
----
+&lt;!-- --- --&gt;
 
-# Machine learning types
+&lt;!-- # Machine learning types --&gt;
 
-There are 2 basic types (James, Witten, Hastie, et al., 2013)
+&lt;!-- There are 2 basic types (James, Witten, Hastie, and Tibshirani, 2013) --&gt;
 
-- Supervised learning, when you have a training dataset
+&lt;!-- - Supervised learning, when you have a training dataset --&gt;
 
-- Unsupervised learning, where there is no 'dependent variable'
+&lt;!-- - Unsupervised learning, where there is no 'dependent variable' --&gt;
 
 
----
+&lt;!-- --- --&gt;
 
-# Deep learning
+&lt;!-- # Deep learning --&gt;
 
-- Google is now 'AI First' (NYT [2016](https://www.nytimes.com/2016/12/14/magazine/the-great-ai-awakening.html))
+&lt;!-- - Google is now 'AI First' (NYT [2016](https://www.nytimes.com/2016/12/14/magazine/the-great-ai-awakening.html)) --&gt;
 
-![](https://static01.nyt.com/images/2016/12/18/magazine/18ai8/18ai8-superJumbo.jpg?quality=90&amp;auto=webp)
+&lt;!-- ![](https://static01.nyt.com/images/2016/12/18/magazine/18ai8/18ai8-superJumbo.jpg?quality=90&amp;auto=webp) --&gt;
 
----
+&lt;!-- --- --&gt;
 
-# Example of a machine learning problem
+&lt;!-- # Example of a machine learning problem --&gt;
 
-- Cycling infrastructure is a 'fuzzy' concept
+&lt;!-- - Cycling infrastructure is a 'fuzzy' concept --&gt;
 
-- Difficult to pin down with a simple relationship
+&lt;!-- - Difficult to pin down with a simple relationship --&gt;
 
-- So machine learning should help!
+&lt;!-- - So machine learning should help! --&gt;
 
-- See www.cyipt.bike
+&lt;!-- - See www.cyipt.bike --&gt;
 
----
+&lt;!-- --- --&gt;
 
 # Input data - messy
 
@@ -211,35 +228,47 @@ There are 2 basic types (James, Witten, Hastie, et al., 2013)
 
 ![](https://raw.githubusercontent.com/cyipt/cyipt-website/master/images/ttwa-uptake.png)
 
+&lt;!-- --- --&gt;
+
+&lt;!-- # Results of ML exercise --&gt;
+
+&lt;!-- See https://github.com/cyipt/cyipt/blob/master/model-uptake.md --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- ![](https://raw.githubusercontent.com/cyipt/cyipt/master/model-uptake_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png) --&gt;
+&lt;!-- --- --&gt;
+
+&lt;!-- # Observations --&gt;
+
+&lt;!-- - Input data is very noisy --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- - Machine learning didn't reveal any expected insights in this case --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- - But did reveal *unexpected* insight: road speeds and traffic volumes seem to be associated with lower uptake of cycling --&gt;
+
 ---
 
-# Results of ML exercise
+# Working on your projects
 
-See https://github.com/cyipt/cyipt/blob/master/model-uptake.md
-
---
-
-![](https://raw.githubusercontent.com/cyipt/cyipt/master/model-uptake_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-24-1.png)
----
-
-# Observations
-
-- Input data is very noisy
-
---
-
-- Machine learning didn't reveal any expected insights in this case
-
---
-
-- But did reveal *unexpected* insight: road speeds and traffic volumes seem to be associated with lower uptake of cycling
+- Plan ahead: what else do you need to do on your project?
+- Schedule work: when will you find time to do it?
+- Use Microsoft Calendar or similar: put it in the calendar.
+- Reproducibility: ensure your .Rmd files are reproducible
+- Ask for help: what do you need help with?
+- Work: get you head down and make use of this time!
 
 ---
 
 # References
 
-James, Gareth, Daniela Witten, Trevor Hastie, et al. (2013). _An Introduction to Statistical Learning: With Applications in R_.
-Springer Science &amp; Business Media. ISBN: 978-1-4614-7138-7.
+James, Gareth, Daniela Witten, Trevor Hastie, et al. (2013). _An
+Introduction to Statistical Learning: With Applications in R_. Springer
+Science &amp; Business Media. ISBN: 978-1-4614-7138-7.
 
 ## Questions are welcome
 
@@ -292,6 +321,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

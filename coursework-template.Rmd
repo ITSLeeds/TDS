@@ -97,6 +97,21 @@ You can choose from and adapt one of the following options or choose a topic of 
   - Integration between R and A/B Street - see https://github.com/a-b-street/abstr
   
 - Road safety - how can we makes roads and transport systems in general safer?
+  - Influence of Road Infrastructure: 
+    - 1. Assessing the role of well-designed pedestrian crossings, roundabouts, and traffic calming measures in preventing road accidents. 
+    - 2. Investigating the correlation between road surface quality (e.g., potholes, uneven surfaces) and the frequency of accidents.
+  - Influence of Traffic Management: 
+    - 1. Assessing the role of traffic lights and speed cameras in preventing road accidents. 
+    - 2. Investigating the correlation between the frequency of accidents and the presence of traffic calming measures (e.g., speed bumps, chicanes, road narrowing, etc.).
+  - Legislation and Enforcement:
+    - 1. Assessing the role of speed limits in preventing road accidents.
+
+- Traffic congestion - how can we reduce congestion?
+  - Data Collection and Analysis:
+    - 1. Utilizing real-time traffic data from platforms like Waze and Google Maps to forecast congestion patterns.
+    - 2. Analyzing historical traffic data to identify recurring congestion patterns and anticipate future traffic bottlenecks.
+  - Machine Learning and Predictive Modeling:
+    - 1. Designing machine learning models that use past and current traffic data to predict future congestion levels.
   
 - Other
   - Other topics are welcome

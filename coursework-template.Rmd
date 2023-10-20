@@ -284,10 +284,20 @@ This example report explores road casualty data in the Isle of Wight.
 You can get zone, OD and even route data for any city in the UK with the following commands.
 We got data for the Isle of Wight with the following commands:
 
+```{r, echo=FALSE}
+# old value
+op = get("has_internet_via_proxy", environment(curl::has_internet))
+# check for internet
+np = !is.null(curl::nslookup("r-project.org", error = FALSE))
+assign("has_internet_via_proxy", np, environment(curl::has_internet))
+```
+
+
 ```{r, message=FALSE}
 library(pct)
 region_name = "isle-of-wight"
 z = get_pct_zones(region = region_name, geography = "msoa")
+
 od = get_od()
 od_in_zones = od %>% 
   filter(geo_code1 %in% z$geo_code) %>% 

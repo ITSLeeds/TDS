@@ -153,6 +153,7 @@ deadline$LOCATION = "Online - Teams"
 deadline$DESCRIPTION = deadline_descriptions
 
 timetable = rbind(practical, seminar, deadline) 
+timetable$duration
 
 # timetable %>% 
 #   mutate(duration = difftime(DTEND, DTSTART, units = "hours")) %>% 
@@ -176,7 +177,7 @@ tt_min = dplyr::select(timetable, SUMMARY, DESCRIPTION, DTSTART, DTEND, LOCATION
 # ic = calendar::ical(tt_min[1:2, ])
 ic = calendar::ical(tt_min)
 tt_csv = tt_min %>% 
-  mutate(date = as.Date(DTSTART), duration = DTEND - DTSTART) %>% 
+  mutate(date = as.Date(DTSTART), duration = round(as.numeric(DTEND - DTSTART) / 60)) %>% 
   select(SUMMARY, DESCRIPTION, date, duration, LOCATION)
 names(tt_csv) = tolower(names(tt_csv))
 

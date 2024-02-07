@@ -53,29 +53,28 @@ Session timings:
 
 ---
 
-# The Transport Data Science team
+## The Transport Data Science team
 
-### Robin Lovelace
+#### Robin Lovelace
 
-- Geographer by training
-- Researching transport futures
-- R developer and teacher, with a couple of books on the subject 
-
---
-
-### Malcolm Morgan
-
-- Civil Engineer by training
-- Developer of the Propensity to Cycle Tool and [Place Based Carbon Calculator](https://www.carbon.place/#8/51.482/-0.151)
-- Expertise routing
+- Associate Professor of Transport Data Science
+- Researching transport futures and active travel planning
+- R developer and teacher, author of Geocomputation with R
 
 --
 
-## Zhao Wang
+#### Malcolm Morgan
+
+- Senior researcher at ITS with expertise in routing + web
+- Developer of the Propensity to Cycle Tool and [PBCC](https://www.carbon.place/#8/51.482/-0.151)
+
+--
+
+#### Zhao Wang
 
 - Civil Engineer and Data Scientist with expertise in machine learning
 
-### Demonstrators
+#### Demonstrators
 
 - Juan Pablo Fonseca Zamorra
 - Amelia Pyper

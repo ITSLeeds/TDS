@@ -36,6 +36,16 @@ class: center, bottom, inverse
 
 
 
+---
+
+# Housekeeping
+
+Session timings:
+
+- Taught lecture and questions: 45 minutes
+- Practical session A: Going through the homework 40 minutes
+- Break: 5 minutes
+- Practical session B (practical session on reproducible research with R): 1.5 hours
 
 ---
 
@@ -45,7 +55,6 @@ class: center, bottom, inverse
 
 - Geographer by training
 - Researching transport futures
-- Especially cycling potential ([e.g. to school](http://eprints.whiterose.ac.uk/141852/))
 - R developer and teacher, with a couple of books on the subject 
 
 --
@@ -53,16 +62,19 @@ class: center, bottom, inverse
 ### Malcolm Morgan
 
 - Civil Engineer by training
-- Moved into transport via the Propensity to Cycle Tool Project
-- Expertise in machine learning and routing
+- Developer of the Propensity to Cycle Tool and [Place Based Carbon Calculator](https://www.carbon.place/#8/51.482/-0.151)
+- Expertise routing
 
 --
 
+## Zhao Wang
+
+- Civil Engineer and Data Scientist with expertise in machine learning
+
 ### Demonstrators
 
-- Hussein Mahfouz
 - Juan Pablo Fonseca Zamorra
-- Caroline Tait
+- Amelia Pyper
 
 &lt;!-- ### Joey Talbot --&gt;
 
@@ -90,7 +102,8 @@ class: center, bottom, inverse
 - January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
 - March 2020: Switch to online teaching
 - 2021-2023: Updated module, focus on methods
-- 2024+: Expand, online course? book? stay in touch!
+- 2024: Switch to combined practical sessions and lectures
+- 2025+: Expand, online course? book? stay in touch!
 
 
 
@@ -107,6 +120,7 @@ Skip this bit
 &lt;!-- - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md --&gt;
 
 - Chapter 12, [Transportation](http://geocompr.robinlovelace.net/transport.html) of Geocomputation with R, a open book on geographic data in R (available free [online](http://geocompr.robinlovelace.net/))  
+- Reproducible Road Safety Research with R (RRSRR): https://itsleeds.github.io/rrsrr/
 
 
 &lt;img src="https://geocompr.robinlovelace.net/images/cover.png" height="300px" /&gt;&lt;img src="https://r.geocompx.org/13-transport_files/figure-html/desire-1.png" height="300px" /&gt;
@@ -156,7 +170,7 @@ nrow(timetable)
 ```
 
 ```
-## [1] 15
+## [1] 11
 ```
 
 ```r
@@ -173,29 +187,25 @@ timetable = timetable %&gt;%
 
 |Summary                    |Date       |Location                             | Duration (Hours)|
 |:--------------------------|:----------|:------------------------------------|----------------:|
-|TDS Lecture 1: structure   |2023-01-30 |Civil Engineering LT B (3.25)        |               60|
-|TDS deadline 1             |2023-02-03 |Online - Teams                       |                1|
-|TDS Lecture 2: od          |2023-02-06 |Civil Engineering LT B (3.25)        |               60|
-|TDS Practical 1: structure |2023-02-09 |West Teaching Lab Cluster (G.29)     |              150|
-|TDS Lecture 3: routing     |2023-02-13 |Civil Engineering LT B (3.25)        |               60|
-|TDS Practical 2: routing   |2023-02-16 |West Teaching Lab Cluster (G.29)     |              150|
-|TDS Practical 3: od        |2023-02-23 |West Teaching Lab Cluster (G.29)     |              150|
-|TDS seminar 1              |2023-02-23 |Institute for Transport Studies 1.11 |              120|
+|TDS deadline 1             |2024-02-02 |Online - Teams                       |                0|
+|TDS Practical 1: intro     |2024-02-08 |Irene Manton North Cluster (7.96)    |                3|
+|TDS Practical 2: structure |2024-02-15 |Irene Manton North Cluster (7.96)    |                3|
+|TDS Practical 3: od        |2024-02-22 |Irene Manton North Cluster (7.96)    |                3|
+|TDS seminar 1              |2024-02-22 |Institute for Transport Studies 1.11 |                3|
+|TDS deadline 2             |2024-02-23 |Online - Teams                       |                0|
+|TDS Practical 4: routing   |2024-02-29 |Irene Manton North Cluster (7.96)    |                3|
+|TDS seminar 2              |2024-03-21 |Institute for Transport Studies 1.11 |                3|
 
 ---
 
 ## Timetable: March to May
 
 
-|Summary                  |Date       |Location                             | Duration (Hours)|
-|:------------------------|:----------|:------------------------------------|----------------:|
-|TDS deadline 2           |2023-02-24 |Online - Teams                       |                1|
-|TDS Practical 4: getting |2023-03-02 |West Teaching Lab Cluster (G.29)     |              150|
-|TDS seminar 2            |2023-03-08 |Institute for Transport Studies 1.11 |              120|
-|TDS Lecture 4: viz       |2023-03-20 |Civil Engineering LT B (3.25)        |               60|
-|TDS Lecture 5: project   |2023-03-27 |Civil Engineering LT B (3.25)        |               60|
-|TDS Practical 5: project |2023-05-04 |West Teaching Lab Cluster (G.29)     |              150|
-|TDS deadline 3           |2023-05-19 |Online - Teams                       |                1|
+|Summary                        |Date       |Location                          | Duration (Hours)|
+|:------------------------------|:----------|:---------------------------------|----------------:|
+|TDS Practical 5: visualisation |2024-05-02 |Irene Manton North Cluster (7.96) |                3|
+|TDS Practical 6: project       |2024-05-09 |Irene Manton North Cluster (7.96) |                3|
+|TDS deadline 3                 |2024-05-17 |Online - Teams                    |                0|
 
 
 ---
@@ -539,6 +549,10 @@ tm_shape(car_dependent_routes) +
   tm_lines(col = "percent_drive", lwd = "all", scale = 5, breaks = b, palette = "-inferno")
 ```
 
+```
+## tm_lines: Deprecated tmap v3 code detected. Code translated to v4
+```
+
 ![](1-intro_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 
@@ -638,21 +652,21 @@ class: center, middle, inverse
 
 # References
 
-Boeing, Geoff (2017). "OSMnx: New Methods for Acquiring, Constructing, Analyzing,
-and Visualizing Complex Street Networks". In: _Computers, Environment and Urban
-Systems_ 65, pp. 126-139. ISSN: 0198-9715. DOI:
+Boeing, Geoff (2017). "OSMnx: New Methods for Acquiring, Constructing,
+Analyzing, and Visualizing Complex Street Networks". In: _Computers,
+Environment and Urban Systems_ 65, pp. 126-139. ISSN: 0198-9715. DOI:
 [10/gbvjxq](https://doi.org/10%2Fgbvjxq).
 
-Fox, Charles (2018). _Data Science for Transport: A Self-Study Guide with
-Computer Exercises_. 1st ed. 2018 edition. New York, NY: Springer. ISBN:
-978-3-319-72952-7.
+Fox, Charles (2018). _Data Science for Transport: A Self-Study Guide
+with Computer Exercises_. 1st ed. 2018 edition. New York, NY: Springer.
+ISBN: 978-3-319-72952-7.
 
-Grolemund, Garrett and Hadley Wickham (2016). _R for Data Science_. O'Reilly
-Media. ISBN: 978-1-4919-1039-9.
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data Science_.
+O'Reilly Media. ISBN: 978-1-4919-1039-9.
 
-Lovelace, Robin (2021). "Open Source Tools for Geographic Analysis in Transport
-Planning". In: _Journal of Geographical Systems_. ISSN: 1435-5949. DOI:
-[10/ghtnrp](https://doi.org/10%2Fghtnrp).
+Lovelace, Robin (2021). "Open Source Tools for Geographic Analysis in
+Transport Planning". In: _Journal of Geographical Systems_. ISSN:
+1435-5949. DOI: [10/ghtnrp](https://doi.org/10%2Fghtnrp).
 
 Popper, Karl (1959). _The Logic of Scientific Discovery_. Hutchinson.
     </textarea>

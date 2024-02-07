@@ -40,6 +40,16 @@ library(tmap)
 library(tidyverse)
 ```
 
+---
+
+# Housekeeping
+
+Session timings:
+
+- Taught lecture and questions: 45 minutes
+- Practical session A: Going through the homework 40 minutes
+- Break: 5 minutes
+- Practical session B (practical session on reproducible research with R): 1.5 hours
 
 ---
 
@@ -49,7 +59,6 @@ library(tidyverse)
 
 - Geographer by training
 - Researching transport futures
-- Especially cycling potential ([e.g. to school](http://eprints.whiterose.ac.uk/141852/))
 - R developer and teacher, with a couple of books on the subject 
 
 --
@@ -57,16 +66,19 @@ library(tidyverse)
 ### Malcolm Morgan
 
 - Civil Engineer by training
-- Moved into transport via the Propensity to Cycle Tool Project
-- Expertise in machine learning and routing
+- Developer of the Propensity to Cycle Tool and [Place Based Carbon Calculator](https://www.carbon.place/#8/51.482/-0.151)
+- Expertise routing
 
 --
 
+## Zhao Wang
+
+- Civil Engineer and Data Scientist with expertise in machine learning
+
 ### Demonstrators
 
-- Hussein Mahfouz
 - Juan Pablo Fonseca Zamorra
-- Caroline Tait
+- Amelia Pyper
 
 <!-- ### Joey Talbot -->
 
@@ -94,7 +106,8 @@ library(tidyverse)
 - January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
 - March 2020: Switch to online teaching
 - 2021-2023: Updated module, focus on methods
-- 2024+: Expand, online course? book? stay in touch!
+- 2024: Switch to combined practical sessions and lectures
+- 2025+: Expand, online course? book? stay in touch!
 
 ```{r, echo=FALSE, eval=TRUE}
 # knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")
@@ -114,6 +127,7 @@ Skip this bit
 <!-- - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md -->
 
 - Chapter 12, [Transportation](http://geocompr.robinlovelace.net/transport.html) of Geocomputation with R, a open book on geographic data in R (available free [online](http://geocompr.robinlovelace.net/)) `r Citep(my_bib, "lovelace_geocomputation_2018", .opts = list(cite.style = "authoryear"))` 
+- Reproducible Road Safety Research with R (RRSRR): https://itsleeds.github.io/rrsrr/
 
 
 ```{r geocompr-cover, echo=FALSE, out.height="300px"}

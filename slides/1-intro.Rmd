@@ -64,9 +64,8 @@ library(tidyverse)
 
 ### Demonstrators
 
-- Hussein Mahfouz
 - Juan Pablo Fonseca Zamorra
-- Caroline Tait
+- Amelia Pyper
 
 <!-- ### Joey Talbot -->
 
@@ -94,7 +93,8 @@ library(tidyverse)
 - January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
 - March 2020: Switch to online teaching
 - 2021-2023: Updated module, focus on methods
-- 2024+: Expand, online course? book? stay in touch!
+- 2024: Switch to combined practical sessions and lectures
+- 2025+: Expand, online course? book? stay in touch!
 
 ```{r, echo=FALSE, eval=TRUE}
 # knitr::include_graphics("https://images.springer.com/sgw/books/medium/9783319729527.jpg")

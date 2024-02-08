@@ -534,16 +534,6 @@ knitr::include_graphics("https://www.cyipt.bike/images/existing-edit.png")
 
 ---
 
-# Is already here III
-
-- Example: StreetMix ([streetmix.net](https://streetmix.net/))
-
-```{r, echo=FALSE, out.width="60%"}
-knitr::include_graphics("https://streetmix.net/images/thumbnail.png")
-```
-
----
-
 # R vs Python
 
 - Lots of debate on this topic - see https://blog.usejournal.com/python-vs-and-r-for-data-science-833b48ccc91d
@@ -614,15 +604,19 @@ class: center, middle, inverse
 
 ## Practical session will involve...
 
+See https://github.com/ITSLeeds/TDS/blob/master/practicals/1-intro.md
+
+That's your working document for today.
+
 <!-- - Definition of transport data science -->
-- About you, level and hopes for the course
-- Thinking about research methods (you will need pens)
-- The structure of transport datasets
-  - How cities are divided up into zones
-  - Desire lines representing movement
-  - Routes between locations
-  - Route networks
-  - Agents
+<!-- - About you, level and hopes for the course -->
+<!-- - Thinking about research methods (you will need pens) -->
+<!-- - The structure of transport datasets -->
+<!--   - How cities are divided up into zones -->
+<!--   - Desire lines representing movement -->
+<!--   - Routes between locations -->
+<!--   - Route networks -->
+<!--   - Agents -->
 
 ---
 

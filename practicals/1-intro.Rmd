@@ -179,13 +179,15 @@ Let's go through these  exercises together:
 1. Subset the `crashes` data frame so that only tanks are returned using the `==` operator.
 1. **Bonus**: assign the age of all tanks to 61.
 
-- Try running the subsetting code on a larger dataset
+- Try running the subsetting code on a larger dataset, e.g. the `ac` object created previously
 
 1. Coerce the `vehicle_type` column of `crashes` to the class `character`.
 1. Coerce the `crashes` object into a matrix. What happened to the values?
 1. **Bonus:** What is the difference between the output of `summary()` on `character` and `factor` variables?
 
 - We'll explore this together
+
+## Bonus: reproduce the contents of Chapter 2 in Python 
 
 # Practical introduction to data science
 
@@ -197,8 +199,10 @@ Let's go through these  exercises together:
 library(tidyverse) # Load the package
 ```
 
+- Work through chapters 6 and 7 on spatial and temporal data to get R foundations
 
-## Analysis of flights data
+
+## Bonus: Analysis of flights data
 
 You need to have a number of packages installed and loaded.
 Install the packages by typing in the following commands into RStudio (you do not need to add the comments after the `#` symbol):^[

@@ -117,7 +117,71 @@ browseURL("/tmp/foundations.pdf")
 ```
 
 We now have a data frame object stored in memory (technically in the
-global environment) that is used as the basis of the questions:
+global environment) that is used as the basis of the questions.
+
+To get some larger datasets, try the following (from Chapter 8 of RSRR)
+
+``` r
+library(stats19)
+```
+
+    ## Data provided under OGL v3.0. Cite the source and link to:
+    ## www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+
+``` r
+ac = get_stats19(year = 2019, type = "collision")
+```
+
+    ## Files identified: dft-road-casualty-statistics-collision-2019.csv
+
+    ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
+
+    ## Data already exists in data_dir, not downloading
+
+    ## Reading in:
+
+    ## ~/data/stats19/dft-road-casualty-statistics-collision-2019.csv
+
+    ## Rows: 117536 Columns: 36
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr   (6): accident_index, accident_reference, date, local_authority_ons_dis...
+    ## dbl  (29): accident_year, location_easting_osgr, location_northing_osgr, lon...
+    ## time  (1): time
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+    ## date and time columns present, creating formatted datetime column
+
+``` r
+ca = get_stats19(year = 2019, type = "cas")
+```
+
+    ## Files identified: dft-road-casualty-statistics-casualty-2019.csv
+    ## 
+    ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
+    ## Data already exists in data_dir, not downloading
+    ## Rows: 153158 Columns: 19── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr  (2): accident_index, accident_reference
+    ## dbl (17): accident_year, vehicle_reference, casualty_reference, casualty_cla...
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+ve = get_stats19(year = 2019, type = "veh")
+```
+
+    ## Files identified: dft-road-casualty-statistics-vehicle-2019.csv
+    ## 
+    ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
+    ## Data already exists in data_dir, not downloading
+    ## Rows: 216381 Columns: 28── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr  (4): accident_index, accident_reference, generic_make_model, lsoa_of_dr...
+    ## dbl (24): accident_year, vehicle_reference, vehicle_type, towing_and_articul...
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 2.3.1. Use the `$` operator to print the `vehicle_type` column of
 `crashes`.
@@ -132,6 +196,26 @@ global environment) that is used as the basis of the questions:
 of the previous exercises?
 
     - Explore how many R classes you can find
+
+Let’s go through these exercises together:
+
+1.  Subset the `casualty_age` object using the inequality (`<`) so that
+    only elements less than 50 are returned.
+2.  Subset the `crashes` data frame so that only tanks are returned
+    using the `==` operator.
+3.  **Bonus**: assign the age of all tanks to 61.
+
+- Try running the subsetting code on a larger dataset, e.g. the `ac`
+  object created previously
+
+1.  Coerce the `vehicle_type` column of `crashes` to the class
+    `character`.
+2.  Coerce the `crashes` object into a matrix. What happened to the
+    values?
+3.  **Bonus:** What is the difference between the output of `summary()`
+    on `character` and `factor` variables?
+
+- We’ll explore this together
 
 # 2 Practical introduction to data science
 
@@ -154,7 +238,10 @@ library(tidyverse) # Load the package
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-## 2.2 Analysis of flights data
+- Work through chapters 6 and 7 on spatial and temporal data to get R
+  foundations
+
+## 2.2 Bonus: Analysis of flights data
 
 You need to have a number of packages installed and loaded. Install the
 packages by typing in the following commands into RStudio (you do not
@@ -226,7 +313,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 - Add transparency so it looks like this (hint: use `alpha =` in the
   `geom_point()` function call):
@@ -236,7 +323,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - Add a colour for each carrier, so it looks something like this:
 
@@ -248,7 +335,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - Bonus 1: find the average air time of those flights with a distance of
   1000 to 2000 miles
@@ -264,7 +351,7 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 # 3 Homework
 

@@ -51,6 +51,24 @@ Session timings:
 - Break: 5 minutes
 - Practical session part 2: 90 minutes
 
+--
+
+Digital housekeeping and getting to know each other
+
+- Who has access to a laptop?
+
+--
+
+- With R and RStudio installed *and tested*?
+
+--
+
+- Python experience: what packages have you used and for what applications?
+
+--
+
+What do you want to get out of this module?
+
 ---
 
 ## The Transport Data Science team
@@ -161,10 +179,10 @@ For more references, see the bibliography at [github.com/ITSLeeds/TDS](https://g
 
 -  ## <font color="red"> Introduction to transport data science </font> 
 <!-- - Software for practical data science  -->
-- **The structure of transport data**
+- **OD data**
 - Routing
 <!-- - Data cleaning and subsetting -->
-<!-- - Accessing data from web sources -->
+- Accessing data from web sources
 - Data visualization
 - Project work + data science in practice
 <!-- - Machine learning -->

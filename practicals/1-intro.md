@@ -138,11 +138,11 @@ ac = get_stats19(year = 2019, type = "collision")
 
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
 
-    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-collision-2019.csv
+    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-collision-2019.csv
 
     ## Reading in:
 
-    ## /tmp/RtmpSEct3G/dft-road-casualty-statistics-collision-2019.csv
+    ## /tmp/RtmpOa8UEc/dft-road-casualty-statistics-collision-2019.csv
 
     ## Rows: 117536 Columns: 36
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ ca = get_stats19(year = 2019, type = "cas")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
-    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-casualty-2019.csv
+    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-casualty-2019.csv
     ## Rows: 153158 Columns: 19── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (2): accident_index, accident_reference
@@ -179,7 +179,7 @@ ve = get_stats19(year = 2019, type = "veh")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
-    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-vehicle-2019.csv
+    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-vehicle-2019.csv
     ## Rows: 216381 Columns: 28── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (4): accident_index, accident_reference, generic_make_model, lsoa_of_dr...

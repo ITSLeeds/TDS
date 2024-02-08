@@ -4,11 +4,6 @@ Robin Lovelace
 University of Leeds
 <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
 
-Note: before you run this tutorial, ensure that you have recently
-updated R and RStudio on your computer. Furthermore, you will need to
-have installed a number of packages, as described here:
-<https://docs.ropensci.org/stats19/articles/stats19-training-setup.html>
-
 <!-- ## Agenda {-} -->
 <!-- 1. Thinking about transport data science (20 min) -->
 <!-- 2. Questions about the homework (10 min) -->
@@ -21,33 +16,30 @@ have installed a number of packages, as described here:
 <!-- running the code in Sections 12.1 to 12.4 the Transport chapter of Geocomputation with R and answering the questions for the Bristol dataset  - 1 hr  -->
 <!-- 1. Bonus: Work through [Chapter 5](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) of R for Data Science -->
 
-# 1 Thinking about (transport) data science
+## Thinking about (transport) data science
 
-- Based on the contents of the lecture, come up with *your own*
-  definition of data science
-- How do you see yourself using data science over the next 1 year, 5
-  years, 20 years
-- What do you hope to get out of it personally?
-- Bonus: think of a question about a transport system you know well and
-  how data science could help answer it, perhaps with reference to a
-  sketch like that below
+<!-- - Based on the contents of the lecture, come up with *your own* definition of data science -->
+
+- How do you see yourself using data science over the next 5 years?
+- Think of a question about a transport system you know well and how
+  data science could help answer it, perhaps with reference to a sketch
+  like that below
 
 #### How much potential is there for cycling across the transport network?
 
 ![](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
 
-# 2 Questions about homework
+#### How can travel to schools be made safer?
 
-1.  Reproduce this script:
-    <https://github.com/ITSLeeds/pct/blob/master/inst/test-setup.R>
-2.  Work through the transport chapter of Geocomputation with R:
-    <https://geocompr.robinlovelace.net/transport.html>
+#### How can hospitals encourage visitors to get there safely?
 
-# 3 Practical 2
+#### Where’s the best place to build electric car charging points?
 
-See
-<https://github.com/ITSLeeds/TDS/blob/master/practicals/2-software.md>
+See <https://www.openstreetmap.org/#map=19/53.80689/-1.55637> for more
+ideas
 
+<!-- 2. Work through the transport chapter of Geocomputation with R: https://geocompr.robinlovelace.net/transport.html -->
+<!-- See https://github.com/ITSLeeds/TDS/blob/master/practicals/2-software.md -->
 <!-- - In terms of future work in an evolving job market? -->
 <!-- - In terms of the kinds of problems you want to solve? -->
 <!-- ## Sketching research methods (in groups of 2-4, 30 minutes) -->
@@ -87,9 +79,82 @@ See
 <!-- ## Learning outcomes -->
 <!-- - Articulate the relevance and limitations of data-centric analysis applied to transport problems, compared with other methods -->
 
-# 4 Practical introduction to data science
+# 1 R foundations
 
-## Pre-requisites
+This section builds on the Reproducible road safety with R homework, to
+**read and try to complete the exercises in Chapters 1 to 4 of the book
+Reproducible Road Safety Research with R.** It assumes that you have
+recently updated R and RStudio on your computer. For details on
+installing packages see here:
+<https://docs.ropensci.org/stats19/articles/stats19-training-setup.html>
+
+- Create a new R project called ‘practical1’
+- In it create file called foundations.Rmd
+- Type the following
+
+```` markdown
+
+This is some text:
+
+
+```r
+casualty_type = c("pedestrian", "cyclist", "cat")
+casualty_age = seq(from = 20, to = 60, by = 20)
+crashes = data.frame(casualty_type, casualty_age)
+```
+````
+
+- Knit the document by pressing Ctrl+Shift+K or with the ‘Knit’ button
+  in RStudio
+  - Bonus: you can also ‘knit’ or compile the file with the following
+    command, try it out to generate different file formats, as described
+    in the [package’s
+    documentation](https://rmarkdown.rstudio.com/lesson-9.html):
+
+``` r
+rmarkdown::render("foundations.Rmd", output_format = "pdf_document")
+browseURL("/tmp/foundations.pdf")
+```
+
+We now have a data frame object stored in memory (technically in the
+global environment) that is used as the basis of the questions:
+
+2.3.1. Use the `$` operator to print the `vehicle_type` column of
+`crashes`.
+
+    - In R the `$` symbol is used to refer to elemements of a list. So the answer is simply `crashes$vehicle_type`
+
+2.3.2. Subsetting the crashes with the `[,]` syntax
+
+    - Try out different combinations on the dataframe
+
+2.3.3. **Bonus**: what is the `class()` of the objects created by each
+of the previous exercises?
+
+    - Explore how many R classes you can find
+
+# 2 Practical introduction to data science
+
+## 2.1 Tidyverse
+
+- Work through Chapter 5 starting with the following code:
+
+``` r
+library(tidyverse) # Load the package
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.1.4          ✔ readr     2.1.5     
+    ## ✔ forcats   1.0.0          ✔ stringr   1.5.1     
+    ## ✔ ggplot2   3.4.4.9000     ✔ tibble    3.2.1     
+    ## ✔ lubridate 1.9.3          ✔ tidyr     1.3.1     
+    ## ✔ purrr     1.0.2          
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+## 2.2 Analysis of flights data
 
 You need to have a number of packages installed and loaded. Install the
 packages by typing in the following commands into RStudio (you do not
@@ -111,17 +176,6 @@ Load the tidyverse package as follows:
 ``` r
 library(tidyverse)
 ```
-
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.1.4          ✔ readr     2.1.5     
-    ## ✔ forcats   1.0.0          ✔ stringr   1.5.1     
-    ## ✔ ggplot2   3.4.4.9000     ✔ tibble    3.2.1     
-    ## ✔ lubridate 1.9.3          ✔ tidyr     1.3.1     
-    ## ✔ purrr     1.0.2          
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 This section will use content from Chapter 5 of the R for Data Science
 book (**grolemund_data_2016?**).
@@ -172,7 +226,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 - Add transparency so it looks like this (hint: use `alpha =` in the
   `geom_point()` function call):
@@ -182,7 +236,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 - Add a colour for each carrier, so it looks something like this:
 
@@ -194,7 +248,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 - Bonus 1: find the average air time of those flights with a distance of
   1000 to 2000 miles
@@ -210,9 +264,9 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
-# 5 Homework
+# 3 Homework
 
 1)  create a reproducible document
 

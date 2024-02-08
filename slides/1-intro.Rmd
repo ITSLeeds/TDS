@@ -47,9 +47,9 @@ library(tidyverse)
 Session timings:
 
 - Taught lecture and questions: 45 minutes
-- Practical session A: Going through the homework 40 minutes
+- Practical session part 1: Going through the homework 40 minutes
 - Break: 5 minutes
-- Practical session B (practical session on reproducible research with R): 1.5 hours
+- Practical session part 2: 90 minutes
 
 ---
 

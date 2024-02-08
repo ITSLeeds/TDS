@@ -217,9 +217,16 @@ Let’s go through these exercises together:
 
 - We’ll explore this together
 
+## 1.1 Bonus: reproduce the contents of Chapter 2 in Python
+
 # 2 Practical introduction to data science
 
-## 2.1 Tidyverse
+## 2.1 Completing Chapters 2-4 in the RRSRR document
+
+- This was your homework but revisit it an ensure you understand every
+  bit and complete it if you haven’t already
+
+## 2.2 Tidyverse
 
 - Work through Chapter 5 starting with the following code:
 
@@ -241,7 +248,7 @@ library(tidyverse) # Load the package
 - Work through chapters 6 and 7 on spatial and temporal data to get R
   foundations
 
-## 2.2 Bonus: Analysis of flights data
+## 2.3 Bonus: Analysis of flights data
 
 You need to have a number of packages installed and loaded. Install the
 packages by typing in the following commands into RStudio (you do not

@@ -191,6 +191,10 @@ Let's go through these  exercises together:
 
 # Practical introduction to data science
 
+## Completing Chapters 2-4 in the RRSRR document
+
+- This was your homework but revisit it an ensure you understand every bit and complete it if you haven't already
+
 ## Tidyverse
 
 - Work through Chapter 5 starting with the following code:

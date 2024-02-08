@@ -203,7 +203,16 @@ Let's go through these  exercises together:
 library(tidyverse) # Load the package
 ```
 
+# Homework
+
 - Work through chapters 6 and 7 on spatial and temporal data to get R foundations
+
+- Run the code in the demos/demo-quarto-document.qmd script
+
+
+**Bonus**
+
+Work through all of the code in the RRSRR tutorial, focussing on the parts that you think will be most useful for your coursework.
 
 
 ## Bonus: Analysis of flights data

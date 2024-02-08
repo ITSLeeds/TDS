@@ -136,11 +136,13 @@ ac = get_stats19(year = 2019, type = "collision")
 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
 
-    ## Data already exists in data_dir, not downloading
+    ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
+
+    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-collision-2019.csv
 
     ## Reading in:
 
-    ## ~/data/stats19/dft-road-casualty-statistics-collision-2019.csv
+    ## /tmp/RtmpSEct3G/dft-road-casualty-statistics-collision-2019.csv
 
     ## Rows: 117536 Columns: 36
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -160,7 +162,8 @@ ca = get_stats19(year = 2019, type = "cas")
     ## Files identified: dft-road-casualty-statistics-casualty-2019.csv
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
-    ## Data already exists in data_dir, not downloading
+    ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
+    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-casualty-2019.csv
     ## Rows: 153158 Columns: 19── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (2): accident_index, accident_reference
@@ -175,7 +178,8 @@ ve = get_stats19(year = 2019, type = "veh")
     ## Files identified: dft-road-casualty-statistics-vehicle-2019.csv
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
-    ## Data already exists in data_dir, not downloading
+    ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
+    ## Data saved at /tmp/RtmpSEct3G/dft-road-casualty-statistics-vehicle-2019.csv
     ## Rows: 216381 Columns: 28── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (4): accident_index, accident_reference, generic_make_model, lsoa_of_dr...
@@ -245,10 +249,19 @@ library(tidyverse) # Load the package
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
+# 3 Homework
+
 - Work through chapters 6 and 7 on spatial and temporal data to get R
   foundations
 
-## 2.3 Bonus: Analysis of flights data
+- Run the code in the demos/demo-quarto-document.qmd script
+
+**Bonus**
+
+Work through all of the code in the RRSRR tutorial, focussing on the
+parts that you think will be most useful for your coursework.
+
+## 3.1 Bonus: Analysis of flights data
 
 You need to have a number of packages installed and loaded. Install the
 packages by typing in the following commands into RStudio (you do not
@@ -360,7 +373,7 @@ f$pred = m$fitted.values
 
 ![](1-intro_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
-# 3 Homework
+# 4 Homework
 
 1)  create a reproducible document
 

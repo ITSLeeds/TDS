@@ -282,9 +282,11 @@ The blue line is a smoothed average of the data. It shows a common concept in tr
 
 # Homework
 
-1. Read Chapters 2-5, 7, and 8 of [Geocomputation with R](https://r.geocompx.org/transport.html) 
-2. Read more about using the [tmap package](https://r-tmap.github.io/tmap/)
-3. Work though Sections 13.1 to 13.4 of the Transport Chapter in [Geocomputation with R](https://r.geocompx.org/transport.html)
-4. Read more about the [ggplot2 package](https://ggplot2.tidyverse.org/)
+1. Read Chapters 2-5 of [Geocomputation with R](https://r.geocompx.org/transport.html) 
+2. Work though Sections 13.1 to 13.4 of the Transport Chapter in [Geocomputation with R](https://r.geocompx.org/transport.html)
+3. Bonus: Read more about using the [tmap package](https://r-tmap.github.io/tmap/)
+4. Bonus: Read more about the [ggplot2 package](https://ggplot2.tidyverse.org/)
+5. Bonus: Read Chapter 7 & 8 of [Geocomputation with R](https://r.geocompx.org/transport.html) 
+
 
 # References

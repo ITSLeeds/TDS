@@ -1,6 +1,6 @@
 Origin-destination data
 ================
-Malcolm Morgan
+Malcolm Morgan and Robin Lovelace
 University of Leeds
 <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
 
@@ -9,10 +9,10 @@ University of Leeds
 You should now be familiar with the basics of R and the `tidyverse`. If
 you have not completed these tasks go back and do them first:
 
-- Read Chapters 2, 3, and 4 of [Reproducible road safety research with
-  R](https://itsleeds.github.io/rrsrr/basics.html)
-- Read Chapters 3 and 5 of [R for Data
-  Science](https://r4ds.had.co.nz/data-visualisation.html)
+-   Read Chapters 2, 3, and 4 of [Reproducible road safety research with
+    R](https://itsleeds.github.io/rrsrr/basics.html)
+-   Read Chapters 3 and 5 of [R for Data
+    Science](https://r4ds.had.co.nz/data-visualisation.html)
 
 # 2 Getting started with GIS in R
 
@@ -38,16 +38,16 @@ library(sf)          # vector data package
 library(tidyverse)   # tidyverse packages
 ```
 
-- It relies on **spData**, which loads datasets used in the code
-  examples of this chapter:
+-   It relies on **spData**, which loads datasets used in the code
+    examples of this chapter:
 
 ``` r
 library(spData)  # spatial data package 
 ```
 
 1.  Check your packages are up-to-date with `update.packages()`
-2.  Create an RStudio project with an appropriate name for this module
-    (e.g. `TDSmodule`)
+2.  Create an RStudio project with an appropriate name for this session
+    (e.g. `practical2`)
 3.  Create appropriate folders for code, data and anything else
     (e.g. images)
 4.  Create a script called `learning-OD.R`, e.g. with the following
@@ -130,16 +130,13 @@ places not in Canterbury
 nz_height[canterbury, , op = st_disjoint]
 ```
 
-<figure>
-<img src="https://r.geocompx.org/figures/relations-1.png"
-alt="Topological relations between vector geometries, inspired by Figures 1 and 2 in Egenhofer and Herring (1990). The relations for which the function(x, y) is true are printed for each geometry pair, with x represented in pink and y represented in blue. The nature of the spatial relationship for each pair is described by the Dimensionally Extended 9-Intersection Model string." />
-<figcaption aria-hidden="true">Topological relations between vector
-geometries, inspired by Figures 1 and 2 in Egenhofer and Herring (1990).
-The relations for which the function(x, y) is true are printed for each
-geometry pair, with x represented in pink and y represented in blue. The
-nature of the spatial relationship for each pair is described by the
-Dimensionally Extended 9-Intersection Model string.</figcaption>
-</figure>
+![Topological relations between vector geometries, inspired by Figures 1
+and 2 in Egenhofer and Herring (1990). The relations for which the
+function(x, y) is true are printed for each geometry pair, with x
+represented in pink and y represented in blue. The nature of the spatial
+relationship for each pair is described by the Dimensionally Extended
+9-Intersection Model
+string.](https://r.geocompx.org/figures/relations-1.png)
 
 # 3 Getting started with OD data
 
@@ -151,6 +148,8 @@ Load the `stplanr` package as follows:
 ``` r
 library(stplanr)
 ```
+
+    ## Warning: package 'stplanr' was built under R version 4.2.2
 
 The `stplanr` package contains some data that we can use to demonstrate
 principles in Data Science, illustrated in the Figure below. Source:
@@ -298,14 +297,16 @@ curves, but most people always have a bias for shorter trips.
 
 # 5 Homework
 
-1.  Read Chapters 2-5, 7, and 8 of [Geocomputation with
+1.  Read Chapters 2-5 of [Geocomputation with
     R](https://r.geocompx.org/transport.html)
-2.  Read more about using the [tmap
-    package](https://r-tmap.github.io/tmap/)
-3.  Work though Sections 13.1 to 13.4 of the Transport Chapter in
+2.  Work though Sections 13.1 to 13.4 of the Transport Chapter in
     [Geocomputation with R](https://r.geocompx.org/transport.html)
-4.  Read more about the [ggplot2
+3.  Bonus: Read more about using the [tmap
+    package](https://r-tmap.github.io/tmap/)
+4.  Bonus: Read more about the [ggplot2
     package](https://ggplot2.tidyverse.org/)
+5.  Bonus: Read Chapter 7 & 8 of [Geocomputation with
+    R](https://r.geocompx.org/transport.html)
 
 # 6 References
 

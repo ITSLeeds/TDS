@@ -45,7 +45,7 @@ library(spData)  # spatial data package
 ```
 
 1. Check your packages are up-to-date with `update.packages()`
-1. Create an RStudio project with an appropriate name for this module (e.g. `TDSmodule`)
+1. Create an RStudio project with an appropriate name for this session (e.g. `practical2`)
 1. Create appropriate folders for code, data and anything else (e.g. images)
 1. Create a script called `learning-OD.R`, e.g. with the following command:
 

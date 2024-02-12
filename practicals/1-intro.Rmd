@@ -207,7 +207,10 @@ library(tidyverse) # Load the package
 
 - Work through chapters 6 and 7 on spatial and temporal data in the [RRSRR tutorial](https://itsleeds.github.io/rrsrr/) to get R foundations
 
-- Run the code in the [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd) script
+- Work-through the remaining exercises of the first sections in R4DS chapters 3 and 5
+    - Write your notes in a .R, .Rmd or .qmd file with comments, to show your working (and prove you've done it!)
+
+- **Bonus 1 (optional)** Run the code in the [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd) script
 
 Note: you can copy-paste the code from the .qmd file into a new .qmd file on your computer and render it (convert it into a .PDF file) using the following:
 
@@ -220,7 +223,7 @@ quarto::quarto_render("demos/demo-quarto-document.qmd")
 ```
 
 
-**Bonus**
+**Bonus 2 (optional for this week, advised at some point over the next 4 weeks at your own pace)**
 
 Work through all of the code in the [RRSRR tutorial](https://itsleeds.github.io/rrsrr/), focussing on the parts that you think will be most useful for your coursework.
   

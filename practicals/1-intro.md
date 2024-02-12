@@ -138,11 +138,11 @@ ac = get_stats19(year = 2019, type = "collision")
 
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
 
-    ## Data saved at /tmp/Rtmpn124Ys/dft-road-casualty-statistics-collision-2019.csv
+    ## Data saved at /tmp/RtmpRpYa1T/dft-road-casualty-statistics-collision-2019.csv
 
     ## Reading in:
 
-    ## /tmp/Rtmpn124Ys/dft-road-casualty-statistics-collision-2019.csv
+    ## /tmp/RtmpRpYa1T/dft-road-casualty-statistics-collision-2019.csv
 
     ## Rows: 117536 Columns: 36
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ ca = get_stats19(year = 2019, type = "cas")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
-    ## Data saved at /tmp/Rtmpn124Ys/dft-road-casualty-statistics-casualty-2019.csv
+    ## Data saved at /tmp/RtmpRpYa1T/dft-road-casualty-statistics-casualty-2019.csv
     ## Rows: 153158 Columns: 19── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (2): accident_index, accident_reference
@@ -179,7 +179,7 @@ ve = get_stats19(year = 2019, type = "veh")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
-    ## Data saved at /tmp/Rtmpn124Ys/dft-road-casualty-statistics-vehicle-2019.csv
+    ## Data saved at /tmp/RtmpRpYa1T/dft-road-casualty-statistics-vehicle-2019.csv
     ## Rows: 216381 Columns: 28── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (4): accident_index, accident_reference, generic_make_model, lsoa_of_dr...
@@ -255,7 +255,13 @@ library(tidyverse) # Load the package
   [RRSRR tutorial](https://itsleeds.github.io/rrsrr/) to get R
   foundations
 
-- Run the code in the
+- Work-through the remaining exercises of the first sections in R4DS
+  chapters 3 and 5
+
+  - Write your notes in a .R, .Rmd or .qmd file with comments, to show
+    your working (and prove you’ve done it!)
+
+- **Bonus 1 (optional)** Run the code in the
   [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd)
   script
 
@@ -271,7 +277,8 @@ install.packages("quarto")
 quarto::quarto_render("demos/demo-quarto-document.qmd")
 ```
 
-**Bonus**
+**Bonus 2 (optional for this week, advised at some point over the next 4
+weeks at your own pace)**
 
 Work through all of the code in the [RRSRR
 tutorial](https://itsleeds.github.io/rrsrr/), focussing on the parts

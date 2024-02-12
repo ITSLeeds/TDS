@@ -1,7 +1,7 @@
 ---
 title: "Origin-destination data"
 subtitle: '<br/>Practical'
-author: "Malcolm Morgan"
+author: "Malcolm Morgan and Robin Lovelace"
 date: 'University of Leeds `r # Sys.Date()()`<br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">'
 output:
   github_document:

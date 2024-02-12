@@ -207,13 +207,83 @@ library(tidyverse) # Load the package
 
 - Work through chapters 6 and 7 on spatial and temporal data to get R foundations
 
-- Run the code in the demos/demo-quarto-document.qmd script
+- Run the code in the [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd) script
+
+Note: you can copy-paste the code from the .qmd file into a new .qmd file on your computer and render it (convert it into a .PDF file) using the following:
+
+```{r, eval=FALSE}
+quarto::render("demo-quarto-document.qmd")
+```
 
 
 **Bonus**
 
 Work through all of the code in the RRSRR tutorial, focussing on the parts that you think will be most useful for your coursework.
 
+<!--
+
+1) create a reproducible document 
+
+- Create an Rmarkdown file with the following command:
+
+```r
+file.edit("learning-tidyverse.Rmd")
+```
+
+- Take a read of the guidance on RMarkdown files online and in the following location (or search online for the 'RMarkdown cheatsheet'):
+
+```
+Help > Cheatsheets > RMarkdown
+```
+
+- Put the code you generated for `tidyverse.R` into the Rmd file and knit it
+
+- Bonus: create a GitHub repo and publish the results of of your work (hint: putting `output: github_document` may help here!)
+
+2) Work-through the remaining exercises of the first sections in R4DS chapters 3 and 5
+  - Write and R script, with comments, to show your working (and prove you've done it!)
+  
+```{r, include=FALSE, eval=FALSE}
+library(tidyverse)
+mpg
+ggplot(mpg) +
+  geom_point(mapping = aes(hwy, cyl, col = drv ))
+library(nycflights13)
+names(flights)
+?flights
+# Were delayed by at least an hour, but made up over 30 minutes in flight
+# part 1:
+delayed_hour = flights %>% 
+  filter(dep_delay > 60)
+nrow(delayed_hour) / nrow(flights)
+# part 2: calculate length of delay
+flight_delays = flights %>% 
+  mutate(delay = dep_delay - arr_delay)
+summary(flight_delays$delay)
+
+# part 3:
+result = flight_delays %>% 
+  filter(dep_delay > 60 & delay > 30)  
+nrow(result)
+
+summary(is.na(flights$arr_delay))
+
+# base R approach
+sel_delayed = flights$dep_delay > 60 &
+  !is.na(flights$dep_delay)
+sel_arrive = flights$arr_delay < 30 &
+  !is.na(flights$arr_delay)
+class(sel_arrive)
+sel_combined = sel_arrive & sel_delayed
+sum(sel_combined)
+result2 = flights[sel_combined, ]
+nrow(result2)
+```
+  
+
+3) Create an RMarkdown file containing reproducible code outlining what you learned today
+
+-->
 
 ## Bonus: Analysis of flights data
 
@@ -308,66 +378,3 @@ ggplot(f) +
   geom_point(aes(air_time, distance, colour = carrier), alpha = 0.5) +
   geom_line(aes(pred, distance))
 ```
-
-# Homework
-
-1) create a reproducible document 
-
-- Create an Rmarkdown file with the following command:
-
-```r
-file.edit("learning-tidyverse.Rmd")
-```
-
-- Take a read of the guidance on RMarkdown files online and in the following location (or search online for the 'RMarkdown cheatsheet'):
-
-```
-Help > Cheatsheets > RMarkdown
-```
-
-- Put the code you generated for `tidyverse.R` into the Rmd file and knit it
-
-- Bonus: create a GitHub repo and publish the results of of your work (hint: putting `output: github_document` may help here!)
-
-2) Work-through the remaining exercises of the first sections in R4DS chapters 3 and 5
-  - Write and R script, with comments, to show your working (and prove you've done it!)
-  
-```{r, include=FALSE}
-library(tidyverse)
-mpg
-ggplot(mpg) +
-  geom_point(mapping = aes(hwy, cyl, col = drv ))
-library(nycflights13)
-names(flights)
-?flights
-# Were delayed by at least an hour, but made up over 30 minutes in flight
-# part 1:
-delayed_hour = flights %>% 
-  filter(dep_delay > 60)
-nrow(delayed_hour) / nrow(flights)
-# part 2: calculate length of delay
-flight_delays = flights %>% 
-  mutate(delay = dep_delay - arr_delay)
-summary(flight_delays$delay)
-
-# part 3:
-result = flight_delays %>% 
-  filter(dep_delay > 60 & delay > 30)  
-nrow(result)
-
-summary(is.na(flights$arr_delay))
-
-# base R approach
-sel_delayed = flights$dep_delay > 60 &
-  !is.na(flights$dep_delay)
-sel_arrive = flights$arr_delay < 30 &
-  !is.na(flights$arr_delay)
-class(sel_arrive)
-sel_combined = sel_arrive & sel_delayed
-sum(sel_combined)
-result2 = flights[sel_combined, ]
-nrow(result2)
-```
-  
-
-3) Create an RMarkdown file containing reproducible code outlining what you learned today

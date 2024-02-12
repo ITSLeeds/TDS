@@ -138,11 +138,11 @@ ac = get_stats19(year = 2019, type = "collision")
 
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2019.csv
 
-    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-collision-2019.csv
+    ## Data saved at /tmp/RtmpijgQB5/dft-road-casualty-statistics-collision-2019.csv
 
     ## Reading in:
 
-    ## /tmp/RtmpOa8UEc/dft-road-casualty-statistics-collision-2019.csv
+    ## /tmp/RtmpijgQB5/dft-road-casualty-statistics-collision-2019.csv
 
     ## Rows: 117536 Columns: 36
     ## ── Column specification ────────────────────────────────────────────────────────
@@ -163,7 +163,7 @@ ca = get_stats19(year = 2019, type = "cas")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2019.csv
-    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-casualty-2019.csv
+    ## Data saved at /tmp/RtmpijgQB5/dft-road-casualty-statistics-casualty-2019.csv
     ## Rows: 153158 Columns: 19── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (2): accident_index, accident_reference
@@ -179,7 +179,7 @@ ve = get_stats19(year = 2019, type = "veh")
     ## 
     ##    https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
     ## Attempt downloading from: https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2019.csv
-    ## Data saved at /tmp/RtmpOa8UEc/dft-road-casualty-statistics-vehicle-2019.csv
+    ## Data saved at /tmp/RtmpijgQB5/dft-road-casualty-statistics-vehicle-2019.csv
     ## Rows: 216381 Columns: 28── Column specification ────────────────────────────────────────────────────────
     ## Delimiter: ","
     ## chr  (4): accident_index, accident_reference, generic_make_model, lsoa_of_dr...
@@ -254,29 +254,68 @@ library(tidyverse) # Load the package
 - Work through chapters 6 and 7 on spatial and temporal data to get R
   foundations
 
-- Run the code in the demos/demo-quarto-document.qmd script
+- Run the code in the
+  [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd)
+  script
+
+Note: you can copy-paste the code from the .qmd file into a new .qmd
+file on your computer and render it (convert it into a .PDF file) using
+the following:
+
+``` r
+quarto::render("demo-quarto-document.qmd")
+```
 
 **Bonus**
 
 Work through all of the code in the RRSRR tutorial, focussing on the
 parts that you think will be most useful for your coursework.
 
-## 3.1 Bonus: Analysis of flights data
+<!--
+&#10;1) create a reproducible document 
+&#10;- Create an Rmarkdown file with the following command:
+&#10;```r
+file.edit("learning-tidyverse.Rmd")
 
-You need to have a number of packages installed and loaded. Install the
-packages by typing in the following commands into RStudio (you do not
-need to add the comments after the `#` symbol):[^1]
+- Take a read of the guidance on RMarkdown files online and in the
+  following location (or search online for the ‘RMarkdown cheatsheet’):
 
-``` r
-install.packages("remotes")
-pkgs = c(
-  "nycflights13",# data package
-  "stats19",     # downloads and formats open stats19 crash data
-  "tidyverse"   # a package for user friendly data science
-)
-remotes::install_cran(pkgs)
-remotes::install_github("nowosad/spDataLarge")
-```
+<!-- -->
+
+    Help > Cheatsheets > RMarkdown
+
+- Put the code you generated for `tidyverse.R` into the Rmd file and
+  knit it
+
+- Bonus: create a GitHub repo and publish the results of of your work
+  (hint: putting `output: github_document` may help here!)
+
+2)  Work-through the remaining exercises of the first sections in R4DS
+    chapters 3 and 5
+
+- Write and R script, with comments, to show your working (and prove
+  you’ve done it!)
+
+3)  Create an RMarkdown file containing reproducible code outlining what
+    you learned today
+
+–\>
+
+    ## [3.1 Bonus: Analysis of flights data]{data-rmarkdown-temporarily-recorded-id="bonus-analysis-of-flights-data"}
+
+    You need to have a number of packages installed and loaded. Install the
+    packages by typing in the following commands into RStudio (you do not
+    need to add the comments after the `#` symbol):[^1]
+
+    ``` r
+    install.packages("remotes")
+    pkgs = c(
+      "nycflights13",# data package
+      "stats19",     # downloads and formats open stats19 crash data
+      "tidyverse"   # a package for user friendly data science
+    )
+    remotes::install_cran(pkgs)
+    remotes::install_github("nowosad/spDataLarge")
 
 Load the tidyverse package as follows:
 
@@ -333,7 +372,7 @@ ggplot(f) +
   geom_point(aes(air_time, distance))
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 - Add transparency so it looks like this (hint: use `alpha =` in the
   `geom_point()` function call):
@@ -343,7 +382,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 - Add a colour for each carrier, so it looks something like this:
 
@@ -355,7 +394,7 @@ ggplot(f) +
     ## Warning: Removed 2117 rows containing missing values or values outside the scale range
     ## (`geom_point()`).
 
-![](1-intro_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](1-intro_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 - Bonus 1: find the average air time of those flights with a distance of
   1000 to 2000 miles
@@ -371,40 +410,4 @@ m = lm(air_time ~ distance, data = f)
 f$pred = m$fitted.values
 ```
 
-![](1-intro_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
-
-# 4 Homework
-
-1)  create a reproducible document
-
-- Create an Rmarkdown file with the following command:
-
-``` r
-file.edit("learning-tidyverse.Rmd")
-```
-
-- Take a read of the guidance on RMarkdown files online and in the
-  following location (or search online for the ‘RMarkdown cheatsheet’):
-
-<!-- -->
-
-    Help > Cheatsheets > RMarkdown
-
-- Put the code you generated for `tidyverse.R` into the Rmd file and
-  knit it
-
-- Bonus: create a GitHub repo and publish the results of of your work
-  (hint: putting `output: github_document` may help here!)
-
-2)  Work-through the remaining exercises of the first sections in R4DS
-    chapters 3 and 5
-
-- Write and R script, with comments, to show your working (and prove
-  you’ve done it!)
-
-3)  Create an RMarkdown file containing reproducible code outlining what
-    you learned today
-
-[^1]: Note: if you want to install the development version of a package
-    from GitHub, you can do so. Try, for example, running the following
-    command: `remotes::install_github("ITSLeeds/pct")`
+![](1-intro_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->

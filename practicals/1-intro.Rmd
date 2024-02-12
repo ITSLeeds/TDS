@@ -211,8 +211,12 @@ library(tidyverse) # Load the package
 
 Note: you can copy-paste the code from the .qmd file into a new .qmd file on your computer and render it (convert it into a .PDF file) using the following:
 
+```r
+install.packages("quarto")
+```
+
 ```{r, eval=FALSE}
-quarto::render("demo-quarto-document.qmd")
+quarto::quarto_render("demos/demo-quarto-document.qmd")
 ```
 
 

@@ -205,7 +205,7 @@ library(tidyverse) # Load the package
 
 # Homework
 
-- Work through chapters 6 and 7 on spatial and temporal data to get R foundations
+- Work through chapters 6 and 7 on spatial and temporal data in the [RRSRR tutorial](https://itsleeds.github.io/rrsrr/) to get R foundations
 
 - Run the code in the [demos/demo-quarto-document.qmd](https://github.com/ITSLeeds/TDS/blob/master/demos/demo-quarto-document.qmd) script
 
@@ -218,32 +218,29 @@ quarto::render("demo-quarto-document.qmd")
 
 **Bonus**
 
-Work through all of the code in the RRSRR tutorial, focussing on the parts that you think will be most useful for your coursework.
-
-<!--
-
-1) create a reproducible document 
-
-- Create an Rmarkdown file with the following command:
-
-```r
-file.edit("learning-tidyverse.Rmd")
-```
-
-- Take a read of the guidance on RMarkdown files online and in the following location (or search online for the 'RMarkdown cheatsheet'):
-
-```
-Help > Cheatsheets > RMarkdown
-```
-
-- Put the code you generated for `tidyverse.R` into the Rmd file and knit it
-
-- Bonus: create a GitHub repo and publish the results of of your work (hint: putting `output: github_document` may help here!)
-
-2) Work-through the remaining exercises of the first sections in R4DS chapters 3 and 5
-  - Write and R script, with comments, to show your working (and prove you've done it!)
+Work through all of the code in the [RRSRR tutorial](https://itsleeds.github.io/rrsrr/), focussing on the parts that you think will be most useful for your coursework.
   
 ```{r, include=FALSE, eval=FALSE}
+# 1) create a reproducible document 
+
+# - Create an Rmarkdown file with the following command:
+
+# ```r
+# file.edit("learning-tidyverse.Rmd")
+# ```
+
+# - Take a read of the guidance on RMarkdown files online and in the following location (or search online for the 'RMarkdown cheatsheet'):
+
+# ```
+# Help > Cheatsheets > RMarkdown
+# ```
+
+# - Put the code you generated for `tidyverse.R` into the Rmd file and knit it
+
+# - Bonus: create a GitHub repo and publish the results of of your work (hint: putting `output: github_document` may help here!)
+
+# 2) Work-through the remaining exercises of the first sections in R4DS chapters 3 and 5
+#   - Write and R script, with comments, to show your working (and prove you've done it!)
 library(tidyverse)
 mpg
 ggplot(mpg) +
@@ -278,12 +275,11 @@ sel_combined = sel_arrive & sel_delayed
 sum(sel_combined)
 result2 = flights[sel_combined, ]
 nrow(result2)
+
+# 3) Create an RMarkdown file containing reproducible code outlining what you learned today
 ```
   
 
-3) Create an RMarkdown file containing reproducible code outlining what you learned today
-
--->
 
 ## Bonus: Analysis of flights data
 

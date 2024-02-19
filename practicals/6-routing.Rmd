@@ -84,7 +84,7 @@ java
 ls otp_TDS
 sudo ufw allow 8080
 /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -Xmx10000M -d64 -jar "otp_TDS/otp-1.5.0-shaded.jar" --router west-yorkshire --graphs "otp_TDS/graphs" --server --port 8080 --securePort 8081
-# ip = "81.2052.102.153:154" 
+# ip = "You IP address" 
 ```
 
 ```{r, eval=FALSE, echo=FALSE}
@@ -104,7 +104,7 @@ log1 = otp_build_graph(otp = path_otp, dir = path_data, otp_version = 1.5, route
 To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`.
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
-ip = "http://192.168.0.11" # See the link on Minerva for correct value
+ip = "192.168.0.11" # See the link on Minerva for correct value
 port = 8080           # See the link on Minerva for correct value
 otpcon = otp_connect(hostname = ip, 
                      port = port,
@@ -153,7 +153,7 @@ head(centroids)
 2. Plot the `desire_lines` and `centroids` objects using the `tmap` to show the number of travellers on each desire_line and the locations of all centroids.
 
 ```{r, message=FALSE, echo=TRUE}
-tmap_mode("plot") #Change to view for interactive map
+tmap_mode("plot") # Change to view for interactive map
 tm_shape(desire_lines) +
   tm_lines(lwd = "all", col = "all", scale = 4, palette = "-viridis") +
   tm_shape(centroids) +
@@ -210,6 +210,17 @@ routes_drive_top = otp_plan(otpcon = otpcon,
 ```
 
 ```{r, message=FALSE,  eval=TRUE, echo=FALSE}
+# Save as RDS:
+# saveRDS(routes_drive_top, "routes_drive_top.Rds")
+# piggyback::pb_upload("routes_drive_top.Rds")
+# Download the file.
+# files = piggyback::pb_list()
+# Search for the file:
+# files = files[grepl("routes_drive_top", files$file_name),]
+# u = piggyback::pb_download_url("routes_drive_top.Rds")
+u = "https://github.com/ITSLeeds/TDS/releases/download/23/routes_drive_top.Rds"
+f = basename(u)
+if (!file.exists(f)) download.file(u, f)
 routes_drive_top = readRDS("routes_drive_top.Rds")
 ```
 
@@ -234,6 +245,17 @@ isochrone = otp_isochrone(otpcon,
 isochrone$time = isochrone$time / 60
 tm_shape(isochrone) +
   tm_fill("time", alpha = 0.6)
+```
+
+```{r, message=FALSE, eval=FALSE, echo=FALSE}
+# Save the isochrone as RDS
+saveRDS(isochrone, "isochrone.Rds")
+piggyback::pb_upload("isochrone.Rds")
+```
+
+```{r, message=FALSE, eval=TRUE, echo=FALSE}
+u = "https://github.com/ITSLeeds/TDS/releases/download/23/isochrone.Rds"
+if (!file.exists("isochrone.Rds")) download.file(u, "isochrone.Rds")
 ```
 
 ```{r, message=FALSE, eval=TRUE, echo=FALSE}

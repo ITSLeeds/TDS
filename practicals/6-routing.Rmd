@@ -69,6 +69,10 @@ piggyback::pb_download_url("otp_TDS.zip")
 
 
 ```{r, eval=FALSE, engine='bash', echo=FALSE}
+# Download the zip file
+wget https://github.com/ITSLeeds/TDS/releases/download/0.20.1/otp_TDS.zip
+# Unzip it:
+unzip otp_TDS.zip
 # Install Java 8:
 sudo apt-get install openjdk-8-jdk
 
@@ -83,11 +87,25 @@ sudo ufw allow 8080
 # ip = "81.2052.102.153:154" 
 ```
 
+```{r, eval=FALSE, echo=FALSE}
+path_otp = "otp_TDS/otp-1.5.0-shaded.jar"
+path_data = "otp_TDS"
+list.files(file.path(path_data, "graphs", "west-yorkshire"))
+# Download pbf file with osmextract
+osmextract::oe_get("West Yorkshire")
+list.files(tempdir())
+# pbf_file
+pbf_file = list.files(tempdir(), pattern = "osm.pbf", full.names = TRUE)
+file.copy(pbf_file, file.path(path_data, "graphs", "west-yorkshire", "osm.pbf"), overwrite = TRUE)
+log1 = otp_build_graph(otp = path_otp, dir = path_data, otp_version = 1.5, router = "west-yorkshire")
+ 
+```
+
 To allow R to connect to the OpenTripPlanner server, we will use the `opentripplanner` package and the function `otp_connect`.
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
-ip = "xx.xxx.xxx.xxx" # See the link on Minerva for correct value
-port = 0000           # See the link on Minerva for correct value
+ip = "http://192.168.0.11" # See the link on Minerva for correct value
+port = 8080           # See the link on Minerva for correct value
 otpcon = otp_connect(hostname = ip, 
                      port = port,
                      router = "west-yorkshire")
@@ -166,14 +184,14 @@ desire_top = desire_lines %>%
 
 ```{r, eval=TRUE, echo=TRUE}
 # Extract the start and end points
-fromPlace <- lwgeom::st_startpoint(desire_top)
-toPlace <- lwgeom::st_endpoint(desire_top)
+fromPlace = lwgeom::st_startpoint(desire_top)
+toPlace = lwgeom::st_endpoint(desire_top)
 
 # This returns just the geometry
 # So make it into an sf data.frame with the ID values from desire_top
 
-fromPlace <- st_sf(data.frame(id = desire_top$from, geometry = fromPlace))
-toPlace <- st_sf(data.frame(id = desire_top$to, geometry = toPlace))
+fromPlace = st_sf(data.frame(id = desire_top$from, geometry = fromPlace))
+toPlace = st_sf(data.frame(id = desire_top$to, geometry = toPlace))
 
 ```
 

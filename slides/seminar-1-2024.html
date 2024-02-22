@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data science in transport planning</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Robin Lovelace Guest speaker: Tom Van Vuren MBE" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Data science in transport planning
+]
+.subtitle[
+## <br/>Guest Seminar<br/>Module: Transport Data Science
+]
+.author[
+### Dr Robin Lovelace<br/>Guest speaker: Tom Van Vuren MBE
+]
+.date[
+### Institute for Transport Studies <br/><img class="img-footer" alt="" src="https://comms.leeds.ac.uk/wp-content/themes/toolkit-wordpress-theme/img/logo.png">
+]
+
+---
+
+
+background-image: url(https://c1.staticflickr.com/2/1216/1096671706_571a263b63_b.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+# Credit: Mandeep Lota via [flickr](https://www.flickr.com/photos/deepster2k/1096671706)
+
+
+
+---
+
+# Housekeeping
+
+Session timings:
+
+- Welcome and refreshments: 13:45-14:00
+- Talk by Tom Van Vuren: 14:00-14:45
+- Questions: 14:45-15:00
+- Break: 5 minutes
+- Practical session part 2 (for Transport Data Science Students)
+
+---
+
+# The history of TDS
+
+- 2017: Transport Data Science created, led by Dr Charles Fox, Computer Scientist, author of Transport Data Science book (Fox, 2018)
+- The focus was on databases and Bayesian methods
+- 2019: I inherited the module, which was attended by ITS students
+- Summer 2019: Python code published in the module 'repo':
+  - [github.com/ITSLeeds](https://github.com/ITSLeeds/TDS/tree/master/code-python)
+- January 2020: Transport Data Science module available to Data Science and Data Analytics MSc students
+- March 2020: Switch to online teaching
+- 2021-2023: Updated module, focus on methods
+- 2024: Switch to combined practical sessions and lectures
+- 2025+: Expand, online course? book? stay in touch!
+
+
+
+&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Milestone passed in my academic career, first online-only delivery of lecture &lt;a href="https://twitter.com/ITSLeeds?ref_src=twsrc%5Etfw"&gt;@ITSLeeds&lt;/a&gt;, seems to have worked, live code demo with &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt;/&lt;a href="https://twitter.com/rstudio?ref_src=twsrc%5Etfw"&gt;@rstudio&lt;/a&gt;, recording, chat + all🎉&lt;br&gt;&lt;br&gt;Thanks students for &amp;#39;attending&amp;#39; + remote participation, we&amp;#39;ll get through this together.&lt;a href="https://twitter.com/hashtag/coronavirus?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#coronavirus&lt;/a&gt; &lt;a href="https://t.co/wlAUxmZj5r"&gt;pic.twitter.com/wlAUxmZj5r&lt;/a&gt;&lt;/p&gt;&amp;mdash; Robin Lovelace (@robinlovelace) &lt;a href="https://twitter.com/robinlovelace/status/1239930988416897033?ref_src=twsrc%5Etfw"&gt;March 17, 2020&lt;/a&gt;&lt;/blockquote&gt; &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt; 
+
+???
+
+Skip this bit
+
+---
+
+# Essential reading
+
+&lt;!-- - See https://github.com/ITSLeeds/TDS/blob/master/catalogue.md --&gt;
+
+- Chapter 12, [Transportation](http://geocompr.robinlovelace.net/transport.html) of Geocomputation with R, a open book on geographic data in R (available free [online](http://geocompr.robinlovelace.net/))  
+- Reproducible Road Safety Research with R (RRSRR): https://itsleeds.github.io/rrsrr/
+
+
+&lt;img src="https://geocompr.robinlovelace.net/images/cover.png" height="300px" /&gt;&lt;img src="https://r.geocompx.org/13-transport_files/figure-html/desire-1.png" height="300px" /&gt;
+
+---
+
+## Timetable: January and February
+
+
+
+
+|Summary                  |Date       |Location                             | Duration (Hours)|
+|:------------------------|:----------|:------------------------------------|----------------:|
+|TDS deadline 1           |2024-02-02 |Online - Teams                       |                0|
+|TDS Practical 1: intro   |2024-02-08 |Irene Manton North Cluster (7.96)    |                3|
+|TDS Practical 2: od      |2024-02-15 |Irene Manton North Cluster (7.96)    |                3|
+|TDS Practical 3: routing |2024-02-22 |Irene Manton North Cluster (7.96)    |                3|
+|TDS seminar 1            |2024-02-22 |Institute for Transport Studies 1.11 |                3|
+|TDS deadline 2           |2024-02-23 |Online - Teams                       |                0|
+|TDS Practical 4: getting |2024-02-29 |Irene Manton North Cluster (7.96)    |                3|
+|TDS seminar 2            |2024-03-21 |Institute for Transport Studies 1.11 |                3|
+
+---
+
+## Timetable: March to May
+
+
+|Summary                        |Date       |Location                          | Duration (Hours)|
+|:------------------------------|:----------|:---------------------------------|----------------:|
+|TDS Practical 5: visualisation |2024-05-02 |Irene Manton North Cluster (7.96) |                3|
+|TDS Practical 6: project       |2024-05-09 |Irene Manton North Cluster (7.96) |                3|
+|TDS deadline 3                 |2024-05-17 |Online - Teams                    |                0|
+
+---
+
+## Objectives
+
+&lt;!-- From the course [catalogue](https://github.com/ITSLeeds/TDS/blob/master/catalogue.md): --&gt;
+
+- Understand the structure of transport datasets
+- Understand how to obtain, clean and store transport related data
+- Gain proficiency in command-line tools for handling large transport datasets
+- Produce data visualizations, static and interactive
+
+
+
+- &lt;font color="red"&gt; Learn how to join together the components of transport data science into a cohesive project portfolio  &lt;/font&gt; 
+
+---
+
+## Assessment (for those doing this as credit-bearing)
+
+- You will build-up a portfolio of work
+- 100% coursework assessed, you will submit by **Friday 19th May**:
+  - **a pdf document up to 10 pages long with figures, tables, references explaining how you used data science to research a transport problem**
+  - **reproducible code contained in an RMarkdown (.Rmd) document that produced the report**
+- Written in RMarkdown - will be graded for reproducibility
+- Code chunks and figures are encouraged
+- You will submit a non-assessed 2 page pdf + Rmd report by **18th March**
+
+---
+
+## What is transport data science?
+
+- The application of data science to transport datasets and problems
+
+--
+
+- Raising the question...
+
+--
+
+- What is data science?
+
+&lt;!-- You tell me! --&gt;
+
+--
+
+- A discipline "that allows you to turn raw data into understanding, insight, and knowledge" (Grolemund and Wickham, 2016)
+
+--
+
+In other words...
+
+- Statistics that is actually useful!
+
+### Deeper question: why transport data science?
+
+- You must answer that question
+
+---
+
+## What is science?
+
+.pull-left[
+- Scientific knowledge is hypotheses that can be falsified
+- Science is the process of *generating falsifiable hypotheses* and *testing them*
+- In a reproducible way
+- Systematically
+
+![](https://media3.giphy.com/media/3ohhworAhxSEHT3zDa/200w.webp?cid=3640f6095c57e8d15767723367d0c596)
+]
+
+--
+
+.pull-right[
+
+- Falsifiability is central to the scientific process (Popper, 1959)
+- All of which requires software conducive to reproducibility
+
+![](https://duckduckgo.com/i/f2692e7b.jpg)
+]
+
+---
+
+# Introducing Tom and the guest seminar
+
+![](https://private-user-images.githubusercontent.com/1825120/307013437-c78ff59e-5cf6-4766-9e39-07d7fa250be0.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg2MDkzNzYsIm5iZiI6MTcwODYwOTA3NiwicGF0aCI6Ii8xODI1MTIwLzMwNzAxMzQzNy1jNzhmZjU5ZS01Y2Y2LTQ3NjYtOWUzOS0wN2Q3ZmEyNTBiZTAucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMTMzNzU2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Y2NjNTAxMDM4MjllMjdkZmE0YTJlMjdiODhjY2JlMjNlODU3OGUzNTJlNDFlMDljZGU4NjhkMDU4Y2FhNjQ5NCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.cQYNNlvNgtHVDyDIxhmi3sASvCfFGE_46edbc3rCopA)
+
+---
+
+# References
+
+Fox, Charles (2018). _Data Science for Transport: A Self-Study Guide
+with Computer Exercises_. 1st ed. 2018 edition. New York, NY: Springer.
+ISBN: 978-3-319-72952-7.
+
+Grolemund, Garrett and Hadley Wickham (2016). _R for Data Science_.
+O'Reilly Media. ISBN: 978-1-4919-1039-9.
+
+Popper, Karl (1959). _The Logic of Scientific Discovery_. Hutchinson.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -8,6 +8,58 @@ We will be using these packages in this practical:
 
 ## Bonus Exercises - Some advanced R concepts
 
+### If statements
+
+If statements allow you to conditionally run code based on boolean
+logic.
+
+A simple `if` statement looks like this
+
+``` r
+x = 10
+if(x == 10) {
+    message("if x equal to ten, this message is shown")
+}
+```
+
+You can enhance `if` with `else`
+
+``` r
+x = 10
+if(x %% 2 == 0) {
+    message("x is even this message is shown")
+} else {
+    message("x is odd this message is shown")
+}
+```
+
+You can add additional tests and outcomes with `else if`
+
+``` r
+x = 10
+if(!is.numeric(x)) {
+    message("If x is not a number then this message is shown")
+} else if(x %% 2 == 0) {
+    message("x is even this message is shown")
+} else {
+    message("x is odd this message is shown")
+}
+```
+
+You can add as many `else if` statements as you like, but remember they
+are evaluated in order. So be careful with complex logical tests.
+
+**Exercise**: Experiment with different values of `x` in the above if
+statements. Try large and small numbers, negative numbers, and
+non-numeric objects.
+
+You can modify the logical tests in the `if` statement with boolean
+operators such as `&`, `&&`,`|`, `||`, `xor()`, and `!`, or comparisons
+like `==`, `!=`, `>`, `<=`.
+
+**Exercise**: Experiment with different boolean operators and
+comparisons. Hint `?Logic`
+
 ### Functions
 
 By now you are familiar with using R functions e.g. `sum()`. But you can
@@ -110,19 +162,19 @@ into a single data.frame.
 
 ### The FizzBuzz Challange
 
-Write a function to play the children’s game of FizzBuzz.
+Write a function to play the children’s game of Fizz Buzz.
 
-Rules of FizzBuzz
+Rules of Fizz Buzz
 
 - You count up from 1, saying each number but:
 - If the Number is a multiple of 3 you say Fizz
 - If the number is a multiple of 5 you say Buzz
-- If the number is a multiple of 3 and 5 you say FizzBuzz
+- If the number is a multiple of 3 and 5 you say Fizz Buzz
 
 E.g.
-`1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz`
+`1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz`
 
-Write a function that can play FizzBuzz for any number of rounds.
+Write a function that can play Fizz Buzz for any number of rounds.
 Compare the speed of your code with other students solutions using
 `bench::mark`.
 
@@ -134,8 +186,11 @@ bench::mark(f1 = myfunction(1:10),
     ## # A tibble: 2 × 6
     ##   expression      min   median `itr/sec` mem_alloc `gc/sec`
     ##   <bch:expr> <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
-    ## 1 f1            400ns    600ns   967989.        0B      0  
-    ## 2 f2            700ns    900ns   883124.    10.5KB     88.3
+    ## 1 f1            400ns    700ns   934248.        0B      0  
+    ## 2 f2            800ns      1µs   837402.    10.5KB     83.7
+
+Think about how your code can be modified for different rules. For
+example, what if we used different multiples or their was more words?
 
 ## Accessing crowd-sourced data from OSM
 
@@ -148,140 +203,6 @@ bench::mark(f1 = myfunction(1:10),
 
 - Bonus: now try to get the same data using the **osmdata** package
 
-## Get official data with stats19
-
-- Take a read of the stats19 README page and at least one of the
-  articles on it here: <https://docs.ropensci.org/stats19/>
-- Install and load the stats19 package as with one of the following
-  commands:
-
-``` r
-install.packages("stats19") # the stable version
-# remotes::install_github("ropensci/stats19") # the most recent 'development' version
-```
-
-- Show crashes involving pedestrians in Manchester by reproducing the
-  following lines of code:
-
-``` r
-library(sf)
-library(stats19)
-library(tidyverse)
-crashes_2018 = get_stats19(year = 2018)
-crashes_2018_sf = format_sf(crashes_2018)
-crashes_manchester = crashes_2018_sf %>% filter(local_authority_district == "Manchester")
-plot(crashes_manchester["accident_severity"])
-```
-
-![](5-web_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
-
-``` r
-casualties_2018 = get_stats19(year = 2018, type = "cas")
-```
-
-    ## Warning: 22715 parsing failures.
-    ##   row            col               expected        actual                                                                                                  file
-    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
-    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpKKyMAH/dft-road-casualty-statistics-casualty-2018.csv'
-    ## ..... .............. ...................... ............. .....................................................................................................
-    ## See problems(...) for more details.
-
-``` r
-crashes_manchester = inner_join(crashes_manchester, casualties_2018)
-```
-
-    ## Warning in sf_column %in% names(g): Each row in `x` is expected to match at most 1 row in `y`.
-    ## ℹ Row 27 of `x` matches multiple rows.
-    ## ℹ If multiple matches are expected, set `multiple = "all"` to silence this
-    ##   warning.
-
-``` r
-pedestrian_casualties = crashes_manchester %>% filter(casualty_type == "Pedestrian")
-plot(pedestrian_casualties["accident_severity"])
-```
-
-![](5-web_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
-
-- Use the tmap package to create an interactive map of pedestrian
-  casualties in Manchester, starting with the following commands (hint,
-  use `tmaptools::palette_explorer()` and the argument
-  `palette = "Reds"` in the function `tm_dots()`, for example, to change
-  the default colour palette):
-
-``` r
-library(tmap)
-tmap_mode("plot")
-```
-
-![](5-web_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
-
-- Based on the documentation at <https://docs.ropensci.org/stats19/>:
-
-  - Download data on road crashes in Great Britain in 2018
-  - Filter crashes that happened in Leeds
-
-- Bonus: make a map of pedestrian casualties in Leeds that shows the
-  speed limit where pedestrians were hit. Explore the results in an
-  interactive map. Where do you think the speed limit should be reduced
-  based on this data?
-
-The result should look something like this:
-
-``` r
-crashes_leeds = crashes_2018_sf %>% filter(local_authority_district == "Leeds")
-crashes_leeds = inner_join(crashes_leeds, casualties_2018)
-```
-
-    ## Warning in sf_column %in% names(g): Each row in `x` is expected to match at most 1 row in `y`.
-    ## ℹ Row 3 of `x` matches multiple rows.
-    ## ℹ If multiple matches are expected, set `multiple = "all"` to silence this
-    ##   warning.
-
-``` r
-pedestrian_casualties = crashes_leeds %>% filter(casualty_type == "Pedestrian")
-tm_shape(pedestrian_casualties) +
-  tm_dots("speed_limit")
-```
-
-![](5-web_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
-
-- Bonus: what is the relationship between crash severity and the speed
-  limit?
-
-- Bonus: download and visualise the Leeds Bradford Cycle Superhighway
-  data with these commands:
-
-``` r
-library(osmdata)
-data_osm = opq("leeds uk") %>% 
-  add_osm_feature(key = "name", value = "Cycle Superhighway 1") %>% 
-  osmdata_sf()
-```
-
-``` r
-# if the previous command fails, try:
-data_osm = readRDS(url("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/data_osm_cycle_superhighway.Rds"))
-cycleway_100m_buffer = stplanr::geo_buffer(data_osm$osm_lines, dist = 100)
-crashes_leeds_lon_lat = crashes_leeds %>% st_transform(4326)
-crashes_near_cycle_superhighway = crashes_leeds_lon_lat[cycleway_100m_buffer, ]
-```
-
-``` r
-tm_shape(data_osm$osm_lines) + tm_lines() +
-  tm_shape(crashes_near_cycle_superhighway) + tm_dots("casualty_type")
-```
-
-![](https://user-images.githubusercontent.com/1825120/154372076-b3b74387-a4e1-4574-a647-2d8b4a114fad.png)
-
-- Filter crashes that happened within a 500 m buffer of the cycle
-  infrastructure
-- Do cyclists seem safer on the cycle superhighway?
-- Bonus: pull down origin-destination data with the `pct` package hosted
-  at: <https://github.com/ITSLeeds/pct>
-
 ## Get travel to work data with the PCT
 
 Use the `pct` package’s inbuilt help to find out how to get data for
@@ -289,6 +210,11 @@ West Yorkshire. Hint: the code below gets zones for Leeds:
 
 ``` r
 library(pct)
+```
+
+    ## Warning: package 'pct' was built under R version 4.2.3
+
+``` r
 head(pct::pct_regions)
 ```
 
@@ -359,6 +285,129 @@ Identify a region and zonal units of interest from
 
 - Share the code on Teams or in a GitHub issue:
   <https://github.com/ITSLeeds/TDS/issues>
+
+## Get official data with stats19
+
+- Take a read of the stats19 README page and at least one of the
+  articles on it here: <https://docs.ropensci.org/stats19/>
+- Install and load the stats19 package as with one of the following
+  commands:
+
+``` r
+install.packages("stats19") # the stable version
+# remotes::install_github("ropensci/stats19") # the most recent 'development' version
+```
+
+- Show crashes involving pedestrians in Manchester by reproducing the
+  following lines of code:
+
+``` r
+library(sf)
+library(stats19)
+library(tidyverse)
+crashes_2018 = get_stats19(year = 2018)
+crashes_2018_sf = format_sf(crashes_2018)
+crashes_manchester = crashes_2018_sf %>% filter(local_authority_district == "Manchester")
+plot(crashes_manchester["accident_severity"])
+```
+
+![](5-web_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+casualties_2018 = get_stats19(year = 2018, type = "cas")
+```
+
+    ## Warning: 22715 parsing failures.
+    ##   row            col               expected        actual                                                                                                  file
+    ## 30320 accident_index no trailing characters 201801T266389 'C:\Users\earmmor\AppData\Local\Temp\RtmpkvmV6n/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30321 accident_index no trailing characters 201801T271905 'C:\Users\earmmor\AppData\Local\Temp\RtmpkvmV6n/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30322 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpkvmV6n/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30323 accident_index no trailing characters 201801T274868 'C:\Users\earmmor\AppData\Local\Temp\RtmpkvmV6n/dft-road-casualty-statistics-casualty-2018.csv'
+    ## 30324 accident_index no trailing characters 201801T278015 'C:\Users\earmmor\AppData\Local\Temp\RtmpkvmV6n/dft-road-casualty-statistics-casualty-2018.csv'
+    ## ..... .............. ...................... ............. .....................................................................................................
+    ## See problems(...) for more details.
+
+``` r
+crashes_manchester = inner_join(crashes_manchester, casualties_2018)
+pedestrian_casualties = crashes_manchester %>% filter(casualty_type == "Pedestrian")
+plot(pedestrian_casualties["accident_severity"])
+```
+
+![](5-web_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+
+- Use the tmap package to create an interactive map of pedestrian
+  casualties in Manchester, starting with the following commands (hint,
+  use `tmaptools::palette_explorer()` and the argument
+  `palette = "Reds"` in the function `tm_dots()`, for example, to change
+  the default colour palette):
+
+``` r
+library(tmap)
+```
+
+    ## Warning: package 'tmap' was built under R version 4.2.3
+
+``` r
+tmap_mode("plot")
+```
+
+![](5-web_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+- Based on the documentation at <https://docs.ropensci.org/stats19/>:
+
+  - Download data on road crashes in Great Britain in 2018
+  - Filter crashes that happened in Leeds
+
+- Bonus: make a map of pedestrian casualties in Leeds that shows the
+  speed limit where pedestrians were hit. Explore the results in an
+  interactive map. Where do you think the speed limit should be reduced
+  based on this data?
+
+The result should look something like this:
+
+``` r
+crashes_leeds = crashes_2018_sf %>% filter(local_authority_district == "Leeds")
+crashes_leeds = inner_join(crashes_leeds, casualties_2018)
+pedestrian_casualties = crashes_leeds %>% filter(casualty_type == "Pedestrian")
+tm_shape(pedestrian_casualties) +
+  tm_dots("speed_limit")
+```
+
+![](5-web_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+- Bonus: what is the relationship between crash severity and the speed
+  limit?
+
+- Bonus: download and visualise the Leeds Bradford Cycle Superhighway
+  data with these commands:
+
+``` r
+library(osmdata)
+data_osm = opq("leeds uk") %>% 
+  add_osm_feature(key = "name", value = "Cycle Superhighway 1") %>% 
+  osmdata_sf()
+```
+
+``` r
+# if the previous command fails, try:
+data_osm = readRDS(url("https://github.com/ITSLeeds/TDS/releases/download/0.20.1/data_osm_cycle_superhighway.Rds"))
+cycleway_100m_buffer = stplanr::geo_buffer(data_osm$osm_lines, dist = 100)
+crashes_leeds_lon_lat = crashes_leeds %>% st_transform(4326)
+crashes_near_cycle_superhighway = crashes_leeds_lon_lat[cycleway_100m_buffer, ]
+```
+
+``` r
+tm_shape(data_osm$osm_lines) + tm_lines() +
+  tm_shape(crashes_near_cycle_superhighway) + tm_dots("casualty_type")
+```
+
+![](https://user-images.githubusercontent.com/1825120/154372076-b3b74387-a4e1-4574-a647-2d8b4a114fad.png)
+
+- Filter crashes that happened within a 500 m buffer of the cycle
+  infrastructure
+- Do cyclists seem safer on the cycle superhighway?
+- Bonus: pull down origin-destination data with the `pct` package hosted
+  at: <https://github.com/ITSLeeds/pct>
 
 ## Some suggested links
 

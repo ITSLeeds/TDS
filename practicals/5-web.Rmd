@@ -22,13 +22,60 @@ piggyback::pb_download_url("practicals/5-web.pdf")
 
 We will be using these packages in this practical:
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 library(sf)
 library(stats19)
 library(tidyverse)
 ```
 
 ## Bonus Exercises - Some advanced R concepts
+
+### If statements
+
+If statements allow you to conditionally run code based on boolean logic.
+
+A simple `if` statement looks like this
+
+```{r example_if, eval=TRUE}
+x = 10
+if(x == 10) {
+    message("if x equal to ten, this message is shown")
+}
+```
+
+You can enhance `if` with `else`
+
+```{r example_if_else, eval=TRUE}
+x = 10
+if(x %% 2 == 0) {
+    message("x is even this message is shown")
+} else {
+    message("x is odd this message is shown")
+}
+
+```
+
+You can add additional tests and outcomes with `else if`
+
+```{r example_else_if, eval=TRUE}
+x = 10
+if(!is.numeric(x)) {
+    message("If x is not a number then this message is shown")
+} else if(x %% 2 == 0) {
+    message("x is even this message is shown")
+} else {
+    message("x is odd this message is shown")
+}
+
+```
+
+You can add as many `else if` statements as you like, but remember they are evaluated in order. So be careful with complex logical tests.
+
+**Exercise**: Experiment with different values of `x` in the above if statements. Try large and small numbers, negative numbers, and non-numeric objects.
+
+You can modify the logical tests in the `if` statement with boolean operators such as `&`, `&&`,`|`, `||`, `xor()`, and `!`, or comparisons like `==`, `!=`, `>`, `<=`. 
+
+**Exercise**: Experiment with different boolean operators and comparisons. Hint `?Logic`
 
 ### Functions
 
@@ -115,18 +162,18 @@ Then we used the `bind_rows` function to combine the list of data.frames into a 
 
 ### The FizzBuzz Challange
 
-Write a function to play the children's game of FizzBuzz.
+Write a function to play the children's game of Fizz Buzz.
 
-Rules of FizzBuzz
+Rules of Fizz Buzz
 
 - You count up from 1, saying each number but:
 - If the Number is a multiple of 3 you say Fizz
 - If the number is a multiple of 5 you say Buzz
-- If the number is a multiple of 3 and 5 you say FizzBuzz
+- If the number is a multiple of 3 and 5 you say Fizz Buzz
 
-E.g. `1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz`
+E.g. `1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz`
 
-Write a function that can play FizzBuzz for any number of rounds.
+Write a function that can play Fizz Buzz for any number of rounds.
 Compare the speed of your code with other students solutions using `bench::mark`.
 
 ```{r benchmark, eval=TRUE}
@@ -157,28 +204,28 @@ fizzbuzz1 <- function(n){
 }
 
 fizzbuzz2 <- function(n){
-  z = purrr::map_chr(1:n,function(x, out = c("Fizz","Buzz",x)){
+  purrr::map_chr(1:n,function(x){
     mod3 = (x %% 3) == 0
     mod5 = (x %% 5) == 0
-    if(mod3){
-      if(mod5){
+    if(mod5){
+      if(mod3){
         "FizzBuzz"
       } else{
-        "Fizz"
+        "Buzz"
       }
-    } else if(mod5){
-      "Buzz"
+    } else if(mod3){
+      "Fizz"
     } else{
       as.character(x)
     }
   })
-  z
 }
 
 bench::mark(f1 = fizzbuzz1(100),
             f2 = fizzbuzz2(100))
 ```
 
+Think about how your code can be modified for different rules. For example, what if we used different multiples or their was more words?
 
 
 ## Accessing crowd-sourced data from OSM
@@ -188,6 +235,59 @@ bench::mark(f1 = fizzbuzz1(100),
 - Load the data in R and plot it with your favourite plotting package (e.g. `sf`, `mapview` or `tmap`)
 
 - Bonus: now try to get the same data using the **osmdata** package
+
+
+## Get travel to work data with the PCT
+
+Use the `pct` package's inbuilt help to find out how to get data for West Yorkshire.
+Hint: the code below gets zones for Leeds:
+
+```{r getzones}
+library(pct)
+head(pct::pct_regions)
+# see all regions with View(pct_regions)
+zones = get_pct_zones(region = "west-yorkshire")
+zones_leeds = zones %>% 
+  filter(lad_name == "Leeds")
+zones_leeds %>% 
+  select(bicycle:taxi_other) %>% 
+  plot()
+```
+
+```{r, eval=FALSE}
+?get_pct_routes_fast
+```
+
+Bonus (if you have time and a decent computer): download and import the 'car.zip' data from https://github.com/ITSLeeds/NTEM2OD/releases
+
+## Getting data from the web
+
+Read through Section [8.2](https://geocompr.robinlovelace.net/read-write.html#retrieving-data) and 8.3 of Geocomputation with R. 
+
+Complete Exercises 4, 5, 6 and 7 of the chapter
+
+## Bonus 1: osmextract
+
+Take a read of the documentation for the [`osmextract`](https://docs.ropensci.org/osmextract/index.html) package.
+
+Reproduce the examples
+
+Get all supermarkets in OSM for West Yorkshire
+
+Identify all cycleways in West Yorkshire and, using the stats19 data you have already downloaded, identify all crashes that happened near them.
+
+## Bonus 2: Getting data from statistics.gov.uk 
+
+Identify a region and zonal units of interest from http://geoportal.statistics.gov.uk/
+
+- Read them into R as an `sf` object
+- Join-on data from a non-geographic object
+
+- Add a data access section to your in progress portfolio
+
+## Bonus 3: find another geographic or transport dataset hosted online and write code to download it
+
+- Share the code on Teams or in a GitHub issue: https://github.com/ITSLeeds/TDS/issues
 
 ## Get official data with stats19
 
@@ -282,57 +382,7 @@ tm_shape(data_osm$osm_lines) + tm_lines() +
   - Do cyclists seem safer on the cycle superhighway?
   - Bonus: pull down origin-destination data with the `pct` package hosted at: https://github.com/ITSLeeds/pct
 
-## Get travel to work data with the PCT
 
-Use the `pct` package's inbuilt help to find out how to get data for West Yorkshire.
-Hint: the code below gets zones for Leeds:
-
-```{r getzones}
-library(pct)
-head(pct::pct_regions)
-# see all regions with View(pct_regions)
-zones = get_pct_zones(region = "west-yorkshire")
-zones_leeds = zones %>% 
-  filter(lad_name == "Leeds")
-zones_leeds %>% 
-  select(bicycle:taxi_other) %>% 
-  plot()
-```
-
-```{r, eval=FALSE}
-?get_pct_routes_fast
-```
-
-Bonus (if you have time and a decent computer): download and import the 'car.zip' data from https://github.com/ITSLeeds/NTEM2OD/releases
-
-## Getting data from the web
-
-Read through Section [8.2](https://geocompr.robinlovelace.net/read-write.html#retrieving-data) and 8.3 of Geocomputation with R. 
-
-Complete Exercises 4, 5, 6 and 7 of the chapter
-
-## Bonus 1: osmextract
-
-Take a read of the documentation for the [`osmextract`](https://docs.ropensci.org/osmextract/index.html) package.
-
-Reproduce the examples
-
-Get all supermarkets in OSM for West Yorkshire
-
-Identify all cycleways in West Yorkshire and, using the stats19 data you have already downloaded, identify all crashes that happened near them.
-
-## Bonus 2: Getting data from statistics.gov.uk 
-
-Identify a region and zonal units of interest from http://geoportal.statistics.gov.uk/
-
-- Read them into R as an `sf` object
-- Join-on data from a non-geographic object
-
-- Add a data access section to your in progress portfolio
-
-## Bonus 3: find another geographic or transport dataset hosted online and write code to download it
-
-- Share the code on Teams or in a GitHub issue: https://github.com/ITSLeeds/TDS/issues
 
 ## Some suggested links
 

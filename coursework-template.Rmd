@@ -2,7 +2,7 @@
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
 output:
-  github_document:
+  pdf_document:
     number_sections: true
 # output:
 #   pdf_document:
@@ -15,6 +15,33 @@ author: "Student 12345"
 # for pdf output:
 # bibliography: tds.bib
 ---
+
+# Statement {-}
+
+```
+TRAN5340M
+Transport Data Science
+Assignment Title:	Add your own
+Student ID: Add your ID
+Word Count:	xxxx	
+Lecturer: Dr Robin Lovelace
+Submission Date:		
+Semester:				
+Academic Year: 		202324
+Generative AI Category: AMBER
+```
+
+
+Use of Generative Artificial Intelligence (Gen AI) in this assessment. Remove statement as appropriate:
+
+I have made no use of Gen AI
+
+I have used Gen AI only for the specific purposes outlined in my acknowledgements
+
+
+By submitting the work to which this sheet is attached you confirm your compliance with the University’s definition of Academic Integrity as: “a commitment to good study practices and shared values which ensures that my work is a true expression of my own understanding and ideas, giving credit to others where their work contributes to mine”. Double-check that your referencing and use of quotations is consistent with this commitment. 
+
+\newpage
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = TRUE)

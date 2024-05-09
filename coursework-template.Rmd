@@ -1,13 +1,8 @@
 ---
 title: "Coursework submission for Transport Data Science (TRAN5340M)"
 subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
-output:
-  pdf_document:
-    number_sections: true
-# output:
-#   pdf_document:
-#     number_sections: true
 author: "Student 12345"
+output: github_document
 # for html output:
 # output:
 #   html_document:
@@ -27,7 +22,7 @@ Word Count:	xxxx
 Lecturer: Dr Robin Lovelace
 Submission Date:		
 Semester:				
-Academic Year: 		202324
+Academic Year: 		202425
 Generative AI Category: AMBER
 ```
 
@@ -78,7 +73,7 @@ The information below provides guidance on the coursework.
 
 ## Final submission
 
-- Deadline: Friday 19th May 2023, 14:00
+- Deadline: Friday 17th May 2024, 14:00
 - Format: a PDF file (max 10 pages) and an Rmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
 - Template: You can download a template .Rmd file as the basis of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
 

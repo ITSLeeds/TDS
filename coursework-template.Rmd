@@ -99,7 +99,6 @@ As in real world data science work, there are many options to choose from.
 You should decide on a topic based on your personal interest and the availability of a good dataset.
 You can choose from and adapt one of the following options or choose a topic of your own.
 
-
 ### Topics
 
 - Data collection and analysis
@@ -179,25 +178,35 @@ You could pick one of these topics:
 - How accessible are parks and other amenities for different areas of a particular city 
   - This could be done using data from OSM and perhaps official data from local government
 
+TODO: split out this bit into marking-criteria.qmd
+
 ## Marks
 
 Marks are awarded in 4 categories, accounting for the following criteria:
 
-    **Data processing**
+    **Data processing: 20%**
 
 1. The selection and effective use of input datasets that are large (e.g. covering multiple years), complex (e.g. containing multiple variables) and/or diverse (e.g. input datasets from multiple sources are used and where appropriate combined in the analysis)
 1. Describe how the data was collected and implications for data quality, and outline how the input datasets were downloaded (with a reproducible example if possible)
 1. Evidence of data cleaning techniques (e.g. by re-categorising variables)
 1. Adding value to datasets with joins (key-based or spatial), creation of new variables (also known as feature engineering) and reshaping data (e.g. from wide to long format)
 
-    **Visualization and aesthetics**
+**Distinction:** The report makes use of a complex (with many columns and rows) and/or multiple input datasets, efficiently importing them and adding value by...
+
+
+...
+
+
+    **Visualization and aesthetics: 20%**
 
 1. Creation of figures that are readable and well-described (e.g. with captions and description)
 1. High quality, attractive or advanced techniques (e.g. interactive maps, facets or other advanced techniques)
 1. Using visualisation techniques appropriate to the topic and data and interpreting the results correctly (e.g. mentioning potential confounding factors that could account for observed patterns)
 1. The report is aesthetically pleasing, with appropriate figure captions, cross-references and a consistent style
 
-    **Code quality, efficiency and reproducibility**
+**Distinction:** 
+
+    **Code quality, efficiency and reproducibility: 20%**
 
 1. Code quality, including using consistent style, appropriate packages, and clear comments
 1. Efficiency, including pre-processing to reduce input datasets (avoiding having to share large datasets in the submission for example) and computationally efficient implementations
@@ -205,7 +214,7 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 1. Code availability and sharing, e.g. code is shared on GitHub or another platform
 1. Discussion of the limitations of the analysis and implications for the findings and how they could be addressed in future research and what type of data collection activities could address those limitations
 
-    **Understanding the data science process, including choice of topic and impact**
+    **Understanding the data science process, including choice of topic and impact: 40%**
 
 1. Topic selection, including originality, availability of datasets related to the topic and relevance to solving transport planning problems
 1. Discuss alternative topics and methods/approaches considered and justify the topic and make specific recommendations for further research or policies that are supported by the data analysis undertaken, and explain the potential impacts of the work

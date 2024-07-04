@@ -197,29 +197,31 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 ...
 
 
-    **Visualization and aesthetics: 20%**
+    **Visualization and report: 20%**
 
 1. Creation of figures that are readable and well-described (e.g. with captions and description)
-1. High quality, attractive or advanced techniques (e.g. interactive maps, facets or other advanced techniques)
+1. High quality, attractive or advanced techniques (e.g. multi-layered maps or graphs, facets or other advanced techniques)
 1. Using visualisation techniques appropriate to the topic and data and interpreting the results correctly (e.g. mentioning potential confounding factors that could account for observed patterns)
-1. The report is aesthetically pleasing, with appropriate figure captions, cross-references and a consistent style
+1. The report is well-formatted, accessible (e.g. with legible text size and does not contain excessive code in the submitted report) and clearly communicates the data and analysis visually, with appropriate figure captions, cross-references and a consistent style
 
 **Distinction:** 
 
     **Code quality, efficiency and reproducibility: 20%**
 
-1. Code quality, including using consistent style, appropriate packages, and clear comments
+1. Code quality in the submitted source code, including using consistent style, appropriate packages, and clear comments
 1. Efficiency, including pre-processing to reduce input datasets (avoiding having to share large datasets in the submission for example) and computationally efficient implementations
 1. The report is fully reproducible, including generation of figures. There are links to online resources for others wanting to reproduce the analysis for another area, and links to the input data
-1. Code availability and sharing, e.g. code is shared on GitHub or another platform
-1. Discussion of the limitations of the analysis and implications for the findings and how they could be addressed in future research and what type of data collection activities could address those limitations
 
     **Understanding the data science process, including choice of topic and impact: 40%**
 
 1. Topic selection, including originality, availability of datasets related to the topic and relevance to solving transport planning problems
-1. Discuss alternative topics and methods/approaches considered and justify the topic and make specific recommendations for further research or policies that are supported by the data analysis undertaken, and explain the potential impacts of the work
-1. Discussion of the strengths and weaknesses of the analysis
-1. The contents of the report fit together logically and support the aims of the report and seek to answer the research question(s)
+1. Clear research question
+1. Appropriate reference to the academic, policy and/or technical literature and use of the literature to inform the research question and methods
+1. Use of appropriate data science methods and techniques
+1. Discussion of the strengths and weaknesses of the analysis and input datasets and/or how limitations could be addressed
+1. Discuss further research and/or explain the potential impacts of the work
+1. The conclusions are supported by the analysis and results
+1. The contents of the report fit together logically and support the aims and/or research questions of the report
 
 ## Report structure
 

@@ -187,15 +187,17 @@ Marks are awarded in 4 categories, accounting for the following criteria:
     **Data processing: 20%**
 
 1. The selection and effective use of input datasets that are large (e.g. covering multiple years), complex (e.g. containing multiple variables) and/or diverse (e.g. input datasets from multiple sources are used and where appropriate combined in the analysis)
-1. Describe how the data was collected and implications for data quality, and outline how the input datasets were downloaded (with a reproducible example if possible)
+1. Describe how the data was collected and implications for data quality, and outline how the input datasets were downloaded (with a reproducible example if possible), with a description that will allow others to understand the structure of the inputs and how to import them
 1. Evidence of data cleaning techniques (e.g. by re-categorising variables)
 1. Adding value to datasets with joins (key-based or spatial), creation of new variables (also known as feature engineering) and reshaping data (e.g. from wide to long format)
 
-**Distinction:** The report makes use of a complex (with many columns and rows) and/or multiple input datasets, efficiently importing them and adding value by...
+**Distinction (70%+):** The report makes use of a complex (with many columns and rows) and/or multiple input datasets, efficiently importing them and adding value by creating new variables, recategorising, changing data formats/types, and/or reshaping the data. Selected datasets are appropriate for the research questions, clearly described, with links to the source and understanding of how the datasets were generated.
 
+**Merit (60-69%):** Between pass and distinction.
 
-...
+**Pass (50-59%):** The selection, description of, cleaning and value-added to the input datasets are weak overall. The report does not make use of complex or multiple input datasets, or the datasets are not appropriate for the research questions, or the datasets are not clearly described, or there are no links to the source or understanding of how the datasets were generated.
 
+**Fail (0-49%):** The report does not make use of appropriate input datasets and contains very little or now evidence of data cleaning, adding value to the datasets or reshaping the data.
 
     **Visualization and report: 20%**
 

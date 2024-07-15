@@ -206,13 +206,27 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 1. Using visualisation techniques appropriate to the topic and data and interpreting the results correctly (e.g. mentioning potential confounding factors that could account for observed patterns)
 1. The report is well-formatted, accessible (e.g. with legible text size and does not contain excessive code in the submitted report) and clearly communicates the data and analysis visually, with appropriate figure captions, cross-references and a consistent style
 
-**Distinction:** 
+**Distinction (70%+):** The report contains high quality, attractive, advanced and meaningful visualisations that are well-described and interpreted correctly. The report is well-formatted, accessible and clearly communicates the data and analysis visually.
+
+**Merit (60-69%):** Between pass and distinction.
+
+**Pass (50-59%):** The report contains basic visualisations or are not well-described or interpreted correctly or the report is poorly formatted, not accessible or does not clearly communicate the data and analysis visually.
+
+**Fail (0-49%):** The report is of unacceptable quality (would likely be rejected in a professional setting) and/or has poor quality and/or few visualisations, or the visualisations are inappropriate given the data and research questions.
 
     **Code quality, efficiency and reproducibility: 20%**
 
 1. Code quality in the submitted source code, including using consistent style, appropriate packages, and clear comments
 1. Efficiency, including pre-processing to reduce input datasets (avoiding having to share large datasets in the submission for example) and computationally efficient implementations
 1. The report is fully reproducible, including generation of figures. There are links to online resources for others wanting to reproduce the analysis for another area, and links to the input data
+
+**Distinction (70%+):** The source code underlying the report contains high quality, efficient and reproducible code that is well-written, using consistent syntax and good style, well-commented and uses appropriate packages. The report is fully reproducible, with links to online resources for others wanting to reproduce the analysis for another area, and links to the input data.
+
+**Merit (60-69%):** Between pass and distinction.
+
+**Pass (50-59%):** The source code underlying the report is available and describes the outputs in the report but is not well-commented, not efficient or has very limited levels of reproduicibility, with few links to online resources for others wanting to reproduce the analysis for another area, and few links to the input data.
+
+**Fail (0-49%):** The report has little to no reproducible, readable or efficient code.
 
     **Understanding the data science process, including choice of topic and impact: 40%**
 
@@ -224,6 +238,12 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 1. Discuss further research and/or explain the potential impacts of the work
 1. The conclusions are supported by the analysis and results
 1. The contents of the report fit together logically and support the aims and/or research questions of the report
+
+**Distinction (70%+):** The report contains a clear research question, appropriate reference to the academic, policy and/or technical literature, use of appropriate data science methods and techniques, discussion of the strengths and weaknesses of the analysis and input datasets and/or how limitations could be addressed, discussion of further research and/or explanation of the potential impacts of the work, conclusions supported by the analysis and results, and the contents of the report fit together logically and support the aims and/or research questions of the report.
+
+**Merit (60-69%):** Between pass and distinction.
+
+**Pass (50-59%):** The report contains a research question but only limited references to appropriate literature, the analysis is weak, with limitted understandings of the limitations of the results, conclusions are not supported by the analysis and results or the report does not fit together well in a cohesive whole.
 
 ## Report structure
 

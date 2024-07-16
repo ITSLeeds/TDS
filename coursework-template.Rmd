@@ -195,7 +195,7 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 
 **Merit (60-69%):** The report makes some use of complex or multiple input datasets. The selection, description of, cleaning or value-added to the input datasets show skill and care applied to the data processing stage but with some weaknesses. Selected datasets are appropriate for the research questions, with some description or links to the data source.
 
-**Pass (50-59%):** The selection, description of, cleaning and value-added to the input datasets are weak overall. The report does not make use of complex or multiple input datasets, or the datasets are not appropriate for the research questions, or the datasets are not clearly described, or there are no links to the source or understanding of how the datasets were generated.
+**Pass (50-59%):** There is some evidence of care and attention put into the selection, description of or cleaning of the input datasets but little value has been added. The report makes little use of complex or multiple input datasets. The datasets are not appropriate for the research questions, the datasets are not clearly described, or there are no links to the source or understanding of how the datasets were generated, but the data processing aspect of the work acceptable.
 
 **Fail (0-49%):** The report does not make use of appropriate input datasets and contains very little or now evidence of data cleaning, adding value to the datasets or reshaping the data.
 

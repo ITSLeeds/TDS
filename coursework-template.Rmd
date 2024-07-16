@@ -191,9 +191,9 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 1. Evidence of data cleaning techniques (e.g. by re-categorising variables)
 1. Adding value to datasets with joins (key-based or spatial), creation of new variables (also known as feature engineering) and reshaping data (e.g. from wide to long format)
 
-**Distinction (70%+):** The report makes use of a complex (with many columns and rows) and/or multiple input datasets, efficiently importing them and adding value by creating new variables, recategorising, changing data formats/types, and/or reshaping the data. Selected datasets are appropriate for the research questions, clearly described, with links to the source and understanding of how the datasets were generated.
+**Distinction (70%+):** The report makes use of a complex (with many columns and rows) and/or multiple input datasets, efficiently importing them and adding value by creating new variables, recategorising, changing data formats/types, and/or reshaping the data. Selected datasets are very well suited to the research questions, clearly described, with links to the source and understanding of how the datasets were generated.
 
-**Merit (60-69%):** Between pass and distinction.
+**Merit (60-69%):** The report makes some use of complex or multiple input datasets. The selection, description of, cleaning or value-added to the input datasets show skill and care applied to the data processing stage but with some weaknesses. Selected datasets are appropriate for the research questions, with some description or links to the data source.
 
 **Pass (50-59%):** The selection, description of, cleaning and value-added to the input datasets are weak overall. The report does not make use of complex or multiple input datasets, or the datasets are not appropriate for the research questions, or the datasets are not clearly described, or there are no links to the source or understanding of how the datasets were generated.
 

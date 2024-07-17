@@ -56,39 +56,37 @@ The information below provides guidance on the coursework.
 
 ## Two pager
 
-  - Deadline for non-assessed submission of a .zip file containing a 1
-    or 2 page pdf document with ideas before the final submission. The
-    document will allow you to ask questions (e.g. “does this sound like
-    a reasonable input dataset and topic?”) and describe progress on
-    reading in input datasets and the analysis plan. The document will
-    contain:
-      - A draft title of your topic
-      - The main dataset that you will use and other datasets that you
-        could use
-      - Ideas on a research question
-      - Questions you would like to ask about the topic, e.g. ‘is this a
-        suitable dataset?’
-      - 2 or more references to the academic literature related to the
-        topic
-      - Any preliminary analysis you have done
-      - The structure of the document could include
-          - Topics considered
-          - Input datasets
-          - Analysis plan - I suggest creating a workflow diagram for
-            this, e.g. as presented
-            [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
-          - Motivation for choosing this topic
-          - Questions and options
+- Deadline for non-assessed submission of a .zip file containing a 1 or
+  2 page pdf document with ideas before the final submission. The
+  document will allow you to ask questions (e.g. “does this sound like a
+  reasonable input dataset and topic?”) and describe progress on reading
+  in input datasets and the analysis plan. The document will contain:
+  - A draft title of your topic
+  - The main dataset that you will use and other datasets that you could
+    use
+  - Ideas on a research question
+  - Questions you would like to ask about the topic, e.g. ‘is this a
+    suitable dataset?’
+  - 2 or more references to the academic literature related to the topic
+  - Any preliminary analysis you have done
+  - The structure of the document could include
+    - Topics considered
+    - Input datasets
+    - Analysis plan - I suggest creating a workflow diagram for this,
+      e.g. as presented
+      [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
+    - Motivation for choosing this topic
+    - Questions and options
 
 ## Final submission
 
-  - Deadline: Friday 17th May 2024, 14:00
-  - Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
-    containing the Rmd file and minimal dataset needed to reproduce the
-    results if possible (40 MB max size)
-  - Template: You can download a template .Rmd file as the basis of your
-    submission:
-    <https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd>
+- Deadline: Friday 17th May 2024, 14:00
+- Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
+  containing the Rmd file and minimal dataset needed to reproduce the
+  results if possible (40 MB max size)
+- Template: You can download a template .Rmd file as the basis of your
+  submission:
+  <https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd>
 
 For the coursework you will submit a pdf a document with a maximum of 10
 pages that contains code and results demonstrating your transport data
@@ -107,15 +105,15 @@ Designing and writing a good data science project involves many stages,
 not just writing and and knitting an Rmd document reporting data
 analysis methods and results. The process involves:
 
-  - Brainstorming: what kind of topics and research questions are you
-    interested in?
-  - Dataset identification: what datasets are available on the topic? If
-    there are not good datasets related to the topic you may want to
-    rethink your topic.
-  - Research questions: what questions do you want to know
-  - Data processing: what did you do to read-in the data?
-  - Exploratory data analysis: visualisation, describing the data
-  - Modelling/communication
+- Brainstorming: what kind of topics and research questions are you
+  interested in?
+- Dataset identification: what datasets are available on the topic? If
+  there are not good datasets related to the topic you may want to
+  rethink your topic.
+- Research questions: what questions do you want to know
+- Data processing: what did you do to read-in the data?
+- Exploratory data analysis: visualisation, describing the data
+- Modelling/communication
 
 As in real world data science work, there are many options to choose
 from. You should decide on a topic based on your personal interest and
@@ -124,75 +122,73 @@ the following options or choose a topic of your own.
 
 ### Topics
 
-  - Data collection and analysis
-      - What is the relationship between travel behaviour (e.g. as
-        manifested in origin-destination data represented as desire
-        lines, routes and route networks) and road traffic casualties in
-        a transport region (e.g. London, West Midlands and other regions
-        in the `pct::pct_regions$region_name` data)
-      - Analysis of a large transport dataset,
-        e.g. <https://www.nature.com/articles/sdata201889>
-  - Infrastructure and travel behaviour
-      - What are the relationships between specific types of
-        infrastructure and travel, e.g. between fast roads and walking?
-      - How do official sources of infrastructure data (e.g. the
-        [CID](https://github.com/PublicHealthDataGeek/CycleInfraLnd/))
-        compare with crowd-sourced datasets such as OpenStreetMap (which
-        can be accessed with the new [`osmextract` R
-        package](https://github.com/ropensci/osmextract))
-      - Using new data sources to support transport planning, e.g. using
-        data from <https://telraam.net/> or
-        <https://dataforgood.facebook.com/dfg/tools/high-resolution-population-density-maps>
-  - Changing transport systems
-      - Modelling change in transport systems, e.g. by comparing
-        before/after data for different countries/cities, which
-        countries had the hardest lockdowns and where have changes been
-        longer term? - see here for open data:
-        <https://github.com/ActiveConclusion/COVID19_mobility>
-      - How have movement patterns changed during the Coronavirus
-        pandemic and what impact is that likely to have long term (see
-        [here](https://saferactive.github.io/trafficalmr/articles/report3.html)
-        for some graphics on this)
-  - Software development
-      - Creating a package to make a particular data source more
-        accessible, see <https://github.com/ropensci/stats19> and
-        <https://github.com/elipousson/crashapi> examples
-      - Integration between R and A/B Street - see
-        <https://github.com/a-b-street/abstr>
-  - Road safety - how can we makes roads and transport systems in
-    general safer?
-      - Influence of Road Infrastructure:
-          - 1.  Assessing the role of well-designed pedestrian
-                crossings, roundabouts, and traffic calming measures in
-                preventing road accidents.
-        
-          - 2.  Investigating the correlation between road surface
-                quality (e.g., potholes, uneven surfaces) and the
-                frequency of accidents.
-      - Influence of Traffic Management:
-          - 1.  Assessing the role of traffic lights and speed cameras
-                in preventing road accidents.
-        
-          - 2.  Investigating the correlation between the frequency of
-                accidents and the presence of traffic calming measures
-                (e.g., speed bumps, chicanes, road narrowing, etc.).
-      - Legislation and Enforcement:
-          - 1.  Assessing the role of speed limits in preventing road
-                accidents.
-  - Traffic congestion - how can we reduce congestion?
-      - Data Collection and Analysis:
-          - 1.  Utilizing real-time traffic data from platforms like
-                Waze and Google Maps to forecast congestion patterns.
-        
-          - 2.  Analyzing historical traffic data to identify recurring
-                congestion patterns and anticipate future traffic
-                bottlenecks.
-      - Machine Learning and Predictive Modeling:
-          - 1.  Designing machine learning models that use past and
-                current traffic data to predict future congestion
-                levels.
-  - Other
-      - Other topics are welcome
+- Data collection and analysis
+  - What is the relationship between travel behaviour (e.g. as
+    manifested in origin-destination data represented as desire lines,
+    routes and route networks) and road traffic casualties in a
+    transport region (e.g. London, West Midlands and other regions in
+    the `pct::pct_regions$region_name` data)
+  - Analysis of a large transport dataset,
+    e.g. <https://www.nature.com/articles/sdata201889>
+- Infrastructure and travel behaviour
+  - What are the relationships between specific types of infrastructure
+    and travel, e.g. between fast roads and walking?
+  - How do official sources of infrastructure data (e.g. the
+    [CID](https://github.com/PublicHealthDataGeek/CycleInfraLnd/))
+    compare with crowd-sourced datasets such as OpenStreetMap (which can
+    be accessed with the new [`osmextract` R
+    package](https://github.com/ropensci/osmextract))
+  - Using new data sources to support transport planning, e.g. using
+    data from <https://telraam.net/> or
+    <https://dataforgood.facebook.com/dfg/tools/high-resolution-population-density-maps>
+- Changing transport systems
+  - Modelling change in transport systems, e.g. by comparing
+    before/after data for different countries/cities, which countries
+    had the hardest lockdowns and where have changes been longer term? -
+    see here for open data:
+    <https://github.com/ActiveConclusion/COVID19_mobility>
+  - How have movement patterns changed during the Coronavirus pandemic
+    and what impact is that likely to have long term (see
+    [here](https://saferactive.github.io/trafficalmr/articles/report3.html)
+    for some graphics on this)
+- Software development
+  - Creating a package to make a particular data source more accessible,
+    see <https://github.com/ropensci/stats19> and
+    <https://github.com/elipousson/crashapi> examples
+  - Integration between R and A/B Street - see
+    <https://github.com/a-b-street/abstr>
+- Road safety - how can we makes roads and transport systems in general
+  safer?
+  - Influence of Road Infrastructure:
+    - 1.  Assessing the role of well-designed pedestrian crossings,
+          roundabouts, and traffic calming measures in preventing road
+          accidents.
+
+    - 2.  Investigating the correlation between road surface quality
+          (e.g., potholes, uneven surfaces) and the frequency of
+          accidents.
+  - Influence of Traffic Management:
+    - 1.  Assessing the role of traffic lights and speed cameras in
+          preventing road accidents.
+
+    - 2.  Investigating the correlation between the frequency of
+          accidents and the presence of traffic calming measures (e.g.,
+          speed bumps, chicanes, road narrowing, etc.).
+  - Legislation and Enforcement:
+    - 1.  Assessing the role of speed limits in preventing road
+          accidents.
+- Traffic congestion - how can we reduce congestion?
+  - Data Collection and Analysis:
+    - 1.  Utilizing real-time traffic data from platforms like Waze and
+          Google Maps to forecast congestion patterns.
+
+    - 2.  Analyzing historical traffic data to identify recurring
+          congestion patterns and anticipate future traffic bottlenecks.
+  - Machine Learning and Predictive Modeling:
+    - 1.  Designing machine learning models that use past and current
+          traffic data to predict future congestion levels.
+- Other
+  - Other topics are welcome
 
 ### Datasets
 
@@ -201,22 +197,22 @@ based on the topic and the availability of datasets. If you are
 interested in a particular dataset that could help you decide a topic.
 Good datasets include:
 
-  - STATS19 road crash data (other countries have other datasets),
-    e.g. using data from the `stats19` package:
-    <https://docs.ropensci.org/stats19/>
-  - ‘PCT’ data from UK travel behaviour - see
-    <https://itsleeds.github.io/pct/>
-  - OpenStreetMap data (global, you will need to think of a subset by
-    area/type), e.g. from the
-    <https://docs.ropensci.org/osmextract/index.html> package
-  - Traffic count data, e.g. from the DfT, as described here:
-    <https://github.com/ITSLeeds/dftTrafficCounts>
-  - Open data from a single city, e.g. Seattle:
-    <https://data-seattlecitygis.opendata.arcgis.com/>
-  - See here:
-    <https://github.com/awesomedata/awesome-public-datasets#transportation>
-  - And here: <https://github.com/CUTR-at-USF/awesome-transit>
-  - and [here](https://github.com/ITSLeeds/opentransportdata)
+- STATS19 road crash data (other countries have other datasets),
+  e.g. using data from the `stats19` package:
+  <https://docs.ropensci.org/stats19/>
+- ‘PCT’ data from UK travel behaviour - see
+  <https://itsleeds.github.io/pct/>
+- OpenStreetMap data (global, you will need to think of a subset by
+  area/type), e.g. from the
+  <https://docs.ropensci.org/osmextract/index.html> package
+- Traffic count data, e.g. from the DfT, as described here:
+  <https://github.com/ITSLeeds/dftTrafficCounts>
+- Open data from a single city, e.g. Seattle:
+  <https://data-seattlecitygis.opendata.arcgis.com/>
+- See here:
+  <https://github.com/awesomedata/awesome-public-datasets#transportation>
+- And here: <https://github.com/CUTR-at-USF/awesome-transit>
+- and [here](https://github.com/ITSLeeds/opentransportdata)
 
 ### Specific coursework options
 
@@ -226,148 +222,229 @@ addition to the links provided in the lectures and practicals can help:
 If this is a resit you must choose a different topic.
 
 <!-- 1. Work through the stats19 training vignette to sharpen your R skills: https://docs.ropensci.org/stats19/articles/stats19-training.html -->
-
 <!-- 2. Take a look at the Model Basics chapter (and the next if interested) of the book R for Data Science: https://r4ds.had.co.nz/model-basics.html -->
-
 <!-- 3. Try to reproduce the results presented in the ML practical: https://github.com/ITSLeeds/TDS/blob/master/practicals/9-ml.md -->
-
 <!-- When working on the homework you should be thinking about the datasets that you want to use for your coursework assignment. Ideas for datasets that you could use are: -->
 
 You could pick one of these topics:
 
-  - What explanatory variables best predict the level of walking in
-    Leeds (or a different English city), and how do walking levels
-    relate to pedestrian safety? You could use the command
-    `pct::get_desire_lines(region = "west-yorkshire")` to get data on
-    walking desire lines and `get_stats19()` to get road crash data for
-    Leeds. In terms of the topics covered in the lectures you could:
-    
-      - Show understanding of data science in context with a brief
-        introduction that touches on the definition of transport data
-        science
-      - Demonstrate understanding of data structures by converting from
-        a data frame of road crashes to an sf object
-      - Show routes, e.g. by getting route data with
-        `pct::get_pct_routes_fast()`
-      - Show your data visualisation skills by visualising the datasets
-      - Demonstrate understanding of modelling with a simple model to
-        explain why the rate of walking varies, e.g. with the distance
-        of the trip and variables that you will calculate (e.g. distance
-        from the city centre)
+- What explanatory variables best predict the level of walking in Leeds
+  (or a different English city), and how do walking levels relate to
+  pedestrian safety? You could use the command
+  `pct::get_desire_lines(region = "west-yorkshire")` to get data on
+  walking desire lines and `get_stats19()` to get road crash data for
+  Leeds. In terms of the topics covered in the lectures you could:
 
-  - What factors are associated with low levels of walking and cycling
-    and high road traffic casualty rates in the UK?
+  - Show understanding of data science in context with a brief
+    introduction that touches on the definition of transport data
+    science
+  - Demonstrate understanding of data structures by converting from a
+    data frame of road crashes to an sf object
+  - Show routes, e.g. by getting route data with
+    `pct::get_pct_routes_fast()`
+  - Show your data visualisation skills by visualising the datasets
+  - Demonstrate understanding of modelling with a simple model to
+    explain why the rate of walking varies, e.g. with the distance of
+    the trip and variables that you will calculate (e.g. distance from
+    the city centre)
 
-  - How accessible are parks and other amenities for different areas of
-    a particular city
-    
-      - This could be done using data from OSM and perhaps official data
-        from local government
+- What factors are associated with low levels of walking and cycling and
+  high road traffic casualty rates in the UK?
+
+- How accessible are parks and other amenities for different areas of a
+  particular city
+
+  - This could be done using data from OSM and perhaps official data
+    from local government
+
+TODO: split out this bit into marking-criteria.qmd
 
 ## Marks
 
 Marks are awarded in 4 categories, accounting for the following
 criteria:
 
-    **Data, processing access and cleaning**
+    **Data processing: 20%**
 
 1.  The selection and effective use of input datasets that are large
     (e.g. covering multiple years), complex (e.g. containing multiple
-    variables) and diverse (e.g. input datasets from multiple sources
+    variables) and/or diverse (e.g. input datasets from multiple sources
     are used and where appropriate combined in the analysis)
-
 2.  Describe how the data was collected and implications for data
     quality, and outline how the input datasets were downloaded (with a
-    reproducible example if possible)
+    reproducible example if possible), with a description that will
+    allow others to understand the structure of the inputs and how to
+    import them
+3.  Evidence of data cleaning techniques (e.g. by re-categorising
+    variables)
+4.  Adding value to datasets with joins (key-based or spatial), creation
+    of new variables (also known as feature engineering) and reshaping
+    data (e.g. from wide to long format)
 
-3.  Evidence of data cleaning techniques and adding value to the dataset
-    (e.g. by creating new variables or by joining two datasets)
+**Distinction (70%+):** The report makes use of a complex (with many
+columns and rows) and/or multiple input datasets, efficiently importing
+them and adding value by creating new variables, recategorising,
+changing data formats/types, and/or reshaping the data. Selected
+datasets are very well suited to the research questions, clearly
+described, with links to the source and understanding of how the
+datasets were generated.
 
-4.  Use of transport planning techniques such as use of buffers,
-    scenarios, origin-destination data analysis geographic desire lines
-    and routing
-    
-    **Choice of topic and impact**
+**Merit (60-69%):** The report makes some use of complex or multiple
+input datasets. The selection, description of, cleaning or value-added
+to the input datasets show skill and care applied to the data processing
+stage but with some weaknesses. Selected datasets are appropriate for
+the research questions, with some description or links to the data
+source.
 
-5.  Topic selection, including originality, availability of datasets
-    related to the topic and relevance to solving transport planning
-    problems
+**Pass (50-59%):** There is some evidence of care and attention put into
+the selection, description of or cleaning of the input datasets but
+little value has been added. The report makes little use of complex or
+multiple input datasets. The datasets are not appropriate for the
+research questions, the datasets are not clearly described, or there are
+no links to the source or understanding of how the datasets were
+generated, but the data processing aspect of the work acceptable.
 
-6.  Discuss alternative topics considered and justify the topic
+**Fail (0-49%):** The report does not make use of appropriate input
+datasets and contains very little or now evidence of data cleaning,
+adding value to the datasets or reshaping the data. While there may be
+some evidence of data processing, it is of poor quality and/or not
+appropriate for the research questions.
 
-7.  Make specific recommendations for further research or policies that
-    are supported by the data analysis undertaken
+    **Visualization and report: 20%**
 
-8.  Explain the potential impacts of the work
-    
-    **Visualization**
-
-9.  Creation of figures that are readable and well-described (e.g. with
+1.  Creation of figures that are readable and well-described (e.g. with
     captions and description)
-
-10. High quality, attractive and innovative visualisations
-
-11. Description of visualisation techniques, e.g. with reference to
-    particular packages, commands, or the literature on how to produce
-    effective data visualisations
-
-12. Using visualisation techniques appropriate to the topic and data and
+2.  High quality, attractive or advanced techniques (e.g. multi-layered
+    maps or graphs, facets or other advanced techniques)
+3.  Using visualisation techniques appropriate to the topic and data and
     interpreting the results correctly (e.g. mentioning potential
     confounding factors that could account for observed patterns)
-    
-    **Understand data science processes, concepts, methods and
-    approaches**
+4.  The report is well-formatted, accessible (e.g. with legible text
+    size and does not contain excessive code in the submitted report)
+    and clearly communicates the data and analysis visually, with
+    appropriate figure captions, cross-references and a consistent style
 
-13. Demonstrate understanding of core concepts of data science, such as
-    cleaning and reshaping data (e.g. data aggregation and dimension
-    reduction), combining multiple datasets, joining, exploratory data
-    analysis and visualisation, and how the work could be transferred to
-    different contexts (e.g. other time periods, cities and countries)
+**Distinction (70%+):** The report contains high quality, attractive,
+advanced and meaningful visualisations that are very well-described and
+interpreted, showing deep understanding of how visualisation can
+communicate meaning contained within datasets. The report is very
+well-formatted, accessible and clearly communicates the data and
+analysis visually.
 
-14. Discuss alternative methods/approaches that could have been used to
-    research the topic (e.g. qualitative research, use of alternative
-    data sources), and consider and their advantages and disadvantages
-    compared with your data science approach
+**Merit (60-69%):** The report contains good visualisations that
+correctly present the data and highlight key patterns. The report is has
+appropriate formatting.
 
-15. Enable reproducibility, by documenting key parts the code have
-    written as part of the analysis, e.g. with reference to a key code
-    chunk shown in the report and with reference to particular lines of
-    code in the RMarkdown file underpinning the analysis, links to
-    online resources for others wanting to reproduce the analysis for
-    another area, and links to the input data, the report is fully
-    reproducible, including generation of figures where possible and
-    guidance on how to reproduce the results (e.g. provided in a
-    footnote in the report or with a link to code stored in a platform
-    such as GitHub/GitLab)
+**Pass (50-59%):** The report contains basic visualisations or are not
+well-described or interpreted correctly or the report is poorly
+formatted, not accessible or does not clearly communicate the data and
+analysis visually.
 
-16. Discussion of the limitations of the analysis and implications for
-    the findings and how they could be addressed in future research and
-    what type of data collection activities could address those
-    limitations
+**Fail (0-49%):** The report is of unacceptable quality (would likely be
+rejected in a professional setting) and/or has poor quality and/or few
+visualisations, or the visualisations are inappropriate given the data
+and research questions.
+
+    **Code quality, efficiency and reproducibility: 20%**
+
+1.  Code quality in the submitted source code, including using
+    consistent style, appropriate packages, and clear comments
+2.  Efficiency, including pre-processing to reduce input datasets
+    (avoiding having to share large datasets in the submission for
+    example) and computationally efficient implementations
+3.  The report is fully reproducible, including generation of figures.
+    There are links to online resources for others wanting to reproduce
+    the analysis for another area, and links to the input data
+
+**Distinction (70%+):** The source code underlying the report contains
+high quality, efficient and reproducible code that is very well-written,
+using consistent syntax and good style, well-commented and uses
+appropriate packages. The report is fully reproducible, with links to
+online resources for others wanting to reproduce the analysis for
+another area, and links to the input data.
+
+**Merit (60-69%):** The code is readable and describes the outputs in
+the report but lacks quality, either in terms of comments, efficiency or
+reproducibility.
+
+**Pass (50-59%):** The source code underlying the report describes the
+outputs in the report but is not well-commented, not efficient or has
+very limited levels of reproduicibility, with few links to online
+resources for others wanting to reproduce the analysis for another area,
+and few links to the input data.
+
+**Fail (0-49%):** The report has little to no reproducible, readable or
+efficient code. A report that includes limited well-described code in
+the main text or in associated files would be considered at the
+borderline between a fail and a pass. A report that includes no code
+would be considered a low fail under this criterion.
+
+    **Understanding the data science process, including choice of topic and impact: 40%**
+
+1.  Topic selection, including originality, availability of datasets
+    related to the topic and relevance to solving transport planning
+    problems
+2.  Clear research question
+3.  Appropriate reference to the academic, policy and/or technical
+    literature and use of the literature to inform the research question
+    and methods
+4.  Use of appropriate data science methods and techniques
+5.  Discussion of the strengths and weaknesses of the analysis and input
+    datasets and/or how limitations could be addressed
+6.  Discuss further research and/or explain the potential impacts of the
+    work
+7.  The conclusions are supported by the analysis and results
+8.  The contents of the report fit together logically and support the
+    aims and/or research questions of the report
+
+**Distinction (70%+):** The report contains a clear research question,
+appropriate reference to the academic, policy and/or technical
+literature, use of appropriate data science methods and techniques,
+discussion of the strengths and weaknesses of the analysis and input
+datasets and/or how limitations could be addressed, discussion of
+further research and/or explanation of the potential impacts of the
+work, conclusions supported by the analysis and results, and the
+contents of the report fit together logically and support the aims
+and/or research questions of the report.
+
+**Merit (60-69%):** Between pass and distinction.
+
+**Pass (50-59%):** The report contains a valid research question but
+only limited references to appropriate literature or justification.
+There is evidence of awareness of the limitations of the results and how
+they inform conclusions, but these are not fully supported by the
+analysis. The report has a reasonable structure but does not fit
+together well in a cohesive whole.
+
+**Fail (0-49%):** The report does not contain a valid research question,
+has no references to appropriate literature or justification, does not
+discuss the limitations of the results or how they inform conclusions,
+or the report does not have a reasonable structure.
 
 ## Report structure
 
 The report should have a logical structure with key headings such as:
 
-  - Introduction
-  - Input data and data cleaning
-  - Exploratory data analysis
-  - Discussion (e.g. strengths and weaknesses)
-  - Conclusion (e.g. how the results could be used and next steps)
-  - References
+- Introduction
+- Input data and data cleaning
+- Exploratory data analysis
+- Discussion (e.g. strengths and weaknesses)
+- Conclusion (e.g. how the results could be used and next steps)
+- References
 
 An example report structure is shown below.
 
 ## Information about RMarkdown
 
-This is an R Markdown file. You can set the output by changing `output:
-github_document` to something different, like `output: html_document`.
-You will need to submit your work as a pdf document, which can be
-generated by converting html output to pdf (e.g. with the `pagedown`
-package) or (recommended) by setting the output to `pdf_document`. The
-first lines of your RMarkdown document could look something like this to
-ensure that the output is a PDF document and that the R code does not
-run (set `eval = FALSE` to not run the R code):
+This is an R Markdown file. You can set the output by changing
+`output: github_document` to something different, like
+`output: html_document`. You will need to submit your work as a pdf
+document, which can be generated by converting html output to pdf
+(e.g. with the `pagedown` package) or (recommended) by setting the
+output to `pdf_document`. The first lines of your RMarkdown document
+could look something like this to ensure that the output is a PDF
+document and that the R code does not run (set `eval = FALSE` to not run
+the R code):
 
     ---
     title: "Coursework submission for Transport Data Science (TRAN5340M)"
@@ -411,8 +488,8 @@ library(tmap)
 ```
 
 You can add references manually or with `[@citation-key]` references
-linking to a .bib file like this\[@lovelace\_stplanr\_2017\]. And this
-\[@fox\_data\_2018\].
+linking to a .bib file like this\[@lovelace_stplanr_2017\]. And this
+\[@fox_data_2018\].
 
 ## Including Code
 
@@ -476,30 +553,27 @@ You can get large OSM datasets with `osmextract`:
 iow_highways = osmextract::oe_get("Isle of Wight", layer = "lines")
 ```
 
-    ##   |                                                                              |                                                                      |   0%  |                                                                              |                                                                      |   1%  |                                                                              |=                                                                     |   1%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |==                                                                    |   4%  |                                                                              |===                                                                   |   4%  |                                                                              |===                                                                   |   5%  |                                                                              |====                                                                  |   5%  |                                                                              |====                                                                  |   6%  |                                                                              |=====                                                                 |   6%  |                                                                              |=====                                                                 |   7%  |                                                                              |=====                                                                 |   8%  |                                                                              |======                                                                |   8%  |                                                                              |======                                                                |   9%  |                                                                              |=======                                                               |   9%  |                                                                              |=======                                                               |  10%  |                                                                              |=======                                                               |  11%  |                                                                              |========                                                              |  11%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |=========                                                             |  14%  |                                                                              |==========                                                            |  14%  |                                                                              |==========                                                            |  15%  |                                                                              |===========                                                           |  15%  |                                                                              |===========                                                           |  16%  |                                                                              |============                                                          |  16%  |                                                                              |============                                                          |  17%  |                                                                              |============                                                          |  18%  |                                                                              |=============                                                         |  18%  |                                                                              |=============                                                         |  19%  |                                                                              |==============                                                        |  19%  |                                                                              |==============                                                        |  20%  |                                                                              |==============                                                        |  21%  |                                                                              |===============                                                       |  21%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  22%  |                                                                              |================                                                      |  23%  |                                                                              |================                                                      |  24%  |                                                                              |=================                                                     |  24%  |                                                                              |=================                                                     |  25%  |                                                                              |==================                                                    |  25%  |                                                                              |==================                                                    |  26%  |                                                                              |===================                                                   |  26%  |                                                                              |===================                                                   |  27%  |                                                                              |===================                                                   |  28%  |                                                                              |====================                                                  |  28%  |                                                                              |====================                                                  |  29%  |                                                                              |=====================                                                 |  29%  |                                                                              |=====================                                                 |  30%  |                                                                              |=====================                                                 |  31%  |                                                                              |======================                                                |  31%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |=======================                                               |  34%  |                                                                              |========================                                              |  34%  |                                                                              |========================                                              |  35%  |                                                                              |=========================                                             |  35%  |                                                                              |=========================                                             |  36%  |                                                                              |==========================                                            |  36%  |                                                                              |==========================                                            |  37%  |                                                                              |==========================                                            |  38%  |                                                                              |===========================                                           |  38%  |                                                                              |===========================                                           |  39%  |                                                                              |============================                                          |  39%  |                                                                              |============================                                          |  40%  |                                                                              |============================                                          |  41%  |                                                                              |=============================                                         |  41%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |==============================                                        |  44%  |                                                                              |===============================                                       |  44%  |                                                                              |===============================                                       |  45%  |                                                                              |================================                                      |  45%  |                                                                              |================================                                      |  46%  |                                                                              |=================================                                     |  46%  |                                                                              |=================================                                     |  47%  |                                                                              |=================================                                     |  48%  |                                                                              |==================================                                    |  48%  |                                                                              |==================================                                    |  49%  |                                                                              |===================================                                   |  49%  |                                                                              |===================================                                   |  50%  |                                                                              |===================================                                   |  51%  |                                                                              |====================================                                  |  51%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |=====================================                                 |  54%  |                                                                              |======================================                                |  54%  |                                                                              |======================================                                |  55%  |                                                                              |=======================================                               |  55%  |                                                                              |=======================================                               |  56%  |                                                                              |========================================                              |  56%  |                                                                              |========================================                              |  57%  |                                                                              |========================================                              |  58%  |                                                                              |=========================================                             |  58%  |                                                                              |=========================================                             |  59%  |                                                                              |==========================================                            |  59%  |                                                                              |==========================================                            |  60%  |                                                                              |==========================================                            |  61%  |                                                                              |===========================================                           |  61%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  62%  |                                                                              |============================================                          |  63%  |                                                                              |============================================                          |  64%  |                                                                              |=============================================                         |  64%  |                                                                              |=============================================                         |  65%  |                                                                              |==============================================                        |  65%  |                                                                              |==============================================                        |  66%  |                                                                              |===============================================                       |  66%  |                                                                              |===============================================                       |  67%  |                                                                              |===============================================                       |  68%  |                                                                              |================================================                      |  68%  |                                                                              |================================================                      |  69%  |                                                                              |=================================================                     |  69%  |                                                                              |=================================================                     |  70%  |                                                                              |=================================================                     |  71%  |                                                                              |==================================================                    |  71%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |===================================================                   |  74%  |                                                                              |====================================================                  |  74%  |                                                                              |====================================================                  |  75%  |                                                                              |=====================================================                 |  75%  |                                                                              |=====================================================                 |  76%  |                                                                              |======================================================                |  76%  |                                                                              |======================================================                |  77%  |                                                                              |======================================================                |  78%  |                                                                              |=======================================================               |  78%  |                                                                              |=======================================================               |  79%  |                                                                              |========================================================              |  79%  |                                                                              |========================================================              |  80%  |                                                                              |========================================================              |  81%  |                                                                              |=========================================================             |  81%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |==========================================================            |  84%  |                                                                              |===========================================================           |  84%  |                                                                              |===========================================================           |  85%  |                                                                              |============================================================          |  85%  |                                                                              |============================================================          |  86%  |                                                                              |=============================================================         |  86%  |                                                                              |=============================================================         |  87%  |                                                                              |=============================================================         |  88%  |                                                                              |==============================================================        |  88%  |                                                                              |==============================================================        |  89%  |                                                                              |===============================================================       |  89%  |                                                                              |===============================================================       |  90%  |                                                                              |===============================================================       |  91%  |                                                                              |================================================================      |  91%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |=================================================================     |  94%  |                                                                              |==================================================================    |  94%  |                                                                              |==================================================================    |  95%  |                                                                              |===================================================================   |  95%  |                                                                              |===================================================================   |  96%  |                                                                              |====================================================================  |  96%  |                                                                              |====================================================================  |  97%  |                                                                              |====================================================================  |  98%  |                                                                              |===================================================================== |  98%  |                                                                              |===================================================================== |  99%  |                                                                              |======================================================================|  99%  |                                                                              |======================================================================| 100%
-    ## 0...10...20...30...40...50...60...70...80...90...100 - done.
     ## Reading layer `lines' from data source 
-    ##   `/tmp/RtmpVL3OOJ/geofabrik_isle-of-wight-latest.gpkg' using driver `GPKG'
-    ## Simple feature collection with 51759 features and 9 fields
+    ##   `/home/robin/data/osm/geofabrik_isle-of-wight-latest.gpkg' 
+    ##   using driver `GPKG'
+    ## Simple feature collection with 12803 features and 13 fields
     ## Geometry type: LINESTRING
     ## Dimension:     XY
-    ## Bounding box:  xmin: -5.715479 ymin: 43.35489 xmax: 0.2409745 ymax: 50.89601
+    ## Bounding box:  xmin: -1.58227 ymin: 50.57661 xmax: -1.071268 ymax: 50.76731
     ## Geodetic CRS:  WGS 84
 
 ``` r
 summary(as.factor(iow_highways$highway))
 ```
 
-    ##      bridleway   construction       cycleway        footway  living_street 
-    ##            190             37            268           7649              5 
-    ##             no           path     pedestrian        primary   primary_link 
-    ##              1            975             39            679             22 
-    ##       proposed        raceway    residential      secondary secondary_link 
-    ##             12              1           3038            439              1 
-    ##        service          steps       tertiary  tertiary_link          track 
-    ##           8348            468            618              3           4219 
-    ##   unclassified           NA's 
-    ##            891          23856
+    ##      bridleway         busway       cycleway        footway  living_street 
+    ##            166              3            266             83              5 
+    ##           path     pedestrian        primary   primary_link    residential 
+    ##            569             12            677             22           2942 
+    ##      secondary secondary_link        service       tertiary  tertiary_link 
+    ##            439              1           4650            618              3 
+    ##          track   unclassified 
+    ##           1490            857
 
 ``` r
 iow_highways2 = iow_highways %>% 
@@ -508,12 +582,12 @@ iow_highways2 = iow_highways %>%
 summary(as.factor(iow_highways2$highway))
 ```
 
-    ##      bridleway   construction       cycleway  living_street             no 
-    ##            190             37            268              5              1 
-    ##           path     pedestrian       proposed        raceway      secondary 
-    ##            975             39             12              1            439 
-    ## secondary_link          steps       tertiary  tertiary_link   unclassified 
-    ##              1            468            618              3            891
+    ##      bridleway         busway       cycleway  living_street           path 
+    ##            166              3            266              5            569 
+    ##     pedestrian      secondary secondary_link       tertiary  tertiary_link 
+    ##             12            439              1            618              3 
+    ##   unclassified 
+    ##            857
 
 You could get road casualty data with the `stats19` package, as shown
 below.
@@ -557,9 +631,9 @@ use (this could be a coursework topic on its own).
 Here you could explain how you explored answers to policy questions such
 as:
 
-  - how to make the roads safer?
-  - how to reduce congestion?
-  - where to build bike parking?
+- how to make the roads safer?
+- how to reduce congestion?
+- where to build bike parking?
 
 # Discussion
 

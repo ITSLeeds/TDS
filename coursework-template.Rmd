@@ -1,6 +1,6 @@
 ---
-title: "Coursework submission for Transport Data Science (TRAN5340M)"
-subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
+title: "Coursework submission for Transport Data Science (TRAN5340M): resit guidance"
+# subtitle: "Enter your own title here (e.g. Exploring open transport data: a study of the Isle of Wight)"
 author: "Student 12345"
 output: github_document
 # for html output:
@@ -55,7 +55,7 @@ An example of a good submission can be found here (requires a University of Leed
 
 The information below provides guidance on the coursework. 
 
-## Two pager
+<!-- ## Two pager
 
 - Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas before the final submission. The document will allow you to ask questions (e.g. "does this sound like a reasonable input dataset and topic?") and describe progress on reading in input datasets and the analysis plan. The document will contain:
   - A draft title of your topic
@@ -69,12 +69,13 @@ The information below provides guidance on the coursework.
     - Input datasets
     - Analysis plan - I suggest creating a workflow diagram for this, e.g. as presented [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
     - Motivation for choosing this topic
-    - Questions and options
+    - Questions and options -->
 
-## Final submission
+<!-- ## Final submission -->
+## Resit submission
 
 - Deadline: Friday 17th May 2024, 14:00
-- Format: a PDF file (max 10 pages) and an Rmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
+- Format: a PDF file (max 10 pages, max word count of 3000 excluding tables, code, references, captions) and an .Rmd or .qmd file in a .zip file containing the Rmd file and minimal dataset needed to reproduce the results if possible (40 MB max size)
 - Template: You can download a template .Rmd file as the basis of your submission: https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd
 
 For the coursework you will submit a pdf a document with a maximum of 10 pages that contains code and results demonstrating your transport data science skills.
@@ -84,6 +85,7 @@ You should submit you work in  .zip file containing everything needed to reprodu
 ## Choosing a topic and writing your coursework
 
 You will need to choose a topic, one or more datasets to analyse and research questions for the 10 page coursework report.
+**Note: the topic must be entirely different from the one you chose for the first coursework.**
 
 Designing and writing a good data science project involves many stages, not just writing and and knitting an Rmd document reporting data analysis methods and results.
 The process involves:
@@ -178,7 +180,19 @@ You could pick one of these topics:
 - How accessible are parks and other amenities for different areas of a particular city 
   - This could be done using data from OSM and perhaps official data from local government
 
-TODO: split out this bit into marking-criteria.qmd
+
+## Report structure
+
+The report should have a logical structure with key headings such as:
+
+- Introduction
+- Input data and data cleaning
+- Exploratory data analysis
+- Discussion (e.g. strengths and weaknesses)
+- Conclusion (e.g. how the results could be used and next steps)
+- References
+
+<!-- TODO: split out this bit into marking-criteria.qmd -->
 
 ## Marks
 
@@ -247,16 +261,6 @@ Marks are awarded in 4 categories, accounting for the following criteria:
 
 **Fail (0-49%):** The report does not contain a valid research question, has no references to appropriate literature or justification, does not discuss the limitations of the results or how they inform conclusions, or the report does not have a reasonable structure.
 
-## Report structure
-
-The report should have a logical structure with key headings such as:
-
-- Introduction
-- Input data and data cleaning
-- Exploratory data analysis
-- Discussion (e.g. strengths and weaknesses)
-- Conclusion (e.g. how the results could be used and next steps)
-- References
 
 An example report structure is shown below.
 

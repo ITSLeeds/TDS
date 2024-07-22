@@ -1,4 +1,5 @@
-Coursework submission for Transport Data Science (TRAN5340M)
+Coursework submission for Transport Data Science (TRAN5340M): resit
+guidance
 ================
 Student 12345
 
@@ -54,36 +55,29 @@ of Leeds login):
 
 The information below provides guidance on the coursework.
 
-## Two pager
-
-- Deadline for non-assessed submission of a .zip file containing a 1 or
-  2 page pdf document with ideas before the final submission. The
-  document will allow you to ask questions (e.g. “does this sound like a
-  reasonable input dataset and topic?”) and describe progress on reading
-  in input datasets and the analysis plan. The document will contain:
+<!-- ## Two pager
+&#10;- Deadline for non-assessed submission of a .zip file containing a 1 or 2 page pdf document with ideas before the final submission. The document will allow you to ask questions (e.g. "does this sound like a reasonable input dataset and topic?") and describe progress on reading in input datasets and the analysis plan. The document will contain:
   - A draft title of your topic
-  - The main dataset that you will use and other datasets that you could
-    use
+  - The main dataset that you will use and other datasets that you could use
   - Ideas on a research question
-  - Questions you would like to ask about the topic, e.g. ‘is this a
-    suitable dataset?’
+  - Questions you would like to ask about the topic, e.g. 'is this a suitable dataset?'
   - 2 or more references to the academic literature related to the topic
   - Any preliminary analysis you have done
   - The structure of the document could include
     - Topics considered
     - Input datasets
-    - Analysis plan - I suggest creating a workflow diagram for this,
-      e.g. as presented
-      [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
+    - Analysis plan - I suggest creating a workflow diagram for this, e.g. as presented [here](https://user-images.githubusercontent.com/1825120/127524923-7d9f5511-84a6-430b-8de9-a603a5524f39.png)
     - Motivation for choosing this topic
-    - Questions and options
+    - Questions and options -->
+<!-- ## Final submission -->
 
-## Final submission
+## Resit submission
 
 - Deadline: Friday 17th May 2024, 14:00
-- Format: a PDF file (max 10 pages) and an Rmd file in a .zip file
-  containing the Rmd file and minimal dataset needed to reproduce the
-  results if possible (40 MB max size)
+- Format: a PDF file (max 10 pages, max word count of 3000 excluding
+  tables, code, references, captions) and an .Rmd or .qmd file in a .zip
+  file containing the Rmd file and minimal dataset needed to reproduce
+  the results if possible (40 MB max size)
 - Template: You can download a template .Rmd file as the basis of your
   submission:
   <https://github.com/ITSLeeds/TDS/raw/master/coursework-template.Rmd>
@@ -99,7 +93,9 @@ reproduce the results:
 ## Choosing a topic and writing your coursework
 
 You will need to choose a topic, one or more datasets to analyse and
-research questions for the 10 page coursework report.
+research questions for the 10 page coursework report. **Note: the topic
+must be entirely different from the one you chose for the first
+coursework.**
 
 Designing and writing a good data science project involves many stages,
 not just writing and and knitting an Rmd document reporting data
@@ -257,7 +253,18 @@ You could pick one of these topics:
   - This could be done using data from OSM and perhaps official data
     from local government
 
-TODO: split out this bit into marking-criteria.qmd
+## Report structure
+
+The report should have a logical structure with key headings such as:
+
+- Introduction
+- Input data and data cleaning
+- Exploratory data analysis
+- Discussion (e.g. strengths and weaknesses)
+- Conclusion (e.g. how the results could be used and next steps)
+- References
+
+<!-- TODO: split out this bit into marking-criteria.qmd -->
 
 ## Marks
 
@@ -401,13 +408,21 @@ would be considered a low fail under this criterion.
 appropriate reference to the academic, policy and/or technical
 literature, use of appropriate data science methods and techniques,
 discussion of the strengths and weaknesses of the analysis and input
-datasets and/or how limitations could be addressed, discussion of
-further research and/or explanation of the potential impacts of the
-work, conclusions supported by the analysis and results, and the
-contents of the report fit together logically and support the aims
-and/or research questions of the report.
+datasets and/or how limitations could be addressed. The report discusses
+further research and/or explores of the potential impacts of the work.
+Conclusions are supported by the analysis and results, and the contents
+of the report fit together logically as a cohehisive whole that has a
+clear direction set-out by the aims and/or research questions. To get a
+Distinction there should also be evidence of considering the
+generalisability of the methods and reflections on how it could be built
+on by others in other areas.
 
-**Merit (60-69%):** Between pass and distinction.
+**Merit (60-69%):** There is a clear research question. There is some
+reference to the academic, policy and/or technical literature. The
+report has a good structure and the results are supported by the
+analysis. There is some discussion of the strengths and weaknesses of
+the analysis and input datasets and/or how limitations could be
+addressed.
 
 **Pass (50-59%):** The report contains a valid research question but
 only limited references to appropriate literature or justification.
@@ -420,17 +435,6 @@ together well in a cohesive whole.
 has no references to appropriate literature or justification, does not
 discuss the limitations of the results or how they inform conclusions,
 or the report does not have a reasonable structure.
-
-## Report structure
-
-The report should have a logical structure with key headings such as:
-
-- Introduction
-- Input data and data cleaning
-- Exploratory data analysis
-- Discussion (e.g. strengths and weaknesses)
-- Conclusion (e.g. how the results could be used and next steps)
-- References
 
 An example report structure is shown below.
 

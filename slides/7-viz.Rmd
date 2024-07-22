@@ -319,9 +319,9 @@ plot(flowlines_sf["Taxi"], lwd = lwd)
 
 ---
 
-## Result: tmap
+<!-- ## Result: tmap -->
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 library(tmap)
 tmap_mode("view")
 tm_shape(flowlines_sf) +
@@ -359,8 +359,8 @@ plot(rnet["Bicycle"], lwd = routes_fast_sf$All / 50)
 ## tmap 'view mode' results
 
 ```{r}
-tm_shape(rnet) +
-  tm_lines(col = "Bicycle", lwd = "Bicycle", scale = 9, palette = "RdYlBu")
+# tm_shape(rnet) +
+#   tm_lines(col = "Bicycle", lwd = "Bicycle", scale = 9, palette = "RdYlBu")
 ```
 
 ![](https://user-images.githubusercontent.com/1825120/76854526-26bb5780-6847-11ea-8903-e7466a1aa750.png)
